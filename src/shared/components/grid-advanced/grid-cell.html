@@ -1,0 +1,23 @@
+<span #Text *ngIf="cellType === 'text'" [attr.title]="CellData.toolTip? CellData.toolTip : ColumnDescription" [ngStyle]="{'color': CellData.textColor}">{{CellData.text}}</span>
+<span #SortIcon *ngIf="ParentHTML === 'Header' && ColumnOrderable" class="glyphicon pointer"></span>
+
+<input #Input type="text" class="form-control" *ngIf="cellType=== 'input' || cellType === 'ellipsis'" (keypress)="cellDataOnChange($event)"
+    (focus)="cellOnFocus($event)" (blur)="cellOnBlur($event)" [size]="ColumnSize" [attr.maxlength]="ColumnSize" [required]="ColumnRequired">
+
+<icabs-ellipsis tabIndex="-1" *ngIf="cellType === 'ellipsis'" [childConfigParams]="Ellipsis.component.childConfigParams"
+    [contentComponent]="Ellipsis.component.component" [disabled]="Ellipsis.component.disabled" [showCloseButton]="Ellipsis.component.showCloseButton"
+    [showHeader]="Ellipsis.component.showHeader" (ellipsisData)="setInputValue($event)"></icabs-ellipsis>
+
+<textarea #Textarea *ngIf="cellType=== 'textarea'" rows="4" cols="50"></textarea>
+
+<input #Checkbox *ngIf="cellType === 'checkbox'" type="checkbox">
+
+<button #Button *ngIf="cellType === 'button'">{{CellData.text}}</button>
+
+<img #Image *ngIf="cellType === 'image'" />
+
+<select #DropDown *ngIf="cellType === 'dropdown'" (change)="selectOptionOnChange($event)" [(ngModel)]="dropdownSelectedItem">
+    <option *ngFor="let item of dropdownRecords" [value]="item.value" [selected]="dropdownSelectedItem === item.value">
+        {{item.text}}
+    </option>
+</select>

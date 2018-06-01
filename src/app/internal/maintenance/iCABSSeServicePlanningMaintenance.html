@@ -1,0 +1,218 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Planning Maintenance ' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="BranchNumber">{{ 'Branch ' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="BranchNumber" size="7" maxlength="4" formControlName="BranchNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area ' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="BranchServiceAreaCode" size="7" maxlength="20" formControlName="BranchServiceAreaCode">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" id="EmployeeSurname" size="45" maxlength="45" formControlName="EmployeeSurname">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 offset-3">
+
+            </div>
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label class="col24" for="StartDate">{{ 'Plan From ' | translate }}</label>
+                    <div class="col24">
+                        <icabs-datepicker id="StartDate" size="10" maxlength="10" formControlName="StartDate"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col12">
+                    <label class="col24" for="EndDate">{{ 'To ' | translate }}</label>
+                    <div class="col24">
+                        <icabs-datepicker id="EndDate" size="10" maxlength="10" formControlName="EndDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="">{{' Neg Branch ' | translate }}</label>
+                <div class="col16">
+                    <icabs-dropdown></icabs-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="ServicePlanNumber">{{ 'Service Plan Number ' | translate }}</label>
+                <div class="col16">
+                    <input type="text" class="form-control" id="ServicePlanNumber" size="10" maxlength="10" formControlName="ServicePlanNumber">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Service Type ' | translate }}</label>
+                <div class="col16">
+                    <icabs-dropdown></icabs-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="VisitTypeFilter">{{ 'Visit Type ' | translate }}</label>
+                <div class="col16">
+                    <icabs-dropdown id="VisitTypeFilter" formControlName="VisitTypeFilter"></icabs-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractTypeFilter">{{ 'Contract Type ' | translate }}</label>
+                <div class="col16">
+                    <icabs-dropdown id="ContractTypeFilter" formControlName="ContractTypeFilter"></icabs-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="selCustomerIndicationNumber">{{ 'Customer Type ' | translate }}</label>
+                <div class="col16">
+                    <select id="selCustomerIndicationNumber" formControlName="selCustomerIndicationNumber">
+                        <option>{{ 'All ' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractNameSearch">{{ 'Name Begins ' | translate }}</label>
+                <div class="col16">
+                    <input type="text" class="form-control" id="ContractNameSearch" size="42" maxlength="40" formControlName="ContractNameSearch">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="ConfirmedStatus">{{ 'Confirmed Status ' | translate }}</label>
+                <div class="col16">
+                    <icabs-dropdown id="ConfirmedStatus" formControlName="ConfirmedStatus"></icabs-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="TownSearch">{{ 'Town ' | translate }}</label>
+                <div class="col16">
+                    <input type="text" class="form-control" id="TownSearch" size="20" maxlength="40" formControlName="TownSearch">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="selBehindStatus">{{ 'Behind Status ' | translate }}</label>
+                <div class="col16">
+                    <select id="selBehindStatus" formControlName="selBehindStatus">
+                        <option>{{ 'All ' | translate }}</option>
+                        <option>{{ 'Behind ' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="PostCode">{{ 'Postcode ' | translate }}</label>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PostCode" size="20" maxlength="20" formControlName="PostCode">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="selVisitStatus">{{ 'Visit  Status ' | translate }}</label>
+                <div class="col16">
+                    <select id="selVisitStatus" formControlName="selVisitStatus">
+                        <option>{{ 'All ' | translate }}</option>
+                        <option>{{ 'Not Scheduled ' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col12 mt20 pr5">
+                    <input type="radio" name="ExportReport">
+                    <label>{{ 'Scheduling' | translate }}</label>
+                </div>
+                <div class="col12 mt20 pr5">
+                    <input type="radio" name="ExportReport">
+                    <label>{{ 'Unplanned' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="col4 mt20">
+                    <input type="button" class="btn btn-primary mr10" value="Visit Conflict">
+                </div>
+                <div class="col4 pr5">
+                    <label class="col24" for="TotalNoOfCalls">{{ 'Filtered Visit ' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="TotalNoOfCalls" maxlength="6" size="6" formControlName="TotalNoOfCalls">
+                    </div>
+                </div>
+                <div class="col4 pr5">
+                    <label class="col24" for="TotalNoOfExchanges">{{ 'Units ' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="TotalNoOfExchanges" maxlength="6" size="6" formControlName="TotalNoOfExchanges">
+                    </div>
+                </div>
+                <div class="col4 pr5">
+                    <label class="col24" for="TotalTime">{{ 'Time ' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="TotalTime" maxlength="6" size="6" formControlName="TotalTime">
+                    </div>
+                </div>
+                <div class="col4 pr5">
+                    <label class="col24" for="TotalNettValue">{{ 'Net Value ' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="TotalNettValue" maxlength="23" size="20" formControlName="TotalNettValue">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid></icabs-grid>
+            </div>
+        </div>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-8">
+                    <input type="button" class="btn btn-primary mr10" value="Summary" id="cmdSummary">
+                    <input type="button" class="btn btn-primary mr10" value="Hide Filters" id="cmdShowFilter">
+                    <input type="button" class="btn btn-primary mr10" value="Optimise" id="cmdOptimise">
+                    <input type="button" class="btn btn-primary mr10" value="Exc From Opt" id="cmdExcFromOpt">
+                    <input type="button" class="btn btn-primary mr10" value="Inc in Opt" id="cmdIncInOpt">
+                    <input type="button" class="btn btn-primary mr10" value="Tech Diary View" id="cmdTechDiaryView">
+                </div>
+            </div>
+            <!--<div class="row mt10">
+                <div class="col-sm-8 text-right">
+                    <label class="pr5"></label>
+                    <div class="inline-block pr10" *ngFor="let l of legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{ l.label | translate }}</label>
+                    </div>
+                </div>
+            </div>-->
+        </footer>
+    </section>
+</section>

@@ -1,0 +1,37 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">    
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ this['pageTitle'] | translate }}                
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div #topContainer class="mb20">
+            <div class="row mt10" id="grdPostCodeInformation">
+                <div class="col-sm-3">
+                    <label class="col24" id="labelContract" for="ContractNumber">{{ 'Sales Area' | translate }} <span id="SpanContractNumber"></span></label>
+                    <div class="col8 pr5">
+                        <input id="SalesAreaCode" formControlName="SalesAreaCode" type="text" class="form-control" size="9" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input id="SalesAreaDesc" formControlName="SalesAreaDesc" type="text" class="form-control" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt20">
+            <div class="row mt20">
+                <div class="col-sm-12">
+                    <icabs-refresh (onRefresh)="refresh()"></icabs-refresh>                   
+                    <icabs-pagination #riPagination *ngIf="isPaginationEnable" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="gridCurPage"></icabs-pagination>                                       
+                </div>
+                <div class="col-sm-6 mt10">                    
+                    <icabs-grid-advanced #riGrid id="riGrid"></icabs-grid-advanced>                                  
+                </div>
+                <div class="col-sm-12 mt10">                   
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

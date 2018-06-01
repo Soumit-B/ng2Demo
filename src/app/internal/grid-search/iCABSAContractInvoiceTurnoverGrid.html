@@ -1,0 +1,107 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" [ngClass]="this['pageParams']['trAccount'] ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Number' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="AccountNumber" id="AccountNumber" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="AccountName" id="AccountName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2" [ngClass]="this['pageParams']['trInvoiceGroup'] ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Invoice Group Number' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="InvoiceGroupNumber" id="InvoiceGroupNumber" size="9" [attr.maxlength]="9"
+                            class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="InvoiceGroupDesc" id="InvoiceGroupDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="this['pageParams']['trContract'] ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contract Number' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ContractNumber" id="ContractNumber" size="9" [attr.maxlength]="8" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ContractName" id="ContractName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="this['pageParams']['trPremise'] ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises Number' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="PremiseNumber" id="PremiseNumber" size="9" [attr.maxlength]="5" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="PremiseName" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="this['pageParams']['trProduct'] ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ProductCode" id="ProductCode" size="9" [attr.maxlength]="6" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ProductDesc" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Company Code' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="CompanyCode" id="CompanyCode" size="9" [attr.maxlength]="2" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="CompanyDesc" id="CompanyDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Invoice Number' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="InvoiceNumber" id="InvoiceNumber" size="9" [attr.maxlength]="6" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="InvoiceName" id="InvoiceName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="{'hidden': isHidePagination}" [totalItems]="gridParams.totalRecords" [currentPage]="gridParams.pageCurrent"
+                        [itemsPerPage]="gridParams.itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

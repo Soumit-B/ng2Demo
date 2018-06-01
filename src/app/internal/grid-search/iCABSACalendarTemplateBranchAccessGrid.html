@@ -1,0 +1,63 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Template' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="AnnualCalendarTemplateNumber" (change)="templateNumberChange($event.target.value)"
+                            formControlName="AnnualCalendarTemplateNumber" size="8" maxlength="8" eTypeInteger />
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="TemplateName" formControlName="TemplateName" size="40" maxlength="40" eTypeText
+                        />
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #CalendarTemplateEllipsis [childConfigParams]="inputParamsCalendarTemplate" [contentComponent]="CalendarTemplateSearchComponent"
+                            [showHeader]="true" [autoOpen]="autoOpenSearch" [disabled]="ellipsisDiable" (ellipsisData)="onCalendarTemplateDataReturn($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Owning Branch' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="OwnerBranchNumber" type="text" class="form-control" size="8" maxlength="5" formControlName="OwnerBranchNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input id="BranchName" type="text" class="form-control" size="40" maxlength="40" formControlName="BranchName" eTypeText>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mb15 mt15">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #calendarTemplateBranchAccessGridPagination [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mt10">
+                    <icabs-grid #calendarTemplateBranchAccessGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                        (gridInfo)="getGridInfo($event)" (sortInfo)="sortGrid($event)" [sortIndex]="gridSortHeaders" (selectedRowInfo)="gridOnDblClick($event)"
+                        [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+
+        </footer>
+    </form>
+</section>

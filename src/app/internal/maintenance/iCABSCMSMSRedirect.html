@@ -1,0 +1,49 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Redirect SMS Message' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" [attr.maxlength]="6" size="6" (change)="getEmployeeSurname()"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control" type="text" size="20" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsemployee" [contentComponent]="employeeSearchComponent"
+                            [modalConfig]="modalConfig" [showHeader]="showHeader" (ellipsisData)="onEmployeeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="SMSMessageText" id="spanSMSMessageText">{{'Message'| translate}}<span class="mandatory">*</span></label>
+                    <textarea id="SMSMessageText" class="form-control" type="text" rows="6" [attr.maxlength]="500" size="500" formControlName="SMSMessageText"
+                        eTypeTextFree></textarea>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input class="btn btn-primary" type="button" value="{{ 'Send' | translate }}" (click)="promptSave(event)">
+                    <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" (click)="Cancel()">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-prompt-modal #promptModal="child" [showHeader]="true" [showCloseButton]="false" [content]="promptContent" (saveEmit)="saveData()"></icabs-prompt-modal>
+    <icabs-modal #messageModal [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+</section>

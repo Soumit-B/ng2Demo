@@ -1,0 +1,73 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                <!--Page Heading-->
+                {{this['pageTitle'] | translate}}<span class="font-sm inline-block pl20"></span>
+            </h1>
+        </div>
+    </div>
+    <!-- Projects Row -->
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Business' | translate}}</label>
+                <div class="col24">
+                    <input id="BusinessCode" formControlName="BusinessCode" size="1" maxlength="1" style="display:none" eTypeCode>
+                    <input type="text" formControlName="BusinessDesc" readonly class="form-control" maxlength="37" tabindex="-1" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'View By' | translate}}</label>
+                <div class="col24">
+                    <select id="ViewBy" tabindex="-1" formControlName="ViewBy" class="form-control" (change)="onViewTypeCodeChange($event.target.value)">
+                        <option *ngFor="let viewType of viewTypesArray" [value]="viewType.value">{{viewType.text | translate}}</option> 
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Year' | translate}}</label>
+                <div class="col12">
+                    <input id="PreviewYear" formControlName="YearNo" type="text" class="form-control" maxlength="4" [ngClass]="{ 'ng-invalid': yearNoValidFlag }"
+                        tabindex="-1" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Month'| translate}}</label>
+                <div class="col24">
+                    <select id="MonthName" formControlName="MonthName" class="form-control" tabindex="-1">
+                        <option *ngFor="let month of this['pageParams'].months" [value]="month.value">{{month.text}}</option> 
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 col-md-offset-3">
+                <label class="col24">{{'Only Include Contracts Less Than Value'| translate}}</label>
+                <!-- TO DO (Translation key not present)-->
+                <div class="col24">
+                    <input type="text" formControlName="LessThan" name="LessThan" class="form-control" maxlength="14" [ngClass]="{ 'ng-invalid': lessThanValidFlag }"
+                        tabindex="-1" (blur)="onLessThanValueChange()" eTypeDecimal2>
+                </div>
+            </div>
+        </div>
+    </form>
+    <icabs-spinner></icabs-spinner>
+    <hr class="mt15 mb10">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #ApiGridPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid #ApplyApiGrid [maxColumns]="maxColumn" [currentPage]="gridCurPage" [sortHeaders]="gridSortHeaders" (selectedRowInfo)="getSelectedRowInfo($event)"
+                (gridInfo)="getGridInfo($event)" (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+</div>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent"></icabs-prompt-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="errorModal.showHeader" [(showCloseButton)]="errorModal.showHeader" [config]="{backdrop: 'static'}"></icabs-modal>

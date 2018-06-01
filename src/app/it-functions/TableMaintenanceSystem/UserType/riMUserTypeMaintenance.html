@@ -1,0 +1,59 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'User Type Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="UserTypeCode">{{'User Type Code'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="UserTypeCode" formControlName="UserTypeCode" size="3" maxlength="3">
+                    </div>
+                     <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="UserTypeAllow" formControlName="UserTypeAllow">
+                        <label for="UserTypeAllow">{{'Allow User Type Update'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="UserTypeDescription">{{'User Type Description'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="UserTypeDescription" formControlName="UserTypeDescription" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6 mt20">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                    <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}">
+                    <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+                </div>
+                <div class="col-sm-6">
+                    <div class="col8 pull-right">
+                        <label class="col24" for="menu">{{'Functions'|translate}}</label>
+                        <select class="form-control" id="menu" formControlName="menu">
+                             <option selected Value="None">{{'None'|translate}}</option>
+                             <option  id=cmdMenuAccess Value="Menu Access">{{'Menu Access'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+      </footer>
+    </form>
+</section>

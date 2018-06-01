@@ -1,0 +1,112 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessCode">{{ 'Business' | translate }}</label>
+                    <div class="col0">
+                        <input type="text" id="BusinessCode" formControlName="BusinessCode" class="form-control hidden" eTypeCode>
+                    </div>
+                    <div class="col24 pr10">
+                        <input type="text" id="BusinessDesc" size="40" maxlength="40" formControlName="BusinessDesc" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!isTRRegion ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <label class="col24" for="RegionCode">{{ 'Region' | translate }}</label>
+                    <div class="col0">
+                        <input type="text" id="RegionCode" formControlName="RegionCode" class="form-control hidden" eTypeCode>
+                    </div>
+                    <div class="col24 pr10">
+                        <input type="text" id="RegionDesc" size="40" maxlength="40" formControlName="RegionDesc" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!isTRBranch ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate }}</label>
+                    <div class="col0">
+                        <input type="text" id="BranchNumber" size="8" maxlength="5" formControlName="BranchNumber" class="form-control hidden" eTypeInteger>
+                    </div>
+                    <div class="col24 pr10">
+                        <input type="text" id="BranchName" size="40" maxlength="40" formControlName="BranchName" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="6" maxlength="6" formControlName="EmployeeCode" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="40" maxlength="40" formControlName="EmployeeSurname" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsisConfig.employee.showCloseButton" [showHeader]="ellipsisConfig.employee.showHeader"
+                            [childConfigParams]="ellipsisConfig.employee.childConfigParams" [contentComponent]="ellipsisConfig.employee.component"
+                            (ellipsisData)="onEmployeeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="OccupationFilter">{{ 'Occupation Codes' | translate }}</label>
+                    <div class="col22 pr5">
+                        <input type="text" id="OccupationFilter" size="40" maxlength="40" formControlName="OccupationFilter" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsisConfig.occupation.showCloseButton" [showHeader]="ellipsisConfig.occupation.showHeader"
+                            [childConfigParams]="ellipsisConfig.occupation.childConfigParams" [contentComponent]="ellipsisConfig.occupation.component"
+                            (ellipsisData)="onOccupationDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24 mt20">
+                        <input type="checkbox" (change)="onChangeIncludeLeftIndCheckbox($event)" class="form-control" id="IncludeLeftInd" formControlName="IncludeLeftInd"
+                            eTypeCheckbox>
+                            <label for="IncludeLeftInd">{{'Include Left Employees'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]="!isTRDate ? 'hidden' : ''">
+                    <label class="col24" for="LeftDate">{{'Upto Left Date'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" id="LeftDate" size="10" maxlength="10" formControlName="LeftDate" class="form-control" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 mt20">
+                    <div class="col24">
+                        <input type="checkbox" (change)="onChangeIncludeHumansIndCheckbox($event)" class="form-control" id="IncludeHumansInd" formControlName="IncludeHumansInd"
+                            eTypeCheckBox>
+                            <label for="IncludeHumansInd">{{'Include \'Not Real Persons\'' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input class="btn btn-additional" (click)="submitReportRequest()" type="button" value="{{ 'Submit Extract Generation' | translate }}">
+                </div>
+                <div class="col-sm-6" [ngClass]="isShowBatchSubmitted ? '' : 'hidden'">
+                    <label class="message-box info-label">{{ this.batchSubmittedText }}</label>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

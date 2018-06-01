@@ -1,0 +1,53 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{'Batch Process Monitor' | translate}}</h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-6" [hidden]="pageParams['IdFilter']">
+                <div class="col7 pr10">
+                    <label class="col24">{{'Filter by' | translate}}</label>
+                    <select id="FilterSelect" formControlName="FilterSelect" size=1 class="form-control" (change)="FilterSelect_onchange($event.target.value)">
+                        <option value="" selected></option>
+                        <option value="BatchProcessUniqueNumber">{{'Unique Number' | translate}}</option>
+                        <option value="BatchProcessUserCode">{{'User Code' | translate}}</option>
+                        <option value="BatchProcessTypeCode">{{'Status' | translate}}</option>
+                        <option value="BatchProcessProgramName">{{'Program Name' | translate}}</option>
+                        <option value="BatchProcessDescription">{{'Description' | translate}}</option>
+                        <option value="BatchProcessSubmittedDate">{{'Submitted Date' | translate}}</option>
+
+                    </select>
+                </div>
+                <div class="col7 pr10" [hidden]="pageParams['StatusFilterSelect']">
+                    <label class="col24">{{'Batch Status' | translate}}</label>
+                    <select id="StatusFilterSelect" formControlName="StatusFilterSelect" size=1 class="form-control" (change)="StatusFilterSelect_onclick($event['target']['value'])">
+                        <option *ngFor="let b of pageParams['statusList']" [ngValue]="b['BatchProcessTypeCode']">{{b['BatchProcessTypeDisplayDesc']}}</option>
+                    </select>
+                </div>
+                <div class="col7 pr10" [hidden]="pageParams['FilterInput']">
+                    <label class="col24">{{filterLabel | translate}}</label>
+                    <input id="FilterInput" formControlName="FilterInput" class="form-control" type="text" [ngClass]="pageParams['showDate']?'hidden':''">
+                    <icabs-datepicker id="SubmittedDate" [dt]="pageParams.dtSubmittedDate" [clearDate]="true" (selectedValue)="dateToSelectedValue($event)"
+                        [hidden]="!pageParams['showDate']"></icabs-datepicker>
+                </div>
+                <div class="hidden col2">
+                    <input id="FilterInputCheck" formControlName="FilterInputCheck" type="checkbox" class="form-control">
+                    <label for="FilterInputCheck"></label>
+                </div>
+                <div class="col3">
+                    <label class="col24">&nbsp;</label>
+                    <input type="submit" (click)="$event.preventDefault();loadData()" name="Search" value="{{ 'Search' | translate}}" class="form-control btn btn-lg btn-primary">
+                </div>
+            </div>
+        </div>
+        <input id="BatchProcessUniqueNumber" formControlName="BatchProcessUniqueNumber" class="hidden form-control">
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-12 mt10">
+            <icabs-table #processMonitorTable (selectedData)="selectedData($event)" (onRefresh)="loadData()" [page]="page" [itemsPerPage]="itemsPerPage"></icabs-table>
+        </div>
+    </div>
+</div>

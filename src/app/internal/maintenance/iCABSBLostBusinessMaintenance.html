@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Lost Business'|translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="LostBusinessCode" formControlName="LostBusinessCode" size="2" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'System Description'|translate}} <span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="LostBusinessSystemDesc" formControlName="LostBusinessSystemDesc" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="TermAnalysisInd" formControlName="TermAnalysisInd">
+                        <label for="TermAnalysisInd">{{'Termination Analysis'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="InvalidForNew" formControlName="InvalidForNew">
+                        <label for="InvalidForNew">{{'Inactive'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassToTabletInd" formControlName="PassToTabletInd">
+                        <label for="PassToTabletInd">{{'Pass To Tablet'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}" (click)="saveOnClick()">
+                    <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}" (click)="cancelOnClick()">
+                    <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}" (click)="deleteOnClick()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

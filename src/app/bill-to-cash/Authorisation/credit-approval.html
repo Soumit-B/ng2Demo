@@ -1,0 +1,510 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>Credit Approval</h1>
+            </div>
+        </div>
+    </header>
+    <div class="page-content row">
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected Company</label>
+            </div>
+            <!--  <div class=" col-md-9">
+                <icabs-business-company-search [inputParams]="bcompanyInputParams" (receivedCompanyCode)="onBCompanySearchReceived($event)"></icabs-business-company-search>
+            </div> -->
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Account History <span class="page-asterisk">*</span>:</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Account History Detail Read Only" class="form-control" [(ngModel)]="accountObject.AccountNumber">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="accountObject" [contentComponent]="ReadOnlyComponent" [showHeader]="showHeader" [title]="modalTitle"
+                    [disabled]="false"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Contract Invoice Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Contract Invoice Charge" value={{invoiceType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsContractInvoiceSearch" [contentComponent]="InvChargeSearchComponent" (ellipsisData)="onInvoiceChargeTypeCode($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Occupation Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Occupation Search" value={{OccupationType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsOccupationSearch" [contentComponent]="OccupationSearchComponent" (ellipsisData)="onOccupationSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>iCABS Rejection Reason</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Rejection Search" value={{dlRejectionValue}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsRejectionSearch" [contentComponent]="DlRejectionSearchComponent" (ellipsisData)="onRejectionSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Customer Type Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Customer Type Search" value={{CustomerType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsCustomerTypeSearch" [contentComponent]="CustomerTypeSearchComponent" (ellipsisData)="onCustomerTypeSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Service Cover Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Service Cover Search" value={{ServiceCoverType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsServiceCover" [contentComponent]="dynamicServiceCoverSearchComponent " [showHeader]="showHeader"
+                    [title]="modalTitle" (ellipsisData)="onServiceCoverSearch($event)"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Sales Area Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Sales Area Search" value={{salesAreaType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsSalesAreaSearch" [contentComponent]="SalesAreaSearchComponent" (ellipsisData)="onSalesAreaSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Depot Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Depot Search" value={{DepotType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsDepotSearch" [contentComponent]="DeportSearchComponent" (ellipsisData)="onDepotSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Batch Program Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Batch Program Search" value={{batchProgramSearch}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsBatchProgramSearch" [contentComponent]="BatchProgramSearchComponent" (ellipsisData)="onBatchProgramSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Payment Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Payment Search" value={{paymentType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsPaymentSearch" [contentComponent]="dynamicComponent" (ellipsisData)="onPaymentType($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Account Search" [(ngModel)]="accountSearchField" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsAccSearch" [contentComponent]="dynamicComponent1" [showHeader]="showHeader"
+                    (ellipsisData)="setAccountNumber($event)"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Account Group Search" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [contentComponent]="AccountGroupComponent" [showHeader]="showHeader" [title]="modalTitle" [childConfigParams]="DataBlockfromparent"
+                    (ellipsisData)="onAccountGrpSearch($event)"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Group Account Num Search" class="form-control" value={{GroupAccount}}>
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsGrpAccNumber" [contentComponent]="groupAccNum" (ellipsisData)="onGroupAccount($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Invoice Fee Search" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [contentComponent]="invoiceFee" [childConfigParams]="inputParamsContractInvoiceSearch" [disabled]="false"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected Branch</label>
+            </div>
+            <div class="col-md-9">
+                <icabs-branchsearch [inputParams]="inputParams" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>API Code Search</label>
+            </div>
+            <div class="col-md-9">
+                <icabs-apicodesearch [inputParams]="inputParams" (receivedAPICodesearch)="onAPICodeSearchReceived($event)"></icabs-apicodesearch>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Tier Code Search (Dropdown)</label>
+            </div>
+            <div class="col-md-9">
+                <icabs-tiersearch [inputParams]="inputParams" (receivedtiersearch)="onTierSearchReceived($event)"></icabs-tiersearch>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Tier Code Search (Ellipsis)</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Tier Code Search" value={{tierCodeSearch}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsTierSearch" [contentComponent]="BusinessTierSearchComponent" (ellipsisData)="onTierCodeSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected contract duration</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-contractduration [inputParams]="inputParams" (receivedcontractDuration)="onDurationReceived($event)"></icabs-contractduration>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected Prorata</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-dropdown [itemsToDisplay]="dropDownFieldsForProRata" (selectedValue)="onProRataReceived($event)" [disabled]="true"></icabs-dropdown>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected Country</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-countrycode [inputParams]="inputParams" (receivedCountryCode)="onCountryCodeReceived($event)"></icabs-countrycode>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Selected Business</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-business-search [inputParams]="inputParams" (receivedBusinessCode)="onBusinessCodeReceived($event)"></icabs-business-search>
+            </div>
+        </div>
+        <!--logo type search-->
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Logo Type Search</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-logotype-search [inputParams]="inputParams" (receivedlogotypesearch)="onLogoTypeSearch($event)"></icabs-logotype-search>
+            </div>
+        </div>
+        <!--logo type search-->
+        <!--gender search-->
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>{{ 'Gender Search' | translate }}</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-gender-search [inputParams]="inputParams" (receivedgendersearch)="onGenderSearch($event)"></icabs-gender-search>
+            </div>
+        </div>
+        <!--gender search-->
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Marital Status Search</label>
+            </div>
+            <div class=" col-md-9">
+                <icabs-marital-search [inputParams]="inputParams" (receivedMaritalSearch)="onMaritalSearch($event)"></icabs-marital-search>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Apply API Grid" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [contentComponent]="applyApiGrid" [disabled]="true"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Contract Search" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsContractSearch" [contentComponent]="contrctSearch" [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="InvoiceSearch" id="InvoiceSearchInput" value={{InvoiceSearchData}} class="form-control" (blur)="GetDisplayFieldList(this.value)">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis #InvoiceSearchEllipsis [childConfigParams]="inputParamsInvoiceSearch" [contentComponent]="InvoiceSearchComponent"
+                    [showHeader]="showHeader" [title]="modalTitle" [disabled]="false" (ellipsisData)="onInvoiceSearchDataReturn($event)"
+                    [hideIcon]="true"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Account Premise Search" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [contentComponent]="accountPremise" [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+
+        <!--<div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Account History Grid" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [contentComponent]="accounthistorygrid"></icabs-ellipsis>
+            </div>
+        </div>-->
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="Invoice Frequency Search" value={{frequencyType}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsfreqSearch" [contentComponent]="invoiceFreqComponent" [showHeader]="showHeader"
+                    [title]="modalTitle" (ellipsisData)="onInvoiceFreq($event)"></icabs-ellipsis>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="EmployeeSearch" value={{employeeData}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsEmployeeSearch" [contentComponent]="empSearchComponent" [showHeader]="showHeader"
+                    [title]="modalTitle" [disabled]="false" (ellipsisData)="onEmployeeDataReturn($event)"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="col-md-3">
+                <input type="text" placeholder="Suburb" [(ngModel)]="suburb" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="text" placeholder="State" [(ngModel)]="state" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="text" placeholder="Post Code" [(ngModel)]="postcode" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsAUPostCode" [contentComponent]="auPostCodeSearch" [showHeader]="showHeader"
+                    (ellipsisData)="onAUPostCode($event)" [disabled]="false"></icabs-ellipsis>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <div class="col-md-9">
+                <input type="text" placeholder="BranchServiceAreaSearch" value={{branchServiceData}} id="BranchServiceAreaSearchInput" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis #BranchServiceAreaSearchEllipsis [childConfigParams]="inputParamsBranchServiceAreaSearch" [contentComponent]="BranchServiceAreaSearchComponent"
+                    [showHeader]="showHeader" [title]="modalTitle" [disabled]="false" (ellipsisData)="onBranchServiceArea($event)"></icabs-ellipsis>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Invoice Name</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Invoice Header Address Search" value={{invoiceAddress}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParams" [contentComponent]="dynamicInvoiceHeaderAddressComponent" (ellipsisData)="onInvoiceHeaderAddress($event)"
+                    [autoOpen]="autoOpen" [disabled]="false" [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Campaign Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Campaign Search" value={{campaignSearch}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsCampaignSearch" [contentComponent]="campaignSearchComponent" (ellipsisData)="onCampaignSearch($event)"
+                    [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Product Code</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Product Code" value="" class="form-control" [(ngModel)]="productCode" (keyup)="productChange($event.target.value)">
+            </div>
+            <div class="input-label col-md-12">
+                <label>Contract Type</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Contract Type" value="" class="form-control" [(ngModel)]="contractType">
+            </div>
+            <div class="input-label col-md-12">
+                <label>Expense Code</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Expense Code" value="" class="form-control" [(ngModel)]="expenseCode">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [autoOpen]="autoOpenSearch" #productExpenseEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="productCodeSearchParams"
+                    [modalConfig]="modalConfig" [contentComponent]="producSearchComponent" (ellipsisData)="onExpenseProductDataReceived($event, true)"
+                    [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]=false></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Business Origin Detail Language Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" placeholder="Business Origin Detail Language Search" value={{businessOrigin}} class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [childConfigParams]="inputParamsBusinessOrigin" [contentComponent]="dynamicBusinessOriginDetailLanguageSearchComponent"
+                    (ellipsisData)="onBusinessOriginDetailLanguageSearch($event)" [autoOpen]="autoOpen" [disabled]="false" [showHeader]="showHeader"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Waste Transfer Type Code</label>
+            </div>
+            <div class="col-md-3">
+                <input type="text" [(ngModel)]="WasteTransferTypeCode" value="" class="form-control">
+            </div>
+            <div class=" form-group col-md-6">
+                <input type="text" [(ngModel)]="WasteTransferTypeDesc" value="" class="form-control">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Schedule Number</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" [(ngModel)]="scheduleNumber" placeholder="Schedule Number" value="" class="form-control">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <icabs-ellipsis [autoOpen]="false" [showCloseButton]="showCloseButton" [childConfigParams]="scheduleSearchParams" [modalConfig]="modalConfig"
+                    [contentComponent]="scheduleSearchComponent" (ellipsisData)="onProgramScheduleDataReceived($event, true)"
+                    [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]=false></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Post code message display</label>
+            </div>
+            <div class="col-md-9">
+                <input type="button" (click)="onClickPostCode()" value="PostCodeTest">
+                <icabs-modal #childModal="child" [(showHeader)]="showHeader" [config]="{backdrop: 'static', keyboard: false}">
+                    <div class="container-fluid custom-container">
+                        <div class="row">
+                            <div class="col-sm-12 page-title mt10">
+                                <h1>{{ moveBranchMessage }}</h1>
+                            </div>
+                        </div>
+                        <div class="row mt10">
+                            <div class="col-sm-12 center-align">
+                                <div class="message-center">
+                                    <p>This menu was designed to be used only as a corrective action, when a user has keyed
+                                        in the wrong postcode and this has caused the premises to fall into the wrong branch.</p>
+                                    <p>The business must be made aware that moving portfolio to another branch where there are
+                                        any remaining future dated changes on a Service Cover will cause issues with Portfolio
+                                        Movement.
+                                    </p>
+                                    <p>In addition, if portfolio is moved from Branch A to Branch B and then onwards to Branch
+                                        C or even back to Branch A, this will cause issues on the sales stats.</p>
+                                    <p>The menu must only be accessible for Key Users who understand these risks and who must
+                                        check the status of the premises before moving it. Before moving the premises, we
+                                        must cancel any forward dated transactions, and reprocess them in the new branch,
+                                        once the premises has been moved. In addition, if service planning is used in your
+                                        business, please ensure that any visits for the premises have not been planned in,
+                                        and if they have, please cancel them and reinstate in the new branch. This will help
+                                        to alleviate any issues.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt15">
+                            <div class="col-sm-12 center-align">
+                                <input type="button" id="btnClose" class="btn btn-primary" value="OK" (click)="postCodeMessageClose()">
+                            </div>
+                        </div>
+                    </div>
+                </icabs-modal>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>Service cover calender grid display</label>
+            </div>
+            <div class="col-md-9">
+                <input type="button" (click)="onClickServiceCoverCalenderGrid()" value="ServiceCoverCalenderGridTest">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>List Group Search</label>
+            </div>
+            <div class="col-md-9">
+                <input type="button" (click)="onListGroupSearchClick()" value="{{ 'List Group Search' | translate }}">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="input-label col-md-12">
+                <label>PNOL Level History</label>
+            </div>
+            <div class="col-md-9">
+                <input type="button" (click)="onPNOLLevelHistoryClick()" value="PNOLLevelHistory">
+            </div>
+        </div>
+    </div>
+</section>

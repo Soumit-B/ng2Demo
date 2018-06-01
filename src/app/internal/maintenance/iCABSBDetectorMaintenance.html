@@ -1,0 +1,106 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Detector Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Detector ID'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="DetectorID" formControlName="DetectorID" size="10" maxlength="20">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control"  id="Description" formControlName="Description" size="40" maxlength="50">
+                    </div>
+                    <div class="col2">
+                       <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Detector Type ID'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-dropdown-static></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Infestation Location Code'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-dropdown-static></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Barcode Reference'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="BarcodeRef" formControlName="BarcodeRef" size="10" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="ValidForSingleBarcode" formControlName="ValidForSingleBarcode">
+                        <label for="ValidForSingleBarcode">{{'Valid For Single Barcode'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Sort Order'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="SortOrder" formControlName="SortOrder" size="10" maxlength="4">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                   <div class="col24">
+                        <input type="checkbox" class="form-control" id="HasBattery" formControlName="HasBattery">
+                        <label for="HasBattery">{{'Batteries Included'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="HasGas" formControlName="HasGas">
+                        <label for="HasGas">{{'Contains Gas'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                   <div class="col24">
+                        <input type="checkbox" class="form-control" id="ConnectUnit" formControlName="ConnectUnit">
+                        <label for="ConnectUnit">{{'Connect Unit'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                   <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassToPDAInd" formControlName="PassToPDAInd">
+                        <label for="PassToPDAInd">{{'Pass To PDA'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                    <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

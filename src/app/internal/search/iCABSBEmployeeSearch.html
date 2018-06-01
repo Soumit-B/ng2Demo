@@ -1,0 +1,66 @@
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-sm-12 page-title mt10">
+        <h1>
+            {{pageTitle | translate}}
+        </h1>
+    </div>
+</div>
+<form>
+    <div #topContainer>
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <div class="col4 pr5" [ngClass]="showBranchLevel ? '' : 'hidden'">
+                    <label class="col24" for="filter">{{ 'Filter' | translate }}</label>
+                    <icabs-dropdown-static #branchLevelDropdown [inputData]="branchLevels" [defaultSelected]="true" (onSelect)="branchLevel_onChange($event); clearRowId();"></icabs-dropdown-static>
+                </div>
+                <div class="col4 pr5" [ngClass]="showBranchNumber ? '' : 'hidden'">
+                    <label class="col24">{{ 'Branch Number' | translate }}</label>
+                    <div class="col24">
+                        <icabs-branchsearch #branchDropdown [inputParams]="inputParamsBranchSearch" (receivedbranchsearch)="onBranchDataReceived($event); clearRowId();"
+                            [active]="servicebranch.active"></icabs-branchsearch>
+                        <input type="hidden" [(ngModel)]="BranchSearch" class="form-control" name="BranchSearch" />
+                    </div>
+                </div>
+                <div class="col4 pr5" [ngClass]="showSalesType ? '' : 'hidden'">
+                    <label class="col24">{{'Sales Type' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #SalesTypeDropdown [inputData]="salesTypes" [defaultSelected]="true" (onSelect)="salesType_onChange($event); clearRowId();"></icabs-dropdown-static>
+                        <input type="hidden" [(ngModel)]="selectedSalesType" class="form-control" name="selectedSalesType" />
+                    </div>
+                </div>
+                <div class="col4 pr5" [ngClass]="showEmpStatus ? '' : 'hidden'">
+                    <label class="col24" for="status">{{ 'Status' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #EmployeeStatusDropdown [inputData]="employeeTypeStatus" (onSelect)="empStatus_onChange($event); clearRowId();"
+                            [defaultSelected]="true"></icabs-dropdown-static>
+                        <input type="hidden" [(ngModel)]="employeeStatus" class="form-control" name="employeeStatus" />
+                    </div>
+                </div>
+                <div class="col4 pr5">
+                    <label class="col24">{{'Surname' | translate}} </label>
+                    <div class="col24">
+                        <input type="text" class="form-control" maxlength="30" [(ngModel)]="employeeSurname" name="employeeSurname" eTypeText>
+                    </div>
+                </div>
+                <div class="col4 mt20">
+                    <div class="col12 pr10">
+                        <input type="submit" name="submit" value="{{'Search' | translate}}" class="form-control btn-submit" (click)="onSearchClick()">
+                    </div>
+                    <div class="col12">
+                        <input type="button" name="Add New" value="{{'Add New' | translate}}" class="btn btn-secondary" [ngClass]="!showAddNew ? 'hidden': ''"
+                            (click)="onAddNew()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="">
+            <icabs-table #employeeListTable (selectedData)="selectedData($event)" (onRefresh)="onSearchClick()" [paginationTop]="true"
+                [page]="page" [itemsPerPage]="itemsPerPage" [tableheader]="tableheading" [columns]="empTableColumns" [resetRowId]="resetRowId"></icabs-table>
+        </div>
+    </div>
+</form>
+
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<!-- End of right-contained-->

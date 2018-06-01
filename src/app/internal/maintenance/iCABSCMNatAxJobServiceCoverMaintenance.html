@@ -1,0 +1,135 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProspectNumber">{{ 'Prospect Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProspectNumber" id="ProspectNumber" class="form-control" type="text" size="9" [attr.maxlength]="8"
+                            eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductCode" id="ProductCode" class="form-control" type="text" size="9" [attr.maxlength]="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDesc" id="ProductDesc" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParams" [contentComponent]="productSearchGridComponent" [showCloseButton]="true"
+                            [disabled]="isProductCodeDisabled" (ellipsisData)="onProductSelectFromEllipsis($event, true)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt">
+                <div class="col-sm-3">
+                    <label class="col24" for="VisitFrequency">{{ 'Visit Frequency' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col12">
+                        <input formControlName="VisitFrequency" id="VisitFrequency" class="form-control" type="text" size="10" [attr.maxlength]="3"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="Quantity">{{ 'Quantity' | translate}}</label>
+                    <div class="col12">
+                        <input formControlName="Quantity" id="Quantity" class="form-control" type="text" size="10" [attr.maxlength]="5" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AnnualValue">{{ 'Value' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col12">
+                        <input formControlName="AnnualValue" id="AnnualValue" class="form-control" type="text" size="10" [attr.maxlength]="10" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceTypeCode">{{ 'Service Type' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="ServiceTypeCode" formControlName="ServiceTypeCode" class="form-control" type="hidden" [attr.maxlength]="16"
+                            eTypeCode>
+                        <icabs-servicetype-search #serviceTypeCodeDropDown [inputParams]="dropdown.serviceTypeSearch" [isRequired]="dropdown.serviceTypeSearch.isRequired"
+                            [isTriggerValidate]="dropDownMarkError('ServiceTypeCode')" [isDisabled]="dropdown.serviceTypeSearch.isDisabled"
+                            (receivedServiceTypeData)="onServiceTypeDataReceived($event)">
+                        </icabs-servicetype-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="TaxCode">{{ 'Tax Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input formControlName="TaxCode" id="TaxCode" class="form-control" type="text" size="5" maxlength="5" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="TaxCodeDesc" id="TaxCodeDesc" class="form-control" type="text" size="40" maxlength="40" eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [contentComponent]="taxCodeSearchComponent" [showCloseButton]="true" (ellipsisData)="onTaxCodeFromEllipsis($event)"
+                            [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessOriginCode">{{ 'Business Origin' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="BusinessOriginCode" formControlName="BusinessOriginCode" class="form-control" type="hidden" [attr.maxlength]="16"
+                            eTypeCode>
+                        <icabs-business-origin-language-search [triggerValidate]="dropdown.businessOriginLang.triggerValidate" #businessOriginDropDown
+                            [inputParams]="inputParams" [isRequired]="true" (receivedLostBusinessLangSearch)="onBusinessOriginFromEllipsis($event)"></icabs-business-origin-language-search>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <div class="col18" *ngIf="isAddUpdateDeleteVisible">
+                        <input type="button" (click)="addClicked()" class="btn btn-primary" value="{{ 'Add' | translate }}">
+                        <input type="button" (click)="updateClicked()" class="btn btn-primary" value="{{ 'Update' | translate }}">
+                        <input type="button" (click)="deleteClicked()" class="btn btn-primary" value="{{ 'Delete' | translate }}">
+                    </div>
+                    <div class="col12" *ngIf="isSaveCancelVisible">
+                        <input type="button" (click)="saveRecord()" class="btn btn-primary" value="{{ 'Save' | translate }}">
+                        <input type="button" (click)="cancelClicked()" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-3">
+                    <select id="menu" class="form-control" (change)="optionsChange($event.target.value)">
+                        <option value="Options" selected>{{ 'Options' | translate }}</option>
+                        <option value="NatAxJobServiceDetail">{{ 'Service Detail' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

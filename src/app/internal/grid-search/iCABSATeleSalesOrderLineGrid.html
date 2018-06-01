@@ -1,0 +1,124 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Telesales Order Line Details' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="TelesalesOrderNumber">{{'Telesales Order Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="TelesalesOrderNumber" class="form-control" placeholder="" formControlName="TelesalesOrderNumber" size="9"
+                            [attr.maxlength]="9" eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input type="text" id="TelesalesName" class="form-control" placeholder="" formControlName="TelesalesName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="TelesalesOrderLineNumber" class="col24">{{'Order Line Number'|translate}}</label>
+                        <input id="TelesalesOrderLineNumber" formControlName="TelesalesOrderLineNumber" class="form-control" type="text" size="9"
+                            [attr.maxlength]="9">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="TelesalesOrderStatusDesc" class="col24">{{'Telesales Order Status'|translate}}</label>
+                        <input id="TelesalesOrderStatusDesc" formControlName="TelesalesOrderStatusDesc" class="form-control" type="text" size="40"
+                            [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProspectNumber">{{'Prospect Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProspectNumber" class="form-control" placeholder="" formControlName="ProspectNumber" size="9" [attr.maxlength]="9"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProspectName" class="form-control" placeholder="" formControlName="ProspectName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="AccountNumber">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" class="form-control" placeholder="" formControlName="AccountNumber" size="9" [attr.maxlength]="9"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="AccountName" class="form-control" placeholder="" formControlName="AccountName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" class="form-control" placeholder="" formControlName="ContractNumber" size="9" [attr.maxlength]="9"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" class="form-control" placeholder="" formControlName="ContractName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" class="form-control" placeholder="" formControlName="PremiseNumber" size="9" [attr.maxlength]="9"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" class="form-control" placeholder="" formControlName="PremiseName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" class="form-control" placeholder="" formControlName="ProductCode" size="9" [attr.maxlength]="9"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" class="form-control" placeholder="" formControlName="ProductDesc" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #orderLinePagination [currentPage]="this['pageParams'].currentPage" [totalItems]="this['pageParams'].totalItems"
+                        [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="tbodyOnDblclick($event)" (headerClick)="sortGrid($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <input id="SelectedLine" formControlName="SelectedLine" style="DISPLAY:NONE">
+            <input id="ServiceCoverRowID" formControlName="ServiceCoverRowID" style="DISPLAY:NONE">
+            <input id="TelesalesLevel" formControlName="TelesalesLevel" style="DISPLAY:NONE">
+            <input id="TeleSalesOrderLineRowId" formControlName="TeleSalesOrderLineRowId" style="DISPLAY:NONE">
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>

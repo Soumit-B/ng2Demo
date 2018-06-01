@@ -1,0 +1,94 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="EmployeeCode" class="form-control" formControlName="EmployeeCode" type="text" size="6" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="50" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AdjustmentNumber">{{ 'Adjustment Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <input id="AdjustmentNumber" class="form-control" formControlName="AdjustmentNumber" type="text" size="6" [attr.maxlength]="6">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchNumber">{{ 'Branch Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AdjustmentDate">{{ 'Effective Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker id="AdjustmentDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AdjustmentValue">{{ 'Adjustment Value' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <input id="AdjustmentValue" class="form-control" formControlName="AdjustmentValue" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AdjustmentTime">{{ 'Adjustment Time' | translate}} </label>
+                    <div class="col12">
+                        <input id="AdjustmentTime" class="form-control" formControlName="AdjustmentTime" type="text" size="5" [attr.maxlength]="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" id="AdjustmentTimeNeg" formControlName='AdjustmentTimeNeg'>
+                        <label class="col22" for="AdjustmentTimeNeg">{{' Select If Negative ' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AdjustmentText">{{'Adjustment Reason' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <textarea id="AdjustmentText" formControlName='AdjustmentText' [attr.maxlength]="100" rows="2" cols="50"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt15">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-additional mr5" value="{{'Delete' | translate}}">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

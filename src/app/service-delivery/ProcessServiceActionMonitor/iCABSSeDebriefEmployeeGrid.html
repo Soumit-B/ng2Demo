@@ -1,0 +1,247 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Action Monitor - Employee' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="8" maxlength="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" size="25" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" formControlName="VehicleCheckedInd" id="VehicleCheckedInd" size="1">
+                        <label class="col24" for="VehicleCheckedInd">{{ 'Vehicle Checked' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" formControlName="EmployeeCode" size="8" maxlength="10">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="25" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col6 mt20">
+                        <input type="button" class="btn btn-primary mr10" value="Trip Information" id="cmdShow" formControlName="cmdShow">
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="ServicePlanNumber">{{ 'Service Plan' | translate}}</label>
+                        <div class="col24 pr5">
+                            <input type="text" class="form-control" id="ServicePlanNumber" formControlName="ServicePlanNumber" size="10">
+                        </div>
+                    </div>
+                    <div class="col4 mt20">
+                        <input type="button" class="btn btn-primary mr10" value="Visit Map" id="cmdVisitMap" formControlName="cmdVisitMap">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="DebriefNumber">{{ 'Debrief' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="DebriefNumber" formControlName="DebriefNumber" size="8" maxlength="10">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col9 pr10">
+                        <label class="col24" for="VehicleStartMileage">{{ 'Start Mileage' | translate}}</label>
+                        <div class="col24 pr5">
+                            <input type="text" class="form-control" id="VehicleStartMileage" formControlName="VehicleStartMileage" size="10">
+                        </div>
+                    </div>
+                    <div class="col9">
+                        <label class="col24" for="VehicleEndMileage">{{ 'End' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" id="VehicleEndMileage" formControlName="VehicleStartMileage" size="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Start Date' | translate}}</label>
+                    <div class="col12">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col9 pr10">
+                        <label class="col24" for="DayLocationStart">{{ 'Start Location' | translate}}</label>
+                        <div class="col24 pr5">
+                            <input type="text" class="form-control" id="DayLocationStart" formControlName="DayLocationStart" size="10">
+                        </div>
+                    </div>
+                    <div class="col9">
+                        <label class="col24" for="DayLocationEnd">{{ 'End' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" id="DayLocationEnd" formControlName="DayLocationEnd" size="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'End Date' | translate}}</label>
+                    <div class="col12">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col9 pr10">
+                        <label class="col24" for="DayTimeStart">{{ 'Start Time' | translate}}</label>
+                        <div class="col24 pr5">
+                            <input type="text" class="form-control" id="DayTimeStart" formControlName="DayTimeStart" size="10">
+                        </div>
+                    </div>
+                    <div class="col9">
+                        <label class="col24">{{ 'End' | translate}}</label>
+                        <div class="col24" for="DayTimeEnd">
+                            <input type="text" class="form-control" id="DayTimeEnd" formControlName="DayTimeEnd" size="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col9 pr10">
+                        <label class="col24" for="LastSyncDate">{{ 'Last Sync' | translate}}</label>
+                        <div class="col24 pr5">
+                            <input type="text" class="form-control" id="LastSyncDate" formControlName="LastSyncDate" size="10">
+                        </div>
+                    </div>
+                    <div class="col9">
+                        <div class="col24 mt20">
+                            <input type="text" class="form-control" id="LastSyncTime" formControlName="LastSyncTime" size="10">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="10" maxlength="10">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="25" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="10" maxlength="10">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="25" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="FilterStatus">{{ 'Status' | translate}}</label>
+                    <select id="FilterStatus" formControlName="FilterStatus" class="col16">
+                        <option value="All"> {{ 'All' | translate}}</option>
+                        <option value="ToDo">{{ 'To Do' | translate}}</option>
+                        <option value="Completed">{{ 'Completed' | translate}}</option>
+                      </select>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="FilterAction">{{ 'Action' | translate}}</label>
+                    <select id="FilterAction" class="col16" formControlName="FilterAction">
+                      </select>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NumberOfDaysWorked">{{ 'Planned Work Days' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="NumberOfDaysWorked" formControlName="NumberOfDaysWorked" size="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NumberOfPremises">{{ 'Planned Premises' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="NumberOfPremises" formControlName="NumberOfPremises" size="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <label class="col24" for="PercentageComplete">{{ 'Percentage Complete' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="PercentageComplete" formControlName="PercentageComplete" size="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4 mt10">
+                    <input type="button" class="btn btn-primary mr10" value="Leads/Alerts" id="cmdLeadAlert" formControlName="cmdLeadAlert">
+                    <input type="button" class="btn btn-primary mr10" value="Debrief" id="cmdDebrief" formControlName="cmdDebrief">
+                </div>
+            </div>
+        </section>
+    </form>
+    <div class="row mt10">
+        <div class="col-sm-6">
+            <div class="col14">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination></icabs-pagination>
+            </div>
+            <div class="col10 pull-right">
+                <label class="col5 mt2" for="DisplayNumberOfRows">{{ 'Display' | translate}}</label>
+                <div class="col4 pr5">
+                    <input type="text" class="form-control" id="DisplayNumberOfRows" formControlName="DisplayNumberOfRows">
+                </div>
+                <label class="col4 mt2" for="DisplayNumberOfRows">{{ 'Rows' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12 ">
+            <icabs-grid></icabs-grid>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,50 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+    <section class="screen-body">
+        <div class="row mt2" id="grdInvoicePrintHeader">
+        <div class="col-sm-3">
+                    <label class="col24" for="SystemCharNumber">{{ 'System Characteristic Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="SystemCharNumber" class="form-control" type="text" [attr.maxlength]="4" size="4">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="SystemCharShortDesc" class="form-control" type="text" [attr.maxlength]="40" size="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+        </div>
+         <div class="row mt20">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <textarea id="InvoicePrintLineDesc" class="form-control" type="text" size="80"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+    </section>
+    <footer class="screen-footer">
+        <div class="row mt2">
+              <div class="col-sm-12">
+             <input type="button" class="btn btn-additional" value="{{ 'Add' | translate }}">
+             <input type="button" class="btn btn-additional" value="{{ 'Update' | translate }}">
+             <input type="button" class="btn btn-primary" value="{{ 'Save' | translate }}">
+             <input type="button" class="btn btn-additional" value="{{ 'Delete' | translate }}">
+             <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+            <input type="button" class="btn btn-additional" value="{{ 'Detail' | translate }}">
+
+              </div>
+        </div>
+    </footer>
+    </form>
+</section>

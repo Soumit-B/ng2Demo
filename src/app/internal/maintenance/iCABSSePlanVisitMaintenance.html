@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{this['pageTitle'] |translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3" *ngIf="this['pageParams'].trDueDate">
+                    <label class="col24">{{'Due Date' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="OriginalVisitDueDate" size="10" [attr.maxlength]="10" formControlName='OriginalVisitDueDate' class="form-control"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="this['pageParams'].trVisitType">
+                    <label class="col24">{{'Visit Type' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="VisitTypeCode" size="2" [attr.maxlength]="2" formControlName='VisitTypeCode' class="form-control"
+                            eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="this['pageParams'].trPlannedVisitDate">
+                    <label class="col24">{{'Planned Visit Date' | translate}}</label>
+                    <div class="col24">
+                        <icabs-datepicker [isDirectiveBased]="false" formControlName="PlannedVisitDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10" *ngIf="this['pageParams'].tdTempVisitDay">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" id="TemporaryVisitDayInd" formControlName='TemporaryVisitDayInd'>
+                        <label class="col22" for="TemporaryVisitDayInd">{{'Temporary Visit Day' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3" *ngIf="this['pageParams'].trPlanQuantity">
+                    <label class="col24">{{'Planned Quantity' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="PlanQuantity" size="5" [attr.maxlength]="5" formControlName='PlanQuantity' class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="this['pageParams'].trRoutingVisitDuration">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visit Duration Default' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="RoutingVisitDuration" size="5" formControlName='RoutingVisitDuration' class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="this['pageParams'].trVisitDetailText">
+                    <label class="col24">{{'Cancellation Reason' | translate}}</label>
+                    <div class="col24">
+                        <textarea id="ServiceVisitText" formControlName='ServiceVisitText' [attr.maxlength]="100" rows="2" cols="50" eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}" (click)="showSavePrompt()">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="handleCancel()">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

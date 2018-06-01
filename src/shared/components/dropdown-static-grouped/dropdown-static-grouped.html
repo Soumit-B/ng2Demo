@@ -1,0 +1,6 @@
+<select [(ngModel)]="selectedItem" [disabled]="disabled" class="form-control" (change)="onChange($event.target.value)" name="status"
+    name="options">
+    <optgroup *ngFor="let item of inputData" label="{{item.title | translate}}">
+        <option *ngFor="let child of item.list" [ngValue]="child">{{child | translate}}</option>
+    </optgroup>
+</select>

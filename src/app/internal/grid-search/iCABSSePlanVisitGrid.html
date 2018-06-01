@@ -1,0 +1,105 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-5">
+                    <label class="col24" for="ContractNumber">{{ 'Contract/Job' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="8" [attr.maxlength]="8"
+                            eTypeCode icabsZeroPad (change)="contractNumberOnchange()">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="30" [attr.maxlength]="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractSearch [childConfigParams]="inputParamsContractSearch" [contentComponent]="contractSearchComponent"
+                            (ellipsisData)="setContractNumber($event)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Area' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="8" [attr.maxlength]="4"
+                            (change)="branchServiceAreaCodeOnchange()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BranchServiceAreaDesc" class="form-control" formControlName="BranchServiceAreaDesc" type="text" size="30" [attr.maxlength]="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="branchServiceAreaSearchParams" [contentComponent]="branchServiceAreaComponent" (ellipsisData)="setBranchServiceArea($event)"
+                            [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="8" [attr.maxlength]="5"
+                            (change)="premiseNumberOnchange()" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="30" [attr.maxlength]="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premiseSearch [childConfigParams]="inputParamsAccountPremise" [contentComponent]="premiseSearchComponent"
+                            (ellipsisData)="onPremiseSearchDataReceived($event)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <label class="col24" for="BranchServiceAreaSeqNo">{{ 'From Seq No' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaSeqNo" class="form-control" formControlName="BranchServiceAreaSeqNo" type="text" size="6" [attr.maxlength]="6"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="8" [attr.maxlength]="6" (change)="productCodeOnchange()"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="30" [attr.maxlength]="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #serviceCoverSearch [childConfigParams]="serviceCoverSearchParams" [contentComponent]="serviceCoverSearchComponent"
+                            [showHeader]="true" (ellipsisData)="setProductCode($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24" for="ServiceVisitFrequency">{{ 'Visit Freq' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ServiceVisitFrequency" class="form-control" formControlName="ServiceVisitFrequency" type="text" size="3" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"> </icabs-refresh>
+                    <icabs-pagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="10" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="riGridBodyOnDblClick($event)" (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+</section>

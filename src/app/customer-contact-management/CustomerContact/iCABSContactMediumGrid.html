@@ -1,0 +1,64 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Filter' | translate }}</label>
+                    <div class="col16">
+                        <select id="FilterValue" class="form-control" formControlName="FilterValue">
+                            <option value="all">{{ 'All Branches' | translate }}</option>
+                            <option value="thisbranch" selected>{{ 'This Branch' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'From Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-datepicker id="DateFrom" [dt]="DateFrom" [isRequired]="true" (selectedValue)="datefromelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'To Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-datepicker id="DateTo" [dt]="DateTo" [isRequired]="true" (selectedValue)="dateTOelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #contactMediumPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #contactMediumGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="getSelectedRowInfo($event)" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGrid($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (headerClick)="riGrid_Sort($event)" (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+        <div class="hidden">
+            <input type="text" id="BranchNumber" formControlName="BranchNumber">
+            <input type="text" id="CustomerContactNumber" formControlName="CustomerContactNumber">
+        </div>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+</section>

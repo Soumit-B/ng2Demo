@@ -1,0 +1,24 @@
+<icabs-modal #childModal="child" [(title)]="this['pageTitle']" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Move Branch by Postcode' | translate }}</h1>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <div class="message-center">
+                    <p>{{'This menu was designed to be used only as a corrective action, when a user has keyed in the wrong postcode and this has caused the premises to fall into the wrong branch.' | translate }}</p>
+                    <p>{{ 'The business must be made aware that moving portfolio to another branch where there are any remaining future dated changes on a Service Cover will cause issues with Portfolio Movement.' | translate}}</p>
+                    <p>{{'In addition, if portfolio is moved from Branch A to Branch B and then onwards to Branch C or even back to Branch A, this will cause issues on the sales stats.' | translate}}</p>
+                    <p>{{'The menu must only be accessible for Key Users who understand these risks and who must check the status of the premises before moving it.' | translate}}&nbsp;{{'Before moving the premises, we must cancel any forward dated transactions, and reprocess them in the new branch, once the premises has been moved.' | translate}}&nbsp;{{'In addition, if service planning is used in your business, please ensure that any visits for the premises have not been planned in, and if they have,' | translate}}&nbsp;{{'please cancel them and reinstate in the new branch.' | translate}}&nbsp;{{'This will help to alleviate any issues.' | translate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt15">
+            <div class="col-sm-12">
+                <input type="button" id="btnClose" class="btn btn-primary" value="OK">
+            </div>
+        </div>
+    </div>
+</icabs-modal>

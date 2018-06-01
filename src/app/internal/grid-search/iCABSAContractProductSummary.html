@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="8" [attr.maxlength]="8"
+                            eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" [attr.maxlength]="45" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceAnnivDate">{{ 'Anniversary Date' | translate}}</label>
+                    <div class="col12">
+                        <input id="InvoiceAnnivDate" formControlName="InvoiceAnnivDate" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="8" [attr.maxlength]="9"
+                            eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" [attr.maxlength]="45" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NegBranchNumber">{{ 'Neg. Branch' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="NegBranchNumber" formControlName="NegBranchNumber" class="form-control" type="text" size="5" [attr.maxlength]="5"
+                            eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input id="NegBranchName" formControlName="NegBranchName" class="form-control" type="text" [attr.maxlength]="30" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceFrequencyCode">{{ 'Invoice Frequency' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode" class="form-control" type="text" size="2" [attr.maxlength]="2"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAnnualValue">{{ 'Annual Value' | translate}}</label>
+                    <div class="col12">
+                        <input id="ContractAnnualValue" formControlName="ContractAnnualValue" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

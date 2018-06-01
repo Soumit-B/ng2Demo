@@ -1,0 +1,98 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Log Reference' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallLogID" formControlName="CallLogID" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Taken By' | translate }}</label>
+                    <div class="col24">
+                        <input id="UserName" formControlName="UserName" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contact Name' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallContactName" formControlName="CallContactName" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Position' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallContactPosition" formControlName="CallContactPosition" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallContactTelephone" formControlName="CallContactTelephone" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallContactMobile" formControlName="CallContactMobile" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Fax' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallContactFax" formControlName="CallContactFax" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Log Summary' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallSummary" formControlName="CallSummary" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{ 'Log Details' | translate }}</label>
+                    <div class="col24">
+                        <textarea id="CallDetails" formControlName="CallDetails" rows=5 cols=63 class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Call Started' | translate }}</label>
+                    <div class="col14 pr5">
+                        <icabs-datepicker id="CreatedDate" [dt]='CreatedDate' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" (selectedValue)="dateToSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                    <div class="col10">
+                        <input id="CreatedTime" formControlName="CreatedTime" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Call Duration' | translate }}</label>
+                    <div class="col24">
+                        <input id="Duration" formControlName="Duration" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

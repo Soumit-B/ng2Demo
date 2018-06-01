@@ -1,0 +1,1232 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="6" [attr.maxlength]="6" (change)="fetchProductRelatedData()"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="32" [attr.maxlength]="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.productSearch.params" [contentComponent]="searchConfigs.productSearch.component"
+                            [disabled]="this['formMode'] === this['c_s_MODE_ADD']" (ellipsisData)="setProduct($event)" (addModeOn)="addProduct($event)"
+                            [modalConfig]="modalConfig" [autoOpen]="isAutoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductSaleGroupCode">{{ 'Sales Group Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ProductSaleGroupCode" class="form-control" formControlName="ProductSaleGroupCode" type="text" size="6" [attr.maxlength]="6"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductSaleGroupDesc" class="form-control" formControlName="ProductSaleGroupDesc" type="text" size="32" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.productSalesGroupSearch.params"
+                            [contentComponent]="searchConfigs.productSalesGroupSearch.component" [disabled]="searchConfigs.productSalesGroupSearch.isDisabled"
+                            (ellipsisData)="setSalesGroupCode($event)" [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductServiceGroupCode">{{ 'Service Group Code' | translate }}<span class="mandatory">*</span></label>
+                    <icabs-sbproductservice-groupsearch id="ProductServiceGroupDesc" [inputParams]="searchConfigs.productServiceGroupSearch"
+                        [active]="searchConfigs.productServiceGroupSearch.active" [isDisabled]="searchConfigs.productServiceGroupSearch.isDisabled"
+                        [isRequired]="searchConfigs.productServiceGroupSearch.isRequired" [isTriggerValidate]="searchConfigs.productServiceGroupSearch.isTriggerValidate"
+                        (receivedProductServiceGroupSearch)="setProductServiceGroup($event)"></icabs-sbproductservice-groupsearch>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="LOSCode">{{ 'Line of Service Code' | translate }}<span class="mandatory">*</span></label>
+                    <icabs-los-search #losSearchDropDown [inputParams]="searchConfigs.losSearch" [active]="searchConfigs.losSearch.active" [isRequired]="searchConfigs.losSearch.isRequired"
+                        [isTriggerValidate]="searchConfigs.losSearch.isTriggerValidate" [isDisabled]="searchConfigs.losSearch.isDisabled"
+                        (receivedLOSSearch)="setLOSCodeDesc($event)">
+                    </icabs-los-search>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li id="grdMain" class="nav-item active" [ngClass]="{'active': tabActive===1}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===1}" (click)="setTabActive(1)">
+                                <span>{{ 'Parameters' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdParameter" class="nav-item" [ngClass]="{'active': tabActive===2}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===2}" (click)="setTabActive(2)">
+                                <span>{{ 'Parameters-Continued' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdOther" class="nav-item" [ngClass]="{'active': tabActive===3, 'red-bdr': displayFields.othersTabRed}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===3}" (click)="setTabActive(3)">
+                                <span>{{ 'Other' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdValue" class="nav-item" [ngClass]="{'active': tabActive===4}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===4}" (click)="setTabActive(4)">
+                                <span>{{ 'Values' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdSTypeGrid" class="nav-item" *ngIf="displayFields.serviceTypeTab" [ngClass]="{'active': tabActive===5}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===5}" (click)="setTabActive(5)">
+                                <span>{{ 'Service Type' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdHierarchy" class="nav-item" [ngClass]="{'active': tabActive===6}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===6}" (click)="setTabActive(6)">
+                                <span>{{ 'Product Hierarchy' | translate }}</span>
+                            </a>
+                        </li>
+                        <li id="grdTelesales" class="nav-item" [ngClass]="{'active': tabActive===7}">
+                            <a class="nav-link" [ngClass]="{'active': tabActive===7}" (click)="setTabActive(7)">
+                                <span>{{ 'Telesales' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Contents  -->
+                    <div class="tab-content">
+                        <!-- Tab: Parameters-->
+                        <div class="tab-pane active" *ngIf="tabActive===1">
+                            <div id="grdMain" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="FrequencyRequiredInd" formControlName="FrequencyRequiredInd">
+                                            <label class="col24" for="FrequencyRequiredInd">{{ 'Frequency Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ValidForNewInd" formControlName="ValidForNewInd">
+                                            <label class="col24" for="ValidForNewInd">{{ 'Valid For New Business' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="MaintenanceInd" formControlName="MaintenanceInd">
+                                            <label class="col24" for="MaintenanceInd">{{ 'Maintenance Contract' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ValueRequiredInd" formControlName="ValueRequiredInd">
+                                            <label class="col24" for="ValueRequiredInd">{{ 'Value Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="PassToPDAInd" formControlName="PassToPDAInd">
+                                            <label class="col24" for="PassToPDAInd">{{ 'Pass To PDA' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="EmailOrderInd" formControlName="EmailOrderInd">
+                                            <label class="col24" for="EmailOrderInd">{{ 'Email Order' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="QuantityRequired" formControlName="QuantityRequired">
+                                            <label class="col24" for="QuantityRequired">{{ 'Quantity Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ReplacementMonthRequiredInd" formControlName="ReplacementMonthRequiredInd">
+                                            <label class="col24" for="ReplacementMonthRequiredInd">{{ 'Replacement Month Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="DispenserInd" formControlName="DispenserInd">
+                                            <label class="col24" for="DispenserInd">{{ 'Dispenser Type' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24" *ngIf="displayFields.tdValidForEntitlementInd">
+                                            <input type="checkbox" class="form-control" id="ValidForEntitlementInd" formControlName="ValidForEntitlementInd" (change)="validForEntitlementIndOnChecked()">
+                                            <label class="col24" for="ValidForEntitlementInd">{{ 'Valid For Entitlement' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ConsumableInd" formControlName="ConsumableInd">
+                                            <label class="col24" for="ConsumableInd">{{ 'Consumable' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="StockItem" formControlName="StockItem">
+                                            <label class="col24" for="StockItem">{{ 'Stock Item' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="ThirdPartyServiceInd" formControlName="ThirdPartyServiceInd">
+                                        <label class="col24" for="ThirdPartyServiceInd">{{ 'Third Party Servicing' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="InvoiceSuspendInd" formControlName="InvoiceSuspendInd" (change)="invoiceSuspendIndOnChecked()">
+                                        <label class="col24" for="InvoiceSuspendInd">{{ 'Delivery Confirmation' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24" *ngIf="displayFields.trProductSOSExempt">
+                                        <input type="checkbox" class="form-control" id="SOSExemptInd" formControlName="SOSExemptInd">
+                                        <label class="col24" for="SOSExemptInd">{{ 'SOS Exempt' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.trInstallationRequired">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="EngineerRequiredInd" formControlName="EngineerRequiredInd">
+                                        <label class="col24" for="EngineerRequiredInd">{{ 'Engineer Install/Removal' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4" *ngIf="displayFields.trInstallationRequired">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="InstallationRequired" formControlName="InstallationRequired" (change)="installationRequiredOnChecked()">
+                                        <label class="col24" for="InstallationRequired">{{ 'Installation Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="HideQuantityOnInvoice" formControlName="HideQuantityOnInvoice">
+                                        <label class="col24" for="HideQuantityOnInvoice">{{ 'Hide Quantity On Invoice' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RetainServiceCoverInd" formControlName="RetainServiceCoverInd">
+                                        <label class="col24" for="RetainServiceCoverInd">{{ 'Service Cover Retain' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24" *ngIf="displayFields.trDetailRequired">
+                                        <input type="checkbox" class="form-control" id="DetailRequired" formControlName="DetailRequired">
+                                        <label class="col24" for="DetailRequired">{{ 'Detail Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RequiresVisitDetailTextInd" formControlName="RequiresVisitDetailTextInd">
+                                        <label class="col24" for="RequiresVisitDetailTextInd">{{ 'Requires Visit Detail Text' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="InnovationMetricInd" formControlName="InnovationMetricInd">
+                                        <label class="col24" for="InnovationMetricInd">{{ 'Innovation Metric Reporting' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RequiresManualVisitPlanningInd" formControlName="RequiresManualVisitPlanningInd"
+                                            (change)="requiresManualVisitPlanningIndOnChecked()">
+                                        <label class="col24" for="RequiresManualVisitPlanningInd">{{ 'Requires Manual Visit Planning' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.trWasteTransfer">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="WasteTransferRequired" formControlName="WasteTransferRequired">
+                                        <label class="col24" for="WasteTransferRequired">{{ 'Waste Transfer Required' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RequireAnnualTimeInd" formControlName="RequireAnnualTimeInd">
+                                        <label class="col24" for="RequireAnnualTimeInd">{{ 'Annual Time Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="CustomerSpecificInd" formControlName="CustomerSpecificInd">
+                                        <label class="col24" for="CustomerSpecificInd">{{ 'Customer Specific' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-4 mt10">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="DisplayLevelInd" formControlName="DisplayLevelInd">
+                                        <label class="col24" for="DisplayLevelInd">{{ 'Display Level Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 mt10">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="CompositeProductInd" formControlName="CompositeProductInd" (change)="compositeProductIndOnChecked()">
+                                        <label class="col24" for="CompositeProductInd">{{ 'Composite Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.tdCompositePricingType">
+                                    <div class="col12">
+                                        <label class="col24" for="SelectCompositePricingType">{{ 'Composite Pricing' | translate }}</label>
+                                        <select id="SelectCompositePricingType" class="form-control" formControlName="SelectCompositePricingType" [disabled]="isselectCompositePricingTypeDisabled"
+                                            eTypeInteger>
+                                            <option selected value="1">{{ 'Price By Composite' | translate }}</option>
+                                            <option selected value="3">{{ 'Price By Components' | translate }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="ReplacementInd" formControlName="ReplacementInd">
+                                        <label class="col24" for="ReplacementInd">{{ 'Replacement Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="DummyProductInd" formControlName="DummyProductInd">
+                                        <label class="col24" for="DummyProductInd">{{ 'Dummy Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="ReplacementDefaultInd" formControlName="ReplacementDefaultInd">
+                                        <label class="col24" for="ReplacementDefaultInd">{{ 'Default Replacement Included' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RoutineLabels" formControlName="RoutineLabels">
+                                        <label class="col24" for="RoutineLabels">{{ 'Generate Labels for Routine Visits' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RotationalProductInd" formControlName="RotationalProductInd">
+                                        <label class="col24" for="RotationalProductInd">{{ 'Rotational Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="TermiteRenewalLetterInd" formControlName="TermiteRenewalLetterInd" (change)="termiteRenewalLetterIndOnChecked()">
+                                        <label class="col24" for="TermiteRenewalLetterInd">{{ 'Send Termite Renewal Letter' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="PerimeterValueRequired" formControlName="PerimeterValueRequired">
+                                        <label class="col24" for="PerimeterValueRequired">{{ 'Perimeter Value Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.tdDOWSentriconInd">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="DOWSentriconInd" formControlName="DOWSentriconInd">
+                                        <label class="col24" for="DOWSentriconInd">{{ 'DOW Sentricon Product' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="WeighingRequiredInd" formControlName="WeighingRequiredInd">
+                                        <label class="col24" for="WeighingRequiredInd">{{ 'Weighing Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="UsePercentageValuesInd" formControlName="UsePercentageValuesInd">
+                                        <label class="col24" for="UsePercentageValuesInd">{{ 'Use Percentage Values' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="RotationByScheduleInd" formControlName="RotationByScheduleInd">
+                                        <label class="col24" for="RotationByScheduleInd">{{ 'Rotational By Schedule' | translate }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-4">
+                                    <label class="col24" for="ComponentTypeCode">{{ 'Component Type Code' | translate }}</label>
+                                    <div class="col8 pr5">
+                                        <input id="ComponentTypeCode" class="form-control" formControlName="ComponentTypeCode" type="text" size="2" [attr.maxlength]="2"
+                                            eTypeCode>
+                                    </div>
+                                    <div class="col2">
+                                        <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.componentTypeSearch.params"
+                                            [contentComponent]="searchConfigs.componentTypeSearch.component" [disabled]="searchConfigs.componentTypeSearch.isDisabled"
+                                            [modalConfig]="modalConfig"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24" for="EDRMCode">{{ 'Exclusion/Restriction/Destruction/Monitoring Code' | translate }}</label>
+                                    <div class="col12">
+                                        <input id="EDRMCode" class="form-control" formControlName="EDRMCode" type="text" size="1" [attr.maxlength]="1" eTypeCode>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-4 mt10">
+                                    <div class="col24">
+                                        <input type="checkbox" class="form-control" id="GuaranteeRequiredInd" formControlName="GuaranteeRequiredInd">
+                                        <label class="col24" for="GuaranteeRequiredInd">{{ 'Guarantee Required' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.tdGuaranteeCode">
+                                    <label class="col24" for="GuaranteeCode">{{ 'Guarantee Code' | translate }}</label>
+                                    <div class="col8 pr5">
+                                        <input id="GuaranteeCode" class="form-control" formControlName="GuaranteeCode" type="text" size="8" [attr.maxlength]="8"
+                                            eTypeCode>
+                                    </div>
+                                    <div class="col2">
+                                        <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.propertyGuaranteeSearch.params"
+                                            [contentComponent]="searchConfigs.propertyGuaranteeSearch.component" [disabled]="searchConfigs.propertyGuaranteeSearch.isDisabled"
+                                            [modalConfig]="modalConfig"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="displayFields.tdGuaranteeDurationMonths">
+                                    <label class="col24" for="GuaranteeDurationMonths">{{ 'Guarantee Duration (Months)' | translate }}</label>
+                                    <div class="col12">
+                                        <input id="GuaranteeDurationMonths" class="form-control" formControlName="GuaranteeDurationMonths" type="text" size="3" [attr.maxlength]="3"
+                                            eTypeInteger>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Parameters-Continued -->
+                        <div class="tab-pane active" *ngIf="tabActive===2">
+                            <div id="grdParameter" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="LocationsEnabled" formControlName="LocationsEnabled">
+                                            <label class="col24" for="LocationsEnabled">{{ 'Locations Enabled' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="PrepsEnabled" formControlName="PrepsEnabled">
+                                            <label class="col24" for="PrepsEnabled">{{ 'Preparations Enabled' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="RecordInfestations" formControlName="RecordInfestations">
+                                            <label class="col24" for="RecordInfestations">{{ 'Record Infestations' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ZeroQuantityEnabled" formControlName="ZeroQuantityEnabled">
+                                            <label class="col24" for="ZeroQuantityEnabled">{{ 'Allow Zero Quantity on Service Covers' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="ProductLinkingEnabled" formControlName="ProductLinkingEnabled">
+                                            <label class="col24" for="ProductLinkingEnabled">{{ 'Product Linking Enabled' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="termiteinspectionInd" formControlName="termiteinspectionInd">
+                                            <label class="col24" for="termiteinspectionInd">{{ 'Termite Inspection' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="NoScanRequiredInd" formControlName="NoScanRequiredInd">
+                                            <label class="col24" for="NoScanRequiredInd">{{ 'No Scan Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="InvoiceUnitValueRequired" formControlName="InvoiceUnitValueRequired">
+                                            <label class="col24" for="InvoiceUnitValueRequired">{{ 'Invoice Unit Value Required' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="BudgetBillingInstalmentCode">{{ 'Budget Billing Instalment Code' | translate }}</label>
+                                        <div class="col6 pr5">
+                                            <input id="BudgetBillingInstalmentCode" class="form-control" formControlName="BudgetBillingInstalmentCode" type="text" size="8"
+                                                [attr.maxlength]="10" eTypeCode>
+                                        </div>
+                                        <div class="col16 pr5">
+                                            <input id="BudgetBillingInstalmentDesc" class="form-control" formControlName="BudgetBillingInstalmentDesc" type="text" size="40"
+                                                [attr.maxlength]="40" eTypeText>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.budgetBillingInstalmentSearch.params"
+                                                [contentComponent]="searchConfigs.budgetBillingInstalmentSearch.component" [disabled]="searchConfigs.budgetBillingInstalmentSearch.isDisabled"
+                                                [modalConfig]="modalConfig"></icabs-ellipsis>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="CapableOfUplift" formControlName="CapableOfUplift">
+                                            <label class="col24" for="CapableOfUplift">{{ 'Capable Of Uplift and re-lay' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Others -->
+                        <div class="tab-pane active" *ngIf="tabActive===3">
+                            <div id="grdOther" class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="row mt10">
+                                        <div class="col-sm-12" *ngIf="displayFields.trEnableTaxCodeDefaulting">
+                                            <div class="col24">
+                                                <label class="col24" for="TaxCode">{{ 'Tax Code' | translate }}</label>
+                                                <div class="col6 pr5">
+                                                    <input id="TaxCode" class="form-control" formControlName="TaxCode" type="text" size="6" [attr.maxlength]="6" eTypeText>
+                                                </div>
+                                                <div class="col16 pr5">
+                                                    <input id="TaxCodeDesc" class="form-control" formControlName="TaxCodeDesc" type="text" size="32" [attr.maxlength]="50" eTypeText>
+                                                </div>
+                                                <div class="col2">
+                                                    <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.taxCodeSearch.params" [contentComponent]="searchConfigs.taxCodeSearch.component"
+                                                        [disabled]="searchConfigs.taxCodeSearch.isDisabled" (ellipsisData)="setTaxCode($event)"
+                                                        [modalConfig]="modalConfig"></icabs-ellipsis>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="UnitDesc">{{ 'Unit Description' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="UnitDesc" class="form-control" formControlName="UnitDesc" type="text" size="40" [attr.maxlength]="60" eTypeText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="ProductInvoiceDesc">{{ 'Product Invoice Description' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="ProductInvoiceDesc" class="form-control" formControlName="UnitDesc" type="text" size="60" [attr.maxlength]="40"
+                                                    eTypeText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <div class="col24">
+                                                <label class="col24" for="APICodeDesc">{{ 'API Code' | translate }}<span class="mandatory">*</span></label>
+                                                <icabs-apicodesearch id="APICodeDesc" [inputParams]="searchConfigs.apiCodeSearch.params" [active]="searchConfigs.apiCodeSearch.active"
+                                                    [isDisabled]="searchConfigs.apiCodeSearch.isDisabled" [isRequired]="searchConfigs.apiCodeSearch.isRequired"
+                                                    [isTriggerValidate]="searchConfigs.apiCodeSearch.isTriggerValidate" (receivedAPICodesearch)="setAPICode($event)"></icabs-apicodesearch>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="ProcurementURL">{{ 'Procurement URL' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="ProcurementURL" class="form-control" formControlName="ProcurementURL" type="text" size="60" [attr.maxlength]="60"
+                                                    eTypeTextFree>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <div class="col24">
+                                                <label class="col24" for="ProductEmail">{{ 'Product Email' | translate }}</label>
+                                                <input id="ProductEmail" class="form-control" formControlName="ProductEmail" type="text" size="25" [attr.maxlength]="30"
+                                                    eTypeTextFree>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="ProductImage">{{ 'Product Image filename' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="ProductImage" class="form-control" formControlName="ProductImage" type="text" size="40" [attr.maxlength]="80"
+                                                    eTypeTextFree>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <div class="col24">
+                                                <label class="col24" for="PricingModel">{{ 'Pricing Model' | translate }}</label>
+                                                <input id="PricingModel" class="form-control" formControlName="PricingModel" type="text" size="8" [attr.maxlength]="8" eTypeTextFree>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="LongDescription">{{ 'Long Description' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="LongDescription" class="form-control" formControlName="LongDescription" type="text" size="60" [attr.maxlength]="200"
+                                                    eTypeTextFree>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="ProductRange">{{ 'Product Range' | translate }}</label>
+                                            <div class="col6 pr5">
+                                                <input id="ProductRange" class="form-control" formControlName="ProductRange" type="text" size="20" [attr.maxlength]="20"
+                                                    eTypeCode>
+                                            </div>
+                                            <div class="col16 pr5">
+                                                <input id="RangeDesc" class="form-control" formControlName="RangeDesc" type="text" size="40" [attr.maxlength]="100" eTypeTextFree>
+                                            </div>
+                                            <div class="col2">
+                                                <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.rangeHeaderSearch.params"
+                                                    [contentComponent]="searchConfigs.rangeHeaderSearch.component" [disabled]="searchConfigs.rangeHeaderSearch.isDisabled"
+                                                    [modalConfig]="modalConfig"></icabs-ellipsis>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="ProductDisplayCode">{{ 'Product Display Code' | translate }}</label>
+                                            <div class="col6 pr5">
+                                                <input id="ProductDisplayCode" class="form-control" formControlName="ProductDisplayCode" type="text" size="5" [attr.maxlength]="4"
+                                                    eTypeText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-12">
+                                            <label class="col24" for="RotationalRule">{{ 'Rotational Rule' | translate }}</label>
+                                            <div class="col6 pr5">
+                                                <input id="RotationalRule" class="form-control" formControlName="RotationalRule" type="text" size="4" [attr.maxlength]="1"
+                                                    eTypeText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row mt10" *ngIf="displayFields.trAllowMultipleTaxRates">
+                                        <div class="col-sm-12 mt20">
+                                            <div class="col12">
+                                                <input type="checkbox" class="form-control" id="MultipleTaxRates" formControlName="MultipleTaxRates" (change)="multipleTaxRatesOnChecked()">
+                                                <label class="col24" for="MultipleTaxRates">{{ 'Allow Multiple Tax Rates' | translate }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="displayFields.multipleTaxRates">
+                                        <div class="col-sm-12 mt25">
+                                            <div class="col24">
+                                                <input type="checkbox" class="form-control" id="ConsolidateEqualTaxRates" formControlName="ConsolidateEqualTaxRates">
+                                                <label class="col24" for="ConsolidateEqualTaxRates">{{ 'Consolidate When Tax Rates Equal' | translate }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="displayFields.multipleTaxRates">
+                                        <div class="row">
+                                            <div class="col-sm-12 mt25">
+                                                <div class="col24">
+                                                    <label class="col24">{{ 'Tax Rate 1 (Materials)' | translate }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 mt10">
+                                                <div class="col7 pr5">
+                                                    <label class="col24" for="TaxCodeMaterials">{{ 'Tax Code' | translate }}</label>
+                                                    <input id="TaxCodeMaterials" class="form-control" formControlName="TaxCodeMaterials" type="text" size="6" [attr.maxlength]="6"
+                                                        (change)="taxCodeMaterialsTabout()" eTypeText>
+                                                </div>
+                                                <div class="col1 mt20">
+                                                    <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.taxCodeMaterialsSearch.params"
+                                                        [contentComponent]="searchConfigs.taxCodeMaterialsSearch.component" [disabled]="searchConfigs.taxCodeMaterialsSearch.isDisabled"
+                                                        (ellipsisData)="setTaxCodeMaterials($event)" [modalConfig]="modalConfig"></icabs-ellipsis>
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="TaxCodeMaterialsDesc">{{ 'Tax Code Description' | translate }}</label>
+                                                    <input id="TaxCodeMaterialsDesc" class="form-control" formControlName="TaxCodeMaterialsDesc" type="text" size="25" [attr.maxlength]="50">
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="InvoiceTextMaterials">{{ 'Invoice Text' | translate }}</label>
+                                                    <input id="InvoiceTextMaterials" class="form-control" formControlName="InvoiceTextMaterials" type="text" size="25" [attr.maxlength]="30"
+                                                        eTypeText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 mt20">
+                                                <div class="col24">
+                                                    <label class="col24">{{ 'Tax Rate 2 (Labour)' | translate }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 mt10">
+                                                <div class="col7 pr5">
+                                                    <label class="col24" for="TaxCodeLabour">{{ 'Tax Code' | translate }}</label>
+                                                    <input id="TaxCodeLabour" class="form-control" formControlName="TaxCodeLabour" type="text" size="6" [attr.maxlength]="6"
+                                                        (change)="taxCodeLabourTabout()" eTypeText>
+                                                </div>
+                                                <div class="col1 mt20">
+                                                    <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.taxCodeLabourSearch.params"
+                                                        [contentComponent]="searchConfigs.taxCodeLabourSearch.component" [disabled]="searchConfigs.taxCodeLabourSearch.isDisabled"
+                                                        (ellipsisData)="setTaxCodeLabour($event)" [modalConfig]="modalConfig"></icabs-ellipsis>
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="TaxCodeLabourDesc">{{ 'Tax Code Description' | translate }}</label>
+                                                    <input id="TaxCodeLabourDesc" class="form-control" formControlName="TaxCodeLabourDesc" type="text" size="25" [attr.maxlength]="50">
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="InvoiceTextLabour">{{ 'Invoice Text' | translate }}</label>
+                                                    <input id="InvoiceTextLabour" class="form-control" formControlName="InvoiceTextLabour" type="text" size="25" [attr.maxlength]="30"
+                                                        eTypeText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 mt20">
+                                                <div class="col24">
+                                                    <label class="col24">{{ 'Tax Rate 3 (Replacement)' | translate }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12 mt10">
+                                                <div class="col7 pr5">
+                                                    <label class="col24" for="TaxCodeReplacement">{{ 'Tax Code' | translate }}</label>
+                                                    <input id="TaxCodeReplacement" class="form-control" formControlName="TaxCodeReplacement" type="text" size="6" [attr.maxlength]="6"
+                                                        (change)="taxCodeReplacementTabout()" eTypeText>
+                                                </div>
+                                                <div class="col1 mt20">
+                                                    <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.taxCodeReplacementSearch.params"
+                                                        [contentComponent]="searchConfigs.taxCodeReplacementSearch.component"
+                                                        [disabled]="searchConfigs.taxCodeReplacementSearch.isDisabled" (ellipsisData)="setTaxCodeReplacement($event)"
+                                                        [modalConfig]="modalConfig"></icabs-ellipsis>
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="TaxCodeReplacementDesc">{{ 'Tax Code Description' | translate }}</label>
+                                                    <input id="TaxCodeReplacementDesc" class="form-control" formControlName="TaxCodeReplacementDesc" type="text" size="25" [attr.maxlength]="50">
+                                                </div>
+                                                <div class="col8 pl5">
+                                                    <label class="col24" for="InvoiceTextReplacement">{{ 'Invoice Text' | translate }}</label>
+                                                    <input id="InvoiceTextReplacement" class="form-control" formControlName="InvoiceTextReplacement" type="text" size="25" [attr.maxlength]="30"
+                                                        eTypeText>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-6" *ngIf="displayFields.trServiceTypeCode">
+                                            <label class="col24" for="ServiceTypeCode">{{ 'Service Type' | translate }}</label>
+                                            <icabs-servicetype-search #serviceTypeSearchDropDown [inputParams]="searchConfigs.serviceTypeSearch" [active]="searchConfigs.serviceTypeSearch.active"
+                                                [isRequired]="searchConfigs.serviceTypeSearch.isRequired" [isTriggerValidate]="searchConfigs.serviceTypeSearch.isTriggerValidate"
+                                                [isDisabled]="searchConfigs.serviceTypeSearch.isDisabled" (receivedServiceTypeData)="setServiceType($event)">
+                                            </icabs-servicetype-search>
+                                            <!-- <div class="col6 pr5">
+                                                <input id="ServiceTypeCode" class="form-control" formControlName="ServiceTypeCode" type="text" size="2" [attr.maxlength]="2"
+                                                    eTypeCode>
+                                            </div>
+                                            <div class="col16 pr5">
+                                                <input id="ServiceTypeDesc" class="form-control" formControlName="ServiceTypeDesc" type="text" size="40" [attr.maxlength]="40"
+                                                    eTypeTextFree>
+                                            </div>
+                                            <div class="col2">
+                                                <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.serviceTypeSearch.params"
+                                                    [contentComponent]="searchConfigs.serviceTypeSearch.component" [disabled]="searchConfigs.serviceTypeSearch.isDisabled"
+                                                    [modalConfig]="modalConfig"></icabs-ellipsis>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-6">
+                                            <label class="col24" for="InitialInvoicePeriodInYears">{{ 'Initial Invoice Period (in Years)' | translate }}</label>
+                                            <div class="col12">
+                                                <input id="InitialInvoicePeriodInYears" class="form-control" formControlName="InitialInvoicePeriodInYears" type="text" size="4"
+                                                    [attr.maxlength]="1" eTypeInteger>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6 mt10">
+                                            <div class="col24">
+                                                <label class="col24" for="CombineInvoiceValueInd">{{ 'Combine Invoice Value On IG' | translate }}</label>
+                                            </div>
+                                            <div class="col2">
+                                                <input type="checkbox" class="form-control" id="CombineInvoiceValueInd" formControlName="CombineInvoiceValueInd" (change)="combineInvoiceValueIndOnChecked()">
+                                                <label class="col24" for="CombineInvoiceValueInd"></label>
+                                            </div>
+                                            <div class="col22 pl5">
+                                                <input id="CombineInvoiceValueDesc" class="form-control" formControlName="CombineInvoiceValueDesc" type="text" size="60"
+                                                    [attr.maxlength]="100" eTypeText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab: Values -->
+                        <div class="tab-pane active" *ngIf="tabActive===4">
+                            <div id="grdValue" class="mt10">
+                                <div class="row mt10" *ngIf="displayFields.trInstallationValue">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="InstallationValue">{{ 'Installation Value' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="InstallationValue" class="form-control" formControlName="InstallationValue" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeCurrency>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="InstallTime">{{ 'Average Installation Time' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="InstallTime" class="form-control" formControlName="InstallTime" type="text" size="5" [attr.maxlength]="5" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="displayFields.trRemovalValue">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="RemovalValue">{{ 'Removal Value' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="RemovalValue" class="form-control" formControlName="RemovalValue" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeCurrency>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="RemovalTime">{{ 'Average Removal Time' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="RemovalTime" class="form-control" formControlName="RemovalTime" type="text" size="5" [attr.maxlength]="5" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CostPrice">{{ 'Cost Price' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="CostPrice" class="form-control" formControlName="CostPrice" type="text" size="10" [attr.maxlength]="10" eTypeCurrency>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ListPrice">{{ 'List Price' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ListPrice" class="form-control" formControlName="ListPrice" type="text" size="10" [attr.maxlength]="10" eTypeCurrency>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ServiceTime">{{ 'Average Service Time' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ServiceTime" class="form-control" formControlName="ServiceTime" type="text" size="5" [attr.maxlength]="5" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="WeightFactor">{{ 'Weight Factor' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="WeightFactor" class="form-control" formControlName="WeightFactor" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeCurrency>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AverageWeight">{{ 'Average Weight (KG)' | translate}}</label>
+                                        <div class="col8">
+                                            <input id="AverageWeight" class="form-control" formControlName="AverageWeight" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProductChargeType">{{ 'Product Charge Type' | translate }}</label>
+                                        <div class="col6 pr5">
+                                            <input id="ProductChargeType" class="form-control" formControlName="ProductChargeType" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col16 pr5">
+                                            <input id="ProductChargeDesc" class="form-control" formControlName="ProductChargeDesc" type="text" size="40" [attr.maxlength]="40"
+                                                eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.productChargeTypeSearch.params"
+                                                [contentComponent]="searchConfigs.productChargeTypeSearch.component" [disabled]="searchConfigs.productChargeTypeSearch.isDisabled"
+                                                [modalConfig]="modalConfig"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProductChargeQuantity">{{ 'Product Charge Quantity' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ProductChargeQuantity" class="form-control" formControlName="ProductChargeQuantity" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProductPriceGroupCode">{{ 'Product Price Group' | translate }}</label>
+                                        <div class="col6 pr5">
+                                            <input id="ProductPriceGroupCode" class="form-control" formControlName="ProductPriceGroupCode" type="text" size="12" [attr.maxlength]="12"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col16 pr5">
+                                            <input id="ProductPriceGroupDesc" class="form-control" formControlName="ProductPriceGroupDesc" type="text" size="40" [attr.maxlength]="40"
+                                                eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [showHeader]="true" [showCloseButton]="true" [childConfigParams]="searchConfigs.productPriceGroupSearch.params"
+                                                [contentComponent]="searchConfigs.productPriceGroupSearch.component" [disabled]="searchConfigs.productPriceGroupSearch.isDisabled"
+                                                [modalConfig]="modalConfig"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="displayFields.trCapacityFactor">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CapacityFactor">{{ 'Capacity Factor' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="CapacityFactor" class="form-control" formControlName="CapacityFactor" type="text" size="4" [attr.maxlength]="4"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ServiceType">{{ 'Service Type (S or P)' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ServiceType" class="form-control" formControlName="ServiceType" type="text" size="4" [attr.maxlength]="1" eTypeCode>
+                                        </div>
+                                        <label class="col16">{{ 'S = For a Service, P = For a Physical Product' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReplacementCost">{{ 'Replacement Cost' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ReplacementCost" class="form-control" formControlName="ReplacementCost" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReplacementValue">{{ 'Replacement Value' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="ReplacementValue" class="form-control" formControlName="ReplacementValue" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="DepreciationPeriod">{{ 'Depreciation Period' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="DepreciationPeriod" class="form-control" formControlName="DepreciationPeriod" type="text" size="2" [attr.maxlength]="2"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="MaxUnitsPerTrip">{{ 'Max Units per Trip' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="MaxUnitsPerTrip" class="form-control" formControlName="MaxUnitsPerTrip" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="DefaultVisitFrequency">{{ 'Default Visit Frequency' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="DefaultVisitFrequency" class="form-control" formControlName="DefaultVisitFrequency" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CapitalRecoveryValue">{{ 'Capital Recovery Value' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="CapitalRecoveryValue" class="form-control" formControlName="CapitalRecoveryValue" type="text" size="10" [attr.maxlength]="10"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="PrepUsageValue">{{ 'Prep Usage Value' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="PrepUsageValue" class="form-control" formControlName="PrepUsageValue" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="LabourValuePerc">{{ 'Labour Value' | translate }} %</label>
+                                        <div class="col8">
+                                            <input id="LabourValuePerc" class="form-control" formControlName="LabourValuePerc" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="MaterialsValuePerc">{{ 'Materials Value' | translate }} %</label>
+                                        <div class="col8">
+                                            <input id="MaterialsValuePerc" class="form-control" formControlName="MaterialsValuePerc" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReplacementValuePerc">{{ 'Replacement Value' | translate }} %</label>
+                                        <div class="col8">
+                                            <input id="ReplacementValuePerc" class="form-control" formControlName="ReplacementValuePerc" type="text" size="10" [attr.maxlength]="8"
+                                                eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="MaterialSharePercentage">{{ 'Material Share' | translate }} %</label>
+                                        <div class="col8">
+                                            <input id="MaterialSharePercentage" class="form-control" formControlName="MaterialSharePercentage" type="text" size="10"
+                                                [attr.maxlength]="8" eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="displayFields.trWasteTransferCharge">
+                                        <label class="col24" for="WasteTransferChargeValue">{{ 'Waste Transfer Fee' | translate }}</label>
+                                        <div class="col8">
+                                            <input id="WasteTransferChargeValue" class="form-control" formControlName="WasteTransferChargeValue" type="text" size="10"
+                                                [attr.maxlength]="8" eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Service Type -->
+                        <!-- TODO: Tab Active need to be implemented as ngIf  -->
+                        <div class="tab-pane active" *ngIf="displayFields.serviceTypeTab" [ngClass]="{'hidden': tabActive!==5}">
+                            <div id="grdSTypeGrid" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh (onRefresh)="riGridSTypeOnRefresh()"></icabs-refresh>
+                                        <icabs-pagination *ngIf="gridParams.totalRecords > 0" #riGridSTypePagination [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                                            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced #riGridSType (bodyClick)="riGridSTypeBodyOnClick($event)" (bodyDblClick)="riGridBodyOnDblClick($event)"></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Product Hierarchy -->
+                        <!-- TODO: Tab Active need to be implemented as ngIf  -->
+                        <div class="tab-pane active" [ngClass]="{'hidden': tabActive!==6}">
+                            <div id="grdHierarchy" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ProductCategoryCode">{{ 'Category' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-dropdown-static #productCategoryCodeDropdown class="" [inputData]="productCategoryCodesList" (onSelect)="onProductCategoryCodeSelect($event)"
+                                                [disabled]="isProductHierarchyDropdownsDisabled"></icabs-dropdown-static>
+                                        </div>
+                                        <!-- Commented  out based on discussion with Samik 15/11/2017. Now both are merged  -->
+                                        <!-- <div class="col12">
+                                            <select id="ProductCategoryDesc" class="form-control" formControlName="ProductCategoryDesc">
+                                            <option selected value="">{{ 'None' | translate }}</option></select>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ProductBusinessLineCode">{{ 'Line of Business' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-dropdown-static #productBusinessLineCodeDropdown class="" [inputData]="productBusinessLineCodesList" (onSelect)="onProductBusinessLineCodeSelect($event)"
+                                                [disabled]="isProductHierarchyDropdownsDisabled"></icabs-dropdown-static>
+                                        </div>
+                                        <!-- Commented  out based on discussion with Samik 15/11/2017. Now both are merged  -->
+                                        <!-- <div class="col12">
+                                            <select id="ProductBusinessLineDesc" class="form-control" formControlName="ProductBusinessLineDesc">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ProductHierarchyServiceGroupCode">{{ 'Service Group' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-dropdown-static #productHierarchyServiceGroupCodeDropdown class="" [inputData]="productHierarchyServiceGroupCodesList"
+                                                (onSelect)="onProductHierarchyServiceGroupCodeSelect($event)" [disabled]="isProductHierarchyDropdownsDisabled"></icabs-dropdown-static>
+                                            <!-- <select id="ProductHierarchyServiceGroupCode" class="form-control" formControlName="ProductHierarchyServiceGroupCode">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select> -->
+                                        </div>
+                                        <!-- Commented  out based on discussion with Samik 15/11/2017. Now both are merged  -->
+                                        <!-- <div class="col12">
+                                            <select id="ProductHierarchyServiceGroupDesc" class="form-control" formControlName="ProductHierarchyServiceGroupDesc">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ProductSubGroupCode">{{ 'Sub-Group' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-dropdown-static #productSubGroupCodeDropdown class="" [inputData]="productSubGroupCodesList" (onSelect)="onProductSubGroupCodeSelect($event)"
+                                                [disabled]="isProductHierarchyDropdownsDisabled"></icabs-dropdown-static>
+                                            <!-- <select id="ProductSubGroupCode" class="form-control" formControlName="ProductSubGroupCode">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select> -->
+                                        </div>
+                                        <!-- Commented  out based on discussion with Samik 15/11/2017. Now both are merged  -->
+                                        <!-- <div class="col12">
+                                            <select id="ProductSubGroupDesc" class="form-control" formControlName="ProductSubGroupDesc">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="ProductProductUsageCode">{{ 'Product Usage' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-dropdown-static #productProductUsageCodeDropdown class="" [inputData]="productProductUsageCodesList" (onSelect)="onProductUsageCodeSelect($event)"
+                                                [disabled]="isProductHierarchyDropdownsDisabled"></icabs-dropdown-static>
+                                            <!-- <select id="ProductProductUsageCode" class="form-control" formControlName="ProductProductUsageCode">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select> -->
+                                        </div>
+                                        <!-- Commented  out based on discussion with Samik 15/11/2017. Now both are merged  -->
+                                        <!-- <div class="col12">
+                                            <select id="ProductProductUsageDesc" class="form-control" formControlName="ProductProductUsageDesc">
+                                                <option selected value="">{{ 'None' | translate }}</option>
+                                            </select>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Telesales -->
+                        <div class="tab-pane active" *ngIf="tabActive===7">
+                            <div id="grdTelesales" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="TelesalesInd" formControlName="TelesalesInd">
+                                            <label class="col24" for="TelesalesInd">{{ 'Telesales' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="UnitPrice">{{ 'Unit Price' | translate}}</label>
+                                        <div class="col8">
+                                            <input id="UnitPrice" class="form-control" formControlName="UnitPrice" type="text" size="10" [attr.maxlength]="10" eTypeCurrency>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="TelesalesMinimumQuantity">{{ 'Minimum Quantity Allowed' | translate}}</label>
+                                        <div class="col8">
+                                            <input id="TelesalesMinimumQuantity" class="form-control" formControlName="TelesalesMinimumQuantity" type="text" size="10"
+                                                [attr.maxlength]="10" eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="TelesalesAllowDiscountInd" formControlName="TelesalesAllowDiscountInd">
+                                            <label class="col24" for="TelesalesAllowDiscountInd">{{'Allow Discounting'|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="TelesalesMaxDiscountPercAllowed">{{ 'Maximum Discount Percentage' | translate}}</label>
+                                        <div class="col8">
+                                            <input id="TelesalesMaxDiscountPercAllowed" class="form-control" formControlName="TelesalesMaxDiscountPercAllowed" type="text"
+                                                size="6" [attr.maxlength]="6" eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr10" value="{{ 'Save' | translate }}" (click)="validateBeforeSave()" [disabled]="this['formMode']===this['c_s_MODE_SELECT'] || !this['uiForm'].dirty">
+                <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate }}" (click)="cancelProduct()" [disabled]="this['formMode']===this['c_s_MODE_SELECT'] || !this['uiForm'].dirty">
+                <input type="button" class="btn btn-additional" value="{{ 'Delete' | translate }}" (click)="promptModalForDelete()" *ngIf="this['formMode']===this['c_s_MODE_UPDATE']">
+            </div>
+            <div class="col-sm-offset-4 col-sm-2">
+                <div class="pull-right">
+                    <select id="menu" class="form-control" (change)="selectedOption($event.target.value)" [disabled]="this['formMode']===this['c_s_MODE_ADD']">
+                        <option *ngFor="let option of optionsMenu" value="{{option.value}}">{{ option.text | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

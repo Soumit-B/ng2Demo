@@ -1,0 +1,114 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="9" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="30" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col10">
+                        <label class="col24" for="SelectedYear">{{ 'Year' | translate}}</label>
+                        <select id="SelectedYear" class="form-control" formControlName="SelectedYear">
+                            <option>{{'2017'|translate}}</option>
+                     </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="9" [attr.maxlength]="7">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="30" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col10 pr5">
+                        <label class="col24" for="ServiceVisitFrequency">{{ 'Visit Frequency' | translate}}</label>
+                        <input id="ServiceVisitFrequency" class="form-control" formControlName="ServiceVisitFrequency" type="text" size="6">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="TotalVisits">{{ 'Entered' | translate}}</label>
+                        <input id="TotalVisits" class="form-control" formControlName="TotalVisits" type="text" size="6">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="9" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductCodeDesc" class="form-control" formControlName="ProductCodeDesc" type="text" size="30" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col10 pr5">
+                        <label class="col24" for="ServiceAnnualTime">{{ 'Annual Hours' | translate}}</label>
+                        <input id="ServiceAnnualTime" class="form-control" formControlName="ServiceAnnualTime" type="text" size="6">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="TotalHours">{{ 'Entered' | translate}}</label>
+                        <input id="TotalHours" class="form-control" formControlName="TotalHours" type="text" size="6">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceVisitAnnivDate">{{ 'Service Anniversary Date' | translate}}</label>
+                    <div class="col10">
+                        <input id="ServiceVisitAnnivDate" class="form-control" formControlName="ServiceVisitAnnivDate" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input type="submit" class="btn btn-primary mr5" value="{{ 'Save' | translate }}">
+                    <input type="button" class="btn btn-additional" value="{{ 'Undo' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceAnnualValue">{{ 'Service Annual Value' | translate}}</label>
+                    <div class="col10">
+                        <input id="ServiceAnnualValue" class="form-control" formControlName="ServiceAnnualValue" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <!--<div class="col-sm-6 text-center">
+                    <div class="inline-block pr10" *ngFor="let l of uiDisplay.legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{l.label}}</label>
+                    </div>
+                </div>-->
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

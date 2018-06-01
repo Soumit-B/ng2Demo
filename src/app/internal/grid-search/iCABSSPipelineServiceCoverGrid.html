@@ -1,0 +1,51 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Advantage Service Covers' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contract Ref' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="dlContractRef" size="30" [attr.maxlength]="30" class="form-control" formControlName="dlContractRef">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Premises Ref' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="dlPremiseRef" size="30" [attr.maxlength]="30" class="form-control" formControlName="dlPremiseRef">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Quote Type' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="QuoteTypeCode" size="8" class="form-control" formControlName="QuoteTypeCode">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #PipelineServiceCoverGridPagination [totalItems]="totalRecords" [ngClass]="this.totalRecords > 0 ? '':'hidden'"
+                        [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="riGrid_onGridRowClick($event)" (bodyDblClick)="riGrid_onGridRowDBClick($event)"
+                        (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>

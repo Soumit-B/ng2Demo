@@ -1,0 +1,79 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Contact Redirection Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'From Employee' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="6" maxlength="6" value="" class="form-control" formControlName="EmployeeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="40" maxlength="40" value="" class="form-control" formControlName="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Delegate To Employee' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCodeTo" size="6" maxlength="6" value="" class="form-control" formControlName="EmployeeCodeTo">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurnameTo" size="40" maxlength="40" value="" class="form-control" formControlName="EmployeeSurnameTo">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Date From' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Date To' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <input id="RedirectMessagingInd" type="checkbox" class="form-control" formControlName="RedirectMessagingInd">
+                    <label class="col24">{{ 'Redirect Messaging' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <input id="RedirectEmployeeInd" type="checkbox" class="form-control" formControlName="RedirectEmployeeInd">
+                    <label class="col24">{{ 'Redirect Tickets To Delegated Employee' | translate }}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" id="" class="btn btn-primary mr10" value="Save">
+                    <input type="button" id="" class="btn btn-secondary mr10" value="Cancel">
+                    <input type="button" id="" class="btn btn-additional" value="Delete">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

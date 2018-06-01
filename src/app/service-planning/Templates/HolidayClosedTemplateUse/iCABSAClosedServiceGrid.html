@@ -1,0 +1,91 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] |translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5 hidden">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Branch' |translate}} </label>
+                    <div class="col6 pr5">
+                        <input type="text" id="BranchNumber" formControlName="BranchNumber" size="9" maxlength="9" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="BranchName" formControlName="BranchName" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Template' |translate}}<span  class="mandatory">* </span></label>
+                    <div class="col6 pr5">
+                        <input type="text" id="ClosedCalendarTemplateNumber" formControlName="ClosedCalendarTemplateNumber" size="9" maxlength="9"
+                            class="form-control" (change)="TemplateNumberOnKeyDown($event)" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="TemplateName" formControlName="TemplateName" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+
+                        <icabs-ellipsis #ClosedTemplateSearchComponent [showCloseButton]="ellipsis.closedtemplatesearch.showCloseButton" [childConfigParams]="ellipsis.closedtemplatesearch.childConfigParams"
+                            [contentComponent]="ellipsis.closedtemplatesearch.component" (ellipsisData)="onclosedtemplatesearchReceived($event)"
+                            [showHeader]="ellipsis.closedtemplatesearch.showHeader" [disabled]="ellipsis.closedtemplatesearch.disabled"></icabs-ellipsis>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-4">
+                    <label class="col24" for="ShowType">{{'Show' |translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" formControlName="ShowType" id="ShowType">
+                            <option value="All" selected >{{'All' |translate}}</option>
+                            <option value="notemplate">{{'No Template' | translate}}</option>
+                            <option value="template" >{{'Follows Template' | translate}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PortfolioStatus">{{'Show' |translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" formControlName="PortfolioStatus" id="PortfolioStatus">
+                            <option value="All">{{'All' |translate}}</option>
+                            <option value="Current" selected>{{'Current Portfolio' | translate}}</option>
+                            <option value="NonCurrent">{{'Non Current Portfolio' | translate}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #grdclosedservicePagination [ngClass]="this.totalRecords > 0 ? '':'hidden'" [totalItems]="totalRecords"
+                        [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)" [currentPage]="currentPageSize"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="riGrid_BodyonDblClick($event)" (bodylClick)="riGrid_BodyOnlClick($event)" (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"
+                        (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="row mt10 hidden">
+                <input id="ContractNumber" formControlName="ContractNumber">
+                <input id="PremiseNumber" formControlName="PremiseNumber">
+                <input id="ServiceCoverRowID" formControlName="ServiceCoverRowID">
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #messageModal [(showHeader)]="showHeader"></icabs-modal>
+<icabs-modal #errorModal [(showHeader)]="showHeader"></icabs-modal>

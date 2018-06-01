@@ -1,0 +1,227 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Cover Information' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="35" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20">
+                    <div class="col8 pr5">
+                        <input type="button" class="btn btn-additional" value="{{'Customer Information'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="9" maxlength="5">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" size="9" maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName="ProductDesc" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <!--Tab function-->
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item " id="grdGeneral">
+                            <a class="nav-link  ">
+                                <span>{{'General'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdAccessTimes">
+                            <a class="nav-link   ">
+                                <span>{{'Access Times'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="grdSpecialInstructions">
+                            <a class="nav-link active ">
+                                <span>{{'Special Instructions'|translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--General tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane  ">
+                            <div id="grdGeneral">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{'Contract Expiry Date'|translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" class="form-control" id="ContractExpiryDate" formControlName="ContractExpiryDate" size="10" maxlength="10">
+                                        </div>
+                                        <div class="col8">
+                                            <label class=" message-box warning col24 " id="ContractHasExpiredText">{{'Expired'|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Access Times tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane ">
+                            <div id="grdAccessTimes">
+                                <div class="row mt10">
+                                    <div class="col-sm-6" id="grdAccessTimes">
+                                        <table id="grdTimeWindows" class="table dataTable table-bordered" border="1" cellpadding="2" cellspacing="1">
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                                <td align="left">
+                                                    {{'Start'|translate}}
+                                                </td>
+                                                <td align="center">
+                                                    {{'End'|translate}}
+                                                </td>
+                                                <td align="center">
+                                                    {{'Start'|translate}}
+                                                </td>
+                                                <td align="center">
+                                                    {{'End'|translate}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Sunday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart01" formControlName="WindowStart01" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd01" formControlName="WindowEnd01" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart08" formControlName="WindowStart08" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd08" formControlName="WindowEnd08" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Monday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart02" formControlName="WindowStart02" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd02" formControlName="WindowEnd02" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart09" formControlName="WindowStart09" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd09" formControlName="WindowEnd09" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Tuesday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart03" formControlName="WindowStart03" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd03" formControlName="WindowEnd03" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart10" formControlName="WindowStart10" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd10" formControlName="WindowEnd10" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Wednesday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart04" formControlName="WindowStart04" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd04" formControlName="WindowEnd04" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart11" formControlName="WindowStart11" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd11" formControlName="WindowEnd11" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Thursday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart05" formControlName="WindowStart05" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd05" formControlName="WindowEnd05" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart12" formControlName="WindowStart12" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd12" formControlName="WindowEnd12" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Friday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart06" formControlName="WindowStart06" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd06" formControlName="WindowEnd06" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart13" formControlName="WindowStart13" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd13" formControlName="WindowEnd13" class="form-control" size="5"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    {{'Saturday'|translate}}
+                                                </td>
+                                                <td>
+                                                    <input id="WindowStart07" formControlName="WindowStart07" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd07" formControlName="WindowEnd07" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowStart14" formControlName="WindowStart14" class="form-control" size="5"></td>
+                                                <td>
+                                                    <input id="WindowEnd14" formControlName="WindowEnd14" class="form-control" size="5"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Special Instructions tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="grdSpecialInstructions">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <textarea id="ServiceSpecialInstructions" formControlName="ServiceSpecialInstructions" class="form-control" type="text" rows="15"
+                                            cols="35"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </form>
+</section>

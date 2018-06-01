@@ -1,0 +1,158 @@
+<div id="AddressInvoice" class="tab-pane fade in" [formGroup]="addressInvoiceFormGroup">
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <input type="button" class="btn btn-sm btn-primary mr10" value="{{ 'Premises Address' | translate }}" [disabled]="buttonStates.PremisesAddress || disableForm"
+                (click)="getInvoiceTabPremisesAddress()">
+            <input type="button" class="btn btn-sm btn-primary mr10" value="{{ 'Account Address' | translate }}" [disabled]="buttonStates.AccountAddress || disableForm"
+                (click)="getInvoiceTabAccountAddress()">
+            <input type="button" class="btn btn-sm btn-primary" value="{{ 'Invoice Address' | translate }}" [disabled]="buttonStates.InvoiceAddress || disableForm"
+                (click)="getInvoiceTabInvoiceAddress()">
+        </div>
+    </div>
+    <div class="row mt5">
+        <div class="col-sm-3">
+            <label class="col24">{{'Name' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceName" formControlName="InvoiceName" (change)="onInvoiceNameChange()">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-sm btn-primary mt20" value="{{ 'Get Address' | translate }}" *ngIf="elementShowHide.GetAddress"
+                (click)="getAddressClick()" [disabled]="disableForm">
+        </div>
+    </div>
+
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Address Line 1' | translate}} <span class="mandatory">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceAddressLine1" formControlName="InvoiceAddressLine1">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Address Line 2' | translate}} </label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceAddressLine2" formControlName="InvoiceAddressLine2">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="elementShowHide.AddressLine3">
+        <div class="col-sm-3">
+            <label class="col24">{{'Address Line 3' | translate}} <span class="mandatory" *ngIf="elementShowHide.AddressLine3Required">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceAddressLine3" formControlName="InvoiceAddressLine3">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Town' | translate}} <span class="mandatory" *ngIf="elementShowHide.InvoiceAddressLine4Required">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceAddressLine4" formControlName="InvoiceAddressLine4"
+                    (blur)="onInvoiceAddressLine4Blur()">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'County' | translate}} <span class="mandatory" *ngIf="elementShowHide.InvoiceAddressLine5Required">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" [maxlength]="maxLen" class="form-control" id="InvoiceAddressLine5" formControlName="InvoiceAddressLine5"
+                    (blur)="onInvoiceAddressLine5Blur()">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="elementShowHide.PostCode">
+        <div class="col-sm-3">
+            <label class="col24">{{'Postcode' | translate}} <span class="mandatory">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="15" class="form-control" id="InvoicePostcode" formControlName="InvoicePostcode" (blur)="onPostCodeBlur()"
+                    (change)="onPostCodeChange()">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="elementShowHide.GPSCoordinates">
+        <div class="col-sm-3">
+            <label class="col24">{{'GPS Coordinate X' | translate}} <span class="mandatory">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="15" class="form-control" id="InvoiceGPSCoordinateX" formControlName="InvoiceGPSCoordinateX">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24">{{'GPS Coordinate Y' | translate}} <span class="mandatory">*</span></label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="15" class="form-control" id="InvoiceGPSCoordinateY" formControlName="InvoiceGPSCoordinateY">
+            </div>
+        </div>
+    </div>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-3">
+            <label class="col24">{{'Contact Name' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactName" formControlName="InvoiceContactName">
+            </div>
+        </div>
+        <div class="col-sm-3 mt20" *ngIf="elementShowHide.ContactDetails">
+            <div class="col24">
+                <input type="button" class="btn btn-primary" value="{{ 'Contact Details' | translate }}" (click)="getContactDetails()" [disabled]="disableForm">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Position' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactPosition" formControlName="InvoiceContactPosition">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24">{{'Department' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactDepartment" formControlName="InvoiceContactDepartment">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Telephone' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactTelephone" formControlName="InvoiceContactTelephone">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24">{{'Mobile' | translate}} </label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactMobile" formControlName="InvoiceContactMobile">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Email' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactEmail" formControlName="InvoiceContactEmail">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24">{{'Fax' | translate}}  </label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceContactFax" formControlName="InvoiceContactFax">
+            </div>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-primary" value="{{ 'Copy To Statement' | translate }}" [disabled]="buttonStates.CopyInvoice || disableForm"
+                (click)="copyInvoice()">
+        </div>
+    </div>
+</div>
+<icabs-ellipsis [hidden]="showPremiseSearchEllipsis" #premiseSearchEllipsis [childConfigParams]="inputParamsPremise" [contentComponent]="premiseSearchComponent"
+    [showHeader]="true" [disabled]="false" [modalConfig]='modalConfig' (ellipsisData)="onPremiseDataReturn($event)" [disabled]="true"
+    (modalHidden)="onPremiseDataReturn()"></icabs-ellipsis>
+<icabs-ellipsis #postcodeSearchEllipsis [childConfigParams]="inputParamsPostcode" [contentComponent]="postcodeSearchComponent"
+    [showHeader]="true" [disabled]="false" [modalConfig]='modalConfig' (ellipsisData)="onPostcodeDataReturn($event)" [hideIcon]="true"></icabs-ellipsis>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

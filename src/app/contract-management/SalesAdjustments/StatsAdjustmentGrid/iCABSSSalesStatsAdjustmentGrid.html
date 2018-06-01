@@ -1,0 +1,97 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ 'Sales Stats Adjustment' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanContractNumber">{{ 'Contract/Job' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input #ContractNumber id="ContractNumber" formControlName="ContractNumber" (blur)="onBlurContract($event)" class="form-control"
+                            [required]="true" type="text" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="contractSearchModal" [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.ContractSearchComponentEllipsis.childparams"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.ContractSearchComponentEllipsis.component"
+                            (ellipsisData)="onContractSearchDataReceived($event, 'ContractNumber','ContractName')" [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{ 'Change From' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #ValueChangeReasonFrom [inputData]="MenuOptionListValueChangeReasonFrom" (change)="onValueChangeReasonFromChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Premises' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" (blur)="onBlurPremise($event)" type="text"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.PremiseSearchComponentEllipsis.disabled" [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.PremiseSearchComponentEllipsis.childparams"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.PremiseSearchComponentEllipsis.component"
+                            (ellipsisData)="onPremiseSearchDataReceived($event, 'PremiseNumber','PremiseName')" [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{ 'To' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #ValueChangeReasonTo [inputData]="MenuOptionListValueChangeReasonTo" (change)="onValueChangeReasonToChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Product' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" (blur)="onBlurProduct($event)" type="text" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductEllipsis [disabled]="ellipsis.ProductSearchComponentEllipsis.disabled" [showCloseButton]="showCloseButton"
+                            [childConfigParams]="ellipsis.ProductSearchComponentEllipsis.childparams" [modalConfig]="modalConfig"
+                            [contentComponent]="ellipsis.ProductSearchComponentEllipsis.component" (ellipsisData)="onProductSearchDataReceived($event, 'ProductCode','ProductDesc')"
+                            [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{ 'Freq' | translate }}</label>
+                    <div class="col24">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #adjustmentGridPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGrid_Sort($event)" (bodyClick)="onClickCell($event)" (bodyDblClick)="onGridRowClick($event)"
+                        (bodyColumnBlur)="onCellClickBlur($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>

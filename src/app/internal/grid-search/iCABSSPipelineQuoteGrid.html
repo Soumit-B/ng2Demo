@@ -1,0 +1,73 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProspectNumber" formControlName="ProspectNumber" [attr.maxlength]="8" class="form-control" type="text">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProspectName" formControlName="ProspectName" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Type'|translate}}</label>
+                    <div class="col24 pr5">
+                        <input id="ProspectType" formControlName="ProspectType" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="riGrid_BeforeExecute()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [currentPage]="curPage" [itemsPerPage]="pageSize" [totalItems]="totalRecords" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (onSuccess)="riGrid_AfterExecute()" (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                        (bodyKeyDown)="riGrid_BodyOnKeyDown($event)" (headerClick)="riGrid_headerClick($event)"></icabs-grid-advanced>
+
+                </div>
+            </div>
+
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col9">{{'Selected Quote'|translate}}</label>
+                    <div class="col15 pr5">
+                        <input id="QuoteNumber" formControlName="QuoteNumber" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col15 padding-left-zero">
+                        <icabs-dropdown-static #menu [inputData]="this['pageParams']['menuArray']" [doTranslate]="false" (onSelect)="onMenuSelect($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col15 padding-left-zero pull-right">
+                        <select id="menu2" class="form-control" (change)="menu2_onchange($event.target.value)">
+                            <option selected value="">{{'Selected Quote Options' | translate}}</option>
+                            <option value="CustomerQuote">{{'View Customer Quote' | translate}}</option>
+                            <option value="History">{{'View History' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <!--<icabs-modal #messageModal [showHeader]="'true'"> </icabs-modal>-->
+    <icabs-prompt-modal #promptModal [showHeader]="'true'" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptYes($event)"></icabs-prompt-modal>
+</section>

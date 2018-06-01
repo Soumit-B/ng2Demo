@@ -1,0 +1,670 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ 'Batch Program Schedule Selection' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+
+
+        <div class="row mt5">
+            <div class="col-sm-4">
+                <label class="col24">{{'Schedule Number' | translate }}</label>
+
+                <div class="col16 pr5">
+                    <input type="text" id="riBPSUniqueNumber" formControlName="riBPSUniqueNumber" size="6" maxlength="6" value="" class="form-control"
+                        hidden="true" (change)="tabOutfromUniqueNumber()" eTypeCode>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="programScheduleSearchParams" [autoOpen]="batchProgramScheduleAutoOpen" [showCloseButton]="showCloseButton"
+                        [contentComponent]="batchProgramScheduleSearchComponent" (ellipsisData)="onScheduleNoSelectFromEllipsis($event, true)"
+                        [showHeader]="showHeader" (modalHidden)="modalHidden()" [disabled]="isBatchProgramScheduleMaintenanceDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <label class="col24">{{ 'Next Run' | translate }}</label>
+                <div class="col8 pr5">
+                    <input id="riBPSNextDate" formControlName="riBPSNextDate" size="9" maxlength="9" class="form-control" eTypeDate>
+
+                </div>
+                <div class="col14">
+                    <input id="riBPSNextTime" formControlName="riBPSNextTime" size="40" maxlength="40" value="" class="form-control" hidden="true"
+                        eTypeText>
+                </div>
+
+            </div>
+
+        </div>
+        <!--- Tabs Section -->
+        <div class="row mt30">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" id="grdPlanMaintenance" [ngClass]="{'active': uiDisplay['tab']['tab1']['active']}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay['tab']['tab1']['active']}" (click)="renderTab(1)">
+                            <span>{{ 'Attributes' | translate }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="grdApptMaintenance" [ngClass]="{'active': uiDisplay['tab']['tab2']['active']}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay['tab']['tab2']['active']}" (click)="renderTab(2)">
+                            <span>{{ 'Schedule' | translate }}</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane" [hidden]="" [ngClass]="{'active': uiDisplay['tab']['tab1']['active']}">
+                        <div class="row mt30">
+                            <div class="col-sm-12">
+                            </div>
+
+                        </div>
+                        <div id="attributes" class="mt10">
+
+                            <div class="row mt5">
+                                <div class="col-sm-4">
+                                    <label class="col24">{{ 'Program' | translate }}</label>
+
+                                    <div class="col16 pr5 ">
+                                        <input type="text" (change)="validateEnteredData($event)" id="riBatchProgramName" formControlName="riBatchProgramName" size="50"
+                                            maxlength="50" value="" class="form-control" hidden="true" eTypeText>
+                                    </div>
+                                    <div class="col2">
+                                        <icabs-ellipsis [childConfigParams]="programSearchParams" [autoOpen]="false" [showCloseButton]="showCloseButton" [contentComponent]="batchProgramSearchComponent"
+                                            (ellipsisData)="onProgramSelectFromEllipsis($event, true)" [showHeader]="showHeader"
+                                            [disabled]="isBatchProgramScheduleMaintenanceDisabled1"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24">{{ 'Description' | translate }}</label>
+
+                                    <div class="col16 ">
+                                        <input id="riBatchProgramDescription" formControlName="riBatchProgramDescription" size="40" maxlength="40" value="" class="form-control"
+                                            hidden="true" eTypeTextFree>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt2">
+                                <div class="col-sm-4">
+                                    <label class="col24">{{ 'User Code' | translate }}</label>
+
+                                    <div class="col16 pr5">
+                                        <input type="text" (change)="validateEnteredData($event)" id="riBPSUserCode" formControlName="riBPSUserCode" size="10" maxlength="10"
+                                            value="" class="form-control" hidden="true" eTypeText>
+                                    </div>
+                                    <div class="col2">
+                                        <icabs-ellipsis [showCloseButton]="showCloseButton" [showHeader]="showHeader" [disabled]="isBatchProgramScheduleMaintenanceDisabled1"
+                                            [contentComponent]="screenNotReadyComponent"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24">{{ 'Name' | translate }}</label>
+
+                                    <div class="col16 ">
+                                        <input id="UserName" formControlName="UserName" size="40" maxlength="40" value="" class="form-control" hidden="true" eTypeText>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt2">
+                                <div class="col-sm-4">
+                                    <div class="col20 mt20">
+                                        <input type="checkbox" class="form-control" id="riBPSEmailOnlyIfFailed" formControlName="riBPSEmailOnlyIfFailed">
+                                        <label for="riBPSEmailOnlyIfFailed">{{ 'Only send email on failure' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24">{{ 'Parameters' | translate }}</label>
+                                    <div class="col8 pr5">
+                                        <input id="riLabel1" formControlName="riLabel1" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="riParam1" formControlName="riParam1" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="riBPSActive" formControlName="riBPSActive">
+                                        <label for="riBPSActive">{{ 'Active' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input id="riLabel2" formControlName="riLabel2" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="riParam2" formControlName="riParam2" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input id="riLabel3" formControlName="riLabel3" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="riParam3" formControlName="riParam3" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input id="riLabel4" formControlName="riLabel4" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam4" id="riParam4" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel5" id="riLabel5" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam5" id="riParam5" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel6" id="riLabel6" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam6" id="riParam6" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel7" id="riLabel7" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam7" id="riParam7" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel8" id="riLabel8" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam8" id="riParam8" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel9" id="riLabel9" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam9" id="riParam9" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel10" id="riLabel10" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam10" id="riParam10" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel11" id="riLabel11" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam11" id="riParam11" size="70" maxlength="70" value="" class="form-control" hidden="true"
+                                            eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-4">
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="col24"></label>
+                                    <div class="col8 pr5">
+                                        <input formControlName="riLabel12" id="riLabel12" size="9" maxlength="9" class="form-control">
+
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" formControlName="riParam12" id="riParam12" size="70" maxlength="70" value="" class="form-control" (blur)="tabOut()"
+                                            hidden="true" eTypeText>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" [hidden]="uiDisplay['tab']['tab1']['visible'] === false" [ngClass]="{'active': uiDisplay['tab']['tab2']['active']}">
+                        <div id="schedule" class="mt10">
+                            <div class="row mt5">
+                                <div class="col-sm-12">
+                                    <div class="col2 pr5">
+                                        <label class="col24">{{ 'Minutes' | translate }}</label>
+                                    </div>
+                                    <div class="col22">
+
+                                        <input type="checkbox" class="form-control" formControlName="riMinute00" id="riMinute00">
+                                        <label class="pr12" for="riMinute00">00</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMinute15" id="riMinute15">
+                                        <label class="pr12" for="riMinute15">15</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMinute30" id="riMinute30">
+                                        <label class="pr12" for="riMinute30">30</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMinute45" id="riMinute45">
+                                        <label for="riMinute45">45</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt30">
+                                <div class="col-sm-12">
+                                    <div class="col2 pr5">
+                                        <label class="col24">{{ 'Hours' | translate }}</label>
+                                    </div>
+                                    <div class="col22">
+
+                                        <input type="checkbox" class="form-control " formControlName="riHour00" id="riHour00">
+                                        <label class="pr12 mb10" for="riHour00">00</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour01" id="riHour01">
+                                        <label class="pr12" for="riHour01">01</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour02" id="riHour02">
+                                        <label class="pr12" for="riHour02">02</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour03" id="riHour03">
+                                        <label class="pr12" for="riHour03">03</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour04" id="riHour04">
+                                        <label class="pr12" for="riHour04">04</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour05" id="riHour05">
+                                        <label class="pr12" for="riHour05">05</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour06" id="riHour06">
+                                        <label class="pr12" for="riHour06">06</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour07" id="riHour07">
+                                        <label class="pr12" for="riHour07">07</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour08" id="riHour08">
+                                        <label class="pr12" for="riHour08">08</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour09" id="riHour09">
+                                        <label class="pr12" for="riHour09">09</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour10" id="riHour10">
+                                        <label class="pr12" for="riHour10">10</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour11" id="riHour11">
+                                        <label class="pr12" for="riHour11">11</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour12" id="riHour12">
+                                        <label class="pr12" for="riHour12">12</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour13" id="riHour13">
+                                        <label class="pr12" for="riHour13">13</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour14" id="riHour14">
+                                        <label class="pr12" for="riHour14">14</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour15" id="riHour15">
+                                        <label class="pr12" for="riHour15">15</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour16" id="riHour16">
+                                        <label class="pr12" for="riHour16">16</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour17" id="riHour17">
+                                        <label class="pr12" for="riHour17">17</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour18" id="riHour18">
+                                        <label class="pr12" for="riHour18">18</label>
+
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour19" id="riHour19">
+                                        <label class="pr12" for="riHour19">19</label>
+
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour20" id="riHour20">
+                                        <label class="pr12" for="riHour20">20</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour21" id="riHour21">
+                                        <label class="pr12" for="riHour21">21</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour22" id="riHour22">
+                                        <label class="pr12" for="riHour22">22</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riHour23" id="riHour23">
+                                        <label class="mb10" for="riHour23">23</label>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt20">
+                                <div class="col-sm-12">
+                                    <div class="col2 pr5">
+                                        <label class="col24">{{ 'Days' | translate }}</label>
+                                    </div>
+                                    <div class="col22">
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay00" id="riDay00">
+                                        <label class="pr12 mb10" for="riDay00">00</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay01" id="riDay01">
+                                        <label class="pr12" for="riDay01">01</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay02" id="riDay02">
+                                        <label class="pr12" for="riDay02">02</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay03" id="riDay03">
+                                        <label class="pr12" for="riDay03">03</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay04" id="riDay04">
+                                        <label class="pr12" for="riDay04">04</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay05" id="riDay05">
+                                        <label class="pr12" for="riDay05">05</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay06" id="riDay06">
+                                        <label class="pr12" for="riDay06">06</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay07" id="riDay07">
+                                        <label class="pr12" for="riDay07">07</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay08" id="riDay08">
+                                        <label class="pr12" for="riDay08">08</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay09" id="riDay09">
+                                        <label class="pr12" for="riDay09">09</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay10" id="riDay10">
+                                        <label class="pr12" for="riDay10">10</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay11" id="riDay11">
+                                        <label class="pr12" for="riDay11">11</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay12" id="riDay12">
+                                        <label class="pr12" for="riDay12">12</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay13" id="riDay13">
+                                        <label class="pr12" for="riDay13">13</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay14" id="riDay14">
+                                        <label class="pr12" for="riDay14">14</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay15" id="riDay15">
+                                        <label class="pr12" for="riDay15">15</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay16" id="riDay16">
+                                        <label class="pr12" for="riDay16">16</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay17" id="riDay17">
+                                        <label class="pr12" for="riDay17">17</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay18" id="riDay18">
+                                        <label class="pr12" for="riDay18">18</label>
+
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay19" id="riDay19">
+                                        <label class="pr12" for="riDay19">19</label>
+
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay20" id="riDay20">
+                                        <label class="pr12" for="riDay20">20</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay21" id="riDay21">
+                                        <label class="pr12" for="riDay21">21</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay22" id="riDay22">
+                                        <label class="pr12" for="riDay22">22</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay23" id="riDay23">
+                                        <label class="pr12" for="riDay23">23</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay24" id="riDay24">
+                                        <label class="pr12" for="riDay24">24</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay25" id="riDay25">
+                                        <label class="pr12" for="riDay25">25</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay26" id="riDay26">
+                                        <label class="pr12" for="riDay26">26</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay27" id="riDay27">
+                                        <label class="pr12" for="riDay27">27</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay28" id="riDay28">
+                                        <label class="pr12" for="riDay28">28</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay29" id="riDay29">
+                                        <label class="pr12" for="riDay29">29</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay30" id="riDay30">
+                                        <label class="pr12" for="riDay30">30</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riDay31" id="riDay31">
+                                        <label class="mb10" for="riDay31">31</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mt20">
+                                <div class="col-sm-12">
+                                    <div class="col2 pr5">
+                                        <label class="col24">{{ 'WeekDays' | translate }}</label>
+                                    </div>
+                                    <div class="col22">
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay01" id="riWeekDay01">
+                                        <label class="pr20 mb10" for="riWeekDay01">{{ 'Monday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay02" id="riWeekDay02">
+                                        <label class="pr20" for="riWeekDay02">{{ 'Tuesday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay03" id="riWeekDay03">
+                                        <label class="pr20" for="riWeekDay03">{{ 'Wednesday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay04" id="riWeekDay04">
+                                        <label class="pr20" for="riWeekDay04">{{ 'Thursday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay05" id="riWeekDay05">
+                                        <label class="pr20" for="riWeekDay05">{{ 'Friday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay06" id="riWeekDay06">
+                                        <label class="pr20" for="riWeekDay06">{{ 'Saturday' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riWeekDay07" id="riWeekDay07">
+                                        <label class="mb10" for="riWeekDay07">{{ 'Sunday' | translate }}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt20">
+                                <div class="col-sm-12">
+                                    <div class="col2 pr5">
+                                        <label class="col24">{{ 'Months' | translate }}</label>
+                                    </div>
+                                    <div class="col22">
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth01" id="riMonth01">
+                                        <label class="pr20 mb10" for="riMonth01">{{ 'January' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth02" id="riMonth02">
+                                        <label class="pr20" for="riMonth02">{{ 'February' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth03" id="riMonth03">
+                                        <label class="pr20" for="riMonth03">{{ 'March' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth04" id="riMonth04">
+                                        <label class="pr20" for="riMonth04">{{ 'April' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth05" id="riMonth05">
+                                        <label class="pr20" for="riMonth05">{{ 'May' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth06" id="riMonth06">
+                                        <label class="pr20" for="riMonth06">{{ 'June' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth07" id="riMonth07">
+                                        <label class="pr20" for="riMonth07">{{ 'July' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth08" id="riMonth08">
+                                        <label class="pr20" for="riMonth08">{{ 'August' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth09" id="riMonth09">
+                                        <label class="pr20" for="riMonth09">{{ 'September' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth10" id="riMonth10">
+                                        <label class="pr20" for="riMonth10">{{ 'October' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth11" id="riMonth11">
+                                        <label class="pr20" for="riMonth11">{{ 'November' | translate }}</label>
+
+                                        <input type="checkbox" class="form-control" formControlName="riMonth12" id="riMonth12">
+                                        <label class="mb10" for="riMonth12">{{ 'December' | translate }}</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--<hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"></icabs-grid>
+            </div>
+        </div>
+-->
+
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-9">
+                <input type="button" *ngIf="saveAndCancelButtonVisibility === true" [disabled]="saveAndCancelButtonDisabled" class="btn btn-sm btn-primary"
+                    value="{{'Save' | translate}}" (click)="onSaveButtonClicked()">
+                <input type="button" *ngIf="saveAndCancelButtonVisibility === true" [disabled]="saveAndCancelButtonDisabled" class="btn btn-sm btn-secondary"
+                    value="{{'Cancel' | translate}}" (click)="onCancelClicked()">
+                <input type="button" *ngIf="saveAndCancelButtonVisibility === true" [disabled]="deleteButtonDisabled" class="btn btn-sm btn-primary"
+                    value="{{'Delete' | translate}}" (click)="onDeleteClicked()">
+                <!-- <input type="button" *ngIf="addAndDeleteButtonVisibility === true" class="btn btn-sm btn-primary" id="" value="{{'Add' | translate}}"
+                    (click)="onAddClicked()"> -->
+                <!--   <input type="button"  *ngIf="isAddOrUpdateMode==false" class="btn btn-sm btn-primary" id="" value="{{'Update' | translate}}" (click)="onUpdateClicked()"> -->
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onMessageClose()">
+</icabs-modal>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent"
+    (saveEmit)="promptConfirm($event)"></icabs-prompt-modal>

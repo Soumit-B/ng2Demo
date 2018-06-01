@@ -1,0 +1,318 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Call Out Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanCustomerContactNumber" for="CustomerContactNumber">{{ 'Reference Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16 pr5">
+                        <input type="text" id="CustomerContactNumber" size="6" maxlength="6" formControlName="CustomerContactNumber" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine1">{{ 'Premises Address Line 1' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PremiseAddressLine1" size="35" formControlName="PremiseAddressLine1" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanContactActionNumber" for="ContactActionNumber">{{ 'Action Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16 pr5">
+                        <input type="number" id="ContactActionNumber" size="3" max="999" formControlName="ContactActionNumber" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine2">{{ 'Premises Address Line 2' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PremiseAddressLine2" size="35" formControlName="PremiseAddressLine2" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.PremiseAddressLine3">
+                    <label class="col24" for="PremiseAddressLine3">{{ 'Premises Address Line 3' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PremiseAddressLine3" size="35" formControlName="PremiseAddressLine3" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanContractNumber " for="ContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input type="text" id="ContractNumber" size="9" maxlength="8" formControlName="ContractNumber" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col17">
+                        <input type="text" id="ContractName" size="40" maxlength="40" formControlName="ContractName" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PremiseAddressLine4" size="35" formControlName="PremiseAddressLine4" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanPremiseNumber" for="PremiseNumber">{{ 'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input type="number" id="PremiseNumber" size="8" max="99999" formControlName="PremiseNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col17">
+                        <input type="text" id="PremiseName" size="40" maxlength="40" formControlName="PremiseName" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine5">{{ 'County' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PremiseAddressLine5" size="35" formControlName="PremiseAddressLine5" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanServiceBranch" for="ServiceBranchNumber">{{ 'Service Branch' | translate }}</label>
+                    <div class="col7 pr5">
+                        <input type="text" id="ServiceBranchNumber" size="8" formControlName="ServiceBranchNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col17">
+                        <input type="text" id="ServiceBranchName" size="40" formControlName="ServiceBranchName" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremisePostCode">{{'Postcode' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="PremisePostCode" size="10" formControlName="PremisePostCode" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanProductCode" for="ProductCode">{{ 'Product Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input type="text" id="ProductCode" size="8" maxlength="6" formControlName="ProductCode" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col17">
+                        <input type="text" id="ProductDesc" size="40" maxlength="40" formControlName="ProductDesc" class="form-control" eTypeText>
+                    </div>
+                    <div class="col4" *ngIf="fieldVisibility.ServiceCoverNumber">
+                        <input type="number" id="ServiceCoverNumber" formControlName="ServiceCoverNumber" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceTypeCode">{{ 'Service Type' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceTypeCode" size="2" maxlength="2" formControlName="ServiceTypeCode" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ServiceTypeDesc" size="35" maxlength="40" formControlName="ServiceTypeDesc" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldVisibility.CallOutQuantity">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanCallOutQuantity" for="CallOutQuantity">{{ 'Quantity' | translate }}<span *ngIf="fieldRequired.CallOutQuantity === true" class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="CallOutQuantity" size="7" maxlength="7" formControlName="CallOutQuantity" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanVisitTypeCode">{{'Visit Type'|translate }}<span *ngIf="fieldRequired.VisitTypeCode" class="mandatory">* </span></label>
+                    <div class="col16" (focus)="onVisitTypeFocus($event);">
+                        <!-- <icabs-dropdown id="VisitTypeCode" [inputArray]="visitTypeData" [itemsToDisplay]="visitTypeItems" [active]="visitTypeActive" (selectedValue)="visitTypeSelectedValue($event)"></icabs-dropdown> -->
+                        <icabs-visit-type-search #visitTypeSearch id="VisitTypeCode" [isRequired]="fieldRequired.VisitTypeCode" [active]="visitTypeActive"
+                            (receivedVisitType)="visitTypeSelectedValue($event)" (emitVisitTypeData)="visitTypeDataRecieved($event)"
+                            [inputParams]="visitTypeInputParams" [uiFormGroup]="this['uiForm']" [controlName]="'VisitTypeCode'"></icabs-visit-type-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="col12 mt20">
+                        <input class="form-control" type="checkbox" formControlName="Immediate" id="Immediate" (change)="onImmediateChange($event)">
+                        <label class="col24" for="Immediate">{{'Immediate'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt2">
+                    <label class="col24" for="CallOutDate">{{ 'Call Out Date/Time'| translate }}<span *ngIf="fieldRequired.CallOutDate === true" class="mandatory">* </span></label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker id="CallOutDate" [dt]='dateObjects.CallOutDate' [isDisabled]="!dateObjectsEnabled.CallOutDate" [isRequired]="fieldRequired.CallOutDate" (selectedValue)="callOutDateSelectedValue($event)" [uiFormGroup]="this['uiForm']" [controlName]="'CallOutDate'"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <input type="text" id="CallOutTime" size="5" maxlength="5" formControlName="CallOutTime" class="form-control" (change)="onCallOutTimeChange($event);" eTypeTime>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="CallOutNotes" id="spanCallOutNotes">{{'Notes'|translate}}<span *ngIf="fieldRequired.CallOutNotes === true" class="mandatory">* </span></label>
+                        <textarea id="CallOutNotes" formControlName="CallOutNotes" class="form-control" type="text" rows="3" cols="79" (change)="onCallOutNotesChange($event);" eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="button" id="cmdIntNotifications" formControlName="cmdIntNotifications" class="btn btn-additional" value="{{ 'Notifications' | translate }}"
+                        (click)="onCmdIntNotificationsChange($event)">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" id="spanSMSMessage " for="SMSSendOnDate">{{ 'SMS Send On Date/Time' | translate }}</label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker id="SMSSendOnDate" [dt]='dateObjects.SMSSendOnDate' [isDisabled]="!dateObjectsEnabled.SMSSendOnDate" (selectedValue)="smsSendDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <input type="text" id="SMSSendOnTime" size="5" maxlength="5" formControlName="SMSSendOnTime" class="form-control" (change)="onSMSSendOnTimeChange($event);" eTypeTime>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode" id="spanEmployeeCode">{{ 'Assign To' | translate }}<span *ngIf="fieldRequired.EmployeeCode === true" class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="6" maxlength="6" formControlName="EmployeeCode" class="form-control" (change)="onEmployeeCodeChange($event);onUpperCase('EmployeeCode');" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="35" maxlength="35" formControlName="EmployeeSurname" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]='false' [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.employeeSearch.inputParamsEmployeeSearch"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.employeeSearch.contentComponent" (ellipsisData)="onEmployeeDataReceived($event)"
+                            [showHeader]="showHeader" [disabled]="ellipsis.employeeSearch.isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" id="spanBranchServiceAreaCode" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}<span *ngIf="fieldRequired.BranchServiceAreaCode === true" class="mandatory">* </span></label>
+                    <div class="col16 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="4" maxlength="4" formControlName="BranchServiceAreaCode" class="form-control"
+                            (change)="toUpperCase('BranchServiceAreaCode');" eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]='false' [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.serviceArea.inputParamsServiceArea"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.serviceArea.contentComponent" (ellipsisData)="onServiceAreaReceived($event)"
+                            [showHeader]="showHeader" [disabled]="ellipsis.serviceArea.isServiceAreaEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12 mt20 pr5">
+                        <input class="form-control" type="checkbox" formControlName="Passed" id="Passed" (change)="onPassedChange($event);">
+                        <label class="col24" for="Passed">{{'Passed'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactName">{{ 'Contact Details' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="ContactName" size="35" formControlName="ContactName" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactName">{{ 'Passed Date/Time' | translate }}</label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker id="PassedDate" [dt]='dateObjects.PassedDate' [isDisabled]="!dateObjectsEnabled.PassedDate" (selectedValue)="passedDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <input type="text" id="PassedTime" size="5" maxlength="5" formControlName="PassedTime" class="form-control" (change)="onPassedTimeChange($event);" eTypeTime>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactPosition">{{ 'Position' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="ContactPosition" size="35" formControlName="ContactPosition" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div *ngIf="fieldVisibility.ContactStatusCodeSelect">
+                        <label class="col24" for="ContactStatusCodeSelect" id="spanShowStatusText">{{ 'Status' | translate }}</label>
+                        <div class="col12">
+                            <select class="form-control" formControlName="ContactStatusCodeSelect" id="ContactStatusCodeSelect" (change)="onContactStatusCodeSelectChange($event)">
+                                <option *ngFor="let c of contactStatusCodeSelectList" [ngValue]="c.value">{{c.desc}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt2">
+                    <label class="col24" for="ContactTelephone">{{ 'Telephone' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="ContactTelephone" size="35" formControlName="ContactTelephone" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="fieldVisibility.SendClosedSMS">
+                <div class="col-sm-4">
+                    <div class="col12 mt15">
+                        <input class="form-control" type="checkbox" formControlName="SendClosedSMS" id="SendClosedSMS">
+                        <label class="col24" for="SendClosedSMS">{{'Send Closed SMS'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PlanVisitNumber">{{ 'Plan Visit Number' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PlanVisitNumber" size="6" maxlength="6" formControlName="PlanVisitNumber" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactFax">{{ 'Fax' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="ContactFax" size="35" formControlName="ContactFax" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col16 pr5">
+                        <input type="button" id="btnSave" class="btn btn-primary mr10" value="{{ 'Save' | translate }}" (click)="onSave($event);">
+                        <input type="button" id="btnAbandon" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="onCancel($event)">
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col16 pull-right text-right">
+                        <select id="menu" class="form-control" [(ngModel)]="menu" (change)="onMenuChange($event)" [disabled]="mode['selectMode'] === true"
+                            [ngModelOptions]="{standalone: true}">
+                            <option selected value="">{{ 'Options' | translate }}</option>
+                            <option value="ServiceDetail">{{ 'Service Detail' | translate }}</option>
+                            <option value="ServiceVisit">{{ 'Service Visit' | translate }}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <icabs-ellipsis #serviceCoverDetailsEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.serviceCoverDetails.inputParamsServiceCover"
+            [modalConfig]="modalConfig" [contentComponent]="ellipsis.serviceCoverDetails.contentComponent" [showHeader]="showHeader"
+            [hideIcon]="true"></icabs-ellipsis>
+    </form>
+</section>
+
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

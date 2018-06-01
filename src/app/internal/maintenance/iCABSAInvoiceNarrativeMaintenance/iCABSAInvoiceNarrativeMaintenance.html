@@ -1,0 +1,79 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10" autoscroll>
+            <h1>
+                {{ uiDisplay.pageHeader | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="uiForm" (ngSubmit)="onSubmit()">
+        <div class="row mt5">
+            <div class="col-sm-4" *ngIf="uiDisplay.AccountNumber">
+                <label class="col24">{{ "Account Number" | translate }}<span class="mandatory">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="AccountNumber" [attr.disabled]="uiDisplay.readOnly.AccountNumber ? true : false">
+                </div>
+                <div class="col18">
+                    <input type="text" class="form-control" formControlName="AccountName" [attr.disabled]="uiDisplay.readOnly.AccountName ? true : false">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4" *ngIf="uiDisplay.InvoiceGroupNumber">
+                <label class="col24">{{ "Invoice Group Number" | translate }}<span class="mandatory">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="InvoiceGroupNumber" [attr.disabled]="uiDisplay.readOnly.InvoiceGroupNumber ? true : false">
+                </div>
+                <div class="col18">
+                    <input type="text" class="form-control" formControlName="InvoiceGroupDesc" [attr.disabled]="uiDisplay.readOnly.InvoiceGroupDesc ? true : false">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4" *ngIf="uiDisplay.ContractNumber">
+                <label class="col24">{{ "Contract Number" | translate }}<span class="mandatory">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="ContractNumber" [attr.disabled]="uiDisplay.readOnly.ContractNumber ? true : false">
+                </div>
+                <div class="col18">
+                    <input type="text" class="form-control" formControlName="ContractName" [attr.disabled]="uiDisplay.readOnly.ContractName ? true : false">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4" *ngIf="uiDisplay.PremiseNumber">
+                <label class="col24">{{ "Premises Number" | translate }}<span class="mandatory">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="PremiseNumber" [attr.disabled]="uiDisplay.readOnly.PremiseNumber ? true : false">
+                </div>
+                <div class="col18">
+                    <input type="text" class="form-control" formControlName="PremiseName" [attr.disabled]="uiDisplay.readOnly.PremiseName ? true : false">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row mt2">
+            <div class="col-sm-6">
+                <label class="col24">{{ 'Narrative' | translate }}<span class="mandatory">*</span></label>
+                <div class="col24">
+                    <textarea rows="8" class="form-control" formControlName="InvoiceNarrativeText" (focus)="routeAwayUpdateSaveFlag()" (blur)="routeAwayUpdateSaveFlag()"></textarea>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- <input *ngIf="uiDisplay.oper.add" class="btn btn-lg btn-primary" type="button" value="{{ 'Add' | translate }}" (click)="addRecord()">
+                <input *ngIf="uiDisplay.oper.update" class="btn btn-lg btn-primary" type="button" value="{{ 'Update' | translate }}" (click)="updateRecord()"> -->
+                <input *ngIf="uiDisplay.oper.save" [disabled]='!uiForm.valid' class="btn btn-lg btn-primary" type="button" value="{{ 'Save' | translate }}" (click)="onSubmit()">
+                <input *ngIf="uiDisplay.oper.cancel" class="btn btn-lg btn-primary" type="button" value="{{ 'Cancel' | translate }}" (click)="onCancel()">
+                <input *ngIf="uiDisplay.oper.delete" class="btn btn-lg btn-primary" type="button" value="{{ 'Delete' | translate }}" (click)="deleteRecord()">
+            </div>
+        </div>
+        <input type="text" class="form-control hidden" formControlName="InvoiceNarrative">
+    </form>
+</div>
+<icabs-modal #messageModal [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+<icabs-prompt-modal #promptModalSave="child" [showHeader]="true" [showCloseButton]="false" [title]="promptContentSave" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-prompt-modal #promptModalDelete="child" [showHeader]="true" [showCloseButton]="false" [title]="promptContentDelete" (saveEmit)="promptDelete($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

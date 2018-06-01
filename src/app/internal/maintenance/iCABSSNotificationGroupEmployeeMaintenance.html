@@ -1,0 +1,71 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Notification Group Employee Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyGroupCode">{{ 'Group Code' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="NotifyGroupCode" size="8" maxlength="8" class="form-control" formControlName="NotifyGroupCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="NotifyGroupSystemDesc" size="30" maxlength="40" class="form-control" formControlName="NotifyGroupSystemDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyEmployeeTypeSelect">{{ 'Notify Who' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown id="NotifyEmployeeTypeSelect"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="OccupationCodeSelect">{{ 'Occupation Code' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown id="OccupationCodeSelect"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyContactList">{{ 'Notification List' | translate}}</label>
+                    <div class="col24">
+                        <textarea id="NotifyContactList" class="form-control" formControlName="NotifyContactList"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyTypeSelect">{{ 'Notify Using' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown id="NotifyTypeSelect"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

@@ -1,0 +1,182 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="divStatic">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" [attr.maxlength]="8" size="8"
+                            (change)="contractNumberOnChange($event.target)" (keyup)="contractNumberKeyUp()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control padding-zero" type="text" size="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.component"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHiddenForContract($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="ellipsis.contractSearch.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" [attr.maxlength]="5" size="8"
+                            (change)="premiseNumberOnChange($event.target)" (keyup)="premiseNumberKeyUp()" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control padding-zero" type="text" size="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premisesNumberEllipsis [autoOpen]="ellipsis.premises.autoOpenSearch" [showCloseButton]="ellipsis.premises.showCloseButton"
+                            [childConfigParams]="ellipsis.premises.childConfigParams" [modalConfig]="ellipsis.premises.modalConfig"
+                            [contentComponent]="ellipsis.premises.contentComponent" (ellipsisData)="onPremiseDataReceived($event, true)"
+                            [showHeader]="ellipsis.premises.showHeader" [disabled]='ellipsis.premises.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" [attr.maxlength]="6" size="8" (change)="productCodeOnChange($event.target)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control padding-zero" type="text" size="40" eTypeText>
+                    </div>
+                    <div class="col2">
+
+                        <icabs-ellipsis #productcodeEllipsis [autoOpen]="ellipsis.product.autoOpenSearch" [showCloseButton]="ellipsis.product.showCloseButton"
+                            [childConfigParams]="ellipsis.product.childConfigParams" [modalConfig]="ellipsis.product.modalConfig"
+                            [contentComponent]="ellipsis.product.contentComponent" (ellipsisData)="onProductDataReceived($event, true)"
+                            [showHeader]="ellipsis.product.showHeader" [disabled]='ellipsis.product.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label for="Status" class="col24">{{ 'Frequency' | translate }}</label>
+                    <div class="col8">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" type="text" size="3" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{'Generate' | translate}}</label>
+                    <div class="col16">
+                        <select class="form-control" formControlName="GenerateOption">
+                            <option value="Listing" selected>{{'Single Service Listing' | translate}}</option>
+                            <option value="Receipts">{{'Single Service Receipt' | translate}}</option>
+                            <option value="Both">{{'Single Service Listing And Receipt' | translate}}</option>
+					</select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label for="Status" class="col24">{{ 'Field Date' | translate }}</label>
+                    <div class="col16">
+                        <!--<input id="FieldDate" formControlName="FieldDate" class="form-control" type="text" size="10" [attr.maxlength]="10">-->
+                        <icabs-datepicker id="FieldDate" [dt]='FieldDate' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true"
+                            (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{'Report Destination' | translate}}</label>
+                    <div class="col16">
+                        <select class="form-control" formControlName="ReportDestination">
+                            <option value="Listing" selected>{{'Report Viewer' | translate}}</option>
+                            <option value="Receipts">{{'Email' | translate}}</option>
+					</select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="locationsAndFormsDisplay">
+                <!--<div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <input class="custom-checkbox" type="checkbox" id="IncludeLocations" formControlName="IncludeLocations">
+                        <label class="col24" for="IncludeLocations">{{'Include Locations' | translate}}</label>
+                    </div>
+                </div>-->
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col18" for="IncludeLocations">{{'Include Locations'|translate}} </label>
+                        <input class="custom-checkbox" type="checkbox" id="IncludeLocations" formControlName="IncludeLocations">
+                        <label for="IncludeLocations"></label>
+                    </div>
+                </div>
+                <!--<div class="col-sm-3">
+                    <label class="col24" for="IncludeLocations">{{'Include Locations' | translate }} </label>
+                    <div class="col3 pr5">
+                        <input type="checkbox" id="IncludeLocations" formControlName="IncludeLocations">
+                        <label for="IncludeLocations"></label>
+                    </div>
+                </div>-->
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <input id="NumberOfForms" class="form-control" type="text" value="4" size="4" formControlName="NumberOfForms" eTypeInteger>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="NumberOfForms">{{'Unplanned Visit Forms' | translate}}</label>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt7">
+                <div class="col-sm-12">
+                    <input type="submit" formControlName="Submit" class="btn btn-primary" value="{{ 'Submit Report Generation' | translate }}"
+                        (click)="onSubmitClicked()">
+                </div>
+            </div>
+        </footer>
+        <div class="row mt10">
+            <div class="col-sm-12" id="trInformation" *ngIf="thInformationDisplayed">
+                <div class="alert alert-info" id="thInformation">
+                    <strong>{{thInformation}}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt10">
+            <div class="col-sm-12" id="trInformation" *ngIf="thInformation2Displayed">
+                <div class="alert alert-info" id="thInformation">
+                    <strong>{{thInformation2}}</strong>
+                </div>
+            </div>
+        </div>
+        <input id="MoreThanOne" formControlName="MoreThanOne" style="display:none">
+        <input id="ServiceCover" formControlName="ServiceCoverRowID" style="display:none">
+        <!--
+        <table align="center" border="0" width="100%">
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr id="trInformation" *ngIf="thInformationDisplayed">
+                <th id="thInformation">{{thInformation}}</th>
+                <input id="MoreThanOne" formControlName="MoreThanOne" style="display:none">
+<input id="ServiceCover" formControlName="ServiceCoverRowID" style="display:none">
+</tr>
+<tr id="trInformation2" *ngIf="thInformation2Displayed">
+    <th id="thInformation2">{{thInformation2}}</th>
+</tr>
+</table>-->
+
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

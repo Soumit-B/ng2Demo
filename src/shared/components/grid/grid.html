@@ -1,0 +1,105 @@
+<table class="gridtable table-bordered">
+	<thead>
+		<tr>
+			<th colspan="100%" class="cursor-auto">
+				<span class="tabletitle text-left">{{tableTitle}}</span>
+				<span *ngIf="showPageCount" class="pageinfo text-right">{{pageInfo}}</span>
+			</th>
+		</tr>
+		<tr *ngFor="let headerRows of headerStructure; let rowIndex=index">
+			<th class="cursor-auto" *ngFor="let column of headerRows; let columnIndex=index" [attr.colspan]="column.colSpan" [attr.title]="column.toolTip"
+				[ngStyle]="{'width': column.width,'min-width': column.minWidth, 'text-align': column.align }">
+				<div *ngIf="rowIndex === (headerStructure.length - 1)">
+					<div class="pointer" *ngIf="(column.isSortable)" (click)="changeSorting( column.fieldName, column.sortType, columnIndex )">
+						{{column.text}}
+						<img src="assets/images/down-arrow.png" class="sort-icon pointer" *ngIf="(column.sortType === 'ASC')">
+						<img src="assets/images/right-arrow.png" class="sort-icon pointer" *ngIf="(column.sortType === 'DESC')">
+						<!--<img src="assets/images/down-arrow.png" class="print-icon pointer">-->
+					</div>
+					<div class="cursor-auto" *ngIf="(!column.isSortable)">
+						{{column.text}}
+					</div>
+				</div>
+
+				<div *ngIf="rowIndex !== (headerStructure.length - 1)">
+					<div class="cursor-auto">
+						{{column.text}}
+					</div>
+				</div>
+
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let bodyRow of bodyStructure; let rowIndex=index" [ngClass]="{'selected': bodyStructure.selected === rowIndex }"
+			(click)="onRowClick(bodyRow, $event)">
+			<td *ngFor="let column of bodyRow; let cellIndex=index" (click)="onCellClick(rowIndex, cellIndex, column)" (keydown)="changeSelectedRow($event, rowIndex, cellIndex, column)"
+				class="cursor-auto" [attr.colspan]="column.colSpan" [attr.title]="column.toolTip" [attr.bgColor]="column.cellColor" (dblclick)="onCellDblClick(column, rowIndex, cellIndex, $event);"
+				[ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown}">
+				<div *ngIf="!builtFromParent" [ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown}">
+					<input (blur)="onCellBlur($event,rowIndex, cellIndex, column)" *ngIf="((column.drillDown === true && column.rowID.length >= 1) || (column.rowID === '3' && column.text !== '') || (column.drillDown === false && column.rowID.length >= 2)) &&
+                    (column.text !== 'SP') && (column.text !== 'info') && !(column.text.toUpperCase() === 'TG') && !(column.text === 'Model/riLogoS') &&
+                    !(column.text.toUpperCase() === 'XR') && !((column.text.toUpperCase() === 'YES' && column.rowID === '1')) &&
+                    !(column.text.toUpperCase() === 'YES' && showTick === true)  && !(column.text.toUpperCase() === 'NO' && (column.rowID === '1' || column.rowID === 'no')) &&
+                    !(column.text.toUpperCase() === 'NO') && !(column.text.toUpperCase() === 'YES') && !(column.text.toUpperCase() === 'SMILEUP') &&
+                    !(column.text.toUpperCase() === 'SMILEDOWN') &&
+                    !(column.text.toUpperCase() === 'SMILE') && !(column.text.toUpperCase() === 'BLUEARROW')" type="text"
+						class="form-control linked-text center" [ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown}" [attr.drilldown]="column.drillDown"
+						value="{{column.text}}" (dblclick)="onCellDblClick(column, rowIndex, cellIndex, $event)" [ngStyle]="{'border': column.borderColor, 'background-color': '#FFFFFF', 'color': '#' + column.textColor, 'text-align': column.align }"
+						(keydown)="changeSelectedRow($event, rowIndex)" [readonly]="!update || column.readonly" [attr.maxlength]="column.maxlength">
+					<input type="checkbox" class="custom-checkbox" *ngIf="(column.text === 'no' && (column.rowID === '1' || column.rowID === 'no' || column.rowID.length > 2) && showTick !== true)"
+						[ngStyle]="{'opacity': 100 }" (change)="changeCheckbox($event,rowIndex, cellIndex, column)">
+					<input type="checkbox" class="custom-checkbox" *ngIf="(column.text === 'yes'&& (column.rowID === '1' || column.rowID === 'yes' || column.rowID.length > 2) && showTick !== true)"
+						[ngStyle]="{'opacity': 100 }" checked="checked" (change)="changeCheckbox($event,rowIndex, cellIndex, column)">
+
+					<span class="cursor-auto normal-text" *ngIf="(((column.drillDown === false && column.rowID.length < 2 && column.rowID !== '3')
+                    || (column.drillDown === true && column.rowID.length < 1))
+                    && column.text !== 'SP'
+                    && column.text !== 'info'
+                    && column.text !== 'XR'
+                    && column.text !== 'TG'
+                    && column.text !== 'BL'
+                    && !(column.text.toUpperCase() === 'YES' && column.rowID === '1')
+                    && !(column.text.toUpperCase() === 'NO' && column.rowID === '1')
+                    && (column.text.toUpperCase() !== 'SMILEUP')
+                    && (column.text.toUpperCase() !== 'SMILEDOWN')
+                    && (column.text.toUpperCase() !== 'SMILE')
+                    && !(column.text.toUpperCase() === 'BLUEARROW')
+                    && (column.text.toUpperCase() !== 'SD')
+                    && (column.text.toUpperCase() !== 'SU')
+                    && !(column.text.toUpperCase() === 'S' && column.type === mntConst.eTypeImage)
+					&& !(column.text.toUpperCase() === 'TICK-GREEN' && column.type === mntConst.eTypeImage)
+					&& !(column.text === 'Model/riLogoS')
+					&& !(column.text === 'redtruckS')
+                    && (column.text!=='<riTag locked>'))" [ngStyle]="{'color': column.textColor }" [ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown,'no-wrap':(column.type === mntConst.eTypeCurrency || column.type === mntConst.eTypeDate)}">
+                        {{column.text}}
+                        </span>
+					<img src="assets/images/print.png" class="print-icon pointer" *ngIf="(column.text === 'SP')" (dblclick)="onCellDblClick(column, rowIndex, cellIndex, $event)">
+					<img src="assets/images/logo.png" class="icon pointer" *ngIf="(column.text === 'Model/riLogoS')">
+					<img src="assets/images/redtrucks.gif" class="icon pointer" *ngIf="(column.text === 'redtruckS')">
+					<img src="assets/images/info.gif" class="info-icon pointer" (click)="showInfoModal($event,bodyRow, cellIndex, rowIndex)"
+						*ngIf="(column.text === 'info')">
+					<img src="assets/images/bl.gif" class="" (click)="showInfoModal($event,bodyRow, cellIndex, rowIndex)" *ngIf="(column.text === 'BL')">
+					<img src="assets/images/tick-icon.png" class="tick-icon" [ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown}"
+						*ngIf="showCheckboxInsteadOfTick !== true && ((column.text.toUpperCase() === 'YES' && showTick === true) || (column.text.toUpperCase() === 'YES' && column.rowID.length > 2) || (column.text.toUpperCase() === 'YES' && column.rowID === '1') || (column.text.toUpperCase() === 'TICK-GREEN' && column.type === mntConst.eTypeImage) || column.text.toUpperCase() === 'TG')"
+						[ngClass]="{'pointer':((headerColumns[cellIndex]) && (headerColumns[cellIndex].text === 'Assign' || headerColumns[cellIndex].text === 'Clear' || headerColumns[cellIndex].text === 'Resent')),' cursor-auto':!((headerColumns[cellIndex]) && (headerColumns[cellIndex].text === 'Assign' || headerColumns[cellIndex].text === 'Clear' || headerColumns[cellIndex].text === 'Resent'))}">
+					<img src="assets/images/cross-icon.png" class="cross-icon" [ngClass]="{'cursor-auto':!column.drillDown,'pointer':column.drillDown}"
+						*ngIf="showCheckboxInsteadOfTick !== true && ((column.text.toUpperCase() === 'NO' && showTick === true) || (column.text.toUpperCase() === 'NO' && column.rowID === '1')  || column.text.toUpperCase() === 'XR' || column.text.toUpperCase() === 'NO')"
+						[ngClass]="{'pointer':((headerColumns[cellIndex]) && (headerColumns[cellIndex].text === 'Assign' || headerColumns[cellIndex].text === 'Clear' || headerColumns[cellIndex].text === 'Resent')),' cursor-auto':!((headerColumns[cellIndex]) && (headerColumns[cellIndex].text === 'Assign' || headerColumns[cellIndex].text === 'Clear' || headerColumns[cellIndex].text === 'Resent'))}">
+					<img src="assets/images/smile-mid.svg" class="smile-icon cursor-auto" *ngIf="(column.text.toUpperCase() === 'SMILE' || (column.text.toUpperCase() === 'S' && column.type === mntConst.eTypeImage) )">
+					<img src="assets/images/smile-up.svg" class="smile-icon cursor-auto" *ngIf="(column.text.toUpperCase() === 'SMILEUP' || column.text.toUpperCase() === 'SU')">
+					<img src="assets/images/smile-down.svg" class="smile-icon cursor-auto" *ngIf="(column.text.toUpperCase() === 'SMILEDOWN' || column.text.toUpperCase() === 'SD')">
+					<img src="assets/images/pagination-right-arrow.svg" class="bluearrow-icon pointer" *ngIf="(column.text.toUpperCase() === 'BLUEARROW')">
+				</div>
+				<div *ngIf="builtFromParent">
+					<input *ngIf="dataFromParent[cellIndex]['type'] === 'text'" type="text" name="" [readonly]="!dataFromParent[cellIndex].editable"
+						value="{{column.text}}" (blur)="onFocusOut($event,rowIndex, cellIndex, column)" (change)="onCellBlur($event,rowIndex, cellIndex, column)"
+						[ngStyle]="{'border': column.borderColor, 'background-color': '#FFFFFF', 'color': '#' + column.textColor, 'width': '100%' }">
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-modal #errorModal="child" (showHeader)="showErrorHeader" (showCloseButton)="true">
+</icabs-modal>

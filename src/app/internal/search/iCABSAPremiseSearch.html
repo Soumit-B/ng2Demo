@@ -1,0 +1,118 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-6" *ngIf="trContractLine">
+                    <label class="col24">{{ contractNumberLabel | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" size="9" [attr.maxlength]="8" class="form-control" (blur)="onBlur($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" size="40" [attr.maxlength]="40" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="trAccountLine">
+                    <label class="col24">{{ 'Invoice Group' | translate }}</label>
+                    <div class="col24">
+                        <input id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber" class="form-control" type="text" eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" id="trCopyAccountLine" *ngIf="trCopyAccountLine">
+                    <label class="col24">{{ 'Copy From Account Number' | translate }}</label>
+                    <div class="col24">
+                        <input id="CopyAccountNumber" formControlName="CopyAccountNumber" class="form-control" eTypeCode>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="col12 pr5" *ngIf="grdServiceBranchSearch">
+                        <label class="col24">{{ 'Service Branch' | translate }}</label>
+                        <div class="col24">
+                            <!--  <select class="form-control" (change)="ServiceBranchFilterSelectedValue($event.target.value)">
+                            <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                            <option *ngFor="let b of branchCodeList" [value]="b.value">{{b.text}}</option>
+                        </select> -->
+                            <icabs-branchsearch [inputParams]="inputParamsBranchSearch" (receivedbranchsearch)="ServiceBranchFilterSelectedValue($event)"></icabs-branchsearch>
+                        </div>
+                    </div>
+                    <div class="col12" *ngIf="tdStatusSearch">
+                        <label class="col24">{{ 'Status' | translate }}</label>
+                        <div class="col24">
+                            <select class="form-control" id="StatusSearchType" (change)="StatusFilterSelectedValue($event.target.value)">
+                            <option value="All">{{'All'| translate}}</option>
+                            <option value="AllCurrent">{{'Current (All)' | translate }}</option>
+                            <option value="L">{{'Current'| translate }}</option>
+                            <option value="FL">{{'Forward Current'| translate}}</option>
+                            <option value="D">{{'Deleted' | translate }}</option>
+                            <option value="FD">{{'Forward Deleted'| translate }}</option>
+                            <option value="PD">{{'Pending Deletion'| translate}}</option>
+                            <option value="T">{{'Terminated' | translate }}</option>
+                            <option value="FT">{{'Forward Terminated'| translate }}</option>
+                            <option value="PT">{{'Pending Termination'| translate}}</option>
+                            <option value="C">{{'Cancelled' | translate }}</option>
+				            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- <div class="col-sm-6 pt20"> -->
+                <div class="col2 pr5 mt20" *ngIf="searchBtn">
+                    <input id="cmdSearch" type="button" class="btn btn-primary" value="{{ 'Search' | translate}}" (click)="refresh()">
+                </div>
+                <div style="margin-left:10px" class="col2 mt20" *ngIf="tdAddRecord">
+<input type="button" name="" value="{{ 'Add New' | translate }}" class="form-control btn btn-lg btn-secondary" [disabled]="isAddNewDisabled"
+    [hidden]="isAddNewVisible" [attr.data-hidden]="isAddNewVisible" (click)="onAddNew(true)">
+</div>
+</div>
+<div class="row mt2" *ngIf="trCopyContractLine">
+    <div class="col-sm-3" id="trCopyContractLine">
+        <label class="col24" for="LabelCopyContractNumber">{{ 'Copy From Contract Number' | translate }}</label>
+        <div class="col24">
+            <input id="CopyContractNumber" formControlName="CopyContractNumber" class="form-control" type="text" (blur)="onBlur($event)"
+                eTypeCode>
+        </div>
+    </div>
+</div>
+<div class="row mt2" *ngIf="trAccountLine">
+    <div class="col-sm-6" id="trAccountLine">
+        <label class="col24">{{ 'Account Number' | translate }}</label>
+        <div class="col8 pr5">
+            <input id="AccountNumber" formControlName="AccountNumber" class="form-control" eTypeCode>
+        </div>
+        <div class="col16">
+            <input id="AccountName" formControlName="AccountName" class="form-control" type="text" eTypeText>
+        </div>
+    </div>
+</div>
+<div class="row mt2" *ngIf="trPostcodeSearch">
+    <div class="col-sm-3" id="trPostcodeSearch">
+        <label class="col24">{{ 'Premises Postcode' | translate }}</label>
+        <div class="col24">
+            <input id="SearchPostcode" formControlName="SearchPostcode" class="form-control" type="text" eTypeCode>
+        </div>
+    </div>
+</div>
+<hr class="mt15">
+<div class="row mt15">
+    <div class="col-sm-12">
+        <icabs-table #PremiseDetailTable [columns]="columns" [tableheader]="tableheading" (selectedData)="tableRowClick($event)"
+            [itemsPerPage]="itemsPerPage" (dataLoaded)="tableDataLoaded($event)" [page]="page" [paginationTop]="true" [displayError]="false"
+            (onRefresh)="refresh()" [isRefreshDisabled]="isRfereshDisabled">
+        </icabs-table>
+    </div>
+</div>
+</section>
+</form>
+</section>

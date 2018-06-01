@@ -1,0 +1,150 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="LanguageCode" class="form-control" formControlName="LanguageCode" type="text" size="3" maxlength="3">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="View">{{ 'View' | translate}}</label>
+                    <div class="col10 pr5">
+                        <select id="View" class="form-control" formControlName="View">
+                            <option value="All" selected>{{'All'|translate}}</option>
+                            <option value="Translated">{{'Translated'|translate}}</option>
+                            <option value="UnTranslated">{{'UnTranslated'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageDescription">{{ 'Language Description' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="FilterTranslationLanguageValue">{{ 'Filter' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="FilterTranslationLanguageValue" class="form-control" formControlName="FilterTranslationLanguageValue" type="text"
+                            size="27" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <!--TAB List-->
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs active">
+                        <li class="nav-item active" id="grdMain">
+                            <a class="nav-link">
+                                <span>{{'Screens Constants'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdParameter">
+                            <a class="nav-link">
+                                <span>{{'Error Messages'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdOther">
+                            <a class="nav-link">
+                                <span>{{'Batch Process Types'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdValue">
+                            <a class="nav-link">
+                                <span>{{'Control Text'|translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--Screens Constants-->
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="grdScreenConstants" class="mt10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Error Messages-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdErrorMessages" class="mt10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Batch Process Types-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdBatchProcessTypes" class="mt10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Control Text-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdControlText" class="mt10">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,150 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']" (ngSubmit)="onSubmit($event)">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="9" maxlength="8" icabsZeroPad
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pl5">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="PremiseNumber" class="form-control right" formControlName="PremiseNumber" type="text" size="9" maxlength="8" eTypeInteger>
+                    </div>
+                    <div class="col16 pl5">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="9" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col16 pl5">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InfestationNumber">{{ 'Infestation Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="InfestationNumber" class="form-control right" formControlName="InfestationNumber" type="text" size="9" maxlength="3"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductDetailCode">{{ 'Product Detail' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="ProductDetailCode" class="form-control" formControlName="ProductDetailCode" type="text" size="7" maxlength="6"
+                            (change)="onProductDetailCodeChange($event)" [icabsDirFocus]="setFocusProductDetailCode" eTypeCode>
+                    </div>
+                    <div class="col14 pl5">
+                        <input id="ProductDetailDesc" class="form-control" formControlName="ProductDetailDesc" type="text" size="30" maxlength="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.productDetailCode.childConfigParams" [contentComponent]="ellipsisParams.productDetailCode.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('ProductDetailCode', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.productDetailCode.isDisabled" [showCloseButton]="ellipsisParams.productDetailCode.isShowCloseButton"
+                            [showHeader]="ellipsisParams.productDetailCode.isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InfestationGroupCode">{{ 'Infestation Group' | translate}}</label>
+                    <div class="col8">
+                        <input id="InfestationGroupCode" class="form-control right" formControlName="InfestationGroupCode" type="text" size="7" maxlength="2"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16 pl5">
+                        <input id="InfestationGroupDesc" class="form-control" formControlName="InfestationGroupDesc" type="text" size="30" maxlength="30"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InfestationLevelCode">{{ 'Infestation Level' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8">
+                        <input id="InfestationLevelCode" class="form-control right" formControlName="InfestationLevelCode" type="text" size="7" maxlength="2"
+                            (change)="onInfestationLevelCodeChange($event)" eTypeInteger>
+                    </div>
+                    <div class="col14 pl5">
+                        <input id="InfestationLevelDesc" class="form-control" formControlName="InfestationLevelDesc" type="text" size="30" maxlength="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.infestationLevelCode.childConfigParams" [contentComponent]="ellipsisParams.infestationLevelCode.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('InfestationLevelCode', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.infestationLevelCode.isDisabled" [showCloseButton]="ellipsisParams.infestationLevelCode.isShowCloseButton"
+                            [showHeader]="ellipsisParams.infestationLevelCode.isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="SelLevel">{{ 'Level' | translate}}</label>
+                        <icabs-dropdown-static #SelLevel [inputData]="comboSelLevelArray" (change)="onLevelChange()"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="InfestationLocationCode">{{ 'Infestation Site' | translate}} <span class="mandatory">*</span></label>
+                        <!-- ToDo - iCABSBInfestationLocationSearch.htm integration pending-->
+                        <!-- <icabs-dropdown id="InfestationLocationCode"></icabs-dropdown> -->
+                        <input id="InfestationLocationCode" class="form-control right" formControlName="InfestationLocationCode" type="text" size="7"
+                            maxlength="2" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="Note">{{ 'Remark' | translate}}</label>
+                        <textarea id="Note" class="form-control" formControlName="Note" size="500" maxlength="500" rows="5" eTypeText></textarea>
+                    </div>
+                </div>
+            </div>
+            <footer class="screen-footer">
+                <hr class="mt15 mb15">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="button" class="btn btn-secondary mr5" value="{{'Add' | translate}}" (click)="onAddClick($event)" *ngIf="this['pageParams']['isFunctionAdd']">
+                        <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" [disabled]="!this['pageParams']['isFunctionSave']">
+                        <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}" (click)="onCancelClick($event)" [disabled]="!this['pageParams']['isFunctionCancel']">
+                        <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}" (click)="onDeleteClick($event)" *ngIf="this['pageParams']['isFunctionDelete']">
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

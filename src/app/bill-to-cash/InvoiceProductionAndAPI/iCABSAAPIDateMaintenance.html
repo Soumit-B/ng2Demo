@@ -1,0 +1,168 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'API Date Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="formDateMaintenance" (ngSubmit)="onSubmit( formDateMaintenance.value, $event )">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input eTypeCode class="form-control" type="text" formControlName="contractNumber" [attr.maxlength]="8" (change)="onContractChange()">
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control padding-left-zero" type="text" formControlName="contractName" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #contractSearchCompponent [(autoOpen)]="autoOpen" [contentComponent]="contractSearchComponent" [childConfigParams]="inputParams"
+                        (ellipsisData)="onDataReceived($event)" [showHeader]="true" [showCloseButton]="true" [disabled]="disableSearch"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label for="Status" class="col24">{{ 'Status' | translate }}</label>
+                <div class="col16">
+                    <input type="text" class="form-control" placeholder="" formControlName="contractStatus" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" formControlName="accountNumber" readonly>
+                </div>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="accountName" readonly>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractAddressLine1">{{ 'Account Address Line 1' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control padding-left-zero" type="text" formControlName="address1" readonly>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Neg Branch' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" formControlName="negBranchNumber" readonly>
+                </div>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="branchName" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Account Address Line 2' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="address2" readonly>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Invoice Frequency' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" formControlName="invoiceFrequencyCode" readonly>
+                </div>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="invoiceFrequencyDesc" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Account Address Line 3' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="address3" readonly>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Annual Value' | translate }}</label>
+                <div class="col16">
+                    <input eTypeCurrency class="form-control" type="text" formControlName="annualValue" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Town' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="address4" readonly>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Commence Date' | translate }}</label>
+                <div class="col16">
+                    <input eTypeDate class="form-control" type="text" formControlName="commenceDate" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Country' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="address5" readonly>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Anniversary Date' | translate }}</label>
+                <div class="col16">
+                    <input eTypeDate class="form-control" type="text" formControlName="anniversaryDate" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Postcode' | translate }}</label>
+                <div class="col16">
+                    <input class="form-control" type="text" formControlName="postcode" readonly>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Next API Date' | translate }}<span class="mandatory">*</span>
+                </label>
+                <div class="col16">
+                    <icabs-datepicker [isRequired]="true" [(dt)]="ServiceDateFrom" [isDisabled]="isDateReadOnly" (selectedValue)="updateDatePickerValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div style="display:none">
+                <input class="form-control" type="text" formControlName="statusCode" readonly>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr10" [disabled]="isDateReadOnly" value="{{ 'Save' | translate }}">
+                <input type="button" class="btn btn-secondary" [disabled]="isDateReadOnly" value="{{ 'Cancel' | translate }}" (click)="resetDate()">
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+                </icabs-modal>
+            </div>
+            <div class="col-sm-12">
+                <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+                </icabs-modal>
+            </div>
+            <div class="col-sm-12">
+                <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+                    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+            </div>
+            <div class="col-sm-12">
+                <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

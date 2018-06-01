@@ -1,0 +1,80 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="8" maxlength="9">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractName">{{ 'Name' | translate}}</label>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SortBy">{{ 'Sort By' | translate}}</label>
+                    <div class="col16">
+                        <select id="SortBy" class="form-control" formControlName="SortBy">
+                            <option value="Premise">{{ 'Premise Number' | translate}}</option>
+                            <option value="Postcode">{{ 'Premise Post Code' | translate}}</option>
+                            <option value="ClientRef">{{ 'Client Reference' | translate}}</option>
+                            <option value="Infestations">{{ 'Number of Infestations' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ShowVisitDate" formControlName="ShowVisitDate">
+                    <label class="col24" for="ShowVisitDate">{{'Show Visit Date'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ShowVisitType" formControlName="ShowVisitType">
+                    <label class="col24" for="ShowVisitType">{{'Show Visit Type'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ShowInfestation" formControlName="ShowInfestation">
+                    <label class="col24" for="ShowInfestation">{{'Show Infestation'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ExcludeDeleted" formControlName="ExcludeDeleted">
+                    <label class="col24" for="ExcludeDeleted">{{'Exclude Deleted Premises'|translate}}</label>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-additional" value="{{'Submit Export' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

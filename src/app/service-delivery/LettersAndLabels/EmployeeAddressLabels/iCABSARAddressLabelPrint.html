@@ -1,0 +1,105 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="PrintType"class="col24">{{'Print Type'|translate}}</label>
+                        <select class="form-control" id="PrintType">
+                            <option value="Branch" selected>{{'Branch'|translate}}</option>
+                            <option value="Division">{{'Business'|translate}}</option>
+                            <option value="Employee">{{'Employee'|translate}}</option>
+                            <option value="Region">{{'Region'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden">
+             <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="BusinessCode">{{'Business Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="BusinessCode" class="form-control" type="text" [attr.maxlength]="2" size="6">
+                    </div>
+                    <div class="col16">
+                        <input id="BusinessDesc" class="form-control" type="text" [attr.maxlength]="40" size="40">
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="RegionCode">{{'Region Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="RegionCode" class="form-control" type="text" [attr.maxlength]="6" size="6">
+                    </div>
+                    <div class="col16">
+                        <input id="RegionDesc" class="form-control" type="text" [attr.maxlength]="40" size="40">
+                    </div>
+                </div>
+            </div>
+             <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="BranchNumber">{{'Branch Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" id="BranchNumber">
+                            <option value="Branch" selected></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="OccupationCode">{{'Occupation Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="OccupationCode" class="form-control" type="text" [attr.maxlength]="4" size="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="OccupationDesc" class="form-control" type="text" [attr.maxlength]="40" size="40">
+                    </div>
+                    <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{'Employee Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" class="form-control" type="text" [attr.maxlength]="6" size="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" class="form-control" type="text" [attr.maxlength]="40" size="40">
+                    </div>
+                    <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt10">
+                 <div class="col-sm-3">
+                    <label class="col24" for="NumberofLabels">{{'Number of Labels'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="NumberofLabels" class="form-control" type="text" [attr.maxlength]="6" size="6">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--<footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-additional" value="{{ 'Run Mail Merge' | translate }}">
+                </div>
+            </div>
+        </footer>-->
+    </form>
+</section>

@@ -1,0 +1,67 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>{{'Ticket Type'| translate}}</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>{{'Ticket Type Detail'| translate}}</label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>{{'Ticket Status'| translate}}</label>
+                </div>
+            </div>
+        </div>
+        <!--repeated section-->
+        <div class="row mt2" *ngFor="let rowNumber of selectRows">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <icabs-dropdown-static #contactTypeDropDown [inputData]="contactTypeCodeOptions[rowNumber]" [disabled]="fieldDisable['ContactTypeCodeSelect' + rowNumber]"
+                        (onSelect)="contactTypeOptionsChange($event,rowNumber)" [doTranslate]="false"></icabs-dropdown-static>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col24">
+                    <icabs-dropdown-static #contactTypeDetailDropDown [inputData]="contactTypeDetailCodeSelectOptions[rowNumber]" [disabled]="fieldDisable['ContactTypeDetailCodeSelect' + rowNumber]"
+                        (onSelect)="contactTypeDetailCodeSelectChange($event,rowNumber)" [doTranslate]="false"></icabs-dropdown-static>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col24">
+                    <icabs-dropdown-static #contactStatusDropDown [inputData]="contactStatusCodeSelectOptions[rowNumber]" [disabled]="fieldDisable['ContactStatusCodeSelect' + rowNumber]"
+                        (onSelect)="contactStatusCodeSelectChange($event,rowNumber)" [doTranslate]="true"></icabs-dropdown-static>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-primary" value="{{'Reset'| translate}}" (click)="resetCmdClick(rowNumber)">
+            </div>
+        </div>
+
+    </section>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="{{'Accept'| translate}}" (click)="postCurrentValuesToParent()">
+                <input type="button" class="btn btn-secondary mr10" value="{{'Cancel'| translate}}" (click)="cancelCmdClick()">
+                <input type="button" class="btn btn-additional" value="{{'Reset All'| translate}}" (click)="resetAllCmdClick()">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

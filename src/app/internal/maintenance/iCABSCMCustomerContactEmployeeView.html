@@ -1,0 +1,244 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24"><strong>{{ 'Usual Employee' | translate }}</strong></label>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24"><strong>{{ 'Assigned To Employee' | translate }}</strong></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeName" size="40" class="form-control" formControlName="DefaultAssigneeName" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionName" size="40" class="form-control" formControlName="NextActionName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneeMobilePhone" size="20" class="form-control" formControlName="DefaultAssigneeMobilePhone"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionMobilePhone" size="20" class="form-control" formControlName="NextActionMobilePhone" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneePhone" size="20" class="form-control" formControlName="DefaultAssigneePhone" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionPhone" size="20" class="form-control" formControlName="NextActionPhone" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ '2nd Contact Number' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneePhone2" size="20" class="form-control" formControlName="DefaultAssigneePhone2" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ '2nd Contact Number' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionPhone2" size="20" class="form-control" formControlName="NextActionPhone2" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeEmail" size="40" class="form-control" formControlName="DefaultAssigneeEmail" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionEmail" size="40" class="form-control" formControlName="NextActionEmail" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeBranch" size="40" class="form-control" formControlName="DefaultAssigneeBranch" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionBranch" size="40" class="form-control" formControlName="NextActionBranch" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="cmdBranch1" (click)="cmdBranch1_OnClick()" class="btn btn-additional" value="{{ 'Contact Branch' | translate}}">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="cmdBranch2" (click)="cmdBranch2_OnClick()" class="btn btn-additional" value="{{ 'Contact Branch' | translate}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Supervisor' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeSupervisorName" size="40" class="form-control" formControlName="DefaultAssigneeSupervisorName"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Supervisor' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionSupervisorName" size="40" class="form-control" formControlName="NextActionSupervisorName"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneeSupervisorMobilePhone" size="20" class="form-control" formControlName="DefaultAssigneeSupervisorMobilePhone"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionSupervisorMobilePhone" size="20" class="form-control" formControlName="NextActionSupervisorMobilePhone"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneeSupervisorPhone" size="20" class="form-control" formControlName="DefaultAssigneeSupervisorPhone"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionSupervisorPhone" size="20" class="form-control" formControlName="NextActionSupervisorPhone"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ '2nd Contact Number' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DefaultAssigneeSupervisorPhone2" size="20" class="form-control" formControlName="DefaultAssigneeSupervisorPhone2"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ '2nd Contact Number' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="NextActionSupervisorPhone2" size="20" class="form-control" formControlName="NextActionSupervisorPhone2"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeSupervisorEmail" size="40" class="form-control" formControlName="DefaultAssigneeSupervisorEmail"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionSupervisorEmail" size="40" class="form-control" formControlName="NextActionSupervisorEmail"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="DefaultAssigneeSupervisorBranch" size="40" class="form-control" formControlName="DefaultAssigneeSupervisorBranch"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="NextActionSupervisorBranch" size="40" class="form-control" formControlName="NextActionSupervisorBranch"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="cmdSBranch1" (click)="cmdSBranch1_OnClick()" class="btn btn-additional" value="{{ 'Contact Branch' | translate}}">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="cmdSBranch2" (click)="cmdSBranch2_OnClick()" class="btn btn-additional" value="{{ 'Contact Branch' | translate}}">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                </div>
+            </div>
+        </footer>
+        <input id="DefaultAssigneeEmployeeCode" style="display:none" formControlName="DefaultAssigneeEmployeeCode">
+        <input id="NextActionEmployeeCode" style="display:none" formControlName="NextActionEmployeeCode">
+        <input id="FixedPriceJobPostCode" style="display:none" formControlName="FixedPriceJobPostCode">
+        <input id="FixedPriceJobAddressLine4" style="display:none" formControlName="FixedPriceJobAddressLine4">
+        <input id="FixedPriceJobAddressLine5" style="display:none" formControlName="FixedPriceJobAddressLine5">
+        <input id="FixedPriceJobProduct" style="display:none" formControlName="FixedPriceJobProduct">
+        <input id="DefaultAssigneeBranchNo" style="display:none" formControlName="DefaultAssigneeBranchNo">
+        <input id="NextActionBranchNo" style="display:none" formControlName="NextActionBranchNo">
+        <input id="DefaultAssigneeSupervisorBranchNo" style="display:none" formControlName="DefaultAssigneeSupervisorBranchNo">
+        <input id="NextActionSupervisorBranchNo" style="display:none" formControlName="NextActionSupervisorBranchNo">
+        <input id="PassBranchNumber" style="display:none" formControlName="PassBranchNumber">
+
+    </form>
+</section>

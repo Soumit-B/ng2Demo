@@ -1,0 +1,118 @@
+<!-- Tab 2 - Contact Detail Update -->
+<form novalidate [formGroup]="contactDetailsFormGroup">
+    <div id="grdContactDetails">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24">{{'Contact ID' | translate}}</label>
+                <div class="col12 pr5">
+                    <input id="ContactPersonID" formControlName="ContactPersonID" size="10" maxlength="10" value="" class="form-control" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">{{'Last Updated' | translate}}</label>
+                <div class="col8 pr5">
+                    <input id="LastUpdateDate" formControlName="LastUpdateDate" size="8" maxlength="10" value="" class="form-control" eTypeDate>
+                </div>
+                <div class="col8 pr5">
+                    <input id="LastUpdateTime" formControlName="LastUpdateTime" size="4" maxlength="4" value="" class="form-control" eTypeTime>
+                </div>
+                <div class="col8">
+                    <input id="LastUpdateUserName" formControlName="LastUpdateUserName" size="30" maxlength="30" value="" class="form-control">
+                </div>
+            </div>
+        </div>
+        <hr class="mt20">
+        <div class="row mt20">
+            <div class="col-sm-3">
+                <label class="col24" id="spanEffectiveFromDate">{{'Effective From' | translate}}<span class="mandatory" [hidden]="!effectiveFromDateRequired">*</span> :</label>
+                <div class="col24">
+                    <input id="EffectiveFromDate" formControlName="EffectiveFromDate" size="10" maxlength="10" class="form-control" eTypeDate>
+                </div>
+            </div>
+            <div class="col-sm-4" [hidden]="cUpdateMode === 'ADD'">
+                <label class="col24" id="tdUpdateTypeLabel">{{'Update Type' | translate}}</label>
+                <div class="col12 pr5" id="tdUpdateType">
+                    <icabs-dropdown-static #ChangeTypeIDSelect [inputData]="changeTypeIDArray" [disabled]="true"></icabs-dropdown-static>
+                </div>
+                <div id="spanChangeTypeDetails" class="hidden">
+                    <div class="col6 pr5">
+                        <input id="ChangeContactPersonID" formControlName="ChangeContactPersonID" size="10" maxlength="10" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col6">
+                        <input id="ChangeTypeEffectiveDate" formControlName="ChangeTypeEffectiveDate" size="10" maxlength="10" class="form-control"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="cUpdateMode !== 'ADD'">
+                <label id="tdAddPortfolioLevelLabel" class="col24">{{'Roles Applied To' | translate}}</label>
+                <div class="col16 pr5" id="tdAddPortfolioLevel">
+                    <icabs-dropdown-static #AddPortfolioRoleLevelSelect [inputData]="portfolioRoles" (onSelect)="addPortfolioLevelSelect_OnChange($event)"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanContactPersonName">{{'Contact Name' | translate}}<span class="mandatory" [hidden]="!contactPersonNameRequired">*</span> :</label>
+                <div class="col24">
+                    <input id="ContactPersonName" formControlName="ContactPersonName" size="40" maxlength="40" (blur)="updateStoreValue($event)"
+                        class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" id="spanContactPersonPosition">{{'Position' | translate}}<span class="mandatory" [hidden]="!contactPersonPositionRequired">*</span> :</label>
+                <div class="col24 pr5">
+                    <input id="ContactPersonPosition" formControlName="ContactPersonPosition" size="40" maxlength="40" class="form-control" (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" id="trContactPersonDepartment">
+            <div class="col-sm-3">
+                <label class="col24">{{'Department' | translate}}</label>
+                <div class="col24">
+                    <input id="ContactPersonDepartment" formControlName="ContactPersonDepartment" size="40" maxlength=40 class="form-control"
+                        (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-6">
+                <label class="col24">{{'Notes' | translate}}</label>
+                <div class="col24">
+                    <textarea id="ContactPersonNotes" formControlName="ContactPersonNotes" rows="6" cols="80" class="form-control" (blur)="updateStoreValue($event)"></textarea>
+                </div>
+            </div>
+
+        </div>
+        <hr id="trContactDetailsSeparator" class="mt20">
+
+        <div class="row mt20">
+            <div class="col-sm-3">
+                <label class="col24" id="spanContactPersonTelephone">{{'Telephone' | translate}}<span class="mandatory" [hidden]="!contactPersonTelephoneRequired">*</span> :</label>
+                <div class="col24">
+                    <input id="ContactPersonTelephone" formControlName="ContactPersonTelephone" size="30" maxlength=20 class="form-control" (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Mobile' | translate}}</label>
+                <div class="col24">
+                    <input id="ContactPersonMobile" formControlName="ContactPersonMobile" size="30" maxlength=20 class="form-control" (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2 mb20">
+            <div class="col-sm-3">
+                <label class="col24">{{'Email' | translate}}</label>
+                <div class="col24">
+                    <input id="ContactPersonEmail" formControlName="ContactPersonEmail" size="50" maxlength=70 class="form-control" (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Fax' | translate}}</label>
+                <div class="col24">
+                    <input id="ContactPersonFax" formControlName="ContactPersonFax" size="30" maxlength=20 class="form-control" (blur)="updateStoreValue($event)">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

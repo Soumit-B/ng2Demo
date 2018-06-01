@@ -1,0 +1,43 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Notification Group Details - Maintenance Grid' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Group Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="NotifyGroupCode" formControlName="NotifyGroupCode" size="12" maxlength="12">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="NotifyGroupSystemDesc" formControlName="NotifyGroupSystemDesc" size="50" maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <input type="button" class="btn btn-primary" id="btnAdd" value="{{'Add'|translate}}">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

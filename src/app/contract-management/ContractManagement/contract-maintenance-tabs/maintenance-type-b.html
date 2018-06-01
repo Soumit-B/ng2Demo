@@ -1,0 +1,259 @@
+<form novalidate [formGroup]="maintenanceBFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div>
+        <div class="row mt10">
+            <div class="col-sm-3" *ngIf="fieldVisibility.invoiceAnnivDate === true">
+                <label class="col24">{{'Invoice Anniversary Date' | translate}}<span *ngIf="fieldRequired.invoiceAnnivDate === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='invoiceAnnivDate' [clearDate]='clearDate.invoiceAnnivDate' [isDisabled]="!dateObjectsEnabled.invoiceAnnivDate"
+                        (selectedValue)="invoiceAnnivDateSelectedValue($event)" [isRequired]="fieldRequired.invoiceAnnivDate" [validate]="dateObjectsValidate.invoiceAnnivDate"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.nextAPIDate === true">
+                <label class="col24">{{'Next API Date' | translate}}</label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='nextAPIDate' [clearDate]='clearDate.nextAPIDate' [isDisabled]="!dateObjectsEnabled.nextAPIDate" (selectedValue)="nextAPIDateSelectedValue($event)" [validate]="dateObjectsValidate.nextAPIDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.invoiceFrequencyCode === true">
+            <div class="col-sm-3">
+                <label class="col24 " for="InvoiceFrequencyCode">{{'Invoice Frequency' | translate}}<span *ngIf="fieldRequired.invoiceFrequencyCode === true" class="mandatory">*</span></label>
+                <div class="col5 pr5">
+                    <input id="InvoiceFrequencyCode" class="form-control padding-left-zero" (change)="onInvoiceFrequecyBlur($event)" type="text"
+                        formControlName="InvoiceFrequencyCode" [attr.maxlength]="2" eTypeCode>
+                </div>
+                <div class="col17 pr5">
+                    <input class="form-control padding-zero" type="text" [attr.maxlength]="40" formControlName="InvoiceFrequencyDesc" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsInvoiceFrequency" [modalConfig]="modalConfig"
+                        [contentComponent]="invoiceFrequencySearchComponent" (ellipsisData)="onInvoiceFrequencyDataReceived($event)"
+                        [showHeader]="showHeader" [disabled]="isInvoiceFrequencyEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.invoiceFrequencyChargeInd === true">
+                <div class="col24">
+                    <label for="InvoiceFrequencyChargeInd">Invoice Frequency Charge<span *ngIf="fieldRequired.invoiceFrequencyChargeInd === true" class="mandatory">* </span></label>
+                </div>
+                <div class="col2">
+                    <input id="InvoiceFrequencyChargeInd" type="checkbox" formControlName="InvoiceFrequencyChargeInd" (change)="onInvoiceFrequencyChargeChange($event)">
+                    <label for="InvoiceFrequencyChargeInd"></label>
+                </div>
+                <div class="col22 pl5" *ngIf="fieldVisibility.invoiceFrequencyChargeValue === true">
+                    <input type="text" class="form-control" placeholder="" formControlName="InvoiceFrequencyChargeValue" [attr.maxlength]="10" eTypeCurrency>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.invoiceFeeCode === true">
+                <label class="col24 " for="InvoiceFeeCode">{{'Invoice Fee' | translate}}<span *ngIf="fieldRequired.invoiceFeeCode === true" class="mandatory">* </span></label>
+                <div class="col8 pr5">
+                    <input id="InvoiceFeeCode" class="form-control padding-left-zero" type="text" formControlName="InvoiceFeeCode" [attr.maxlength]="2"
+                        (change)="onInvoiceFeeBlur($event)" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control padding-zero" type="text" formControlName="InvoiceFeeDesc" [attr.maxlength]="40" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsInvoiceFee" [modalConfig]="modalConfig"
+                        [contentComponent]="invoiceFeeSearchComponent" (ellipsisData)="onInvoiceFeeDataReceived($event)" [showHeader]="showHeader"
+                        [disabled]="isInvoiceFeeEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.createRenewalInd === true">
+                <input id="CreateRenewalInd" type="checkbox" formControlName="CreateRenewalInd">
+                <label for="CreateRenewalInd">{{'Create Renewal Prospect' | translate}}</label>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.vatExempt === true">
+                <input id="VATExempt" type="checkbox" formControlName="VATExempt">
+                <label for="VATExempt">{{'VAT Exempt' | translate}}</label>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.advanceInvoiceInd === true">
+                <input id="AdvanceInvoiceInd" type="checkbox" formControlName="AdvanceInvoiceInd">
+                <label for="AdvanceInvoiceInd">{{'Advance Invoicing' | translate}}</label>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.continuousInd === true">
+                <input id="ContinuousInd" (change)="hideShowDurationFields($event)" type="checkbox" formControlName="ContinuousInd">
+                <label for="ContinuousInd">{{'Continuous Contract' | translate}}</label>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.contractRenewalDate === true">
+                <label class="col24">{{'Renewal Date' | translate}}</label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='contractRenewalDate' [clearDate]='clearDate.contractRenewalDate' (selectedValue)="contractRenewalDateSelectedValue($event)"
+                        [isDisabled]="!dateObjectsEnabled.contractRenewalDate" [validate]="dateObjectsValidate.contractRenewalDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.contractDurationCode === true">
+                <label class="col24 " for="ContractDurationCode">{{'Contract Duration' | translate}}<span *ngIf="fieldRequired.contractDurationCode === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-contractduration [inputParams]="inputParamsContractDuration" (receivedcontractDuration)="onContractDurationCodeDataReceived($event)"
+                        [active]="contractDurationSelected" [isDisabled]="isDurationCodeDropdownDisabled" [isRequired]='fieldRequired.contractDurationCode'
+                        [durationData]='durationData' [validForNewContract]="true"></icabs-contractduration>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.contractExpiryDate === true">
+                <label class="col24">{{'Expiry Date' | translate}}<span *ngIf="fieldRequired.contractExpiryDate === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='contractExpiryDate' [clearDate]='clearDate.contractExpiryDate' (selectedValue)="contractExpiryDateSelectedValue($event)"
+                        [isDisabled]="!dateObjectsEnabled.contractExpiryDate" [isRequired]="fieldRequired.contractExpiryDate" [validate]="dateObjectsValidate.contractExpiryDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.minimumDurationCode === true">
+                <label class="col24" for="MinimumDurationCode">{{'Minimum Duration' | translate}}<span *ngIf="fieldRequired.minimumDurationCode === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-contractduration [inputParams]="inputParamsMinimumDuration" (receivedcontractDuration)="onMinimumDurationCodeDataReceived($event)"
+                        [active]="minimumDurationSelected" [isDisabled]="isMinimumDurationCodeDropdownsDisabled" [isRequired]='fieldRequired.minimumDurationCode'
+                        [durationData]='durationData'></icabs-contractduration>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.minimumExpiryDate === true">
+                <label class="col24">{{'Minimum Expiry Date' | translate}}<span *ngIf="fieldRequired.minimumExpiryDate === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='minimumExpiryDate' [clearDate]='clearDate.minimumExpiryDate' (selectedValue)="minimumExpiryDateSelectedValue($event)"
+                        [isDisabled]="!dateObjectsEnabled.minimumExpiryDate" [isRequired]="fieldRequired.minimumExpiryDate" [validate]="dateObjectsValidate.minimumExpiryDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.subsequentDurationCode === true">
+            <div class="col-sm-3">
+                <label class="col24" for="SubsequentDurationCode">{{'Subsequent Duration Period' | translate}} </label>
+                <div class="col24">
+                    <icabs-contractduration [inputParams]="inputParamsSubsequentDuration" (receivedcontractDuration)="onSubsequentDurationCodeDataReceived($event)"
+                        [active]="subsequentDurationSelected" [isDisabled]="isSubsequentDurationCodeDropdownDisabled" [isRequired]='fieldRequired.subsequentDurationCode'
+                        [durationData]='durationData' [validForNewContract]="false"></icabs-contractduration>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.apiExemptInd === true">
+                <label class="col24" for="APIExemptInd">{{'API Exempt' | translate}}</label>
+                <div class="col2">
+                    <input id="APIExemptInd" type="checkbox" formControlName="APIExemptInd">
+                    <label for="APIExemptInd"></label>
+                </div>
+                <div class="col22 pl5" *ngIf="fieldVisibility.apiExemptText === true">
+                    <input type="text" class="form-control" placeholder="" formControlName="APIExemptText" [attr.maxlength]="50" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.invoiceSuspendInd === true">
+                <label for="InvoiceSuspendInd" class="col24">{{'Suspend Invoice' | translate}}</label>
+                <div class="col2">
+                    <input id="InvoiceSuspendInd" type="checkbox" formControlName="InvoiceSuspendInd">
+                    <label for="InvoiceSuspendInd"></label>
+                </div>
+                <div class="col22 pl5" *ngIf="fieldVisibility.invoiceSuspendText === true">
+                    <input type="text" class="form-control" placeholder="" formControlName="InvoiceSuspendText" [attr.maxlength]="42" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5" *ngIf="fieldVisibility.hprlExemptInd === true">
+            <div class="col-sm-3">
+                <input id="HPRLExemptInd" type="checkbox" formControlName="HPRLExemptInd">
+                <label for="HPRLExemptInd">{{'HPRL Exempt' | translate}}</label>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt2" *ngIf="fieldVisibility.paymentTypeCode === true">
+            <div class="col-sm-3">
+                <label class="col24" for="PaymentTypeCode">{{'Payment Method' | translate}}<span *ngIf="fieldRequired.paymentTypeCode === true" class="mandatory">* </span></label>
+                <div class="col6 pr5">
+                    <input class="form-control padding-left-zero" type="text" id="PaymentTypeCode" formControlName="PaymentTypeCode" [attr.maxlength]="3"
+                        (change)="onPaymentTypeBlur($event)" eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input class="form-control padding-zero" type="text" id="PaymentDesc" formControlName="PaymentDesc" [attr.maxlength]="40" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPaymentType" [modalConfig]="modalConfig"
+                        [contentComponent]="paymentTypeCodeComponent" (ellipsisData)="onPaymentTypeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="isPaymentTypeEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.authorityCode === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AuthorityCode">{{'Authorisation Code' | translate}} </label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" id="AuthorityCode" formControlName="AuthorityCode" [attr.maxlength]="20" (change)="onCapitalize('AuthorityCode');" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col10 pr5" *ngIf="fieldVisibility.vaddBranchNumber === true && fieldVisibility.vaddMandateNumber === true">
+                    <label class="col24" for="VADDBranchNumber">Branch </label>
+                    <input type="text" id="VADDBranchNumber" class="form-control" placeholder="" formControlName="VADDBranchNumber" eTypeInteger>
+                </div>
+                <div *ngIf="fieldVisibility.vaddMandateNumber === true">
+                    <div class="col10 pr5">
+                        <label class="col24" for="VADDMandateNumber">{{'Mandate Number' | translate}}</label>
+                        <input type="text" id="VADDMandateNumber" class="form-control" placeholder="" formControlName="VADDMandateNumber" [attr.maxlength]="6" eTypeInteger>
+                    </div>
+                    <div class="col4 mt20" *ngIf="fieldVisibility.vaddApproved === true">
+                        <input type="checkbox" id="VADDApproved" formControlName="VADDApproved">
+                        <label for="VADDApproved">
+                            Approved
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.mandateNumberAccount === true">
+            <div class="col-sm-3">
+                <label class="col24" for="MandateNumberAccount">{{'Mandate Number' | translate}}<span *ngIf="fieldRequired.mandateNumberAccount === true" class="mandatory">* </span></label>
+                <div class="col24">
+                <input type="text" id="MandateNumberAccount" (change)="onMandateNumberAccountBlur($event)" class="form-control" placeholder=""
+                    formControlName="MandateNumberAccount" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20 padding-zero">
+                <input class="btn btn-primary" *ngIf="fieldVisibility.mandateNumberGenerate === true" formControlName="Generate" type="button"
+                    (click)="onGenerateClick($event)" value="{{ 'Generate' | translate }}">
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.mandateDate === true">
+            <div class="col-sm-3">
+                <label class="col24">{{'Mandate Date' | translate}}<span *ngIf="fieldRequired.mandateDate === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='mandateDate' [clearDate]='clearDate.mandateDate' [isDisabled]="!dateObjectsEnabled.mandateDate" (selectedValue)="mandateDateSelectedValue($event)"
+                        [isRequired]="fieldRequired.mandateDate" [validate]="dateObjectsValidate.mandateDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.bankAccountNumber === true">
+            <div class="col-sm-3">
+                <label for="BankAccountNumber" class="col24">{{'Bank Account Number' | translate}}<span *ngIf="fieldRequired.bankAccountNumber === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <input id="BankAccountNumber" type="text" class="form-control" placeholder="" formControlName="BankAccountNumber" [attr.maxlength]="40" eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.bankAccountSortCode === true">
+                <label for="BankAccountSortCode" class="col24">{{'Bank Sort Code' | translate}}<span *ngIf="fieldRequired.bankAccountSortCode === true" class="mandatory">* </span></label>
+                <div class="col24">
+                    <input id="BankAccountSortCode" type="text" class="form-control" placeholder="" formControlName="BankAccountSortCode" [attr.maxlength]="12" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.paymentDueDay === true">
+                <label for="PaymentDueDay" class="col24">{{'Payment Due Date' | translate}}</label>
+                <div class="col24">
+                    <input id="PaymentDueDay" type="text" class="form-control" placeholder="" formControlName="PaymentDueDay" [attr.maxlength]="15" eTypeText>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>

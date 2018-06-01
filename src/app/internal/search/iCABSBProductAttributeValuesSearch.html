@@ -1,0 +1,39 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Product Attribute Values Search' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Attribute Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="AttributeCodeSearchValue" formControlName="AttributeCodeSearchValue" size="10"
+                            maxlength="20">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="AttributeLabelSearchValue" formControlName="AttributeLabelSearchValue" size="20"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+
+                        <icabs-ellipsis [disabled]="ellipsisSetup.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #riTable (onRefresh)="populateTable()" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" (selectedData)="selectedData($event)"
+                        [paginationTop]="true"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

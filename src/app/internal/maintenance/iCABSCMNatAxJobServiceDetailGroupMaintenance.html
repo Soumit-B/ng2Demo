@@ -1,0 +1,235 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProspectNumber" id="ProspectNumber" size="9" maxlength="9" value="" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductCode" id="ProductCode" size="9" maxlength="9" value="" class="form-control" (change)="productCodeOnChange($event.target.value)"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input formControlName="ProductDesc" id="ProductDesc" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+
+
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 1' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode1" id="ProductDetailCode1" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc1" id="ProductDetailDesc1" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch1 [showCloseButton]="ellipsis.productCoverSearch1.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch1.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch1.contentComponent" [autoOpen]="ellipsis.productCoverSearch1.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '1')" [showHeader]="ellipsis.productCoverSearch1.showHeader"
+                            [disabled]="ellipsis.productCoverSearch1.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 2' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode2" id="ProductDetailCode2" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc2" id="ProductDetailDesc2" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch2 [showCloseButton]="ellipsis.productCoverSearch2.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch2.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch2.contentComponent" [autoOpen]="ellipsis.productCoverSearch2.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '2')" [showHeader]="ellipsis.productCoverSearch2.showHeader"
+                            [disabled]="ellipsis.productCoverSearch2.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 3' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode3" id="ProductDetailCode3" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc3" id="ProductDetailDesc3" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch3 [showCloseButton]="ellipsis.productCoverSearch3.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch3.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch3.contentComponent" [autoOpen]="ellipsis.productCoverSearch3.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '3')" [showHeader]="ellipsis.productCoverSearch3.showHeader"
+                            [disabled]="ellipsis.productCoverSearch3.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 4' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode4" id="ProductDetailCode4" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc4" id="ProductDetailDesc4" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch4 [showCloseButton]="ellipsis.productCoverSearch4.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch4.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch4.contentComponent" [autoOpen]="ellipsis.productCoverSearch4.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '4')" [showHeader]="ellipsis.productCoverSearch4.showHeader"
+                            [disabled]="ellipsis.productCoverSearch4.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 5' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode5" id="ProductDetailCode5" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc5" id="ProductDetailDesc5" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch5 [showCloseButton]="ellipsis.productCoverSearch5.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch5.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch5.contentComponent" [autoOpen]="ellipsis.productCoverSearch5.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '5')" [showHeader]="ellipsis.productCoverSearch5.showHeader"
+                            [disabled]="ellipsis.productCoverSearch5.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 6' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode6" id="ProductDetailCode6" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc6" id="ProductDetailDesc6" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch6 [showCloseButton]="ellipsis.productCoverSearch6.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch6.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch6.contentComponent" [autoOpen]="ellipsis.productCoverSearch6.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '6')" [showHeader]="ellipsis.productCoverSearch6.showHeader"
+                            [disabled]="ellipsis.productCoverSearch6.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 7' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode7" id="ProductDetailCode7" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc7" id="ProductDetailDesc7" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch7 [showCloseButton]="ellipsis.productCoverSearch7.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch7.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch7.contentComponent" [autoOpen]="ellipsis.productCoverSearch7.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '7')" [showHeader]="ellipsis.productCoverSearch7.showHeader"
+                            [disabled]="ellipsis.productCoverSearch7.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 8' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode8" id="ProductDetailCode8" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc8" id="ProductDetailDesc8" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch8 [showCloseButton]="ellipsis.productCoverSearch8.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch8.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch8.contentComponent" [autoOpen]="ellipsis.productCoverSearch8.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '8')" [showHeader]="ellipsis.productCoverSearch8.showHeader"
+                            [disabled]="ellipsis.productCoverSearch8.disabled"></icabs-ellipsis>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 9' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode9" id="ProductDetailCode9" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc9" id="ProductDetailDesc9" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch9 [showCloseButton]="ellipsis.productCoverSearch9.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch9.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch9.contentComponent" [autoOpen]="ellipsis.productCoverSearch9.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '9')" [showHeader]="ellipsis.productCoverSearch9.showHeader"
+                            [disabled]="ellipsis.productCoverSearch9.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail 10' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductDetailCode10" id="ProductDetailCode10" size="9" maxlength="9" value="" class="form-control"
+                            (change)="productDetailCodeChange($event.target.id)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDetailDesc10" id="ProductDetailDesc10" size="40" maxlength="30" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductCoverSearch10 [showCloseButton]="ellipsis.productCoverSearch10.showCloseButton" [childConfigParams]="ellipsis.productCoverSearch10.childConfigParams"
+                            [contentComponent]="ellipsis.productCoverSearch10.contentComponent" [autoOpen]="ellipsis.productCoverSearch10.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event, '10')" [showHeader]="ellipsis.productCoverSearch10.showHeader"
+                            [disabled]="ellipsis.productCoverSearch10.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+        <hr class="mt15 mb15">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <input class="btn btn-primary mr5" type="button" value="{{'Save' | translate}}" (click)="save()">
+                <input class="btn btn-additional mr5" type="button" value="{{'Cancel' | translate}}" (click)="cancel()">
+            </div>
+        </div>
+    </footer>
+</section>
+
+
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

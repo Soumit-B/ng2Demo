@@ -1,0 +1,30 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="Dashboard" class="mt10">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="DashboardDrill">{{ 'Show Dashboard Breakdown For' | translate }}</label>
+                <div class="col16">
+                    <select id="DashboardDrill" (change)="dashboardDrillOnChange($event)" formControlName="DashboardDrill" name="DashboardDrill" class="form-control">
+                        <option value="none" selected>{{ 'Please Select' | translate }}</option>
+                        <option value="open">{{ 'Open Tickets' | translate }}</option>
+                        <option value="openoverdue">{{ 'Open Tickets Overdue' | translate }}</option>
+                        <option value="opencallouts">{{ 'Open Call Outs' | translate }}</option>
+                        <option value="opencomplaints">{{ 'Open Complaints' | translate }}</option>
+                        <option value="closed31days">{{ 'Closed Tickets &#60; 31 Days' | translate }}</option>
+                        <option value="workorderoverdue">{{ 'Overdue Work Orders' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let row of dashboardArray" class="row mt5">
+            <div *ngFor="let column of row" class="col-sm-3">
+                <div *ngIf="column.value">
+                    <label class="col24">{{ column.label | translate }}</label>
+                    <div class="col8">
+                        <input id="" value="{{column.value | translate}}" readonly="" class="center form-control" [ngStyle]="{ 'background-color': '#' + column.backgroundColor }">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

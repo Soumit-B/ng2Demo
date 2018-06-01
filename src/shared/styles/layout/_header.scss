@@ -1,0 +1,36 @@
+// File Name: _header.scss
+// Description: global header styles
+// Used by: Page.scss
+// Dependencies:
+// ------------------------------------------------------------
+// .navbar-fixed-top {
+//     height: $headerHeight;
+//     background-color: $header_bg_color;
+//     border-bottom: 1px solid $header_border_color;
+// }
+.parent-header {
+    background: $header_bg_color;
+    min-height: $headerHeight;
+    border-bottom: 1px solid $header_border_color;
+    border-radius: 0;
+    // div{
+    //      -webkit-transition: 1s; /* Safari */
+    //     transition: 1s;
+    // }
+    .modal-backdrop{
+        opacity: 0.5;
+    }
+}
+
+.logo {
+    display: inline-block;
+    padding: 8px 0;
+    height: 100%;
+    img {
+        height: 29px;
+    }
+}
+
+.container-fluid {
+    max-width: 1366px;
+}

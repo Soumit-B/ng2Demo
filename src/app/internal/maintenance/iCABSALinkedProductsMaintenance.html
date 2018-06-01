@@ -1,0 +1,134 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="9" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="9" maxlength="5">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="9" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceVisitFrequency">{{ 'Service Visit Frequency' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ServiceVisitFrequency" class="form-control" formControlName="ServiceVisitFrequency" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2" *ngIf="tbNormalDisp">
+                <div class="col-sm-4">
+                    <label class="col24" for="ParentProductCode">{{ 'Parent Product' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ParentProductCode" class="form-control" formControlName="ParentProductCode" type="text" size="10" maxlength="6"
+                            (blur)="onParentProductBlur($event.target.value)">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ParentProductDesc" class="form-control" formControlName="ParentProductDesc" type="text" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tbNormalDisp">
+                <div class="col-sm-4">
+                    <label class="col24" for="ParentServiceVisitFrequency">{{ 'Parent Service Visit Frequency' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ParentServiceVisitFrequency" class="form-control" formControlName="ParentServiceVisitFrequency" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tbNormalDisp">
+                <div class="col-sm-4">
+                    <label class="col24" for="ChildProductCode">{{ 'Child Product' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ChildProductCode" class="form-control" formControlName="ChildProductCode" type="text" size="10" maxlength="6"
+                            (blur)="onChildProductBlur($event.target.value)">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ChildProductDesc" class="form-control" formControlName="ChildProductDesc" type="text" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tbNormalDisp">
+                <div class="col-sm-4">
+                    <label class="col24" for="ChildServiceVisitFrequency">{{ 'Child Service Visit Frequency' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ChildServiceVisitFrequency" class="form-control" formControlName="ChildServiceVisitFrequency" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tbLinkedProduct">
+                <div class="col-sm-4">
+                    <label class="col24" for="LinkedProductCode">{{ 'Linked Product' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="LinkedProductCode" class="form-control" formControlName="LinkedProductCode" type="text" size="10" maxlength="6"
+                            (change)="onLinkedProductBlur($event.target.value)">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LinkedProductDesc" class="form-control" formControlName="LinkedProductDesc" type="text" size="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsis.ServiceCover.childConfigParams" [contentComponent]="ellipsis.ServiceCover.contentComponent"
+                            [showHeader]="ellipsis.ServiceCover.showHeader" [disabled]="ellipsis.ServiceCover.disabled" [modalConfig]="ellipsis.ServiceCover.modalConfig"
+                            (ellipsisData)="onServiceCoverSearch($event)" [autoOpen]="linkedEllipseOpen" (modalHidden)="onModalHidden()"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tbLinkedProduct">
+                <div class="col-sm-4">
+                    <label class="col24" for="LinkedServiceVisitFreq">{{ 'Linked Service Visit Frequency' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="LinkedServiceVisitFreq" class="form-control" formControlName="LinkedServiceVisitFreq" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" *ngIf="tbLinkedProduct" (click)="addLinkedproduct()">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}" *ngIf="tbLinkedProduct" (click)="onCancelClick()">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}" *ngIf="tbNormalDisp" (click)="deleteLinkedProduct()">
+            </div>
+        </div>
+    </footer>
+    <icabs-prompt-modal #promptModal="child" [showHeader]="true" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

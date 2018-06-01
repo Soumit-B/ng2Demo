@@ -1,0 +1,708 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>Test Screen</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="uiForm">
+        <div class="page-content row">
+            <div class="form-group col-md-6">
+                <div class="input-label col-md-12">
+                    <label>Account History
+						<span class="page-asterisk">*</span>:</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Account History Detail Read Only" class="form-control" [(ngModel)]="accountObject.AccountNumber"
+                        [ngModelOptions]="{standalone: true}">
+                </div>
+                <div class="col-md-3 padding-left-zero">
+                    <!-- <icabs-ellipsis [childConfigParams]="accountObject" [contentComponent]="ReadOnlyComponent" [showHeader]="showHeader" [title]="modalTitle"
+                    [disabled]="false"></icabs-ellipsis> -->
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="input-label col-md-12">
+                    <label>Contract Invoice Search</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Contract Invoice Charge" class="form-control">
+                </div>
+                <div class="col-md-3 padding-left-zero">
+                    <icabs-ellipsis [childConfigParams]="inputParamsContractInvoiceSearch" [contentComponent]="InvChargeSearchComponent" (ellipsisData)="onInvoiceChargeTypeCode($event)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="LostBusinessDetailCode">Lost Business Detail Search</label>
+                    <div class="col6 pr5">
+                        <input id="LostBusinessDetailCode" class="form-control" formControlName="LostBusinessDetailCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LostBusinessDetailDesc" class="form-control" formControlName="LostBusinessDetailDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParamsLostBusinessDetailSearch" [contentComponent]="LostBusinessDetailCodeSearchComponent"
+                            (ellipsisData)="onLostBusinessDetail($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">Contact Type Code</label>
+                    <div class="col6 pr5">
+                        <input id="ContactTypeCode" (blur)="onCallinglookUp()" class="form-control" formControlName="ContactTypeCode" type="text"
+                            size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContactTypeSystemDesc" class="form-control" formControlName="ContactTypeSystemDesc" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">Contact Type Detail Code</label>
+                    <div class="col6 pr5">
+                        <input id="ContactTypeDetailCode" class="form-control" formControlName="ContactTypeDetailCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContactTypeDetailSystemDesc" class="form-control" formControlName="ContactTypeDetailSystemDesc" type="text" size="40"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.contactTypeDetailCode.showCloseButton" [showHeader]="ellipsis.contactTypeDetailCode.showHeader"
+                            [childConfigParams]="ellipsis.contactTypeDetailCode.childConfigParams" [contentComponent]="ellipsis.contactTypeDetailCode.component"
+                            (ellipsisData)="onContactTypeDetailCodeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">List Group Search</label>
+                    <div class="col6 pr5">
+                        <input id="ListGroupSearchCode" class="form-control" formControlName="ListGroupSearchCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ListGroupSearchDesc" class="form-control" formControlName="ListGroupSearchDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.listGroupSearch.showCloseButton" [showHeader]="ellipsis.listGroupSearch.showHeader"
+                            [childConfigParams]="ellipsis.listGroupSearch.childConfigParams" [contentComponent]="ellipsis.listGroupSearch.component"
+                            (ellipsisData)="onListGroupSearchDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ProductDetailCode">Product Detail Code</label>
+                    <div class="col6 pr5">
+                        <input id="ProductDetailCode" class="form-control" formControlName="ProductDetailCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDetailDesc" class="form-control" formControlName="ProductDetailDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.productCoverSearch.isShowCloseButton" [showHeader]="ellipsis.productCoverSearch.isShowHeader"
+                            [childConfigParams]="ellipsis.productCoverSearch.childConfigParams" [contentComponent]="ellipsis.productCoverSearch.contentComponent"
+                            (ellipsisData)="onProductCoverDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">{{'Lost Business Code' | translate}}</label>
+                    <div class="col16 pr5">
+                        <icabs-lostbusinesslanguagesearch #lostbusinesslanguagesearchDropDown [inputParams]="dropdown.languageSearch.inputParams"
+                            [isRequired]="dropdown.languageSearch.isRequired" [isDisabled]="dropdown.languageSearch.isDisabled"
+                            (receivedlostbusinesslangsearch)="onLostBusinessLanguageSearch($event)">
+                        </icabs-lostbusinesslanguagesearch>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">Contact Type Detail Search Dropdown</label>
+                    <div class="col22 pr5">
+                        <icabs-contacttype-detailsearch #ddContactTypeDetailSearch [inputParams]="dropdown.contactTypeDetailSearch" [active]="dropdown.contactTypeDetailSearch.active"
+                            [isDisabled]="dropdown.contactTypeDetailSearch.isDisabled" [isRequired]="dropdown.contactTypeDetailSearch.isRequired"
+                            (receivedContactTypeDetailSearch)="onContactTypeDetailCodeDropdownDataReceived($event)"></icabs-contacttype-detailsearch>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">{{'System Invoice/Credit Reason Code'|translate}}</label>
+                    <div class="col4 pr5">
+                        <input type="text" class="form-control" id="InvoiceCreditReasonCode" formControlName="InvoiceCreditReasonCode">
+                    </div>
+                    <div class="col18 pr5">
+                        <input type="text" class="form-control" id="InvoiceCreditReasonDesc" formControlName="InvoiceCreditReasonDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.InvoiceCreditReasonCode.showCloseButton" [showHeader]="ellipsis.InvoiceCreditReasonCode.showHeader"
+                            [childConfigParams]="ellipsis.InvoiceCreditReasonCode.childConfigParams" [contentComponent]="ellipsis.InvoiceCreditReasonCode.component"
+                            (ellipsisData)="onInvoiceCreditReasonCodeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Lost Business Request Origin Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-lostbusiness-requestorigin-languagesearch #ddLostBusinessRequestOriginLanguageSearch [inputParams]="dropdown.lostBusinessRequestOriginLanguageSearch"
+                            [active]="dropdown.lostBusinessRequestOriginLanguageSearch.active" [isDisabled]="dropdown.lostBusinessRequestOriginLanguageSearch.isDisabled"
+                            [isRequired]="dropdown.lostBusinessRequestOriginLanguageSearch.isRequired" (receivedLanguageSearch)="onLostBusinessRequestOriginLanguageSearchReceived($event)"></icabs-lostbusiness-requestorigin-languagesearch>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">product Service Group Search</label>
+                    <div class="col22 pr5">
+                        <icabs-sbproductservice-groupsearch #ddProductServiceGroupSearch [inputParams]="dropdown.ProductServiceGroupSearch" [active]="dropdown.ProductServiceGroupSearch.active"
+                            [isDisabled]="dropdown.ProductServiceGroupSearch.isDisabled" [isRequired]="dropdown.ProductServiceGroupSearch.isRequired"
+                            (receivedProductServiceGroupSearch)="onProductServiceGroupSearch($event)"></icabs-sbproductservice-groupsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Bank Account Type Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #commonDropDown [inputParams]="inputParamsiCABSSSystemBankAccountTypeSearchDropdown" [displayFields]="displayiCABSSSystemBankAccountTypeSearchColumns"
+                            (onDataReceived)="oniCABSSSystemBankAccountTypeSearchDropdownDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Component Type Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-component-type-lang-dd #cddCompTypeLangSearch [inputParams]="dropdown.compTypeLangSearch.inputParams" [itemsToDisplay]="dropdown.compTypeLangSearch.itemsToDisplay"
+                            [active]="dropdown.compTypeLangSearch.active" (selectedValue)="onSelectCompTypeLangSearchDD($event)"></icabs-component-type-lang-dd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">{{ 'Contract Type Code' | translate }}</label>
+                    <div class="col16 pr5">
+                        <icabs-contract-type-language-search #contractTypeLanguageSearchDropdown [inputParams]="dropdown.contractTypeLanguageSearch"
+                            [active]="dropdown.contractTypeLanguageSearch.active" [isDisabled]="dropdown.contractTypeLanguageSearch.isDisabled"
+                            [isRequired]="dropdown.contractTypeLanguageSearch.isRequired" (receivedContractTypeLanguageSearch)="onContactTypeLanguageSearchReceived($event)"></icabs-contract-type-language-search>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">PestNetOnline Level Search</label>
+                    <div class="col6 pr5">
+                        <input id="PNOLLevelCode" class="form-control" formControlName="PNOLLevelCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="PNOLLevelDesc" class="form-control" formControlName="PNOLLevelDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.pnollevelsearch.showCloseButton" [showHeader]="ellipsis.pnollevelsearch.showHeader"
+                            [childConfigParams]="ellipsis.pnollevelsearch.childConfigParams" [contentComponent]="ellipsis.pnollevelsearch.component"
+                            (ellipsisData)="onPNOLLevelDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Expense Code DropDown Search</label>
+                    <div class="col22 pr5">
+                        <icabs-expensecode #expenseCodeSearch [inputParams]="dropdown.expenseCodeSearch" [active]="dropdown.expenseCodeSearch.active"
+                            [isDisabled]="dropdown.expenseCodeSearch.isDisabled" [isRequired]="dropdown.expenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onExpenseCodeSearchReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">No Guarentee Search</label>
+                <div class="col16">
+                    <icabs-common-dropdown [inputParams]="dropdown.noGuarenteeSearch.params" [isRequired]="dropdown.noGuarenteeSearch.isRequired"
+                        [isDisabled]="dropdown.noGuarenteeSearch.isDisabled" [displayFields]="dropdown.noGuarenteeSearch.displayFields"
+                        (onDataReceived)="onNoGuarenteeSearch($event)">
+                    </icabs-common-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">Contract type Search</label>
+                <div class="col16">
+                    <icabs-common-dropdown [inputParams]="dropdown.contractTypeSearch.params" [isRequired]="dropdown.contractTypeSearch.isRequired"
+                        [isDisabled]="dropdown.contractTypeSearch.isDisabled" [displayFields]="dropdown.contractTypeSearch.displayFields"
+                        (onDataReceived)="onContractTypeSearch($event)">
+                    </icabs-common-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">Invoice Charge Type Search</label>
+                <div class="col22 pr5">
+                    <icabs-sbinvoice-chargetype-languagesearch #ddSbInvoiceChargeTypeLanguageSearch [inputParams]="dropdown.ddSbInvoiceChargeTypeSearch"
+                        [active]="dropdown.ddSbInvoiceChargeTypeSearch.active" [isDisabled]="dropdown.ddSbInvoiceChargeTypeSearch.isDisabled"
+                        [isRequired]="dropdown.ddSbInvoiceChargeTypeSearch.isRequired" (receivedLanguageSearch)="invoiceChargeLanguageSearch($event)"></icabs-sbinvoice-chargetype-languagesearch>
+
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">Infestation Group Code</label>
+                <div class="col16">
+                    <icabs-common-dropdown [inputParams]="dropdown.InfestationGroupSearch.params" [isRequired]="dropdown.InfestationGroupSearch.isRequired"
+                        [isDisabled]="dropdown.InfestationGroupSearch.isDisabled" [displayFields]="dropdown.InfestationGroupSearch.displayFields"
+                        (onDataReceived)="onInfestationSearch($event)">
+                    </icabs-common-dropdown>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">Manual Visit Reason Search</label>
+                    <div class="col16 pr5">
+                        <icabs-common-dropdown [inputParams]="dropdown.manualVisitReasonSearch.params" [isRequired]="dropdown.manualVisitReasonSearch.isRequired"
+                            [isDisabled]="dropdown.manualVisitReasonSearch.isDisabled" [displayFields]="dropdown.manualVisitReasonSearch.displayFields"
+                            (onDataReceived)="onManualVisitReceived($event)">
+                        </icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="input-label col-md-12">
+                    <label>Product Attribute Values Search</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Product Attribute Values Search" class="form-control" formControlName="ProductAttributeValue">
+                </div>
+                <div class="col-md-3 padding-left-zero">
+                    <icabs-ellipsis [showCloseButton]="ellipsis.productAttributeValueSearch.isShowCloseButton" [showHeader]="ellipsis.productAttributeValueSearch.isShowHeader"
+                        [childConfigParams]="ellipsis.productAttributeValueSearch.childConfigParams" [contentComponent]="ellipsis.productAttributeValueSearch.contentComponent"
+                        (ellipsisData)="onProductAttributeValueSearch($event)"></icabs-ellipsis>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Service Type Search</label>
+                    <div class="col16 pr5">
+                        <icabs-servicetype-search #serviceTypeSearchDropDown [inputParams]="dropdown.serviceTypeSearch" [isRequired]="dropdown.serviceTypeSearch.isRequired"
+                            [isDisabled]="dropdown.serviceTypeSearch.isDisabled" (receivedServiceTypeData)="onServiceTypeDataReceived($event)">
+                        </icabs-servicetype-search>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <input type="text" placeholder="Account History Detail Read Only" class="form-control" [(ngModel)]="accountObject.AccountNumber"
+                    [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-md-3 padding-left-zero">
+                <!-- <icabs-ellipsis [childConfigParams]="accountObject" [contentComponent]="ReadOnlyComponent" [showHeader]="showHeader" [title]="modalTitle"
+                    [disabled]="false"></icabs-ellipsis> -->
+            </div>
+            <div class="form-group col-md-6">
+                <div class="input-label col-md-12">
+                    <label>Contract Invoice Search</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Contract Invoice Charge" class="form-control">
+                </div>
+                <div class="col-md-3 padding-left-zero">
+                    <icabs-ellipsis [childConfigParams]="inputParamsContractInvoiceSearch" [contentComponent]="InvChargeSearchComponent" (ellipsisData)="onInvoiceChargeTypeCode($event)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="LostBusinessDetailCode">Lost Business Detail Search</label>
+                    <div class="col6 pr5">
+                        <input id="LostBusinessDetailCode" class="form-control" formControlName="LostBusinessDetailCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LostBusinessDetailDesc" class="form-control" formControlName="LostBusinessDetailDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParamsLostBusinessDetailSearch" [contentComponent]="LostBusinessDetailCodeSearchComponent"
+                            (ellipsisData)="onLostBusinessDetail($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ProductSaleGroupCode">{{ 'Sales Group Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductSaleGroupCode" class="form-control" formControlName="ProductSaleGroupCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductSaleGroupDesc" class="form-control" formControlName="ProductSaleGroupDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.productSalesGroupSearch.isShowCloseButton" [showHeader]="ellipsis.productSalesGroupSearch.isShowHeader"
+                            [childConfigParams]="ellipsis.productSalesGroupSearch.childConfigParams" [contentComponent]="ellipsis.productSalesGroupSearch.contentComponent"
+                            (ellipsisData)="onProductSalesGroupSearch($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">Contact Type Code</label>
+                    <div class="col6 pr5">
+                        <input id="ContactTypeCode" (blur)="onCallinglookUp()" class="form-control" formControlName="ContactTypeCode" type="text"
+                            size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContactTypeSystemDesc" class="form-control" formControlName="ContactTypeSystemDesc" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">Contact Type Detail Code</label>
+                    <div class="col6 pr5">
+                        <input id="ContactTypeDetailCode" class="form-control" formControlName="ContactTypeDetailCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContactTypeDetailSystemDesc" class="form-control" formControlName="ContactTypeDetailSystemDesc" type="text" size="40"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.contactTypeDetailCode.showCloseButton" [showHeader]="ellipsis.contactTypeDetailCode.showHeader"
+                            [childConfigParams]="ellipsis.contactTypeDetailCode.childConfigParams" [contentComponent]="ellipsis.contactTypeDetailCode.component"
+                            (ellipsisData)="onContactTypeDetailCodeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">List Group Search</label>
+                    <div class="col6 pr5">
+                        <input id="ListGroupSearchCode" class="form-control" formControlName="ListGroupSearchCode" type="text" size="3" maxlength="9">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ListGroupSearchDesc" class="form-control" formControlName="ListGroupSearchDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.listGroupSearch.showCloseButton" [showHeader]="ellipsis.listGroupSearch.showHeader"
+                            [childConfigParams]="ellipsis.listGroupSearch.childConfigParams" [contentComponent]="ellipsis.listGroupSearch.component"
+                            (ellipsisData)="onListGroupSearchDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ProductDetailCode">Product Detail Code</label>
+                    <div class="col6 pr5">
+                        <input id="ProductDetailCode" class="form-control" formControlName="ProductDetailCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDetailDesc" class="form-control" formControlName="ProductDetailDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.productCoverSearch.isShowCloseButton" [showHeader]="ellipsis.productCoverSearch.isShowHeader"
+                            [childConfigParams]="ellipsis.productCoverSearch.childConfigParams" [contentComponent]="ellipsis.productCoverSearch.contentComponent"
+                            (ellipsisData)="onProductCoverDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24" for="ContactTypeDetailCode">{{'Lost Business Code' | translate}}</label>
+                    <div class="col16 pr5">
+                        <icabs-lostbusinesslanguagesearch #lostbusinesslanguagesearchDropDown [inputParams]="dropdown.languageSearch.inputParams"
+                            [isRequired]="dropdown.languageSearch.isRequired" [isDisabled]="dropdown.languageSearch.isDisabled"
+                            (receivedlostbusinesslangsearch)="onLostBusinessLanguageSearch($event)">
+                        </icabs-lostbusinesslanguagesearch>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">Contact Type Detail Search Dropdown</label>
+                    <div class="col22 pr5">
+                        <icabs-contacttype-detailsearch #ddContactTypeDetailSearch [inputParams]="dropdown.contactTypeDetailSearch" [active]="dropdown.contactTypeDetailSearch.active"
+                            [isDisabled]="dropdown.contactTypeDetailSearch.isDisabled" [isRequired]="dropdown.contactTypeDetailSearch.isRequired"
+                            (receivedContactTypeDetailSearch)="onContactTypeDetailCodeDropdownDataReceived($event)"></icabs-contacttype-detailsearch>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">{{'System Invoice/Credit Reason Code'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="InvoiceCreditReasonCode" formControlName="InvoiceCreditReasonCode">
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="InvoiceCreditReasonDesc" formControlName="InvoiceCreditReasonDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.InvoiceCreditReasonCode.showCloseButton" [showHeader]="ellipsis.InvoiceCreditReasonCode.showHeader"
+                            [childConfigParams]="ellipsis.InvoiceCreditReasonCode.childConfigParams" [contentComponent]="ellipsis.InvoiceCreditReasonCode.component"
+                            (ellipsisData)="onInvoiceCreditReasonCodeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">{{'System Invoice Issue Type Language Search'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="SystemInvoiceFormatCode" formControlName="SystemInvoiceFormatCode">
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="SystemInvoiceFormatDesc" formControlName="SystemInvoiceFormatDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.InvoiceFormatLanguageSearch.showCloseButton" [showHeader]="ellipsis.InvoiceFormatLanguageSearch.showHeader"
+                            [childConfigParams]="ellipsis.InvoiceFormatLanguageSearch.childConfigParams" [contentComponent]="ellipsis.InvoiceFormatLanguageSearch.component"
+                            (ellipsisData)="onInvoiceFormatLanguageSearch($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <label class="col24">{{'SIC Search'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="SICCode" formControlName="SICCode">
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="SICDescription" formControlName="SICDescription">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.SICSearch.showCloseButton" [showHeader]="ellipsis.SICSearch.showHeader" [childConfigParams]="ellipsis.SICSearch.childConfigParams"
+                            [contentComponent]="ellipsis.SICSearch.component" (ellipsisData)="onSICSearchRecieved($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Lost Business Request Origin Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-lostbusiness-requestorigin-languagesearch #ddLostBusinessRequestOriginLanguageSearch [inputParams]="dropdown.lostBusinessRequestOriginLanguageSearch"
+                            [active]="dropdown.lostBusinessRequestOriginLanguageSearch.active" [isDisabled]="dropdown.lostBusinessRequestOriginLanguageSearch.isDisabled"
+                            [isRequired]="dropdown.lostBusinessRequestOriginLanguageSearch.isRequired" (receivedLanguageSearch)="onLostBusinessRequestOriginLanguageSearchReceived($event)"></icabs-lostbusiness-requestorigin-languagesearch>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">product Service Group Search</label>
+                    <div class="col22 pr5">
+                        <icabs-sbproductservice-groupsearch #ddProductServiceGroupSearch [inputParams]="dropdown.ProductServiceGroupSearch" [active]="dropdown.ProductServiceGroupSearch.active"
+                            [isDisabled]="dropdown.ProductServiceGroupSearch.isDisabled" [isRequired]="dropdown.ProductServiceGroupSearch.isRequired"
+                            (receivedProductServiceGroupSearch)="onProductServiceGroupSearch($event)"></icabs-sbproductservice-groupsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Bank Account Type Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #commonDropDown [inputParams]="inputParamsiCABSSSystemBankAccountTypeSearchDropdown" [displayFields]="displayiCABSSSystemBankAccountTypeSearchColumns"
+                            [isFirstItemSelected]="true" [isRequired]="true" (onDataReceived)="oniCABSSSystemBankAccountTypeSearchDropdownDataRecieved($event)"
+                            (getDefaultInfo)="onFirstreceivedBankAccountType($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">System Invoice Issue Type Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #commonDropDown [inputParams]="inputParamsSystemInvoiceIssueTypeLanguageSearchDropdown" [displayFields]="displaySystemInvoiceIssueTypeLanguageSearchColumns"
+                            [isFirstItemSelected]="true" [isRequired]="true" (onDataReceived)="onSystemInvoiceIssueTypeLanguageSearchRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">RMM Category Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #commonDropDown [inputParams]="inputParamsRMMCategorySearchDropdown" [displayFields]="displayRMMCategorySearchColumns"
+                            [isFirstItemSelected]="true" [isRequired]="true" (onDataReceived)="onRMMCategorySearchRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Invoice Credit Reason Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #ddCreditReasonLangSearch [inputParams]="dropdown.creditInvoiceLanguageSearch.params
+                           " [displayFields]="dropdown.creditInvoiceLanguageSearch.displayFields" (onDataReceived)="onCreditReasonLangSearchDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Component Type Language Search</label>
+                    <div class="col22 pr5">
+                        <icabs-component-type-lang-dd #cddCompTypeLangSearch [inputParams]="dropdown.compTypeLangSearch.inputParams
+                           " [itemsToDisplay]="dropdown.compTypeLangSearch.itemsToDisplay" [active]="dropdown.compTypeLangSearch.active"
+                            (selectedValue)="onSelectCompTypeLangSearchDD($event)"></icabs-component-type-lang-dd>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">{{ 'Contract Type Code' | translate }}</label>
+                    <div class="col16 pr5">
+                        <icabs-contract-type-language-search #contractTypeLanguageSearchDropdown [inputParams]="dropdown.contractTypeLanguageSearch"
+                            [active]="dropdown.contractTypeLanguageSearch.active" [isDisabled]="dropdown.contractTypeLanguageSearch.isDisabled"
+                            [isRequired]="dropdown.contractTypeLanguageSearch.isRequired
+                           " (receivedContractTypeLanguageSearch)="onContactTypeLanguageSearchReceived($event)"></icabs-contract-type-language-search>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">PestNetOnline Level Search</label>
+                    <div class="col6 pr5">
+                        <input id="PNOLLevelCode" class="form-control" formControlName="PNOLLevelCode" type="text
+                           " size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="PNOLLevelDesc" class="form-control" formControlName="PNOLLevelDesc" type="text
+                           " size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.pnollevelsearch.showCloseButton" [showHeader]="ellipsis.pnollevelsearch.showHeader"
+                            [childConfigParams]="ellipsis.pnollevelsearch.childConfigParams" [contentComponent]="ellipsis.pnollevelsearch.component"
+                            (ellipsisData)="onPNOLLevelDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Expense Code DropDown Search</label>
+                    <div class="col22 pr5">
+                        <icabs-expensecode #expenseCodeSearch [inputParams]="dropdown.expenseCodeSearch" [active]="dropdown.expenseCodeSearch.active"
+                            [isDisabled]="dropdown.expenseCodeSearch.isDisabled" [isRequired]="dropdown.expenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onExpenseCodeSearchReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">No Guarentee Search</label>
+                <div class="col16">
+                    <icabs-common-dropdown [inputParams]="dropdown.noGuarenteeSearch.params" [isRequired]="dropdown.noGuarenteeSearch.isRequired"
+                        [isDisabled]="dropdown.noGuarenteeSearch.isDisabled" [displayFields]="dropdown.noGuarenteeSearch.displayFields"
+                        (onDataReceived)="onNoGuarenteeSearch($event)">
+                    </icabs-common-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">Contract type Search</label>
+                <div class="col16">
+                    <icabs-common-dropdown [inputParams]="dropdown.contractTypeSearch.params" [isRequired]="dropdown.contractTypeSearch.isRequired"
+                        [isDisabled]="dropdown.contractTypeSearch.isDisabled" [displayFields]="dropdown.contractTypeSearch.displayFields"
+                        (onDataReceived)="onContractTypeSearch($event)">
+                    </icabs-common-dropdown>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24">Invoice Charge Type Search</label>
+                <div class="col22 pr5">
+                    <icabs-sbinvoice-chargetype-languagesearch #ddSbInvoiceChargeTypeLanguageSearch [inputParams]="dropdown.ddSbInvoiceChargeTypeSearch"
+                        [active]="dropdown.ddSbInvoiceChargeTypeSearch.active" [isDisabled]="dropdown.ddSbInvoiceChargeTypeSearch.isDisabled"
+                        [isRequired]="dropdown.ddSbInvoiceChargeTypeSearch.isRequired" (receivedLanguageSearch)="invoiceChargeLanguageSearch($event)"></icabs-sbinvoice-chargetype-languagesearch>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">Manual Visit Reason Search</label>
+                    <div class="col16 pr5">
+                        <icabs-common-dropdown [inputParams]="dropdown.manualVisitReasonSearch.params" [isRequired]="dropdown.manualVisitReasonSearch.isRequired"
+                            [isDisabled]="dropdown.manualVisitReasonSearch.isDisabled" [displayFields]="dropdown.manualVisitReasonSearch.displayFields"
+                            (onDataReceived)="onManualVisitReceived($event)">
+                        </icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="input-label col-md-12">
+                    <label>Product Attribute Values Search</label>
+                </div>
+                <div class="col-md-9">
+                    <input type="text" placeholder="Product Attribute Values Search" class="form-control
+                           " formControlName="ProductAttributeValue">
+                </div>
+                <div class="col-md-3 padding-left-zero">
+                    <icabs-ellipsis [showCloseButton]="ellipsis.productAttributeValueSearch.isShowCloseButton
+                           " [showHeader]="ellipsis.productAttributeValueSearch.isShowHeader" [childConfigParams]="ellipsis.productAttributeValueSearch.childConfigParams
+                           " [contentComponent]="ellipsis.productAttributeValueSearch.contentComponent" (ellipsisData)="onProductAttributeValueSearch($event)"></icabs-ellipsis>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Market Segment Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #marketSegmentSearchDropDown [inputParams]="inputParamsMarketSegmentSearchDropdown
+                           " [displayFields]="marketSegmentSearchColumns" (onDataReceived)="oniICABSSMarketSegmentSearchDropdownDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Preferred Day of Week Reason Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #preferredDaySearchDropDown [inputParams]="inputParamsPreferredDaySearchDropDown
+                           " [displayFields]="preferredDaySearchColumns" (onDataReceived)="oniICABSBPreferredDayOfWeekReasonSearchDropdownDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Suspend Reason Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown #suspendReasonSearch [inputParams]="inputParamsSuspendReasonSearchDropdown
+                           " [displayFields]="suspendReasonSearchColumns" (onDataReceived)="oniCABSBSuspendReasonSearchDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Infestation Level Search</label>
+                    <div class="col6 pr5">
+                        <input id="InfestationLevelCode" class="form-control" formControlName="InfestationLevelCode" type="text
+                           " size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="InfestationLevelDesc" class="form-control" formControlName="InfestationLevelDesc" type="text
+                           " size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.infestationLevelSearch.isShowCloseButton" [showHeader]="ellipsis.infestationLevelSearch.isShowHeader"
+                            [childConfigParams]="ellipsis.infestationLevelSearch.childConfigParams" [contentComponent]="ellipsis.infestationLevelSearch.contentComponent"
+                            (ellipsisData)="onInfestationLevelDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Charge Rate Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown [inputParams]="inputParamsChargeRateSearchDropdown" [displayFields]="chargeRateSearchColumns" (onDataReceived)="onChargeRateSearchDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <div class="col-sm-10">
+                    <label class="col24">Detector Search</label>
+                    <div class="col22 pr5">
+                        <icabs-common-dropdown [inputParams]="inputParamsDetectorSearchDropdown" [displayFields]="detectorSearchColumns" (onDataReceived)="onDetectorSearchDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+                r </div>
+
+        </div>
+    </form>
+</section>

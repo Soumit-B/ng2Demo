@@ -1,0 +1,166 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="8" maxlength="4">
+                    </div>
+                    <div class="col16">
+                        <input id="BranchServiceAreaDesc" class="form-control" formControlName="BranchServiceAreaDesc" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr20">
+                        <label class="col24" for="ServicePlanNumber">{{ 'Service Plan' | translate}}</label>
+                        <input id="ServicePlanNumber" class="form-control" formControlName="ServicePlanNumber" type="text" size="10" maxlength="10">
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="ServiceWeekNumber">{{ 'Week' | translate}}</label>
+                        <input id="ServiceWeekNumber" class="form-control" formControlName="ServiceWeekNumber" type="text" size="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="8" maxlength="10">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr20">
+                        <label class="col24" for="ServicePlanStartDate">{{ 'Plan Start' | translate}}</label>
+                        <input id="ServicePlanStartDate" class="form-control" formControlName="ServicePlanStartDate" type="text" size="10" maxlength="10">
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="ServicePlanEndDate">{{ 'End' | translate}}</label>
+                        <input id="ServicePlanEndDate" class="form-control" formControlName="ServicePlanEndDate" type="text" size="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="8" maxlength="10">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="DateFrom">{{ 'Planned Date From' | translate}}</label>
+                        <icabs-datepicker id="DateFrom"></icabs-datepicker>
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="DateTo">{{ 'To' | translate}}</label>
+                        <icabs-datepicker id="DateTo"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" class="form-control" formControlName="EmployeeCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="25" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="ServiceDateStart">{{ 'Service Date' | translate}}</label>
+                        <icabs-datepicker id="ServiceDateStart"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="custom-checkbox" type="checkbox" id="tdEnterTravelTimes">
+                    <label class="col24" for="tdEnterTravelTimes">{{'Enter Travel Times'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="DrivingStartTime">{{ 'Driving Start Time' | translate}}</label>
+                        <input id="DrivingStartTime" class="form-control" formControlName="DrivingStartTime" type="text" size="10" maxlength="5">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="DrivingEndTime">{{ 'End Time' | translate}}</label>
+                        <input id="DrivingEndTime" class="form-control" formControlName="DrivingEndTime" type="text" size="10" maxlength="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EndMileage">{{ 'End Mileage' | translate}}</label>
+                    <div class="col10 pr20">
+                        <input id="EndMileage" class="form-control" formControlName="EndMileage" type="text" size="10" maxlength="15">
+                    </div>
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Confirm Travel' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="KeyedStartTime">{{ 'Time In' | translate}}</label>
+                        <input id="KeyedStartTime" class="form-control" formControlName="KeyedStartTime" type="text" size="10" maxlength="5">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="KeyedEndTime">{{ 'Time Out' | translate}}</label>
+                        <input id="KeyedEndTime" class="form-control" formControlName="KeyedEndTime" type="text" size="10" maxlength="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Confirm All Visited' | translate }}">
+                    </div>
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Alert / Lead' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

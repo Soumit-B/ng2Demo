@@ -1,0 +1,56 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{ 'Customer Contact Update'| translate }}</h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Branch'|translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="BranchNumber" size="6" maxlength="3" class="form-control" formControlName="BranchNumber" eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="BranchName" size="30" maxlength="30" class="form-control" formControlName="BranchName" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24">{{'Employee'|translate}}</label>
+                <div class="col8 pr5">
+                    <input id="EmployeeCode" size="6" maxlength="6" class="form-control" formControlName="EmployeeCode" [icabsDirFocus]="setFocusOnEmployeeCode"
+                        (change)="onEmployeeChange()" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="EmployeeSurname" size="30" maxlength="30" class="form-control" formControlName="EmployeeSurname" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="childConfigParamsCommissionEmployee" [showCloseButton]="showCloseButton" [contentComponent]="employeeSearchComponent"
+                        (ellipsisData)="onReceivingEmployeeResult($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #premiseContactChangePagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage"
+                    (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #premiseContactChangePagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                    (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12 mt10">
+                <!--<icabs-grid #premiseContactChangeGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                    (getCellData)="onCellClick($event)" (gridInfo)="getGridInfo($event)" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGrid($event)"></icabs-grid>-->
+                <icabs-grid-advanced #riGrid (bodyClick)="riGrid_BodyOnClick($event)" (headerClick)="riGrid_Sort($event)" (onSuccess)="riGrid_AfterExecute($event)"
+                    (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+        <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+    </form>
+</div>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader"></icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>

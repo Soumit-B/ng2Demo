@@ -1,0 +1,353 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Planning Details ' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ContractNumber" id="ContractNumber" size="8" maxlength="8">
+                    </div>
+                    <div class="col15 pr5">
+                        <input type="text" class="form-control" formControlName="ContractName" id="ContractName" size="25" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Plan from'| translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col8 pr5">
+                        <label class="col24">{{'To'| translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col1 pr5 mt15">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premise Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="PremiseNumber" id="PremiseNumber" size="8" maxlength="5">
+                    </div>
+                    <div class="col15 pr5">
+                        <input type="text" class="form-control" formControlName="PremiseName" id="PremiseName" size="25" maxlength="40">
+                    </div>
+                    <div class="col1 mt3">
+                        <span class="glyphicon glyphicon-info-sign glyphicon-info"></span>
+                    </div>
+                </div>
+                <div class=" col-sm-4 ">
+                    <label class="col24 ">{{'Week' | translate}}</label>
+                    <div class="col8 pr5 ">
+                        <input type="text " class="form-control " formControlName="WeekNumber" id="WeekNumber" size="2
+                            " maxlength="2 ">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 ">
+                <div class="col-sm-4 ">
+                    <label class="col24 ">{{'Product Code'| translate}}</label>
+                    <div class="col8 pr5 ">
+                        <input type="text " class="form-control " formControlName="ProductCode" id="ProductCode
+                            " size="8 " maxlength="6 ">
+                    </div>
+                    <div class="col15 pr5 ">
+                        <input type="text " class="form-control " formControlName="ProductDesc" id="ProductDesc
+                            " size="25 " maxlength="25 ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <label class="col24 ">{{'Default Visit Date' | translate}}</label>
+                    <div class="col8 pr5 ">
+                        <input type="text " class="form-control " formControlName="DefaultDay" id="DefaultDay " size="2
+                            " maxlength="2 ">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 ">
+                <div class="col-sm-4 ">
+                    <div class="col8">
+                        <label class="col24 ">{{'Original Visit Duration'| translate}}</label>
+                        <input type="text " class="form-control " formControlName="OriginalVisitDuration" id="OriginalVisitDuration
+                            " size="5 " maxlength="6 ">
+                    </div>
+                </div>
+                <div class="col-sm-4 ">
+                    <label class="col24 ">{{'Default Start Time' | translate}}</label>
+                    <div class="col8 pr5 ">
+                        <input type="text " class="form-control " formControlName="DefaultStartTime" id="DefaultStartTime
+                            " size="5 " maxlength="5 ">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 ">
+                <div class="col-sm-4 ">
+                    <div class="col8 ">
+                        <label class="col24 ">{{'Planned Visit Duration'| translate}}</label>
+                        <input type="text " class="form-control " formControlName="PlannedVisitDuration" id="PlannedVisitDuration
+                            " size="5 " maxlength="6 ">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 ">
+                <div class="col-sm-9 mt10 ">
+
+                    <input type="button " class="btn btn-additional mr5 " value="{{ 'Split Service'| translate}} ">
+
+
+                    <input type="button " class="btn btn-additional mr5 " value="{{ 'Unplan All'| translate}} ">
+
+
+                    <input type="button " class="btn btn-additional mr5 " value="{{ 'Show Comments'| translate}} ">
+
+
+                    <input type="button " class="btn btn-additional mr5 " value="{{ 'View Details'| translate}} ">
+
+
+                    <input type="button " class="btn btn-additional " value="{{ 'Confirm Appointment'| translate}} ">
+
+                </div>
+            </div>
+            <hr class="mt15 mb15 ">
+            <div class="row mt2 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <label class="col24 ">{{'Technician' | translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Technician" id="Technician
+                            " size="6 " maxlength="6 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 mt20 ">
+                            <input type="text " class="form-control " formControlName="TechnicianDesc" id="TechnicianDesc
+                            " size="40 " maxlength="40 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+
+                        <label class="col24 ">{{'Status'|translate}}</label>
+                        <div class="col24 ">
+                            <select class="form-control " formControlName="SelectDay" id="SelectDay">
+                          <option></option>   
+                       </select>
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+
+                        <label class="col24 ">{{'Duration'|translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Duration" id="Duration " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+
+                        <label class="col24 ">{{'Start Time'|translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="StartTime" id="StartTime
+                            " size="5 " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <label class="col24 ">{{'Booked'|translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Booked" id="Booked " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Technician" id="Technician
+                            " size="6 " maxlength="6 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="TechnicianDesc" id="TechnicianDesc
+                            " size="40 " maxlength="40 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <select class="form-control " formControlName="SelectDay" id="SelectDay">
+                          <option></option>   
+                       </select>
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Duration" id="Duration " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="StartTime" id="StartTime
+                            " size="5 " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Booked" id="Booked " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Technician" id="Technician
+                            " size="6 " maxlength="6 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="TechnicianDesc" id="TechnicianDesc
+                            " size="40 " maxlength="40 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <select class="form-control " formControlName="SelectDay" id="SelectDay ">
+                          <option></option>   
+                       </select>
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Duration" id="Duration " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="StartTime" id="StartTime
+                            " size="5 " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Booked" id="Booked " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Technician" id="Technician
+                            " size="6 " maxlength="6 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="TechnicianDesc" id="TechnicianDesc
+                            " size="40 " maxlength="40 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <select class="form-control " formControlName="SelectDay" id="SelectDay">
+                          <option></option>   
+                       </select>
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Duration" id="Duration " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="StartTime" id="StartTime
+                            " size="5 " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Booked" id="Booked " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Technician" id="Technician
+                            " size="6 " maxlength="6 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="TechnicianDesc" id="TechnicianDesc
+                            " size="40 " maxlength="40 ">
+                        </div>
+                    </div>
+                    <div class="col5 pr5 ">
+                        <div class="col24 ">
+                            <select class="form-control " formControlName="SelectDay" id="SelectDay">
+                          <option></option>   
+                       </select>
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Duration" id="Duration " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="StartTime" id="StartTime
+                            " size="5 " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <div class="col24 ">
+                            <input type="text " class="form-control " formControlName="Booked" id="Booked " size="5
+                            " maxlength="5 ">
+                        </div>
+                    </div>
+                    <div class="col1 ">
+                        <input type="button " class="btn btn-additional " value="{{ 'Add'| translate}} ">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt10 ">
+        <footer class="screen-footer ">
+            <div class="row mt10 ">
+                <div class="col-sm-12 ">
+                    <input type="button " class="btn btn-primary " value="{{ 'Save'|translate}} ">
+                    <input type="button " class="btn btn-secondary " value="{{ 'Cancel'|translate}} ">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

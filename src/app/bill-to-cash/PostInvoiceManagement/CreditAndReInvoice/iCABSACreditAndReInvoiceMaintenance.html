@@ -1,0 +1,239 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3" *ngIf="pageDisplayFlag.CompanyCode">
+                    <label class="col24" for="CompanyCode">{{ 'Company Code' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col20 pr0" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['CompanyCode']}">
+                        <icabs-business-company-search #bCompanySearchComponent [inputParams]="ellipseConfig.bCompanySearchComponent.inputParamsCompanySearch"
+                            (receivedCompanyCode)="companySearchdataReceived($event)" [isDisabled]="ellipseConfig.bCompanySearchComponent.isDisabled || pageDisableFlag.mandatoryFieldsEnableFlag"
+                            [isRequired]="ellipseConfig.bCompanySearchComponent.isRequired" [active]="ellipseConfig.bCompanySearchComponent.active"></icabs-business-company-search>
+                        <input type="hidden" id="CompanyCode" formControlName="CompanyCode" class="form-control">
+                        <input type="hidden" id="CompanyDesc" formControlName="CompanyDesc" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="CompanyInvoiceNumber">{{ 'Invoice Number' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input id="CompanyInvoiceNumber" formControlName="CompanyInvoiceNumber" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            (change)="lookupSearch('CompanyInvoiceNumber')" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['CompanyInvoiceNumber']}">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="10" [attr.maxlength]="9"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceName">{{ 'Name' | translate }}</label>
+                        <input id="InvoiceName" formControlName="InvoiceName" class="form-control" type="text" size="40" [attr.maxlength]="40" [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                        <input id="InvoiceAddressLine1" formControlName="InvoiceAddressLine1" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                        <input id="InvoiceAddressLine2" formControlName="InvoiceAddressLine2" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                        <input id="InvoiceAddressLine3" formControlName="InvoiceAddressLine3" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceAddressLine4">{{ ' Town' | translate }}</label>
+                        <input id="InvoiceAddressLine4" formControlName="InvoiceAddressLine4" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoiceAddressLine5">{{ 'County' | translate }}</label>
+                        <input id="InvoiceAddressLine5" formControlName="InvoiceAddressLine5" class="form-control" type="text" size="30" [attr.maxlength]="40"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <div class="col12">
+                        <label class="col24" for="InvoicePostcode">{{ 'Postcode' | translate }}</label>
+                        <input id="InvoicePostcode" formControlName="InvoicePostcode" class="form-control" type="text" size="15" [attr.maxlength]="15"
+                            [attr.disabled]="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="ValueExclTax">{{ 'Value Excl. Tax' | translate }}</label>
+                        <input id="ValueExclTax" formControlName="ValueExclTax" class="form-control" type="text" size="15" [attr.maxlength]="15"
+                            [attr.disabled]="true" eTypeCurrency>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="TaxValue">{{ 'Tax Value' | translate }}</label>
+                        <input id="TaxValue" formControlName="TaxValue" class="form-control" type="text" ize="15" [attr.maxlength]="15" [attr.disabled]="true"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+            <div class="row mt2">
+                <div class="col-sm-3 mt20">
+                    <div class="col12 mt5 pr5">
+                        <input id="rsCredit1" formControlName="rsCredit" value="1" (click)="radioOnlick('rsCredit1')" type="radio">
+                        <label for="rsCredit1">{{ 'Credit' | translate }}</label>
+                    </div>
+                    <div class="col12 mt5 pr5">
+                        <input id="rsCredit2" formControlName="rsCredit" value="0" (click)="radioOnlick('rsCredit2')" type="radio">
+                        <label for="rsCredit2">{{ 'ReInvoice' | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="CreditReasonCode">{{ 'Credit Reason Code' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col24 pr5">
+                        <icabs-invoice-credit-language-search #creditReasonCode [inputParams]="dropdown.creditReasonCode.params" [isRequired]="dropdown.creditReasonCode.isRequired"
+                            [isTriggerValidate]="dropdown.creditReasonCode.isTriggerValidate" [isDisabled]="dropdown.creditReasonCode.isDisabled"
+                            [active]="dropdown.creditReasonCode.isActive" [isFirstItemSelected]="false" (invoiceReasonCodeEmitter)="onCreditReasonDataRecieved($event)"></icabs-invoice-credit-language-search>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3 mt20">
+                    <div class="col12 pr5 mt5">
+                        <input id="rsUseAddress1" formControlName="rsUseAddress" (click)="radioOnlick('rsUseAddress')" type="radio" value="1">
+                        <label for="rsUseAddress1">{{ 'Use above address' | translate }}</label>
+                    </div>
+                    <div class="col12 mt5 pr5">
+                        <input id="rsUseAddress2" formControlName="rsUseAddress" (click)="radioOnlick('rsUseAddress')" type="radio" value="0">
+                        <label for="rsUseAddress2">{{ 'Use current address' | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="pageDisplayFlag.InvoiceReasonCode">
+                    <label class="col24" for="InvoiceReasonCode">{{ 'Invoice Reason Code' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col24 pr5">
+                        <div [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsAfterSave['InvoiceReasonCode']}">
+                            <icabs-invoice-credit-language-search #invoiceReasonSearch [inputParams]="dropdown.invoiceReasonCode.params" [isRequired]="dropdown.invoiceReasonCode.isRequired"
+                                [isTriggerValidate]="dropdown.invoiceReasonCode.isTriggerValidate" [isDisabled]="dropdown.invoiceReasonCode.isDisabled"
+                                [active]="dropdown.invoiceReasonCode.isActive" [isFirstItemSelected]="false" (invoiceReasonCodeEmitter)="oniCABSBSuspendReasonSearchDataRecieved($event)"></icabs-invoice-credit-language-search>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col16 mt20">
+                        <input class="custom-checkbox" formControlName="CreditIndividualItems" type="checkbox" id="CreditIndividualItems">
+                        <label class="col24" for="CreditIndividualItems">{{'Credit Individual Items'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16" *ngIf="pageDisplayFlag.TaxPointDate">
+                        <label class="col24" for="TaxPointDate">{{ 'Tax Point Date' | translate }}</label>
+                        <icabs-datepicker id="TaxPointDate" [dt]="pageVariables.TaxPointDate" [isDisabled]="true" [isReadonly]="true"></icabs-datepicker>
+                        <input type="hidden" id="TaxPointDateHidden" formControlName="TaxPointDateHidden" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col20">
+                        <label class="col24" for="CreditNarrative">{{'Credit Narrative'|translate}}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <textarea id="CreditNarrative" formControlName="CreditNarrative" class="form-control" type="text" rows="4" cols="55" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsAfterSave['CreditNarrative']}"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <div class="col20">
+                        <label class="col24" for="AdditionalCreditInfo">{{'Additional Credit Information'|translate}}</label>
+                        <textarea id="AdditionalCreditInfo" formControlName="AdditionalCreditInfo" class="form-control" type="text" rows="2" cols="55"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12" *ngIf="pageVariables.saveMode">
+                    <input type="submit" class="btn btn-primary" value="{{ 'Save' | translate }}" (click)="actionButtonClicked('save')">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="actionButtonClicked('cancel')">
+                </div>
+                <div class="col-sm-12" *ngIf="pageVariables.addMode">
+                    <input type="submit" class="btn btn-primary" value="{{ 'Add' | translate }}" (click)="actionButtonClicked('add')">
+                </div>
+            </div>
+        </footer>
+        <input type="hidden" formControlName="InvoiceNumber" />
+        <input type="hidden" formControlName="ReInvoice" />
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="promptConfig.forSave.showPromptMessageHeader" [title]="promptConfig.forSave.promptConfirmTitle"
+    [content]="promptConfig.forSave.promptConfirmContent" (saveEmit)="promptConfirm($event, 'save')" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModal2="child" [(showHeader)]="promptConfig.forSave2.showPromptMessageHeader" [title]="promptConfig.forSave2.promptConfirmTitle"
+    [content]="promptConfig.forSave2.promptConfirmContent" (saveEmit)="promptConfirm2($event, 'save')" (cancelEmit)="promptCancel2($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="pageVariables.isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="messageModalConfig.showMessageHeader" [config]="messageModalConfig.config"
+    [title]="messageModalConfig.title" [content]="messageModalConfig.content" [showCloseButton]="messageModalConfig.showCloseButton"
+    (modalClose)="messageModalClose()"></icabs-modal>
+
+<!-- TO DO: when invoice search will available -->
+<icabs-ellipsis #InvoiceSearchEllipsis [showCloseButton]="ellipseConfig.invoiceSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.invoiceSearchComponent.inputParams"
+    [modalConfig]="ellipseConfig.invoiceSearchComponent.config" [contentComponent]="invoiceSearchComponent" (ellipsisData)="invoiceSearchComponentDataReceived($event)"
+    [showHeader]="ellipseConfig.invoiceSearchComponent.showHeader" [disabled]="ellipseConfig.invoiceSearchComponent.disabled"
+    [hideIcon]="true"></icabs-ellipsis>

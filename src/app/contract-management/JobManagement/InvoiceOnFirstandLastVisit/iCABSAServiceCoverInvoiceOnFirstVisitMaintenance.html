@@ -1,0 +1,143 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageParams']['currentContractTypeURLParameter'] | translate }} {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="grdMaintenance">
+                <div class="col-sm-6">
+                    <div class="col4 pr5">
+                        <label class="col24" for="ContractNumber">{{ 'Job Number' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input id="ContractNumber" #contractNumber formControlName="ContractNumber" class="form-control" type="text" [attr.maxlength]="8"
+                            (change)="contractNumberOnChange($event.target)" (keydown)="contractNumberOnKeyDown($event)" eTypeCode>
+                    </div>
+                    <div class="col12 pr5 mt20">
+                        <input id="ContractName" formControlName="ContractName" class="form-control padding-zero" type="text" [attr.maxlength]="40"
+                            [readonly]="true" tabindex="-1" eTypeText>
+                    </div>
+                    <div class="col2 pr5 mt20">
+                        <icabs-ellipsis #ContractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.component"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHidden($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                    <div class="col6">
+                        <label for="Status" class="col24">{{ 'Status' | translate }}</label>
+                        <input id="status" formControlName="status" class="form-control" type="text" [attr.maxlength]="20" [readonly]="true" eTypeText>
+                    </div>
+                </div>
+                <!--<div class="col-sm-3">
+                    <label for="Status" class="col24">{{ 'Status' | translate }}</label>
+                    <div class="col16">
+                        <input id="status" formControlName="status" class="form-control" type="text" [attr.maxlength]="20" [readonly]="true">
+                    </div>
+                </div>-->
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col4 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" [attr.maxlength]="6" (change)="premiseNumberOnChange()"
+                            (keydown)="premiseNumberOnKeyDown($event)" pattern="[0-9]+" eTypeInteger>
+                    </div>
+                    <div class="col12 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" [readonly]="true" eTypeText>
+                    </div>
+                    <div class="col2 ">
+
+                        <icabs-ellipsis #premisesNumberEllipsis [autoOpen]="ellipsis.premiseSearch.autoOpenSearch" [showCloseButton]="ellipsis.premiseSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.premiseSearch.childConfigParams" [modalConfig]="ellipsis.premiseSearch.modalConfig"
+                            [contentComponent]="ellipsis.premiseSearch.contentComponent" (ellipsisData)="onPremiseDataReceived($event, true)"
+                            [showHeader]="ellipsis.premiseSearch.showHeader" [disabled]='ellipsis.premiseSearch.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col4 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" [attr.maxlength]="6" (change)="productCodeOnChange()"
+                            (keydown)="productCodeOnKeyDown($event)" eTypeCode>
+                    </div>
+                    <div class="col12 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" [readonly]="true" eTypeText>
+                    </div>
+                    <div class="col2">
+
+                        <icabs-ellipsis #productcodeEllipsis [autoOpen]="ellipsis.serviceCoverSearch.autoOpenSearch" [showCloseButton]="ellipsis.serviceCoverSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.serviceCoverSearch.childConfigParams" [modalConfig]="ellipsis.serviceCoverSearch.modalConfig"
+                            [contentComponent]="ellipsis.serviceCoverSearch.contentComponent" (ellipsisData)="onProductDataReceived($event, true)"
+                            [showHeader]="ellipsis.serviceCoverSearch.showHeader" [disabled]='ellipsis.serviceCoverSearch.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr15">
+                        <label class="col24" for="ServiceVisitFrequency">{{ 'Visit Frequency' | translate }}</label>
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" size="3" class="form-control" [attr.maxlength]="3"
+                            [readonly]="true" eTypeInteger>
+                    </div>
+                    <div class="col12 pl15">
+                        <label class="col24" for="ServiceAnnualValue">{{ 'Value' | translate }}</label>
+                        <input id="ServiceAnnualValue" formControlName="ServiceAnnualValue" size="20" class="form-control" [attr.maxlength]="23"
+                            [readonly]="true" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr15">
+                        <label class="col24" for="ServiceQuantity">{{ 'Service Quantity' | translate }}</label>
+                        <input id="ServiceQuantity" formControlName="ServiceQuantity" size="3" class="form-control" [attr.maxlength]="3" [readonly]="true"
+                            eTypeInteger>
+                    </div>
+                    <div class="col12 pl15">
+                        <label class="col24">{{ 'Commence Date' | translate }}</label>
+                        <icabs-datepicker id="contractCommenceDate" [dt]="this['pageParams']['contractCommenceDate']" [isDisabled]="!dateObjectsEnabled.contractCommenceDate"
+                            (selectedValue)="commenceDateSelectedValue($event)" [isRequired]="fieldRequired.contractCommenceDate"></icabs-datepicker>
+                        <!--<icabs-datepicker ></icabs-datepicker>-->
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="custom-checkbox" type="checkbox" id="InvoiceOnFirstVisitInd" formControlName="InvoiceOnFirstVisitInd" eTypeCheckBox>
+                    <label class="col24" for="InvoiceOnFirstVisitInd">{{'Invoice On First Visit'|translate}}</label>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" value="{{ 'Save' | translate }}" [disabled]="!isSaveEnabled" (click)="updateAllDetails()"
+                        [disabled]="isSaveDisabled">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="onCancel()" [disabled]="isCancelDisabled">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

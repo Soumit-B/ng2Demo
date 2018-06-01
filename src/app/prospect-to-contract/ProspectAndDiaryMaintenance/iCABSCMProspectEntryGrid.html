@@ -1,0 +1,112 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ 'National Accout Job Search Filter' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{'Prospect Number' | translate}}</label>
+                        <div class="col16">
+                            <input type="text" id="ProspectNumber" formControlName="ProspectNumber" size="6" maxlength="6" class="form-control" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{ 'Process Date' | translate}}</label>
+                        <div class="col8 pr5">
+                            <select id="ProcessDateSelect" formControlName="ProcessDateSelect" class="form-control">
+                                <option value="DateFrom" selected >{{'From' | translate}}</option>
+                                <option value="DateTo" >{{'To' | translate}}</option>
+                            </select>
+                        </div>
+                        <div class="col14">
+                            <!-- <input type="text" id="ProcessDate" tabindex="6" size="10" maxlength="10" hidden>
+                            <icabs-datepicker [dt]='datePickerConfig.ProcessDate.value' id="DateTo" [isDisabled]="datePickerConfig.ProcessDate.isDisabled"
+                                [isRequired]="datePickerConfig.ProcessDate.isRequired" (selectedValue)="onSelectedDateValue($event)"></icabs-datepicker> -->
+
+                            <icabs-datepicker id="ProcessDate" formControlName="ProcessDate" [required]="datePickerConfig.ProcessDate.isRequired"
+                                [disabled]="datePickerConfig.ProcessDate.isDisabled" [isDirectiveBased]="false" ></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{ 'Negotiating Employee' | translate}}</label>
+                        <div class="col8 pr5">
+                            <input id="EmployeeCode" type="text" formControlName="EmployeeCode" size="6" maxlength="6" class="form-control" (keydown.PageDown)="employeeCode_onkeydown($event)"
+                                (change)="employeeCode_onchange($event)" eTypeCode>
+                        </div>
+                        <div class="col14 pr5">
+                            <input id="EmployeeSurname" type="text" formControlName="EmployeeSurname" size="40" maxlength="40" class="form-control">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [autoOpen]="ellipsisConfig.EmployeeCode.autoOpen" #employeeCodeEllipsis [showCloseButton]="ellipsisConfig.EmployeeCode.showCloseButton"
+                                [childConfigParams]="ellipsisConfig.EmployeeCode.childConfigParams" [modalConfig]="ellipsisConfig.EmployeeCode.modalConfig"
+                                [contentComponent]="ellipsisConfig.EmployeeCode.contentComponent" (ellipsisData)="onEmployeeSearchDataReceived($event, true)"
+                                [showHeader]="ellipsisConfig.EmployeeCode.showHeader" (modalHidden)="modalHidden()" [searchModalRoute]="ellipsisConfig.EmployeeCode.searchModalRoute"
+                                [disabled]="ellipsisConfig.EmployeeCode.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{ 'Status' | translate}}</label>
+                        <div class="col16">
+                            <select id="StatusSelect" class="form-control" formControlName="StatusSelect" (change)="selectStatus_onchange($event)"> 
+                                <option value="all">{{'All'}}</option>
+                                <option *ngFor="let item of ttStatusSelect" [ngValue]="item.value" [selected] = "item.value == '01'" >{{item.text}} </option>             			
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{ 'Branch Number' | translate}}</label>
+                        <div class="col24">
+                            <input id="BranchNumber" type="text" size="6" maxlength="5" tabindex="3" hidden>
+                            <input id="BranchName" type="text" size="40" maxlength="40" hidden>
+                            <icabs-branchsearch [inputParams]="dropdownConfig.branchSearch.inputParams" [isDisabled]="dropdownConfig.branchSearch.isDisabled"
+                                (receivedbranchsearch)="onBranchSearchReceived($event)" [active]="dropdownConfig.branchSearch.selected"
+                                [isRequired]='fieldRequired.BranchNumber'></icabs-branchsearch>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <icabs-refresh (onRefresh)="refresh()"> </icabs-refresh>
+                    <icabs-pagination #riPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid #riGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (sortInfo)="sortGrid($event)" [sortIndex]="gridSortHeaders" (getCellDataonBlur)="onCellClickBlur($event)"
+                        (selectedRowInfo)="selectedDataOnDoubleClick($event)" (getCellData)="selectedDataOnCellFocus($event)"  [validateProperties]="validateProperties"></icabs-grid>
+
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+
+
+<!--<icabs-spinner [isRunning]="isRunning"></icabs-spinner>-->
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

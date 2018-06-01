@@ -1,0 +1,58 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{'Advantage Quotes' | translate}}</h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-4">
+                <div class="col8 pr5">
+                    <label class="col24">{{'Prospect Number' | translate}}</label>
+                    <div class="col24 pr5">
+                        <input type="text" formControlName="ProspectNumber" id="ProspectNumber" size="8" maxlength="8" class="form-control">
+                    </div>
+                </div>
+                <div class="col16">
+                    <label class="col24">{{'Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" formControlName="ProspectName" id="ProspectName" size="30" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination #quotePagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12 mt10">
+                <!--<icabs-grid #quoteGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)"></icabs-grid>-->
+                <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="riGrid_BodyOnDblClick($event)" (bodyClick)="riGrid_BodyOnClick($event)"
+                    (bodyKeyDown)="riGrid_BodyOnKeyDown($event)" (bodyColumnBlur)="updateColumnData($event)" (headerClick)="riGrid_Sort($event)"
+                    (onSuccess)="riGrid_AfterExecute()"></icabs-grid-advanced>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 pull-right text-right">
+                <select id="menu" formControlName="menu" (change)="menu_onchange($event.target.value)">
+                <option selected value="">{{'Options' | translate}}</option>
+                <option value="CustomerQuote">{{'View Customer Quote' | translate}}</option>
+                <option value="History">{{'View History' | translate}}</option>
+                        </select>
+            </div>
+        </div>
+        <div>
+
+            <input id="dlBatchRef" formControlName="dlBatchRef" style="display:none ">
+            <input id="dlContractRef" formControlName="dlContractRef" style="display:none ">
+            <input id="ContractTypeCode" formControlName="ContractTypeCode" style="display:none ">
+            <input id="PaymentInfoRequired" formControlName="PaymentInfoRequired" style="display:none ">
+            <input id="SubSystem" formControlName="SubSystem" style="display:none">
+            <input id="QuoteNumber" formControlName="QuoteNumber" style="display:none">
+        </div>
+    </form>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>

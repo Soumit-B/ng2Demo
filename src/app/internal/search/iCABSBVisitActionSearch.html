@@ -1,0 +1,40 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Visit Type Details' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Visit Type Code'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="VisitTypeCode" formControlName="VisitTypeCode" size="2" maxlength="2">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="VisitTypeDesc" formControlName="VisitTypeDesc" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+             <hr class="mt15 mb15">
+             <div class="row">
+                <div class="col-sm-6">
+                    <icabs-table></icabs-table>
+                </div>
+                <div class="col-sm-2">
+                    <div class="col24">
+                        <select class="form-control" id="menu" formControlName="menu">
+                            <option selected value="">{{'Options'|translate}}</option>
+                            <option value="AddVisitAction">{{'Add Visit Action'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

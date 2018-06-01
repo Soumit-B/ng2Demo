@@ -1,0 +1,199 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbCompanyName" class="custom-checkbox" type="checkbox" id="cbCompanyName">
+                    <label class="col24" for="cbCompanyName">{{'Company Name'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="CompanyName" id="CompanyName" class="form-control" type="text" size="50" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbPOBoxAddress" class="custom-checkbox" type="checkbox" id="cbPOBoxAddress" (change)="cbPOBoxAddressOnclick($event.target.checked)">
+                    <label class="col24" for="cbPOBoxAddress">{{'POBox Address'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="POBoxNumber">{{'Number'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="POBoxNumber" id="POBoxNumber" class="form-control" type="text" size="10" [attr.maxlength]="8" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="POBoxTown">{{'Town'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="POBoxTown" id="POBoxTown" class="form-control" type="text" size="40" [attr.maxlength]="35">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="POBoxPostcode">{{'Postcode'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="POBoxPostcode" id="POBoxPostcode" class="form-control" type="text" size="15" [attr.maxlength]="10"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbStreetAddress" class="custom-checkbox" type="checkbox" id="cbStreetAddress" (change)="cbStreetAddressOnclick($event.target.checked)">
+                    <label class="col24" for="cbStreetAddress">{{'Street Address'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="StreetName">{{'Street'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="StreetName" id="StreetName" class="form-control" type="text" size="40" [attr.maxlength]="35" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Postcode">{{'House No & Ext'|translate}}</label>
+                    <div class="col16 pr5">
+                        <input formControlName="HouseNumber" id="HouseNumber" class="form-control" type="text" size="5" [attr.maxlength]="4" eTypeText>
+                    </div>
+                    <div class="col8">
+                        <input formControlName="HouseNumberExt" id="HouseNumberExt" class="form-control" type="text" size="2" [attr.maxlength]="1"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="Town">{{'Town'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="Town" id="Town" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Postcode">{{'Postcode'|translate}}</label>
+                    <div class="col24">
+                        <input formControlName="Postcode" id="Postcode" class="form-control" type="text" size="15" [attr.maxlength]="10" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbCountryCode" class="custom-checkbox" type="checkbox" id="cbCountryCode">
+                    <label class="col24" for="cbCountryCode">{{'Country'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="CountryCode" id="CountryCode" class="form-control" type="text" size="4" [attr.maxlength]="2" eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbTelephone" class="custom-checkbox" type="checkbox" id="cbTelephone">
+                    <label class="col24" for="cbTelephone">{{'Telephone'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24 pr5">
+                        <input formControlName="Telephone" id="Telephone" class="form-control" type="text" size="25" [attr.maxlength]="20" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <span>{{'[area number]-[phone number]'|translate}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbFax" class="custom-checkbox" type="checkbox" id="cbFax">
+                    <label class="col24" for="cbFax">{{'Fax'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="Fax" id="Fax" class="form-control" type="text" size="25" [attr.maxlength]="20" c eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbMarktSelectKey" class="custom-checkbox" type="checkbox" id="cbMarktSelectKey">
+                    <label class="col24" for="cbMarktSelectKey">{{'MarktSelect Key'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="MarktSelectKey" id="MarktSelectKey" class="form-control" type="text" size="15" [attr.maxlength]="12"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbCoCNumber" class="custom-checkbox" type="checkbox" id="cbCoCNumber">
+                    <label class="col24" for="cbCoCNumber">{{'Chamber of Commerce No'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="CoCNumber" id="CoCNumber" class="form-control" type="text" size="15" [attr.maxlength]="12" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input formControlName="cbBICNumber" class="custom-checkbox" type="checkbox" id="cbBICNumber">
+                    <label class="col24" for="cbBICNumber">{{'BIC'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input formControlName="BICNumber" id="BICNumber" class="form-control" type="text" size="15" [attr.maxlength]="10" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" class="btn btn-additional" value="{{ 'Apply selected fields' | translate }}" (click)="cmdApplyOnclick()">
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #marktSearchGridPagination [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)" [totalItems]="totalItems"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid-advanced #riGrid (bodyDblClick)="onGridRowDblClick()" (bodyClick)="onGridRowClick()"></icabs-grid-advanced>
+        </div>
+    </div>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

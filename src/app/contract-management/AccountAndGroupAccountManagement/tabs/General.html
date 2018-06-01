@@ -1,0 +1,187 @@
+<form novalidate [formGroup]="generalComponentFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div id="grdAccountGeneral">
+
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input id="NationalAccount" formControlName="NationalAccount" size="2" maxlength="2" type="CheckBox" (change)="onNationalAccountClick()">
+                    <label for="NationalAccount">{{'National Account' | translate }}<span id="spanNationalAccount"></span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="DedicatedContactProcedureInd" formControlName="DedicatedContactProcedureInd" size="2" maxlength="2"
+                        type="CheckBox" value="">
+                    <label for="DedicatedContactProcedureInd"><span id="spanDedicatedContactProcedureInd"></span>{{'Dedicated Contact Procedure' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="InSightAccountInd" formControlName="InSightAccountInd" size="2" maxlength="2" type="CheckBox"
+                        value="">
+                    <label id="spanInSightAccountInd" for="InSightAccountInd"><span id="spanInSightAccountInd"></span>{{'In-Sight Account' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="InterGroupAccount" formControlName="InterGroupAccount" size="2" maxlength="2" type="CheckBox"
+                        value="">
+                    <label for="InterGroupAccount"><span id="spanInterGroupAccount"></span>{{'InterGroup Account' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7" *ngIf="fieldVisibility.trVATExempt === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="VATExempt" formControlName="VATExempt" type="Checkbox" value="" />
+                    <label for="VATExempt"><span id="spanVATExempt"></span>{{'VAT Exempt' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7" *ngIf="fieldVisibility.trExcludePDADebt === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="ExcludePDADebtInd" formControlName="ExcludePDADebtInd" type="Checkbox" value="">
+                    <label for="ExcludePDADebtInd"><span id="spanExcludePDADebt"></span>{{'Exclude Debt from PDA' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Account Business Type' | translate }} </label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="AccountBusinessTypeCode" size="5" maxlength="5" eTypeText>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" formControlName="AccountBusinessTypeDesc" size="40" maxlength="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="ellipsis.accountBusinessTypeSearch.disabled" [showCloseButton]="ellipsis.accountBusinessTypeSearch.showCloseButton"
+                        [showHeader]="ellipsis.accountBusinessTypeSearch.showHeader" [childConfigParams]="ellipsis.accountBusinessTypeSearch"
+                        [contentComponent]="ellipsis.accountBusinessTypeSearch.component" (ellipsisData)="onAccountBusinessTypeCodeDataReceived($event)"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.vSCGroupAccount === true">
+            <div class="col-sm-4">
+                <label class="col24" for="ContractPostcode">{{'Group Account' | translate }} </label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="GroupAccountNumber" size="5" maxlength="5" eTypeInteger>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" formControlName="GroupName" size="40" maxlength="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [autoOpen]="groupAccountNumberAutoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsGroupAccountNumber"
+                        [modalConfig]="modalConfig" [contentComponent]="groupAccountNumberComponent" (ellipsisData)="onGroupAccountNumberDataReceived($event, true)"
+                        [showHeader]="showHeader" (addModeOn)="onAddModeGroupAccountNumber($event)" [disabled]="isGroupAccountNumberEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7" *ngIf="fieldVisibility.vSCGroupAccount === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="PriceListInd" formControlName="PriceListInd" type="Checkbox" value="">
+                    <label for="PriceListInd"><span id="spanPriceListInd"></span>{{'Group Account Price List' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanLogoTypeCode">{{'Logo Type Code' | translate }} <span id="spanLogoTypeCode" *ngIf="fieldRequired.isLogoTypeCodeRequired === true" class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="hidden" class="form-control" formControlName="LogoTypeCode" size="5" maxlength="5">
+                </div>
+                <div class="col14 pr5">
+                    <input type="hidden" class="form-control" formControlName="LogoTypeDesc" size="40" maxlength="40">
+                </div>
+                <div class="col22 pr5">
+                    <icabs-logotype-search [inputParams]="inputParamsLogoTypeSearch" [isDisabled]="isLogoTypeDisabled" (receivedlogotypesearch)="onLogoTypeSearchReceived($event)"
+                        [active]="selectedLogoType" [isRequired]="fieldRequired.isLogoTypeCodeRequired"></icabs-logotype-search>
+                </div>
+                <!--<div class="col2">
+                    <icabs-ellipsis [autoOpen]="logoTypeCodeAutoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsLogoTypeCode"
+                        [modalConfig]="modalConfig" [contentComponent]="logoTypeCoderComponent" (ellipsisData)="onLogoTypeCodeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="isLogoTypeCodeEllipsisDisabled"></icabs-ellipsis>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'External Reference' | translate }} </label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="ExternalReference" size="20" maxlength="60" eTypeText>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Account Balance' | translate }} </label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="AccountBalance" size="20" maxlength="10" (blur)="onAccountBalanceFocus($event)"
+                        eTypeCurrency>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-5">
+
+                <div class="col7">
+                    <input class="form-control" id="BadDebtAccount" formControlName="BadDebtAccount" size="2" maxlength="2" type="CheckBox" value=""
+                        (change)="onBadDebtAccountClick()">
+                    <label for="BadDebtAccount"><span id="spanBadDebtAccount"></span>{{'Bad Debt Account' | translate }} </label>
+                    <span id="spanLogoTypeCode" *ngIf="fieldRequired.isBadDebtNarrativeRequired === true" class="mandatory">    *</span>
+                </div>
+                <div class="col12">
+                    <input type="text" class="form-control" formControlName="BadDebtNarrative" maxlength="120">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mt7 ">
+            <div class="col-sm-3">
+                <div class="message-box info" role="alert" id="trInformation" *ngIf="fieldVisibility.trInformation === true">
+                    {{ thInformation }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="LiveAccount" formControlName="LiveAccount" size="2" maxlength="2" type="CheckBox" value=""
+                    />
+                    <label for="LiveAccount">{{'Live Account' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" id="IncludeMarketingCampaign" formControlName="IncludeMarketingCampaign" size="2" maxlength="2"
+                        type="CheckBox" />
+                    <label for="IncludeMarketingCampaign">{{'Include in Marketing Campaign' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

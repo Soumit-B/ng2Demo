@@ -1,0 +1,37 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Cover Uplift Bulk Import' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active" id="grdServiceCoverUpliftImport">
+                            <a class="nav-link active">
+                                <span>{{ 'Import' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="grdServiceCoverUpliftImport" class="mt10">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <input type="button" value="{{ 'Import Service Cover Uplifts From An Excel Worksheet' | translate }}" id="cmdImport" name="cmdImport">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

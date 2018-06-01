@@ -1,0 +1,54 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] |translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Prospect' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProspectNumber" formControlName="ProspectNumber" size="9" [maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProspectName" formControlName="ProspectName" size="30" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Notes' |translate}}</label>
+                    <div class="col24">
+                        <textarea id="ProspectNotes" formControlName="ProspectNotes" class="form-control" rows="2" cols="83"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #workOrderPagination [ngClass]="isHidePagination ? 'hidden' : ''" [totalItems]="gridParams.totalRecords"
+                        [itemsPerPage]="gridParams.itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (headerClick)="riGrid_Sort($event)" (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-2 pull-right">
+                    <icabs-dropdown-static #menuSelectDropdown id="menu" [inputData]="menuOptions" (onSelect)="menuOnChange($event)"></icabs-dropdown-static>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

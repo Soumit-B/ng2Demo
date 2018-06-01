@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="isTrProductCode">
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="6" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductDetailSearchType">{{'Search By'|translate}}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" formControlName="ProductDetailSearchType" id="ProductDetailSearchType" (change)="selectedOptions($event.target.value)">
+                            <option selected value="Code">{{'Code'|translate}}</option>
+                            <option  value="Description">{{'Description'|translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col13" [ngClass]="isCode === 'Code' ? '': 'hidden'">
+                        <input id="ProductDetailSearchValue" class="form-control" formControlName="ProductDetailSearchValue" type="text" size="9"
+                            [attr.maxlength]="9">
+                    </div>
+                    <div class="col16" [ngClass]="isCode === 'Description' ? '': 'hidden'">
+                        <input id="ProductDetailSearchValue" class="form-control" formControlName="ProductDetailSearchValue" type="text" size="15"
+                            [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassToPDAInd" formControlName="PassToPDAInd">
+                        <label class="col24" for="PassToPDAInd">{{'Infestations Only'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-additional mr5" value="{{'Search' | translate}}" (click)="onSearchClick()">
+                    <span [hidden]="!isShowAddNew">
+                        <input type="button" name="" value="{{'Add New' | translate}}" class="btn btn-sm btn-primary" (click)="onAddNew()">
+                    </span>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #riTable (selectedData)="tableRowClick($event)" [itemsPerPage]="itemsPerPage" [paginationTop]="true" [displayError]="false"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

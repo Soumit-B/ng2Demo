@@ -1,0 +1,129 @@
+<form novalidate [formGroup]="maintenanceAFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div class="row mt10">
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractAddressLine1 === true">
+            <label class="col24" for="addressLine1">{{'Address Line 1' | translate}}<span *ngIf="fieldRequired.contractAddressLine1 === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" class="form-control" id="addressLine1" name="addressLine1" formControlName="ContractAddressLine1" placeholder="" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" (change)="onCapitalize('ContractAddressLine1')" eTypeTextFree>
+            </div>
+        </div>
+        <div class="col-sm-3 mt20 padding-zero" *ngIf="fieldVisibility.cmdGetAddress === true">
+            <input class="btn btn-primary" type="button" value="{{'Get Address' | translate}}" formControlName="GetAddress" (click)="onGetAddressClick($event)">
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="fieldVisibility.contractAddressLine2 === true">
+        <div class="col-sm-3">
+            <label class="col24" for="ContractAddressLine2">{{'Address Line 2' | translate}}<span *ngIf="fieldRequired.contractAddressLine2 === true" class="mandatory">* </span> </label>
+            <div class="col24">
+                <input type="text" id="ContractAddressLine2" class="form-control" placeholder="" formControlName="ContractAddressLine2" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" (change)="onCapitalize('ContractAddressLine2')" eTypeTextFree>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="fieldVisibility.contractAddressLine3 === true">
+        <div class="col-sm-3">
+            <label class="col24" for="ContractAddressLine3">{{'Address Line 3' | translate}}<span *ngIf="fieldRequired.contractAddressLine3 === true" class="mandatory">* </span> </label>
+            <div class="col24">
+                <input type="text" id="ContractAddressLine3" class="form-control" placeholder="" formControlName="ContractAddressLine3" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" (change)="onCapitalize('ContractAddressLine3')" eTypeTextFree>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="fieldVisibility.contractAddressLine4 === true">
+        <div class="col-sm-3">
+            <label class="col24" for="ContractAddressLine4">{{'Town' | translate}}<span *ngIf="fieldRequired.contractAddressLine4 === true" class="mandatory">*</span></label>
+            <div class="col24">
+                <input type="text" id="ContractAddressLine4" class="form-control" placeholder="" formControlName="ContractAddressLine4" (blur)="onContractAddressLine4Blur($event)" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" (change)="onCapitalize('ContractAddressLine4')" eTypeTextFree>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="fieldVisibility.contractAddressLine5 === true">
+        <div class="col-sm-3">
+            <label class="col24" for="ContractAddressLine5">{{'County' | translate}}<span *ngIf="fieldRequired.contractAddressLine5 === true" class="mandatory">* </span> </label>
+            <div class="col24">
+                <input type="text" id="ContractAddressLine5" class="form-control" placeholder="" formControlName="ContractAddressLine5" (blur)="onContractAddressLine5Blur($event)" [attr.maxlength]="40" (change)="onCapitalize('ContractAddressLine5')" eTypeTextFree>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractPostcode === true">
+            <label class="col24" for="ContractPostcode">{{'Postcode' | translate}}<span *ngIf="fieldRequired.contractPostcode === true" class="mandatory">* </span></label>
+            <div class="col22 pr5">
+                <input type="text" class="form-control" (blur)="onContractPostcodeBlur($event)" (change)='onContractPostcodeChange($event)' placeholder="" id="ContractPostcode" formControlName="ContractPostcode" [attr.maxlength]="15" eTypeCode>
+            </div>
+            <div class="col2" *ngIf="!zipCodeHide">
+                <icabs-ellipsis [autoOpen]="postCodeAutoOpen" (modalHidden)="zipCodeModalHidden($event);" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsZipCode" [modalConfig]="modalConfig" [contentComponent]="zipSearchComponent" (ellipsisData)="onZipDataReceived($event)" [showHeader]="showHeader" [disabled]="isZipCodeEllipsisDisabled" [closeModalManual]="closePostCodeModal"></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="fieldVisibility.countryCode === true">
+            <label class="col24">{{'Country' | translate}}<span *ngIf="fieldRequired.countryCode === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <icabs-countrycode [inputParams]="inputParams" (receivedCountryCode)="onCountryCodeReceived($event)" [active]="countrySelected" [isDisabled]="isCountryCodeDisabled" [isRequired]='fieldRequired.countryCode' [triggerValidate]="countryValidate"></icabs-countrycode>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="fieldVisibility.gpsCoordinateX === true">
+            <label class="col24" for="GPSCoordinateX">{{'GPS Coordinate X' | translate}}<span *ngIf="fieldRequired.gpsCoordinateX === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="GPSCoordinateX" class="form-control" placeholder="" formControlName="GPSCoordinateX" [attr.maxlength]="15" eTypeText>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="fieldVisibility.gpsCoordinateY === true">
+            <label class="col24" for="GPSCoordinateY">{{'GPS Coordinate Y' | translate}}<span *ngIf="fieldRequired.gpsCoordinateY === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" class="form-control" id="GPSCoordinateY" placeholder="" formControlName="GPSCoordinateY" [attr.maxlength]="15" eTypeText>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="fieldVisibility.contractContactName === true">
+        <div class="col-sm-3">
+            <label class="col24" for="ContractContactName">{{'Contact Name' | translate}}<span *ngIf="fieldRequired.contractContactName === true" class="mandatory">* </span></label>
+            <div class="col19 pr5">
+                <input type="text" id="ContractContactName" class="form-control" placeholder="" formControlName="ContractContactName" [attr.maxlength]="40" (change)="onContractContactNameChange($event);" eTypeTextFree>
+            </div>
+            <div class="col5" *ngIf="fieldVisibility.btnAmendContact">
+                <input class="btn btn-primary" type="button" (click)='onBtnAmendClick($event)' value="Contact Details" formControlName="BtnAmendContact">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactPosition === true">
+            <label class="col24" for="ContractContactPosition">{{'Position' | translate}}<span *ngIf="fieldRequired.contractContactPosition === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="ContractContactPosition" class="form-control" placeholder="" formControlName="ContractContactPosition" [attr.maxlength]="30" (change)="onContractContactPositionChange($event);" eTypeTextFree>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactDepartment === true">
+            <label class="col24" for="ContractContactDepartment">{{'Department' | translate}}<span *ngIf="fieldRequired.contractContactDepartment === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="ContractContactDepartment" class="form-control" placeholder="" formControlName="ContractContactDepartment" [attr.maxlength]="30" (change)="onContractContactDespartmentChange($event);" eTypeTextFree>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactTelephone === true">
+            <label class="col24" for="ContractContactTelephone">{{'Telephone' | translate}}<span *ngIf="fieldRequired.contractContactTelephone === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="ContractContactTelephone" class="form-control" placeholder="" formControlName="ContractContactTelephone" [attr.maxlength]="20" eTypeText>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactMobile === true">
+            <label class="col24" for="ContractContactMobile">{{'Mobile Number' | translate}}<span *ngIf="fieldRequired.contractContactMobile === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="contractContactMobile" class="form-control" placeholder="" formControlName="ContractContactMobile" [attr.maxlength]="20" eTypeText>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactEmail === true">
+            <label class="col24" for="ContractContactEmail">{{'Email' | translate}}<span *ngIf="fieldRequired.contractContactEmail === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" id="ContractContactEmail" class="form-control" placeholder="" formControlName="ContractContactEmail" [attr.maxlength]="50" eTypeTextFree>
+            </div>
+        </div>
+        <div class="col-sm-3" *ngIf="fieldVisibility.contractContactFax === true">
+            <label class="col24">{{'Fax' | translate}}<span *ngIf="fieldRequired.contractContactFax === true" class="mandatory">* </span></label>
+            <div class="col24">
+                <input type="text" class="form-control" placeholder="" formControlName="ContractContactFax" [attr.maxlength]="20" eTypeText>
+            </div>
+        </div>
+    </div>
+</form>

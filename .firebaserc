@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "ri-newui-dev",
+    "dev": "ri-newui-dev",
+    "sit": "ri-newui-sit",
+    "stage": "ri-newui-stg-ac8c7",
+    "prod": "ri-newui-prod",
+    "support-dev": "ri-newui-support-dev",
+    "support-sit": "ri-newui-support-sit",
+    "support-stage": "ri-newui-support-staging",
+    "next-dev": "ri-newui-next-dev",
+    "next-sit": "ri-newui-next-sit",
+    "next-stage": "ri-newui-next-stg"
+  }
+}

@@ -1,0 +1,386 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{'Invoice Group Premises Maintenance' | translate}}
+                <!--<span class="font-sm inline-block pl20">
+                      <span class="mandatory">*</span>{{ pageLabels.AreMandatoryFields | translate }}
+                  </span>-->
+                <!-- fixing for IUI-5280 -->
+            </h1>
+        </div>
+    </div>
+
+    <div class="row mt5" *ngIf="spanDisplay.spanAccountNumber">
+        <div class="col-sm-5">
+            <label class="col24">{{pageLabels.AccountNumber | translate}} <span class="mandatory">* </span></label>
+            <div class="col7 pr5" [ngClass]="formControlErrorFlag.AccountNumber == true? errorClass:''">
+                <input type="text" class="form-control" [(ngModel)]="formControl.AccountNumber" [disabled]="formControlEnableFlag.AccountNumber"
+                    (change)="lookupSearch('AccountNumber')" size="9" maxlength="9">
+            </div>
+            <div class="col15">
+                <input type="text" class="form-control" [(ngModel)]="formControl.AccountName" [attr.disabled]="formControlEnableFlag.AccountName">
+            </div>
+            <div class="col2 pl5" *ngIf="ellipseDisplay.accountNumberEllipse">
+                <icabs-ellipsis #accountSearchComponentRef [childConfigParams]="inputParamsAccSearch" [contentComponent]="accountSearchComponent"
+                    (ellipsisData)="setAccountNumber($event)" [showCloseButton]="true" [showHeader]="true" [disabled]="formControlEnableFlag.AccountNumber"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" *ngIf="spanDisplay.spanInvoiceGroupNumber">
+        <div class="col-sm-5">
+            <label class="col24">{{pageLabels.InvoiceGroupNumber | translate}} <span class="mandatory">* </span></label>
+            <div class="col7 pr5" [ngClass]="formControlErrorFlag.InvoiceGroupNumber == true? errorClass:''">
+                <input type="text" class="form-control" [(ngModel)]="formControl.InvoiceGroupNumber" [disabled]="formControlEnableFlag.InvoiceGroupNumber"
+                    (change)="lookupSearch('InvoiceGroupNumber')" size="8" maxlength="8">
+            </div>
+            <div class="col15">
+                <input type="text" class="form-control" [(ngModel)]="formControl.InvoiceGroupDesc" [attr.disabled]="formControlEnableFlag.InvoiceGroupDesc">
+            </div>
+            <div class="col2 pl5" *ngIf="ellipseDisplay.invoiceGroupEllipse">
+                <icabs-ellipsis #invoiceGroupMaintenanceSearchRef [childConfigParams]="inputInvoiceGroupMaintenanceSearch" [contentComponent]="invoiceGroupMaintenanceSearch"
+                    (ellipsisData)="setInvoiceGroupNumber($event)" [showCloseButton]="true" [showHeader]="true" [disabled]="formControlEnableFlag.InvoiceGroupNumber"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <form #uiForm="ngForm" class="form-content" novalidate="">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" [ngClass]="tabNameMap.by_account == true? 'active':''">
+                <a class="nav-link " [ngClass]="tabNameMap.by_account == true? 'active':''" href="javascript:void(0);" (click)="changeTab('by_account')">
+                    <span>{{pageLabels.ByAccount | translate}}</span>
+                </a>
+            </li>
+            <li class="nav-item" [ngClass]="tabNameMap.by_contract == true? 'active':''">
+                <a class="nav-link" [ngClass]="tabNameMap.by_contract == true? 'active':''" href="javascript:void(0);" (click)="changeTab('by_contract')">
+                    <span>{{pageLabels.ByContract | translate}}</span>
+                </a>
+            </li>
+            <li class="nav-item " [ngClass]="{'active': tabNameMap.by_premise_range == true, 'red-bdr': formControlErrorFlag.by_premise_range}">
+                <a class="nav-link" href="javascript:void(0);" [ngClass]="tabNameMap.by_premise_range == true? 'active':''" (click)="changeTab('by_premise_range')">
+                    <span>{{pageLabels.ByPremiseRangeTab | translate}}</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="row mt5" *ngIf="tabNameMap.by_account">
+                <div class="col-sm-12">
+                    <div class="col24">
+                        <!--Account Tab-->
+                        <div id="By Account">
+                            <div class="row mt5">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{pageLabels.MoveAllPremisesOnAccountTo | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <div class="col16 pr5" *ngIf="spanDisplay.spanchkEntireAccount">
+                                        <input type="checkbox" id="chkEntireAccount" (click)="clickEntireAccount($event)" [(ngModel)]="formControl.chkEntireAccount"
+                                            class="col2 pr5" [disabled]="formControlEnableFlag.chkEntireAccount" name="chkEntireAccount">
+                                        <label class="col22" for="chkEntireAccount">{{pageLabels.SelectedInvoiceGroup | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <div class="col16 pr5" *ngIf="spanDisplay.spanchkSeparateInvoice">
+                                        <input type="checkbox" id="chkSeparateInvoice" name="chkSeparateInvoice" (click)="clickSeperateInvoice($event)" [(ngModel)]="formControl.chkSeparateInvoice"
+                                            class="col2 pr5" [disabled]="formControlEnableFlag.chkSeparateInvoice">
+                                        <label class="col22" for="chkSeparateInvoice">{{pageLabels.SeperateInvoiceGroup | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5" *ngIf="tabNameMap.by_contract">
+                <div class="col-sm-12">
+                    <div class="col24">
+                        <!--Contract Tab-->
+                        <div id="By Contract">
+                            <div class="row mt5">
+                                <div class="col-sm-3" *ngIf="spanDisplay.spanContractNumber">
+                                    <label class="col24">{{pageLabels.AddAllPremisesFromContract | translate}}</label>
+                                    <div class="col22">
+                                        <input type="text" id="ContractNumber1" name="ContractNumber1" [(ngModel)]="formControl.ContractNumber1" class="form-control"
+                                            [disabled]="formControlEnableFlag.ContractNumber1" size="8" maxlength="8" eTypeCode>
+                                    </div>
+                                    <div class="col2 pl5">
+                                        <icabs-ellipsis #contractSearchComponent1Ref [childConfigParams]="inputContractSearchComponent1" [contentComponent]="contractSearchComponent1"
+                                            (ellipsisData)="setContract1($event)" [disabled]="formControlEnableFlag.ContractNumber1"
+                                            [showCloseButton]="true" [showHeader]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3" *ngIf="spanDisplay.spanContractNumber2">
+                                    <label class="col24">{{pageLabels.AddASinglePremiseFromContract | translate}}</label>
+                                    <div class="col22">
+                                        <input type="text" name="ContractNumber2" id="ContractNumber2" class="form-control" [(ngModel)]="formControl.ContractNumber2"
+                                            [disabled]="formControlEnableFlag.ContractNumber2" (change)="inputValueChange('ContractNumber2')"
+                                            size="8" maxlength="8" eTypeCode>
+                                    </div>
+                                    <div class="col2 pl5">
+                                        <!--<icabs-ellipsis [childConfigParams]="inputContractSearchComponent2" [contentComponent]="contractSearchComponent2" (ellipsisData)="setContract2($event)"
+                                            [disabled]="formControlEnableFlag.ContractNumber2" [showCloseButton]="true" [showHeader]="true"
+                                            [autoOpen]="autoOpenConfig.contractSearchComponent2"></icabs-ellipsis>-->
+                                        <icabs-ellipsis #contractSearchComponent11Ref [childConfigParams]="inputContractSearchComponent1" [contentComponent]="contractSearchComponent1"
+                                            (ellipsisData)="setContract2($event)" [disabled]="formControlEnableFlag.ContractNumber1"
+                                            [showCloseButton]="true" [showHeader]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" *ngIf="spanDisplay.spanPremiseNumber2">
+                                    <label class="col24">{{pageLabels.Premise | translate}}</label>
+                                    <div class="col22">
+                                        <input type="text" id="PremiseNumber2" name="PremiseNumber2" [(ngModel)]="formControl.PremiseNumber2" class="form-control"
+                                            [disabled]="formControlEnableFlag.PremiseNumber2" size="5" maxlength="5" eTypeInteger>
+                                    </div>
+                                    <div class="col2 pl5">
+                                        <icabs-ellipsis #componentPremiseNumber2Ref [childConfigParams]="inputPremiseNumber2" [contentComponent]="componentPremiseNumber2"
+                                            (ellipsisData)="setPremiseNumber2($event)" [disabled]="formControlEnableFlag.PremiseNumber2"
+                                            [showCloseButton]="true" [showHeader]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3" *ngIf="spanDisplay.spanContractNumber4">
+                                    <label class="col24">{{pageLabels.CreateSepInvoceGroup | translate}}</label>
+                                    <div class="col22">
+                                        <input type="text" id="ContractNumber4" name="ContractNumber4" [(ngModel)]="formControl.ContractNumber4" class="form-control"
+                                            [disabled]="formControlEnableFlag.ContractNumber4" size="8" maxlength="8" eTypeCode>
+                                    </div>
+                                    <div class="col2 pl5">
+                                        <icabs-ellipsis #contractSearchComponent4Ref [childConfigParams]="inputContractSearchComponent4" [contentComponent]="contractSearchComponent4"
+                                            (ellipsisData)="setContract4($event)" [disabled]="formControlEnableFlag.ContractNumber4"
+                                            [showCloseButton]="true" [showHeader]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5" *ngIf="tabNameMap.by_premise_range">
+                <div class="col-sm-12">
+                    <div class="col24">
+                        <!--Premise Tab-->
+                        <div id="By Premise Range">
+                            <div class="row mt5">
+                                <div class="col-sm-3" *ngIf="spanDisplay.spanContractNumber3">
+                                    <label class="col24">{{pageLabels.AddARangeOfPremiseFromContract | translate}}</label>
+                                    <div class="col20 pr5">
+                                        <input type="text" id="ContractNumber3" name="ContractNumber3" class="form-control" [(ngModel)]="formControl.ContractNumber3"
+                                            [disabled]="formControlEnableFlag.ContractNumber3" (change)="inputValueChange('ContractNumber3')"
+                                            size="8" maxlength="8" eTypeCode>
+                                    </div>
+                                    <div class="col4">
+                                        <icabs-ellipsis #contractSearchComponent3Ref [childConfigParams]="inputContractSearchComponent3" [contentComponent]="contractSearchComponent3"
+                                            (ellipsisData)="setContract3($event)" [disabled]="formControlEnableFlag.ContractNumber3"
+                                            [showCloseButton]="true" [showHeader]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="col12 pr5" *ngIf="spanDisplay.spanPremiseNumberStart3">
+                                        <label class="col24">{{pageLabels.FromPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseNumberStart3" name="PremiseNumberStart3" class="form-control" [(ngModel)]="formControl.PremiseNumberStart3"
+                                                [disabled]="formControlEnableFlag.PremiseNumberStart3" size="5" maxlength="5"
+                                                [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseNumberStart3}" (keydown)="checkFormat('PremiseNumberStart3')"
+                                                (change)="checkFormat('PremiseNumberStart3')" eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseNumberStart3Ref [childConfigParams]="inputPremiseNumberStart3" [contentComponent]="componentPremiseNumberStart3"
+                                                (ellipsisData)="setPremiseNumberStart3($event)" [disabled]="formControlEnableFlag.PremiseNumberStart3"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseNumberStart3"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col12" *ngIf="spanDisplay.spanPremiseNumberEnd3">
+                                        <label class="col24">{{pageLabels.ToPremise | translate}}</label>
+                                        <div class="col20">
+                                            <input type="text" id="PremiseNumberEnd3" name="PremiseNumberEnd3" [(ngModel)]="formControl.PremiseNumberEnd3" class="form-control"
+                                                [disabled]="formControlEnableFlag.PremiseNumberEnd3" size="5" maxlength="5" [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseNumberEnd3}"
+                                                (keydown)="checkFormat('PremiseNumberEnd3')" (change)="checkFormat('PremiseNumberEnd3')"
+                                                eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseNumberEnd3Ref [childConfigParams]="inputPremiseNumberEnd3" [contentComponent]="componentPremiseNumberEnd3"
+                                                (ellipsisData)="setPremiseNumberEnd3($event)" [disabled]="formControlEnableFlag.PremiseNumberEnd3"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseNumberEnd3"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <div class="col12 pr5" *ngIf="spanDisplay.spanPremiseRangeStart1">
+                                        <label class="col24">{{pageLabels.FromPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeStart1" name="PremiseRangeStart1" class="form-control" [(ngModel)]="formControl.PremiseRangeStart1"
+                                                [disabled]="formControlEnableFlag.PremiseRangeStart1" size="5" maxlength="5"
+                                                [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeStart1}" (keydown)="checkFormat('PremiseRangeStart1')"
+                                                (change)="checkFormat('PremiseRangeStart1')" eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeStart1Ref [childConfigParams]="inputPremiseRangeStart1" [contentComponent]="componentPremiseRangeStart1"
+                                                (ellipsisData)="setPremiseRangeStart1($event)" [disabled]="formControlEnableFlag.PremiseRangeStart1"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeStart1"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col12" *ngIf="spanDisplay.spanPremiseRangeEnd1">
+                                        <label class="col24">{{pageLabels.ToPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeEnd1" name="PremiseRangeEnd1" class="form-control" [(ngModel)]="formControl.PremiseRangeEnd1"
+                                                [disabled]="formControlEnableFlag.PremiseRangeEnd1" size="5" maxlength="5" [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeEnd1}"
+                                                (keydown)="checkFormat('PremiseRangeEnd1')" (change)="checkFormat('PremiseRangeEnd1')"
+                                                eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeEnd1Ref [childConfigParams]="inputPremiseRangeEnd1" [contentComponent]="componentPremiseRangeEnd1"
+                                                (ellipsisData)="setPremiseRangeEnd1($event)" [disabled]="formControlEnableFlag.PremiseRangeEnd1"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeEnd1"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3 col-sm-offset-3" *ngIf="spanDisplay.spanPremiseRangeStart2">
+                                    <div class="col12 pr5">
+                                        <label class="col24">{{pageLabels.FromPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeStart2" name="PremiseRangeStart2" class="form-control" [(ngModel)]="formControl.PremiseRangeStart2"
+                                                [disabled]="formControlEnableFlag.PremiseRangeStart2" size="5" maxlength="5"
+                                                [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeStart2}" (keydown)="checkFormat('PremiseRangeStart2')"
+                                                (change)="checkFormat('PremiseRangeStart2')" eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeStart2Ref [childConfigParams]="inputPremiseRangeStart2" [contentComponent]="componentPremiseRangeStart2"
+                                                (ellipsisData)="setPremiseRangeStart2($event)" [disabled]="formControlEnableFlag.PremiseRangeStart2"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeStart2"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col12" *ngIf="spanDisplay.spanPremiseRangeEnd2">
+                                        <label class="col24">{{pageLabels.ToPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeEnd2" name="PremiseRangeEnd2" class="form-control" [(ngModel)]="formControl.PremiseRangeEnd2"
+                                                [disabled]="formControlEnableFlag.PremiseRangeEnd2" size="5" maxlength="5" [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeEnd2}"
+                                                (keydown)="checkFormat('PremiseRangeEnd2')" (change)="checkFormat('PremiseRangeEnd2')"
+                                                eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeEnd2Ref [childConfigParams]="inputPremiseRangeEnd2" [contentComponent]="componentPremiseRangeEnd2"
+                                                (ellipsisData)="setPremiseRangeEnd22($event)" [disabled]="formControlEnableFlag.PremiseRangeEnd2"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeEnd2"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <div class="col12 pr5" *ngIf="spanDisplay.spanPremiseRangeStart3">
+                                        <label class="col24">{{pageLabels.FromPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeStart3" name="PremiseRangeStart3" class="form-control" [(ngModel)]="formControl.PremiseRangeStart3"
+                                                [disabled]="formControlEnableFlag.PremiseRangeStart3" size="5" maxlength="5"
+                                                [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeStart3}" (keydown)="checkFormat('PremiseRangeStart3')"
+                                                (change)="checkFormat('PremiseRangeStart3')" eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeStart3Ref [childConfigParams]="inputPremiseRangeStart3" [contentComponent]="componentPremiseRangeStart3"
+                                                (ellipsisData)="setPremiseRangeStart3($event)" [disabled]="formControlEnableFlag.PremiseRangeStart3"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeStart3"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col12" *ngIf="spanDisplay.spanPremiseRangeEnd3">
+                                        <label class="col24">{{pageLabels.ToPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeEnd3" name="PremiseRangeEnd3" [(ngModel)]="formControl.PremiseRangeEnd3" class="form-control"
+                                                [disabled]="formControlEnableFlag.PremiseRangeEnd3" size="5" maxlength="5" [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeEnd3}"
+                                                (keydown)="checkFormat('PremiseRangeEnd3')" (change)="checkFormat('PremiseRangeEnd3')"
+                                                eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeEnd3Ref [childConfigParams]="inputPremiseRangeEnd3" [contentComponent]="componentPremiseRangeEnd3"
+                                                (ellipsisData)="setPremiseRangeEnd3($event)" [disabled]="formControlEnableFlag.PremiseRangeEnd3"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeEnd3"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3 col-sm-offset-3">
+                                    <div class="col12 pr5" *ngIf="spanDisplay.spanPremiseRangeStart4">
+                                        <label class="col24">{{pageLabels.FromPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeStart4" name="PremiseRangeStart4" [(ngModel)]="formControl.PremiseRangeStart4" class="form-control"
+                                                [disabled]="formControlEnableFlag.PremiseRangeStart4" size="5" maxlength="5"
+                                                [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeStart4}" (keydown)="checkFormat('PremiseRangeStart4')"
+                                                (change)="checkFormat('PremiseRangeStart4')" eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeStart4Ref [childConfigParams]="inputPremiseRangeStart4" [contentComponent]="componentPremiseRangeStart4"
+                                                (ellipsisData)="setPremiseRangeStart4($event)" [disabled]="formControlEnableFlag.PremiseRangeStart4"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeStart4"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col12" *ngIf="spanDisplay.spanPremiseRangeEnd4">
+                                        <label class="col24">{{pageLabels.ToPremise | translate}}</label>
+                                        <div class="col20 pr5">
+                                            <input type="text" id="PremiseRangeEnd4" name="PremiseRangeEnd4" [(ngModel)]="formControl.PremiseRangeEnd4" class="form-control"
+                                                [disabled]="formControlEnableFlag.PremiseRangeEnd4" size="5" maxlength="5" [ngClass]="{ 'red-bdr': formControlErrorFlag.PremiseRangeEnd4}"
+                                                (keydown)="checkFormat('PremiseRangeEnd4')" (change)="checkFormat('PremiseRangeEnd4')"
+                                                eTypeInteger>
+                                        </div>
+                                        <div class="col4">
+                                            <icabs-ellipsis #componentPremiseRangeEnd4Ref [childConfigParams]="inputPremiseRangeEnd4" [contentComponent]="componentPremiseRangeEnd4"
+                                                (ellipsisData)="setPremiseRangeEnd4($event)" [disabled]="formControlEnableFlag.PremiseRangeEnd4"
+                                                [showCloseButton]="true" [showHeader]="true" [hideIcon]="!autoOpenConfig.componentPremiseRangeEnd4"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+
+            </div>
+        </div>
+    </form>
+    <hr class="mt15 mb15" />
+    <div class="row mt2">
+        <div class="col-sm-6">
+            <input type="button" class="btn btn-primary" *ngIf="buttonDisplay.bttnSave" (click)="saveOnclick()" value="{{pageLabels.Save | translate}}"
+            />
+
+            <input type="button" class="btn btn-secondary" id="cancelButton" *ngIf="buttonDisplay.bttnCancel" (click)="cancelOnclick()"
+                value="{{pageLabels.Cancel | translate}}" />
+        </div>
+        <div class="col-sm-3 pull-right">
+            <select id="menu" name="menu" class="form-control" [(ngModel)]="menu" (change)="menuOnchange()">
+                    <option selected value="">{{pageLabels.Options | translate}}</option>
+                    <option value="Contract">{{pageLabels.Contract | translate}}</option>
+                    <option value="Premise">{{pageLabels.Premise | translate}}</option>
+                </select>
+        </div>
+    </div>
+
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" (modalClose)="messageModalClose()">
+</icabs-modal>
+<icabs-modal #messageModal2="child"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-confirmok #confirmOkModal (confirmClose)="confirmOkClose($event)"></icabs-confirmok>
+<icabs-ellipsis #componentPremiseNumber3Ref [childConfigParams]="inputPremiseNumber3" [contentComponent]="componentPremiseNumber3"
+    (ellipsisData)="setPremiseNumber3($event)" [disabled]="false" [showCloseButton]="true" [showHeader]="true" [hideIcon]="true"></icabs-ellipsis>
+
+<icabs-ellipsis #contractSearchComponentRef [showCloseButton]="ellipsisParams.showCloseButton" [childConfigParams]="ellipsisParams.contractSearchParams"
+    [modalConfig]="modalConfig" [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)"
+    [showHeader]="ellipsisParams.showHeader" [autoOpen]="false" [hideIcon]="true"></icabs-ellipsis>

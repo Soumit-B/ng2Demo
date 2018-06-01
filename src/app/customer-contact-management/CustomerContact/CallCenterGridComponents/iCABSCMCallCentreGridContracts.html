@@ -1,0 +1,54 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="Contract/jobs" class="mt10">
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <div class="col3 pr10 ">
+                    <select id="ContractSearchOn" (keydown)="contractSearchOnKeyDown($event)" (change)="contractSearchOnChange($event)" formControlName="ContractSearchOn" class="form-control">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option *ngFor="let c of dropdownList.ContractSearchOn" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col3 pr10" *ngIf="fieldVisibility.ContractSearchValue">
+                    <input type="text" id="ContractSearchValue" (keydown)="contractSearchValueOnKeyDown($event)" formControlName="ContractSearchValue" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col3 pr10" [style.display]="!fieldVisibility.ContractCommenceDateFrom ? 'none':'inherit'">
+                    <icabs-datepicker [dt]='dateObjects.ContractCommenceDateFrom' [isDisabled]="!dateObjectsEnabled.ContractCommenceDateFrom" (selectedValue)="contractCommenceFromDateSelectedValue($event)" [isRequired]="true" [uiFormGroup]="formGroup" [controlName]="'ContractCommenceFromDate'"></icabs-datepicker>
+                </div>
+                <div class="col3 pr10" [style.display]="!fieldVisibility.ContractCommenceDateTo ? 'none':'inherit'">
+                    <icabs-datepicker [dt]='dateObjects.ContractCommenceDateTo' [isDisabled]="!dateObjectsEnabled.ContractCommenceDateTo" (selectedValue)="contractCommenceToDateSelectedValue($event)" [isRequired]="true" [uiFormGroup]="formGroup" [controlName]="'ContractCommenceToDate'"></icabs-datepicker>
+                </div>
+                <div class="col3 pr10 ">
+                    <select id="ContractStatusCode" (keydown)="contractStatusCodeOnKeyDown($event)" (change)="contractStatusCodeOnChange($event)" formControlName="ContractStatusCode" class="form-control">
+                        <option value="all">{{ 'All' | translate }}</option>
+                        <option value="CurrentAll">{{ 'Current (All)' | translate }}</option>
+                        <option *ngFor="let c of dropdownList.ContractStatusCode" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col3 pr10 ">
+                    <select id="ContractTypeCode" (keydown)="contractTypeCodeOnKeyDown($event)" (change)="contractTypeCodeOnChange($event)" formControlName="ContractTypeCode" class="form-control">
+                        <option *ngFor="let c of dropdownList.ContractTypeCode" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col3 pr10">
+                    <input (click)="cmdContractClearSearchOnClick($event)" id="CmdContractClearSearch" formControlName="CmdContractClearSearch" type="button" class="btn btn-primary" value="{{ 'Reset Filters' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>{{ 'Further Records' | translate }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #contractsGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</form>

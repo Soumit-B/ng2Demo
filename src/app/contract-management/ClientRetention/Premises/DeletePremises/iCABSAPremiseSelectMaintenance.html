@@ -1,0 +1,103 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" [attr.maxlength]="8" class="form-control" formControlName="ContractNumber" (change)="isNumValidatorContractNumber($event)"
+                            [icabsDirFocus]="setFocusOnContractNumber" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractName" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContractSearchEllipsis [autoOpen]="ellipsis.contract.autoOpen" [showCloseButton]="ellipsis.contract.showCloseButton"
+                            [childConfigParams]="ellipsis.contract.childConfigParams" [modalConfig]="ellipsis.contract.modalConfig"
+                            [contentComponent]="ellipsis.contract.contentComponent" (modalHidden)="getModalinfo($event)" (ellipsisData)="contractOnKeyDown($event, true)"
+                            [showHeader]="ellipsis.contract.showHeader" [disabled]="ellipsis.contract.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" [attr.maxlength]="5" class="form-control" formControlName="PremiseNumber" (change)="callLookupDataPremiseNumber($event)"
+                            [icabsDirFocus]="setFocusOnPremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="PremiseName" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #PremiseSearchEllipsis [autoOpen]="ellipsis.premise.autoOpen" [showCloseButton]="ellipsis.premise.showCloseButton"
+                            [childConfigParams]="ellipsis.premise.childConfigParams" [modalConfig]="ellipsis.premise.modalConfig"
+                            [contentComponent]="ellipsis.premise.contentComponent" (modalHidden)="getModalinfo($event)" (ellipsisData)="premiseOnKeyDown($event, true)"
+                            [showHeader]="ellipsis.premise.showHeader" [disabled]="ellipsis.premise.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Commence Date' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="10" [attr.maxlength]="10" class="form-control" formControlName="PremiseCommenceDate" eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Status' | translate}}</label>
+                    <div class="col12">
+                        <input type="text" size="15" [attr.maxlength]="15" class="form-control" formControlName="Status" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Branch' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" [attr.maxlength]="5" class="form-control" formControlName="ServiceBranchNumber" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Value' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="20" [attr.maxlength]="20" class="form-control" formControlName="PremiseAnnualValue" eTypeCurrency>
+                    </div>
+                </div>
+                <div class="hidden">
+                    <input type="hidden" id="ErrorMessageDesc" [attr.maxlength]="23" class="form-control" formControlName="ErrorMessageDesc" eTypeText>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3 pull-right">
+                    <select class="form-control" formControlName="menu" id="menu" (change)="menuOptionsChange($event.target.value)">
+                        <option value="Options">{{'Options' | translate}}</option>
+                        <option [ngClass]="!IsUrlPending ? 'hidden' : ''" value="Premise">{{'Premises' | translate}}</option>
+                        <option value="Request">{{'Request' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+
+<icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

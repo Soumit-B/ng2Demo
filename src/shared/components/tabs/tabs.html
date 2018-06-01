@@ -1,0 +1,6 @@
+<tabset>
+    <tab *ngFor="let tabz of tabs; let tabIndex=index" [heading]="tabz.title | translate" [active]="tabz.active" (select)="onTabActive(tabz, tabIndex)" (deselect)="tabz.active = false" [disabled]="tabz.disabled" [removable]="tabz.removable" (removed)="removeTabHandler(tabz)" [customClass]="tabz.customClass" [hidden]="tabz.hidden" [attr.data-hidden]="tabz.hidden">
+        <ng-content></ng-content>
+        <div #tabRef [hidden]="tabz.hidden" [attr.data-hidden]="tabz.hidden"></div>
+    </tab>
+</tabset>

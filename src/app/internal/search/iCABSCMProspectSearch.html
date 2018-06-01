@@ -1,0 +1,81 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ strDocTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24 pr5">
+                        <label class="col24">{{ 'Status' | translate }}</label>
+                        <select id="StatusSelect" class="form-control" formControlName="StatusSelect">
+                            <option value="">{{ 'All' | translate }}</option>
+                            <option value="01">{{ 'New Prospect' | translate }}</option>
+                            <option value="02">{{ 'Converted To Contract' | translate }}</option>
+                            <option value="03">{{ 'Converted To Job' | translate }}</option>
+                            <option value="04">{{ 'Converted To Product Sale' | translate }}</option>
+                            <option value="05">{{ 'Rejected' | translate }}</option>
+                            <option value="06">{{ 'Awaiting Branch Update' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Process Date' | translate }}</label>
+                    <div class="col12 pr5">
+                        <select id="DateSelect" class="form-control" formControlName="DateSelect">
+                            <option value="From" selected>{{ 'From' | translate }}</option>
+                            <option value="To">{{ 'To' | translate }}</option>
+                        </select>
+                    </div>
+                    <div class="col12">
+                        <icabs-datepicker formControlName="DateCompare" [disabled]="false" [required]="false" (onChange)="dateFromSelectedValue($event)"
+                            [isDirectiveBased]="false"></icabs-datepicker>
+
+                            <!-- <input size="15" formControlName="DateCompare" [attr.maxlength]="15" class="form-control hidden">
+                        <icabs-datepicker id="DateCompare" [dt]="DateCompare" [isReadonly]="false" [isDisabled]="false" [isRequired]="" (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker> -->
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Number' | translate }}</label>
+                    <div class="col12 pr5">
+                        <select id="ProspectSearchType" class="form-control" formControlName="ProspectSearchType" (change)="prospectSearchType_onchange()"> 
+                            <option value="namebegins">{{ 'Name begins' | translate }}</option>
+                            <option value="namematches">{{ 'Name matches' | translate }}</option>
+                            <option Selected value="number">{{ 'Number' | translate }}</option>
+                        </select>
+                    </div>
+                    <div class="col12">
+                        <input id="ProspectSearchValue" #ProspectSearchValue [size]="prospectValueSize" [attr.maxlength]="30" value="" class="form-control"
+                            formControlName="ProspectSearchValue">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input type="button" class="btn btn-additional" id="cmdSearch" value="{{'Search' | translate}}" (click)="cmdSearch_onclick()">
+                </div>
+                <div class="col2 mt20">
+                    <input type="button" name="" value="{{ 'Add New' | translate }}" class="form-control btn btn-lg btn-secondary" [disabled]="!enableAddNew"
+                        [hidden]="!showAddNew" [attr.data-hidden]="!showAddNew" (click)="onAddNew()">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="col-sm-12">
+                <icabs-table [ngClass]="showTable?'':'hidden'" #ProspectSearchTable [columns]="columns" [tableheader]="tableheading" (selectedData)="tableRowClick($event)"
+                    [itemsPerPage]="itemsPerPage" [page]="page" [rowmetadata]="rowmetadata" [rows]="rows" [paginationTop]="true"
+                    [displayError]="false" (onRefresh)="refresh()" [parentPageRowIdFlag]="true">
+                    </icabs-table>
+
+                    <!--<icabs-table #contractTable (dataLoaded)="tableDataLoaded($event)" (selectedData)="selectedData($event)" (onRefresh)="loadData()"
+                    [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [rowmetadata]="rowmetadata" [rows]="rows"></icabs-table>-->
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>

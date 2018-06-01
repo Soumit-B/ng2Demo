@@ -1,0 +1,42 @@
+<div class="container-fluid custom-container">
+</div>
+<icabs-modal #childModal="child" [(title)]="pageTitle" [(showHeader)]="showHeader" [config]="{backdrop: 'static', keyboard: false}">
+    <div class="container-fluid custom-container padding-right-lxx padding-left-lxx">
+        <div class="custom-top-container padding-zero">
+            <!--<form class="form-signin padding-m"> -->
+            <div class="col-sm-12">
+                <p>
+                    {{pageTitle}}
+                </p>
+            </div>
+            <div class="col-sm-6 margin-top-lxx">
+                <div class="form-group col-sm-12 padding-zero">
+                    <div class="col-sm-10 padding-zero">
+                        <!-- <icabs-dropdownlist></icabs-dropdownlist> -->
+                        <select class="form-control" [(ngModel)]="localeCultureCode.localeCode" name="localeCultureCode" (ngModelChange)="onLocaleChange($event)">
+                            <option *ngFor="let localeCultureName of localeCultureNameList" [ngValue]="localeCultureName.localeCode" [selected]="localeCultureCode.localeCode == localeCultureName.localeCode? true: null">{{localeCultureName.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 margin-top-lxx">
+                <div class="form-group col-sm-12 padding-zero">
+                    <div class="col-sm-10 padding-zero">
+                        <select class="form-control" [(ngModel)]="regionCode.code" name="regionCode">
+                            <option *ngFor="let region of regions" [ngValue]="region.code" [selected]="regionCode.code == region.code">{{region.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 margin-top-lxx text-center margin-bottom-lxx">
+                <a class="btn btn-lg btn-primary" id="setup" type="submit" (click)="submitSetupData()">{{ 'ENTER SITE' | translate }}</a>
+            </div>
+            <!--   </form> -->
+        </div>
+    </div>
+    <!-- /container -->
+</icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [triggerEmitterOnClose]="false" (modalClose)="errorModalClose();">
+</icabs-modal>

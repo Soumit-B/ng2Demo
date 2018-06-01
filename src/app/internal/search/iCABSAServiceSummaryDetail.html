@@ -1,0 +1,126 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row  mt10">
+            <div class="col-sm-12 page-title">
+                <h1>
+                    {{this['pageTitle']| translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div #topContainer>
+            <div class="">
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input id="ContractNumber" formControlName="ContractNumber" [attr.maxlength]="8" class="form-control" type="text" eTypeCode>
+                        </div>
+                        <div class="col16">
+                            <input id="ContractName" size="40" formControlName="ContractName" [attr.maxlength]="40" class="form-control" type="text" eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{'Premises Number'| translate}}<span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input id="PremiseNumber" [attr.maxlength]="8" formControlName="PremiseNumber" class="form-control" type="text" eTypeInteger>
+                        </div>
+                        <div class="col16">
+                            <input id="PremiseName" size="40" [attr.maxlength]="40" formControlName="PremiseName" class="form-control" type="text" eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{'Product Code' | translate}}<span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input id="ProductCode" [attr.maxlength]="6" formControlName="ProductCode" class="form-control" type="text" eTypeCode>
+                        </div>
+                        <div class="col16">
+                            <input id="ProductDesc" size="40" [attr.maxlength]="40" formControlName="ProductDesc" class="form-control" type="text" eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input class="form-control" id="TrialPeriodInd" formControlName="TrialPeriodInd" placeholder="" type="checkbox">
+                        <label class="col24">{{'Trial Period' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Trial End Date' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="TrialPeriodEndDate" [dt]="dtTrialPeriodEndDate" [isDisabled]=true></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Proposed Annual Value' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input id="ProposedAnnualValue" formControlName="ProposedAnnualValue" class="form-control" type="text" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input class="form-control" id="FreeOfChargeInd" formControlName="FreeOfChargeInd" placeholder="" type="checkbox">
+                        <label class="col24">{{'Free of Charge'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input class="form-control" id="SeasonalServiceInd" formControlName="SeasonalServiceInd" placeholder="" type="checkbox">
+                        <label class="col24">{{'Seasonal Service'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Template Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="SeasonalTemplateNumber" [attr.maxlength]="4" formControlName="SeasonalTemplateNumber" class="form-control" type="text"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input id="SeasonalTemplateName" [attr.maxlength]="40" formControlName="SeasonalTemplateName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input class="form-control" id="AnnualCalendarInd" formControlName="AnnualCalendarInd" placeholder="" type="checkbox">
+                        <label class="col24">{{'Annual Calendar' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Template Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="AnnualCalendarTemplateNumber" formControlName="AnnualCalendarTemplateNumber" [attr.maxlength]="4" class="form-control"
+                            type="text" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input id="AnnualCalendarTemplateName" formControlName="AnnualCalendarTemplateName" [attr.maxlength]="40" class="form-control" type="text"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

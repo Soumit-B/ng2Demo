@@ -1,0 +1,219 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Premise Visit Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="8" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{ 'Premise Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="8" maxlength="5">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{ 'Service Employee' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" formControlName="EmployeeCode" size="6" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="25" maxlength="25">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ActualStartTime">{{ 'Actual Start Time' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ActualStartTime" formControlName="ActualStartTime" size="5" maxlength="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ActualEndTime">{{ 'Actual End Time' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ActualEndTime" formControlName="ActualEndTime" size="5" maxlength="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactName">{{ 'Contact Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="PremiseContactName" formControlName="PremiseContactName" size="50" maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Job Title' | translate}}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ReasonNumber">{{ 'Signature Unavailable Reason' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ReasonNumber" formControlName="ReasonNumber" size="3">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ReasonDesc" formControlName="ReasonDesc" size="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="VisitReference">{{ 'Visit Reference' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="VisitReference" formControlName="VisitReference" size="8" maxlength="100">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="AttemptedPrintInd" formControlName="AttemptedPrintInd" size="1">
+                        <label for="AttemptedPrintInd">{{ 'Attempted Print' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="SuccessfulPrintInd" formControlName="SuccessfulPrintInd" size="1">
+                        <label for="SuccessfulPrintInd">{{ 'Successful Print' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="NoPremiseVisitReasonCode">{{ 'No Premise Visit Reason' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="NoPremiseVisitReasonCode" formControlName="NoPremiseVisitReasonCode" size="6"
+                            maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="NoPremiseVisitReasonDesc" formControlName="NoPremiseVisitReasonDesc" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="NoBarcodeReasonCode">{{ 'No Barcode Reason' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" input id="NoBarcodeReasonCode" formControlName="NoBarcodeReasonCode" size="6" maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="NoBarcodeReasonDesc" formControlName="NoBarcodeReasonDesc" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactSignature">{{ 'Signature' | translate}}</label>
+                    <div class="col24">
+                        <div class="signature-box" class="form-control" id="PremiseContactSignature" formControlName="PremiseContactSignature"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactPrintedName">{{ 'Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="PremiseContactPrintedName" formControlName="PremiseContactPrintedName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactReason">{{ 'Signature Unavailable Reason' | translate}}</label>
+                    <div class="col24">
+                        <div class="signature-box" id="PremiseContactReason" formControlName="PremiseContactReason"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="RepDestSelect">{{ 'Report Destination' | translate}}</label>
+                    <div class="col24">
+                        <Select id="RepDestSelect" class="form-control" formControlName="RepDestSelect">
+                        <option value="direct">{{ 'Report Viewer' | translate}}</option>
+                        <option value="EmailAccount">{{ 'Email - Account' | translate}}</option>
+                        <option value="EmailContract">{{ 'Email - Contract' | translate}}</option>
+                        <option value="EmailPremises">{{ 'Email - Premises' | translate}}</option>
+                      </Select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="chkConsumablesOnly" formControlName="chkConsumablesOnly">
+                        <label for="chkConsumablesOnly">{{ 'Consumables only' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" class="btn btn-primary mr10" value="Submit Report Generation" id="cmdSubmit" formControlName="cmdSubmit">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="Save">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+            </div>
+            <div class="col-sm-3 pull-right">
+                <div class="col24">
+                    <icabs-dropdown></icabs-dropdown>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>

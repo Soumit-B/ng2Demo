@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Effective Date Search' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" maxlength="8" size="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" maxlength="40" size="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceVisitFrequency">{{ 'Visit Frequency' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" type="text" maxlength="5"
+                            size="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" maxlength="8" size="8">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" maxlength="40" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" maxlength="8" size="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" maxlength="40" size="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseLocationNumber">{{ 'Transfer From Location' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseLocationNumber" formControlName="PremiseLocationNumber" class="form-control" type="text" maxlength="6"
+                            size="8">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseLocationDesc" formControlName="PremiseLocationDesc" class="form-control" type="text" maxlength="40" size="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #EffectiveDateSearchPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <icabs-grid #EffectiveDateSearchGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [sortHeaders]="gridSortHeaders"
+                        (sortInfo)="sortGridInfo($event)" (gridInfo)="getGridInfo($event)" (getCellData)="gridOnClick($event)"
+                        (selectedRowInfo)="gridOnDblClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <!--hidden fields-->
+        <input type="hidden" id="ServiceCoverRowID" formControlName="ServiceCoverRowID" class="form-control">
+        <input type="hidden" id="EffectiveDateFrom" formControlName="EffectiveDateFrom" class="form-control">
+    </form>
+</section>

@@ -1,0 +1,198 @@
+<section class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ this['pageTitle'] | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Service Area' | translate}}</label>
+                <div class="col8 pr5">
+                    <input id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" (change)="BranchServiceAreaCode_onchange($event)"
+                        size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col14 pr5">
+                    <input id="EmployeeSurname" formControlName="EmployeeSurname" size="40" maxlength="40" value="" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #BranchServiceAreaSearchComponent [showCloseButton]="ellipsis.branchServiceArea.showCloseButton" [childConfigParams]="ellipsis.branchServiceArea"
+                        [contentComponent]="ellipsis.branchServiceArea.component" (ellipsisData)="setServiceAreaReturnData($event, 'branchServiceArea')"
+                        [disabled]="ellipsis.branchServiceArea.disabled" [showHeader]="ellipsis.branchServiceArea.showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col11">
+                    <label class="col24">{{ this['pageParams']['tdStartLabel'] | translate }}</label>
+                    <div class="col24 pr5">
+                        <icabs-datepicker id="StartDate" [(dt)]="this['pageParams']['StartDate']" [isReadonly]="DateReadOnly" [isDisabled]="DateDisabledStartDate"
+                            (selectedValue)="DateSelectedValue($event, 'StartDate')"></icabs-datepicker>
+                        <input type="hidden" id="StartDate" formControlName="StartDate" size="40" maxlength="40" value="" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="col13">
+                    <label class="col24">{{ this['pageParams']['tdEndLabel'] | translate }}</label>
+                    <div class="col22 pr5">
+                        <icabs-datepicker id="EndDate" [(dt)]="this['pageParams']['EndDate']" [isDisabled]="DateDisabledEndDate" (selectedValue)="DateSelectedValue($event, 'EndDate')"></icabs-datepicker>
+                        <input type="hidden" id="EndDate" formControlName="EndDate" size="40" maxlength="40" value="" readonly class="form-control">
+                    </div>
+                    <div class="col2 pr5">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div #filter [ngClass]="ishidden ? 'hidden' : ''">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Neg Branch' | translate}}</label>
+                    <div class="col16">
+                        <icabs-branchsearch [inputParams]="negBranch.params" (receivedbranchsearch)="NegBranchNumber_onchange($event)" [active]="negBranch.active"
+                            [isDisabled]="negBranch.disabled" [isRequired]='negBranch.required'></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col13">
+                        <div class="col5 mt20 mr5">
+                            <label class="col5">{{'week' | translate}}</label>
+                        </div>
+                        <div class="col18 pr5">
+                            <label class="col24">{{'Display' | translate}}</label>
+                            <input id="WeekNumber" formControlName="WeekNumber" size="40" maxlength="40" value="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col11">
+                        <label class="col24">{{'Lines' | translate}}</label>
+                        <div class="col24">
+                            <input id="GridPageSize" formControlName="GridPageSize" size="40" maxlength="40" value="" (change)="GridPageSize_onchange($event)"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Type' | translate}}</label>
+                    <div class="col24">
+                        <!--TODO: Change it to iCABSBServiceTypeSearch - Dropdown Component,  REMOVE click event call - InServiceTypeCode_onkeydown() -->
+
+                        <div class="col8 pr5">
+                            <input id="InServiceTypeCode" formControlName="InServiceTypeCode" (change)="InServiceTypeCode_onchange($event)" size="9"
+                                maxlength="9" class="form-control">
+                        </div>
+                        <div class="col14 pr5">
+                            <input id="ServiceTypeDesc" formControlName="ServiceTypeDesc" size="40" maxlength="40" value="" class="form-control">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [showCloseButton]="ellipsis.ServiceType.showCloseButton" [childConfigParams]="ellipsis.ServiceType" [contentComponent]="ellipsis.ServiceType.component"
+                                [modalConfig]="ellipsis.ServiceType.modalConfig" (ellipsisData)="InServiceTypeCode_onchange($event)"
+                                [showHeader]="ellipsis.ServiceType.showHeader" [disabled]="ellipsis.ServiceType.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Seq number' | translate}}</label>
+                    <div class="col16">
+                        <input id="SequenceNumber" formControlName="SequenceNumber" size="9" maxlength="5" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract number' | translate}}</label>
+                    <div class="col16">
+                        <input id="ContractNumberSearch" formControlName="ContractNumberSearch" (change)="ContractNumberSearch_onchange($event)"
+                            size="9" maxlength="8" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Frequency' | translate}}</label>
+                    <div class="col16">
+                        <input id="Frequency" formControlName="Frequency" size="9" maxlength="9" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-6" id="tdButtons" [ngClass]="this['pageParams']['tdButtonsDisplay'] ? 'hidden' : ''">
+                    <div class="col9">
+                        <input id="cmdToDate" formControlName="cmdToDate" type="button" class="btn btn-primary" value="{{'View To Date' | translate}}"
+                            (click)="cmdToDate_onClick($event)">
+                        <input id="cmdPlanMove" formControlName="cmdPlanMove" type="button" class="btn btn-primary" value="{{'Move' | translate}}"
+                            (click)="cmdPlanMove_onClick($event)">
+                    </div>
+                    <div class="col9">
+                        <input type="checkbox" class="form-control" id="RelatedVisits" formControlName="RelatedVisits">
+                        <label for="RelatedVisits">{{'Related Visits' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt15 mb15">
+
+        <div class="row">
+            <div class="col-sm-6 mt20">
+                <icabs-refresh (onRefresh)="riGrid_onRefresh()"></icabs-refresh>
+                <icabs-pagination #riGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)">
+                </icabs-pagination>
+            </div>
+            <div class="col-sm-6 pull-right ">
+                <div class="col6 pr10">
+                    <label class="col24">{{ 'Visit Count' | translate}}</label>
+                    <input id="UnplannedNoOfCalls" formControlName="UnplannedNoOfCalls" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col6 pr10" id="tdUnplannedNoOfExchangesLab" [ngClass]="!this['pageParams']['tdUnplannedNoOfExchangesLab'] ? 'hidden' : ''">
+                    <label class="col24">{{'Units' | translate }}</label>
+                    <input id="UnplannedNoOfExchanges" formControlName="UnplannedNoOfExchanges" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col6 pr10" id="tdUnplannedWEDLab" [ngClass]="!this['pageParams']['tdUnplannedWEDLab'] ? 'hidden' : ''">
+                    <label class="col24">{{'W.E.D' | translate }}</label>
+                    <input id="UnplannedWED" formControlName="UnplannedWED" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col6">
+                    <label class="col24">{{ 'Time' | translate }}</label>
+                    <input id="UnplannedTime" formControlName="UnplannedTime" size="9" maxlength="9" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12" id="grdServicePlanning">
+                <icabs-grid-advanced #riGrid (onSuccess)="riGrid_AfterExecute()" (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                    (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+        <!--Legends-->
+        <!--assign the colors dynamically-->
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <input id="cmdShowFilter" type="button" class="btn btn-primary" value="{{ buttonTitle | translate }}" (click)="toggleShowHide($event)">
+            </div>
+            <div class="col-sm-8 text-right">
+                <div class="inline-block pr10" *ngFor="let l of legend">
+                    <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                    <label>{{ l.label | translate }}</label>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [(showCloseButton)]="showCloseButton" [title]="errorTitle"
+    [content]="errorContent">
+</icabs-modal>
+<icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [(showHeader)]="showMessageHeader" [(showCloseButton)]="showCloseButton">
+</icabs-modal>

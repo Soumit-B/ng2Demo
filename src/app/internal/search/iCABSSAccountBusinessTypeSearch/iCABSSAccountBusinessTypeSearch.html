@@ -1,0 +1,39 @@
+<!-- Page Heading -->
+<section class="container-fluid custom-container modal-fix">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title">
+                <h1>
+                    {{ 'Account Business Type Code/Description Search' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form [formGroup]="uiForm">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <div class="col3 pr10">
+                        <select class="form-control" formControlName="AccountBusinessTypeSearchType" (change)="UpdateHTML()">
+                            <option *ngFor="let opt of busOptions" [value]="opt">{{opt | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col6 pr20">
+                        <input #inputField class="form-control" id="AccountBusinessTypeSearchValue" formControlName="AccountBusinessTypeSearchValue"
+                            [size]="inputFieldSize" [maxlength]="inputFieldSize">
+                    </div>
+                    <div class="col3">
+                        <input type="button" #searchButton (click)="loadData()" class="btn btn-primary" value="{{ 'Search' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #resultTable (dataLoaded)="tableDataLoaded($event)" (selectedData)="selectedData($event)" (onRefresh)="loadData()"
+                        [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [paginationTop]="true" [tableheader]="'Account Business Type Search'"
+                        [doTranslate]="true" [rowmetadata]="rowmetadata" [(rows)]="rows"></icabs-table>
+                </div>
+            </div>
+        </form>
+    </section>
+</section>

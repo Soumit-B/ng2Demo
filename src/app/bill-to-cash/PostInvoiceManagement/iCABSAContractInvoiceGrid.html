@@ -1,0 +1,164 @@
+<div class="container-fluid  custom-container" #topContainer>
+    <div class="col-sm-12 row page-header-row margin-top-m">
+        <div>
+            <h1 class="page-header margin-zero">
+                <!--Page Heading-->
+                <small>{{inputParams.pageHeader}}</small>
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="contractInvoiceFormGroup">
+        <div class="row section-container">
+            <div class="row margin-zero">
+                <div class="col-sm-6 padding-left-zero">
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12" *ngIf="showAccount">
+                            <div class="form-group row">
+                                <label class="col-sm-12 " for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-4 padding-left-zero">
+                                        <input id="AccountNumber" class="form-control padding-left-zero" type="text" formControlName="AccountNumber" [attr.maxlength]="10">
+                                    </div>
+                                    <div class="col-sm-6 padding-zero">
+                                        <input class="form-control padding-zero" type="text" (change)="onAccountBlur($event)" formControlName="AccountName" [attr.maxlength]="40">
+                                    </div>
+                                    <div class="pull-left ml5">
+                                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="accountComponent" (ellipsisData)="onAccountDataReceived($event, true)" [showHeader]="showHeader" [disabled]="true"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12" *ngIf="showContract">
+                            <div class="form-group row">
+                                <label class="col-sm-12 " for="ContractNumber">{{ 'Contract Number' | translate }}</label>
+                                <div class="col-sm-3">
+                                    <input class="form-control padding-left-zero" type="text" id="ContractNumber" formControlName="ContractNumber" (change)="onContractBlur($event)" [attr.maxlength]="8" (blur)="onBlur($event)">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control padding-zero" type="text" formControlName="ContractName" [attr.maxlength]="40">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12" *ngIf="showPremise">
+                            <div class="form-group row">
+                                <label class="col-sm-12 " for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                                <div class="col-sm-3">
+                                    <input id="PremiseNumber" class="form-control padding-left-zero" type="text" formControlName="PremiseNumber" (change)="onPremiseBlur($event)" [attr.maxlength]="5">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control padding-zero" type="text" formControlName="PremiseName" [attr.maxlength]="40">
+                                </div>
+                                <div class="pull-left">
+                                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="premiseComponent" (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader" [disabled]="true"></icabs-ellipsis>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12" *ngIf="showProduct">
+                            <div class="form-group row">
+                                <label class="col-sm-12 " for="ProductCode">{{ 'Product Code' | translate }}</label>
+                                <div class="col-sm-3">
+                                    <input id="ProductCode" class="form-control padding-left-zero" type="text" formControlName="ProductCode" (change)="onProductBlur($event)" [attr.maxlength]="6">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control padding-zero" type="text" formControlName="ProductDesc" [attr.maxlength]="40">
+                                </div>
+                                <div class="pull-left margin-zero">
+                                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="productComponent" (ellipsisData)="onProductDataReceived($event, true)" [showHeader]="showHeader" [disabled]="true"></icabs-ellipsis>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12">
+                            <div class="form-group row ">
+                                <label class="col-sm-12" for="ShowLastInvoices">{{ 'Show Last' | translate }} ({{ 'Invoices' | translate }})</label>
+                                <div class="col-sm-3">
+                                    <input type="text" id="ShowLastInvoices" class="form-control" placeholder="" formControlName="ShowLastInvoices" [attr.maxlength]="4" (keypress)="isNumber($event)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12 padding-top-m" *ngIf="showEmailInvoice">
+                            <div class="col-sm-12 padding-zero">
+                                <input type="checkbox" id="EmailInvoice" formControlName="EmailInvoice">
+                                <label class="gray" for="EmailInvoice">
+                                    {{ 'Print Invoice To Email' | translate }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 padding-left-zero">
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12" *ngIf="showSelectedInvoice">
+                            <div class="form-group row ">
+                                <label class="col-sm-12" for="SelectedInvoice">Selected Invoice</label>
+                                <div class="col-sm-12 col-lg-9">
+                                    <input type="text" id="SelectedInvoice" class="form-control" placeholder="" formControlName="SelectedInvoice">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-zero max-row-width">
+                        <div class="form-item form-item-cont col-sm-12 padding-top-lxx" *ngIf="showButton">
+                            <div class="form-group row ">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-lg btn-primary">{{ 'Select All' | translate }}</button>
+                                    <button class="btn btn-lg btn-primary">{{ 'Deselect All' | translate }}</button>
+                                    <!--  <input class="btn btn-lg btn-primary" type="button" value="Select All">
+                          <input class="btn btn-lg btn-primary" type="button" value="Deselect All"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div>
+        <hr class="">
+    </div>
+    <div>
+        <div class="pull-left pl5">
+            <icabs-refresh (onRefresh)="onRefresh()"></icabs-refresh>
+            <icabs-pagination [itemsPerPage]="itemsPerPage" [totalItems]="gridTotalItems" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+        <div class="col-sm-6">
+            <div class="row margin-zero max-row-width">
+                <div class="form-item form-item-cont col-sm-12" *ngIf="glDisputedInvoicesInUse">
+                    <div class="form-group row ">
+                        <div class="col-sm-12">
+                            <img src="assets/images/smile-down.svg" width="20"> {{ 'Disputed' | translate }}
+                            <img src="assets/images/smile-mid.svg" width="20"> {{ 'Was Disputed' | translate }}
+                            <img src="assets/images/smile-up.svg" width="20"> {{ 'Not Disputed' | translate }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr class="">
+    </div>
+    <div class="section-container">
+        <icabs-grid #contractInvoiceGrid [maxColumns]="maxColumn" [gridData]="gridData" [showTotalRow]="true" [currentPage]="currentPage" (gridInfo)='gridInfo($event)' (getCellData)='getCellData($event)' (selectedRowInfo)="onGridRowDblClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+    </div>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<div id="divHiddenFields" style="display:none">
+    <input id="CustomerContactNumber">
+    <input id="LimitByCustomerContact">
+    <input id="DisputedInvoiceCacheName">
+    <input id="GridFunction">
+    <input id="WarningMessage">
+</div>

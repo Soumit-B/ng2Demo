@@ -1,0 +1,174 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{pageTitle|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Contract Number'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col4 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" formControlName="ContractNumber" placeholder="" id="ContractNumber"
+                            readonly>
+                    </div>
+                    <div class="col12">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractName" placeholder="" id="ContractName"
+                            readonly>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Status'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" size="20" [attr.maxlength]="20" class="form-control" formControlName="Status" placeholder="" id="Status" readonly
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Premises Number'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col4 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" formControlName="PremiseNumber" placeholder="" id="PremiseNumber"
+                            readonly>
+                    </div>
+                    <div class="col12">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="PremiseName" placeholder="" id="PremiseName"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Product Code'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col4 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" formControlName="ProductCode" placeholder="" id="ProductCode"
+                            readonly>
+                    </div>
+                    <div class="col12">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ProductDesc" placeholder="" id="ProductDesc"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Account Number'|translate}}</label>
+                    <div class="col4 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" placeholder="" formControlName="AccountNumber" id="AccountNumber"
+                            readonly>
+                    </div>
+                    <div class="col12">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" formControlName="AccountName" id="AccountName"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 1'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractAddressLine1" placeholder="" id="ContractAddressLine1"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 2'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractAddressLine2" placeholder="" id="ContractAddressLine2"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 3'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractAddressLine3" placeholder="" id="ContractAddressLine3"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Town'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractAddressLine4" placeholder="" id="ContractAddressLine4"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'County'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractAddressLine5" placeholder="" id="ContractAddressLine5"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Postcode'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" size="15" [attr.maxlength]="15" class="form-control" formControlName="ContractPostcode" placeholder="" id="ContractPostcode"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Value'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" size="10" [attr.maxlength]="10" class="form-control" formControlName="ServiceAnnualValue" placeholder="" id="ServiceAnnualValue"
+                            readonly eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="ServiceCommenceDate" class="col24">{{'Commence Date'|translate}}<span class="mandatory">*</span></label>
+                        <input size="15" formControlName="ServiceCommenceDate" [attr.maxlength]="15" class="form-control hidden">
+                        <icabs-datepicker #CommencePicker [clearDate]="false" [dt]='commenceDate' (selectedValue)="commenceDateSelectedValue($event)"
+                            id="ServiceCommenceDate" [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="ServiceVisitAnnivDate" class="col24">{{'Service Anniversary Date'|translate}}<span class="mandatory">*</span></label>
+                        <input size="15" formControlName="ServiceVisitAnnivDate" [attr.maxlength]="15" class="form-control hidden">
+                        <icabs-datepicker #annivDatePicker [clearDate]="false" [dt]='anniversaryDate' (selectedValue)="anniversaryDateSelectedValue($event)"
+                            id="ServiceVisitAnnivDate" [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary" type="submit" value="{{'Save'| translate }}" (click)="onSave($event)">
+                    <input class="btn btn-secondary" type="button" value="{{'Cancel'| translate }}" (click)="onCancel($event)">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [content]="messageContentError">
+    </icabs-modal>
+    <icabs-modal #messageModal [(showHeader)]="showMessageHeader" [content]="messageContentSave">
+    </icabs-modal>
+    <icabs-confirmok #confirmOkModal [(showHeader)]="showMessageHeader" (confirmClose)="confirmok()"></icabs-confirmok>

@@ -1,0 +1,109 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container padding-right-lxx padding-left-lxx">
+  <div class="row">
+    <div class="col-md-12 row page-header-row">
+      <h1 class="page-header margin-zero">
+        <!--Page Heading-->
+        <small>Account Assign</small>
+        <div class="pull-right font-sm ng-pristine">
+          <span class="mandatory">* </span> are mandatory fields
+        </div>
+      </h1>
+    </div>
+  </div>
+
+  <form novalidate [formGroup]="form_group" (ngSubmit)="onSubmit(form_group.value, form_group.valid)">
+    <div class="row section-container">
+      <div class="col-md-6 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Assign from Account number <span class="mandatory">* </span>:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="ac_number">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Name <span class="mandatory">* </span>:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="name">
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="row">
+    <div class="row section-container">
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Address Line 1:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Address Line 2:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Address Line 3:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Address Line 4:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Address Line 5:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">Postcode:</label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="row">
+    <div class="row section-container">
+      <div class="col-md-12 padding-left-zero form-item">
+        <div class="form-group row">
+          <label class="col-md-12">New Account number *:</label>
+          <div class="col-md-4">
+            <input type="text" class="form-control" placeholder="">
+          </div>
+          <!--<ellipsis></ellipsis>-->            
+        </div>
+      </div>
+    </div>
+    <hr class="row">
+    <div class="row section-container">
+      <input class="btn btn-lg btn-primary" type="submit">
+      <input class="btn btn-lg btn-primary" type="submit" value="Cancel">
+    </div>
+  </form>
+</div>

@@ -1,0 +1,71 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row mt10">
+            <div class="col-sm-12 page-title">
+                <h1>
+                    {{ 'Postcode Group Entry Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{'Service Area'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="7" maxlength="5" >
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" size="40" maxlength="40" >
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Postcode">{{'Postcode'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="Postcode" formControlName="Postcode" size="15" maxlength="15" >
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="State">{{'State'|translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="State" formControlName="State" size="30" maxlength="30" >
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Town">{{'Town'|translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="Town" formControlName="Town" size="30" maxlength="30" >
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SortOrder">{{'SortOrder'|translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="SortOrder" formControlName="SortOrder" size="9" maxlength="7" >
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                    <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}">
+                    <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+                </div>
+            </div>
+      </footer>
+    </form>
+</section>

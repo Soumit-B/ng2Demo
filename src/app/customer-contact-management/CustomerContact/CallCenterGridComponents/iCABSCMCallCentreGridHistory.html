@@ -1,0 +1,47 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="History" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="HistorySelectedContractPremise">{{ 'Selected Contract/Premises' | translate }}</label>
+                <div class="col17 pr5">
+                    <input type="text" id="HistorySelectedContractPremise" formControlName="HistorySelectedContractPremise" size="40" maxlength="40" class="form-control">
+                </div>
+                <div class="col3">
+                    <input id="CmdHistoryClearSelected" (click)="cmdHistoryClearSelectedOnClick($event)" type="button" class="btn btn-primary" value="{{ 'Clear' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col8 pr5 mt20">
+                    <select class="form-control" id="HistoryType" name="HistoryType" formControlName="HistoryType">
+                        <option value="effective" selected>{{ 'Effective Date' | translate }}</option>
+                        <option value="processed">{{ 'Processed' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col8 pr5">
+                    <label class="col24">{{ 'From' | translate }}</label>
+                    <icabs-datepicker [dt]='dateObjects.HistoryFromDate' [isDisabled]="!dateObjectsEnabled.HistoryFromDate" (selectedValue)="historyFromDateSelectedValue($event)" [uiFormGroup]="formGroup" [controlName]="'HistoryFromDate'"></icabs-datepicker>
+                </div>
+                <div class="col8">
+                    <label class="col24">{{ 'To' | translate }}</label>
+                    <icabs-datepicker [dt]='dateObjects.HistoryToDate' [isDisabled]="!dateObjectsEnabled.HistoryToDate" (selectedValue)="historyToDateSelectedValue($event)" [uiFormGroup]="formGroup" [controlName]="'HistoryToDate'"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>{{ 'Further Records' | translate }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #historyGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</form>

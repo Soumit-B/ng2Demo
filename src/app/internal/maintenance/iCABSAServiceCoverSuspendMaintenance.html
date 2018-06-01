@@ -1,0 +1,129 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ numberLabel | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ContractNumber" id="ContractNumber" size="9" [attr.maxlength]="8" (change)="onDataChange($event, 'ContractNumber')"
+                            class="form-control" eTypeCode icabsZeroPad>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ContractName" id="ContractName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsis.contract.autoOpen" [childConfigParams]="ellipsis.contract.childConfigParams" [showCloseButton]="ellipsis.contract.showCloseButton"
+                            [contentComponent]="ellipsis.contract.contentComponent" (ellipsisData)="ellipsisData($event, 'ContractNumber')"
+                            [showHeader]="ellipsis.contract.showHeader" [disabled]="ellipsis.contract.disabled" [modalConfig]="ellipsis.contract.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="PremiseNumber" id="PremiseNumber" size="9" [attr.maxlength]="6" class="form-control"
+                            (change)="onDataChange($event, 'PremiseNumber')" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="PremiseName" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsis.premises.autoOpen" [childConfigParams]="ellipsis.premises.childConfigParams" [showCloseButton]="ellipsis.premises.showCloseButton"
+                            [contentComponent]="ellipsis.premises.contentComponent" (ellipsisData)="ellipsisData($event, 'PremiseNumber')"
+                            [showHeader]="ellipsis.premises.showHeader" [disabled]="ellipsis.premises.disabled" [modalConfig]="ellipsis.premises.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ProductCode" id="ProductCode" size="9" [attr.maxlength]="6" class="form-control"
+                            (change)="onDataChange($event, 'ProductCode')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ProductDesc" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsis.product.autoOpen" [childConfigParams]="ellipsis.product.childConfigParams" [showCloseButton]="ellipsis.product.showCloseButton"
+                            [contentComponent]="ellipsis.product.contentComponent" (ellipsisData)="ellipsisData($event, 'ProductCode')"
+                            [showHeader]="ellipsis.product.showHeader" [disabled]="ellipsis.product.disabled" [modalConfig]="ellipsis.product.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Status' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeText formControlName="Status" id="Status" size="20" [attr.maxlength]="20" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Visit Frequency' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="ServiceVisitFrequency" id="ServiceVisitFrequency" size="3" [attr.maxlength]="3"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Value' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeCurrency formControlName="ServiceAnnualValue" id="ServiceAnnualValue" size="20" [attr.maxlength]="23"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Service Quantity' | translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="ServiceQuantity" id="ServiceQuantity" size="3" [attr.maxlength]="3" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Commence Date' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeDate formControlName="ServiceCommenceDate" id="ServiceCommenceDate" size="10" [attr.maxlength]="10"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Suspend Invoice' | translate}} </label>
+                    <div class="col2 pr5">
+                        <input type="checkbox" formControlName="InvoiceSuspendInd" id="InvoiceSuspendInd" size="2" [attr.maxlength]="2" (change)="checkSuspendInvoice()"
+                            class="form-control">
+                        <label for="InvoiceSuspendInd"></label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" eTypeText formControlName="InvoiceSuspendText" id="InvoiceSuspendText" size="40" [attr.maxlength]="40"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="saveOnClick()" [disabled]="this['pageParams']['isSaveCancelEnable']">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="cancelOnClick()" [disabled]="this['pageParams']['isSaveCancelEnable']">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

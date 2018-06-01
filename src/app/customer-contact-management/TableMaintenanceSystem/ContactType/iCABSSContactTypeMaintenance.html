@@ -1,0 +1,231 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeCode">{{'Contact Type Code'|translate}}</label>
+                    <div class="col24 pr5">
+                        <input type="text" #formContactTypeCode *ngIf="isNewAddField" class="form-control" id="ContactTypeCode" formControlName="ContactTypeCode"
+                            [ngClass]="{ 'ng-invalid' : isValidStatusCode ,'ng-touched' : isValidStatusCode }" maxlength="2"
+                            (blur)="onBlurContactTypeCode()" eTypeCode>
+                            <icabs-contact-type-search *ngIf="isOldAddField" #contactTypeDropDown id="contactTypeDropDown" [inputParams]="dropdownConfig.contactTypeSearch.inputParams"
+                                [active]="dropdownConfig.contactTypeSearch.selected" (receivedContactType)="onChangeContactTypeCode($event)"></icabs-contact-type-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'System Description'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ContactTypeSystemDesc" formControlName="ContactTypeSystemDesc" size="40" maxlength="40"
+                            [ngClass]="{ 'ng-invalid' : isValidStatusSD , 'ng-touched' : isValidStatusSD }" required eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Escalation & Timescales' |translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" value='false' id="Escalate" formControlName="Escalate" eTypeCheckBox>
+                        <label for="Escalate">{{'Escalate'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Base Timings On'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control hidden" id="ContactTypeCode" formControlName="ContactTypeCode" eTypeInteger>
+                        <select class="form-control" id="WorkingHoursIndSelect" formControlName="WorkingHoursIndSelect">
+                            <option value="0">{{'Absolute Hours'|translate}}</option> 
+                            <option value="1">{{'Business Working Hours (Service)'|translate}}</option> 
+                            <option value="2">{{'Business Working Hours (Sales)'|translate}}</option>
+                            <option value="3">{{'Business Working Hours (Admin/Other)'|translate}}</option>
+                            <option value="4">{{'Branch Working Hours (Service)'|translate}}</option> 
+                            <option value="5">{{'Branch Working Hours (Sales)'|translate}}</option>
+                            <option value="6">{{'Branch Working Hours (Admin/Other)'|translate}}</option>
+                            <option value="7">{{'Employee Working Hours (If Not Found Use Service Hours)'|translate}}</option> 
+                            <option value="8">{{'Employee Working Hours (If Not Found Use Sales Hours)'|translate}}</option> 
+                            <option value="9">{{'Employee Working Hours (If Not Found Use Admin/Other Hours)'|translate}}</option> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Escalation Period'|translate}}</label>
+                    <div class="col12">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="EscalationHours" formControlName="EscalationHours" size="6" [attr.maxlength]="6"
+                                (blur)="onBlurEscalationHours()" eTypeInteger>
+                        </div>
+                        <label class="col12">{{'Hours'|translate}}</label>
+                    </div>
+                    <div class="col12">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="EscalationMinutes" formControlName="EscalationMinutes" (blur)="onBlurEscalationMinutes()"
+                                size="6" maxlength="6" eTypeInteger>
+                        </div>
+                        <label class="col12">{{'Minutes'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col12 mt20">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="EscalationPeriod" formControlName="EscalationPeriod" size="6" maxlength="6" [ngClass]="{ 'ng-invalid' : isValidStatusEP , 'ng-touched' : isValidStatusEP }"
+                                eTypeInteger>
+                        </div>
+                        <label class="col12">{{'Total Minutes'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Warning Period'|translate}}</label>
+                    <div class="col12">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="WarningHours" formControlName="WarningHours" size="6" [attr.maxlength]="6" (blur)="onBlurWarningHours()"
+                                eTypeInteger>
+                        </div>
+                        <label class="col2">{{'Hours'|translate}}</label>
+                    </div>
+                    <div class="col12">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="WarningMinutes" formControlName="WarningMinutes" (blur)="onBlurWarningMinutes()"
+                                size="6" maxlength="6" eTypeInteger>
+                        </div>
+                        <label class="col12">{{'Minutes'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col12 mt20">
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="WarningPeriod" formControlName="WarningPeriod" size="6" maxlength="6" [ngClass]="{ 'ng-invalid' : isValidStatusWP , 'ng-touched' : isValidStatusWP }"
+                                eTypeInteger>
+                        </div>
+                        <label class="col12">{{'Total Minutes'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'General Settings' |translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="AlwaysClose" value='false' formControlName="AlwaysClose" eTypeCheckBox>
+                        <label for="AlwaysClose">{{'Always Close'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="Prospect" value='false' formControlName="Prospect" eTypeCheckBox>
+                        <label for="Prospect">{{'Prospect'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="Callout" value='false' formControlName="Callout" eTypeCheckBox>
+                        <label for="Callout">{{'Call Out'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="Enquiry" value='false' formControlName="Enquiry" eTypeCheckBox>
+                        <label for="Enquiry">{{'Enquiry'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="ClientRetentionDefault" value='false' formControlName="ClientRetentionDefault" eTypeCheckBox>
+                        <label for="ClientRetentionDefault">{{'Client Retention Default'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="Diary" formControlName="Diary" value='false' eTypeCheckBox>
+                        <label for="Diary">{{'Diary'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="Entitlement" formControlName="Entitlement" value='false' eTypeCheckBox>
+                        <label for="Entitlement">{{'Entitlement'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="PDAServiceInd" formControlName="PDAServiceInd" value='false' eTypeCheckBox>
+                        <label for="PDAServiceInd">{{'PDA Service'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="PDALead" formControlName="PDALead" value='false' eTypeCheckBox>
+                        <label for="PDALead">{{'PDA Lead'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="TermCompetitor" formControlName="TermCompetitor" value='false' eTypeCheckBox>
+                        <label for="TermCompetitor">{{'Term Competitor'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" id="ComplaintInd" formControlName="ComplaintInd" value='false' eTypeCheckBox>
+                        <label for="ComplaintInd">{{'Customer Complaint'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="col24">
+                        <input type="button" class="btn btn-additional mr10" (click)="addMode()" [disabled]="!isBtnAdd" value="{{ 'Add' | translate }}">
+                        <input type="button" class="btn btn-primary mr10" [disabled]="!isBtnSave" (click)="onSave()" value="{{'Save' | translate}}">
+                        <input type="button" class="btn btn-secondary mr10" (click)="onCancel()" [disabled]="!isBtnCancel" value="{{'Cancel' | translate}}">
+                        <input type="button" class="btn btn-additional" (click)="onDelete()" [disabled]="!isBtnDelete" value="{{'Delete' | translate}}">
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select class="form-control" id="menu" formControlName="menu" (change)="onChangeOption()">
+                                <option value="None">{{'Options'|translate}}</option>
+                                <option value="contactstatus">{{'Associated Contact Status Codes'|translate}}</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="confirmed($event)"></icabs-prompt-modal>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

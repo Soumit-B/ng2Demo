@@ -1,0 +1,165 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Branch Contract Report' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="8" (change)="onContractKeyDown($event,true)"
+                            eTypeCode icabsZeroPad>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContractSearch [autoOpen]="ellipsisConfig.contract.autoOpen" [showCloseButton]="ellipsisConfig.contract.showCloseButton"
+                            [childConfigParams]="ellipsisConfig.contract.childConfigParams" [modalConfig]="ellipsisConfig.contract.modalConfig"
+                            [contentComponent]="ellipsisConfig.contract.contentComponent" (ellipsisData)="onContractKeyDown($event, false)"
+                            [showHeader]="ellipsisConfig.contract.showHeader" [disabled]="ellipsisConfig.contract.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label class="col24">{{'Premises Number (blank=all)'|translate}}</label>
+                    <div class="col7 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="6" maxlength="5" eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.premise.disabled" [showCloseButton]="ellipsisConfig.premise.showCloseButton" [showHeader]="ellipsisConfig.premise.showHeader"
+                            [childConfigParams]="ellipsisConfig.premise.childConfigParams" [contentComponent]="ellipsisConfig.premise.component"
+                            (ellipsisData)="onPremiseSelect($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Servicing Branch (blank=all)'|translate}}</label>
+                    <div class="col20">
+                        <icabs-branchsearch [inputParams]="dropdownConfig.branch.inputParamsBranch" [active]="dropdownConfig.branch.negBranchNumberSelected"
+                            (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24">{{'Product Code (blank=all)'|translate}}</label>
+                    <div class="col7 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" size="6" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productSearch [disabled]="ellipsisConfig.product.disabled" [showCloseButton]="ellipsisConfig.product.showCloseButton"
+                            [showHeader]="ellipsisConfig.product.showHeader" [childConfigParams]="ellipsisConfig.product.childConfigParams"
+                            [contentComponent]="ellipsisConfig.product.component" (ellipsisData)="onProductSelect($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class=" row mt10 ">
+                <div class="col-sm-4 ">
+                    <div class="col24 ">
+                        <input type="checkbox" class="form-control" id="IncludeContractDetails" formControlName="IncludeContractDetails">
+                        <label for="IncludeContractDetails">{{'Include Contract Details'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10 ">
+                <div class="col-sm-4 ">
+                    <div class="col24 ">
+                        <input type="checkbox" class="form-control" id="IncludeDeletedDetails" formControlName="IncludeDeletedDetails">
+                        <label for="IncludeDeletedDetails">{{'Include Deleted Premises Details'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeContractHistory" formControlName="IncludeContractHistory">
+                        <label for="IncludeContractHistory">{{'Include Contract History'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeVisitHistory" formControlName="IncludeVisitHistory" (change)="onIncludeVisitHistoryClick($event)">
+                        <label for="IncludeVisitHistory">{{'Include Visit History'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!isDateEnabled ? 'hidden' : ''">
+                <div class="col-sm-5">
+                    <div class="col7 pr5">
+                        <label class="col24 ">{{'From'|translate}}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <icabs-datepicker formControlName="VisitDateFrom" id="VisitDateFrom" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                    <div class="col7 pr5">
+                        <label class="col24">{{'To'|translate}}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <icabs-datepicker formControlName="VisitDateTo" id="VisitDateTo" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4 ">
+                    <div class="col24 ">
+                        <input type="checkbox" class="form-control" id="IncludeProductLocations" formControlName="IncludeProductLocations">
+                        <label for="IncludeProductLocations">{{'Include Product Locations'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10 ">
+                <div class="col-sm-4 ">
+                    <div class="col24 ">
+                        <input type="checkbox" class="form-control" id="IncludeCustomerInformation" formControlName="IncludeCustomerInformation">
+                        <label for="IncludeCustomerInformation">{{'Include Customer Information'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 ">
+                <div class="col-sm-4 ">
+                    <label class="col24 ">{{'Report Destination'|translate}}</label>
+                    <div class="col8 ">
+                        <select class="form-control" id="RepDest" formControlName="RepDest" (change)="onRepDestChange($event)">
+                            <option value="direct" [selected]="true">{{'Report Viewer'|translate}}</option>
+                            <option value="Email">{{'Email'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" hidden>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Printers'|translate}}</label>
+                    <div class="col8 ">
+                        <icabs-dropdown-static></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <input type="button" class="btn btn-primary " value="{{ 'Submit Report Generation'|translate}}" (click)="onSubmitReportRequest()">
+                    </div>
+                </div>
+            </div>
+            <div id="trInformation" class="alert alert-info mt10" *ngIf="thInformationDisplayed">
+                <strong id="thInformation" colspan="6">{{thInformation}}</strong>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

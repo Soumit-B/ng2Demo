@@ -1,0 +1,62 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ClosedCalendarTemplateNumber">{{ 'Template' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ClosedCalendarTemplateNumber" class="form-control" formControlName="ClosedCalendarTemplateNumber" type="text"
+                            [attr.maxlength]="8" size="8" (change)="templateNumberOnKeyDown($event)" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="TemplateName" class="form-control" formControlName="TemplateName" type="text" size="30" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ClosedTemplateSearchComponent [showCloseButton]="ellipsis.closedtemplatesearch.showCloseButton" [childConfigParams]="ellipsis.closedtemplatesearch.childConfigParams"
+                            [contentComponent]="ellipsis.closedtemplatesearch.component" (ellipsisData)="onClosedTemplateSearchReceived($event)"
+                            [showHeader]="ellipsis.closedtemplatesearch.showHeader" [disabled]="ellipsis.closedtemplatesearch.disabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="OwnerBranchNumber">{{ 'Owning Branch' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="OwnerBranchNumber" class="form-control" formControlName="OwnerBranchNumber" type="text" size="8" [attr.maxlength]="5"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="BranchName" class="form-control" formControlName="BranchName" type="text" size="30" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #grdclosedtemplatePagination [ngClass]="{'hidden': isHidePagination}" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGridBodyOnClick($event)" (bodyDblClick)="riGridGridOnDblClick($event)" (headerClick)="riGridSort($event)"
+                        (bodyKeyDown)="riGridBodyOnKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

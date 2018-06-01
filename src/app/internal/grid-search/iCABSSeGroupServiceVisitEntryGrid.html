@@ -1,0 +1,113 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Group Service Visit Entry'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Area'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="6" maxlength="4" formControlName="BranchServiceAreaCode" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="BranchServiceAreaDesc" size="20" maxlength="30" formControlName="BranchServiceAreaDesc" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Date'|translate}}</label>
+                    <div class="col12">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Plan Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServicePlanNumber" size="10" maxlength="10" formControlName="ServicePlanNumber" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Employee'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="6" maxlength="6" formControlName="EmployeeCode" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="20" maxlength="40" formControlName="EmployeeSurname" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Plan Start'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" id="ServicePlanStartDate" size="10" maxlength="10" formControlName="ServicePlanStartDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visit Reference'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" id="VisitReference1" size="33" maxlength="100" formControlName="VisitReference1" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Plan End'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" id="ServicePlanEndDate" size="10" maxlength="10" formControlName="ServicePlanEndDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Manual Visit Reason Code'|translate}}</label>
+                    <div class="col22 pr5">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <input type="checkbox" class="form-control">
+                    <label class="col24">{{'Manual Visit Reason Code'|translate}}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-9">
+                    <input type="button" id="cmdClearAll" class="btn btn-primary mr10" value="{{'Clear All Dates'|translate}}">
+                    <input type="button" id="cmdApplyDates" class="btn btn-primary mr10" value="{{'Apply Dates'|translate}}">
+                    <input type="button" id="cmdSelectUnprocessed" class="btn btn-primary mr10" value="{{'Select All Eligible'|translate}}">
+                    <input type="button" id="cmdProcessSelection" class="btn btn-primary" value="{{'Process Selections'|translate}}">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

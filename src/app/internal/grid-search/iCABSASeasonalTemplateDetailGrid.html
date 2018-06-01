@@ -1,0 +1,64 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="SeasonalTemplateNumber">{{ 'Template' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" [icabsDirFocus]="setFocusTemplateNumber" id="SeasonalTemplateNumber" size="9" maxlength="8" formControlName="SeasonalTemplateNumber"
+                            class="form-control" (blur)="populateDescriptions()">
+                    </div>
+                    <div class="col15 pr5">
+                        <input type="text" id="TemplateName" readonly size="40" maxlength="40" formControlName="TemplateName" class="form-control">
+                    </div>
+                    <div class="col1">
+                        <icabs-ellipsis #seasonaltemplatedetailEllipsis [childConfigParams]="ellipsisQueryParams.inputParamsSeasonalTemplateNumber"
+                            [modalConfig]="modalConfig" [contentComponent]="seasonalTemplateSearchComponent" (ellipsisData)="onSeasonalTemplateNumberReceived($event)"
+                            [showHeader]="showHeader" [showCloseButton]="showCloseButton"> </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ShowType">{{ 'Show' | translate }}</label>
+                    <div class="col9 pr5">
+                        <select class="form-control" formControlName="ShowType" (change)="showTypeOnchange($event.target.value)" id="ShowType">
+                            <option  value="All">{{'All' | translate}} </option>
+                            <option value="Past">{{'Past Seasons' | translate}}</option>
+                            <option selected value="Current">{{'From Current' | translate }}</option>
+                            <option value="Future">{{'Future' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right mt20">
+                    <div class="col16 pull-right">
+                        <icabs-dropdown-static #seasonaltemplatedetailDropdown [inputData]="menuOptionSelect" (onSelect)="onMenuChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #seasonaltemplatedetailPagination [ngClass]="this.totalRecords > 0 ? '':'hidden'" [totalItems]="totalRecords"
+                        [currentPage]="pageCurrent" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="getGridOnDblClick($event)" (bodyClick)="riGrid_BodyOnClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer ">
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

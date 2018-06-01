@@ -1,0 +1,98 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Planning Detail' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="8" [attr.maxlength]="8" formControlName1="ContractNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" size="25" [attr.maxlength]="40" formControlName1="ContractName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="StartDate">{{'Plan From' | translate }}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" id="StartDate" size="10" [attr.maxlength]="10" formControlName1="StartDate">
+                        </div>
+                    </div>
+                    <div class="col8 pr5">
+                        <label class="col24" for="EndDate">{{'To' | translate }}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" id="EndDate" size="10" [attr.maxlength]="10" formControlName1="EndDate">
+                        </div>
+                    </div>
+                    <div class="col2 mt15 pr5">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{'Premise Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="8" [attr.maxlength]="5" formControlName1="PremiseNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" size="25" [attr.maxlength]="40" formControlName1="PremiseName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="WeekNumber">{{'Week' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="WeekNumber" size="2" [attr.maxlength]="2" formControlName1="WeekNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" size="8" [attr.maxlength]="6" formControlName1="ProductCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProductDesc" size="25" [attr.maxlength]="25" formControlName1="ProductDesc">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-primary mr10" value="Split Service" id="SplitService">
+                    <input type="button" class="btn btn-primary" value="Unplan All" id="UnPlanAll">
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh></icabs-refresh>
+            <icabs-pagination></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid></icabs-grid>
+        </div>
+    </div>
+    <!--uncomment legend-->
+    <!--<div class="row mt10">
+        <div class="col-sm-8 text-right">
+            <label class="pr5"></label>
+            <div class="inline-block pr10" *ngFor="let l of legend">
+                <label>{{ l.label | translate }}</label>
+                <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+            </div>
+        </div>
+    </div>-->
+</section>

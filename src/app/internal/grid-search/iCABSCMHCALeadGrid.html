@@ -1,0 +1,99 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Employee' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="10" maxlength="8" class="form-control" formControlName="EmployeeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="EmployeeSurname" size="30" maxlength="35" class="form-control" formControlName="EmployeeSurname">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Lead/Alert Date From' |translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="LeadDateFrom" [dt]="LeadDateFrom" (selectedValue)="LeadDateFromSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="10" maxlength="8" class="form-control" formControlName="ContractNumber" icabsZeroPad
+                            icabsUpperCase>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" size="30" maxlength="35" class="form-control" formControlName="ContractName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Lead/Alert Date To' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="LeadDateTo" [dt]="LeadDateTo" (selectedValue)="LeadDateToSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="10" maxlength="6" class="form-control" formControlName="PremiseNumber" pattern="[0-9]+">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" size="30" maxlength="35" class="form-control" formControlName="PremiseName">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Filter By'| translate }}</label>
+                    <select class="form-control" id="LeadTypeCode" formControlName="LeadTypeCode">
+                        <option value="All">{{ 'All' |translate}}</option>
+                        <option value="L">{{ 'Leads' |translate}}</option>
+                        <option value="A">{{ 'Alerts' |translate}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <input type="checkbox" id="ActiveOnly" class="form-control">
+                        <label for="ActiveOnly">{{ 'Show Active Only' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #LeadPagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="PageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #LeadGrid [maxColumns]="maxColumn" [gridData]="griddata" [showTotalRow]="true" [currentPage]="currentPage" (selectedRowInfo)="onGridRowDblClick($event)"
+                        (gridInfo)="getGridInfo($event)"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-modal #errorModal="child"></icabs-modal>
+</section>

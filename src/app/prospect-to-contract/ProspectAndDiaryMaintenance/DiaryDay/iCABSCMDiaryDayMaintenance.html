@@ -1,0 +1,105 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" class="form-control" formControlName="EmployeeCode" type="text" size="5" maxlength="6" (blur)="doLookUpCall($event)"
+                            eTypeTextFree>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="14" maxlength="14" eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParamsEmployeeSearch" [contentComponent]="empSearchComponent" [showHeader]="true"
+                            [disabled]="false" (ellipsisData)="onEmployeeDataReturn($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="istdTicketTypeSelectLabel">
+                    <label class="col24" for="TicketTypeSelect">{{ 'Ticket Type' | translate}}</label>
+                    <div class="col12">
+                        <select id="TicketTypeSelect" formControlName="TicketTypeSelect" class="form-control">
+                             <option *ngFor="let ticketType of ticketTypeArray" value="{{ticketType.value}}" >{{ticketType.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="WOTypeCodeSelect">{{ 'WO Type' | translate}}</label>
+                    <div class="col20">
+                        <select id="WOTypeCodeSelect" formControlName="WOTypeCodeSelect" class="form-control">
+                             <option *ngFor="let woType of woTypeArray" value="{{woType.value}}" >{{woType.text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="DiaryDate">{{ 'Diary Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker tabindex="2" id="DiaryDate" formControlName="DiaryDate" (onChange)="DiaryDatePickerSelectedValue($event)"
+                            [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="HighlightSelect">{{ 'Highlight' | translate}}</label>
+                    <div class="col12">
+                        <select id="HighlightSelect" class="form-control" formControlName="HighlightSelect">
+                            <option selected value="None">{{ 'None' | translate }}</option>
+                            <option value="CLASH">{{ 'Diary Clashes' | translate }}</option>
+                            <option value="UNRESOLVED">{{ 'Open Diary Entries' | translate }}</option>
+                            <option value="RESOLVED">{{ 'Closed Diary Entries' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <input type="checkbox" id="OpenWOOnly" formControlName="OpenWOOnly" (change)="onOPenWOOnlyChange()">
+                    <label for="OpenWOOnly">{{'Open' | translate }}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (onRefresh)="refresh()" #refreshBtn></icabs-refresh>
+                    <icabs-pagination #diarydaymaintenenacePagination [currentPage]="curPage" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-grid-advanced #riGrid (TRDblClick)="onGridRowDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-9">
+                    <div class="col12 pr10">
+                        <select id="menu" class="form-control" formControlName="menu" (change)="onMenuChange($event)">
+                            <option selected value="">{{ 'Options' | translate }}</option>
+                            <option value="PipelineGrid">{{ 'Pipeline Prospects' | translate }}</option>
+                     </select>
+                    </div>
+                    <div class="col12">
+                        <select id="transtype" class="form-control" formControlName="transtype">
+                            <option  value="diaryentry">{{ 'Add As Diary Entry' | translate }}</option>
+                            <option selected value="workorder">{{ 'Add As Workorder' | translate }}</option>
+                     </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

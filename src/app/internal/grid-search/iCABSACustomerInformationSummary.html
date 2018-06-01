@@ -1,0 +1,77 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Customer Information Summary' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate>
+        <div class="row">
+            <div class="col-sm-3" *ngIf="(pageModel.parentMode === 'GroupAccount')">
+                <label class="col24" id="labelGroupAccountNumber">{{'Group Account' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="GroupAccountNumber" size="9" maxlength="8" value="{{pageModel.groupAccountNumber}}" [disabled]="true">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="GroupName" size="35" maxlength="40" value="{{pageModel.groupName}}" [disabled]="true">
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="(pageModel.parentMode === 'Account')">
+                <label class="col24" id="labelAccountNumber">{{'Account' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="AccountNumber" size="9" maxlength="9" value="{{pageModel.accountNumber}}" [disabled]="true">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="AccountName" size="35" maxlength="40" value="{{pageModel.accountName}}" [disabled]="true">
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="(pageModel.parentMode === 'Contract' || pageModel.parentMode === 'ServiceCover')">
+                <label class="col24" id="labelContractNumber">{{'Contract Number' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="ContractNumber" size="9" maxlength="8" value="{{pageModel.contractNumber}}" [disabled]="true">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="ContractName" size="35" maxlength="40" value="{{pageModel.contractName}}" [disabled]="true">
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-12">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #customerInfoPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+        <div class="col-sm-12 mt10">
+            <icabs-grid #customerInfoGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (getCellData)="onCellSelection($event)"
+                [dataFromParent]="dataFromParent" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowDblClick($event)"
+                [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="cmdAddNew" value="AddNew" class="btn btn-primary mr10" [disabled]="(pageModel.parentMode === 'ServiceCover' || !pageModel.hasWriteAccess)"
+                (click)="addNewRecord($event)">{{'Add New' | translate}}</button>
+            <button id="cmdAddExisting" value="AddExisting" class="btn btn-primary mr10" [disabled]="(pageModel.parentMode === 'GroupAccount' || pageModel.parentMode === 'ServiceCover' || !pageModel.hasWriteAccess)"
+                (click)="addExistingRecord($event)">{{'Add Existing' | translate}}</button>
+            <button id="cmdDeleteRecord" value="DeleteRecord" class="btn btn-primary mr10" [disabled]="!pageModel['recordSelected'] || this.pageModel['parentMode'] === 'ServiceCover' || !this.pageModel['hasWriteAccess']"
+                (click)="deleteRecordClick()">{{'Delete' | translate}}</button>
+            <button id="cmdDetail" value="Detail" class="btn btn-primary" [disabled]="(!pageModel.enableDetails)" (click)="viewRecordDetail($event)">{{'Detail' | translate}}</button>
+        </div>
+    </div>
+    <div class="row">
+        <input id="Mode" style="display:none">
+        <input id="CustomerInfoNumber" style="display:none">
+        <input id="CustomerPassNumber" style="display:none">
+        <input id="CustomerPassLevel" style="display:none">
+        <input id="CallingProg" style="display:none">
+        <input id="InfoLevel" style="display:none">
+        <input id="WriteAccess" style="display:none">
+    </div>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    <icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent"
+        (saveEmit)="promptConfirm($event)"></icabs-prompt-modal>
+</div>

@@ -1,0 +1,195 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Approve Charges / Credits' | translate }} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input (blur)="ContractNumber_onchange()" type="text" size="9" [attr.maxlength]="8" class="form-control" placeholder="" formControlName="ContractNumber"
+                            id="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" formControlName="ContractName" id="ContractName"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig"
+                            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'branch' | translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" formControlName="BranchFilter">
+                            <option value="Selected">{{'Selected Branch' | translate}}</option>
+                            <option value="All">{{'All Authorised' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr10">
+                        <label class="col24">{{'Start Date' | translate}}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="StaDate" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                            <icabs-datepicker [dt]="dateObj.StaDate.dt" [clearDate]="true" (selectedValue)="dateToSelectedValue($event, 'StaDate')"></icabs-datepicker>
+
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'End Date' | translate}}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="EndDateTo" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                            <icabs-datepicker [dt]="dateObj.EndDateTo.dt" [clearDate]="true" (selectedValue)="dateToSelectedValue($event, 'EndDateTo')"></icabs-datepicker>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input (blur)="PremiseNumber_onchange()" type="text" size="9" [attr.maxlength]="5" class="form-control" placeholder="" formControlName="PremiseNumber"
+                            id="PremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" formControlName="PremiseName" id="PremiseName"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccountPremise" [modalConfig]="modalConfig"
+                            [contentComponent]="premiseSearchComponent" (ellipsisData)="onPremiseSearchDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Show' | translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" formControlName="ResultsFilter" (change)="ResultsFilter_onchange()">
+                            <option value="Awaiting">{{'Awaiting Approval'| translate}}</option>
+                            <option value="Approved">{{'Approved' | translate }}</option>
+                            <option value="Cancelled">{{'Cancelled'| translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24">{{'Value From' | translate}}</label>
+                        <div class="col24 pr10">
+                            <input type="text" size="10" [attr.maxlength]="10" class="form-control" placeholder="" formControlName="ValueFrom" id="ValueFrom"
+                                eTypeText>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'Value To' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" size="10" [attr.maxlength]="10" class="form-control" placeholder="" formControlName="ValueTo" id="ValueTo"
+                                eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" (blur)="ProductCode_onchange()" size="9" [attr.maxlength]="6" class="form-control" placeholder="" formControlName="ProductCode"
+                            id="ProductCode" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" formControlName="ProductDesc" id="ProductDesc"
+                            eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="serviceCoverSearchParams" [contentComponent]="serviceCoverSearchComponent" (ellipsisData)="setProductCode($event)"></icabs-ellipsis>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr10" [ngClass]="!this['pageParams'].tdDate?'hidden':''">
+                        <label class="col24">{{'Date From' | translate}}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateFrom" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                            <icabs-datepicker [dt]="dateObj.DateFrom.dt" [clearDate]="true" (selectedValue)="dateToSelectedValue($event, 'DateFrom')"></icabs-datepicker>
+
+                        </div>
+                    </div>
+                    <div class="col12" [ngClass]="!this['pageParams'].tdDate?'hidden':''">
+                        <label class="col24">{{'Date To' | translate}}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateTo" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                            <icabs-datepicker [dt]="dateObj.DateTo.dt" [clearDate]="true" (selectedValue)="dateToSelectedValue($event, 'DateTo')"></icabs-datepicker>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{'Invoice/Credit'| translate}}</label>
+                    <div class="col4 pr10">
+                        <select class="form-control" formControlName="InvoiceCreditFilter">
+                            <option value="">{{'All' | translate}}</option>
+                            <option value="I">{{'Invoice' | translate}}</option>
+                            <option value="C">{{'Credit' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col16" [ngClass]="!this['pageParams'].tdContractLevelInd?'hidden':''">
+                        <input type="checkbox" formControlName="ContractLevelInd" id="ContractLevelInd">
+                        <label for="ContractLevelInd">{{'Approve/Cancel ProRata Charges at Contract Level' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #creditApprovalPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="riGrid_BodyonDblClick($event)" (headerClick)="riGrid_Sort($event)"
+                        (bodyColumnBlur)="updateRowData($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div style="DISPLAY: none">
+                <input id="ProRataCharge">
+                <input id="ProRataChargeRowID">
+                <input id="TrialEnd">
+                <!-- #14199 -->
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="inline-block pr10">
+                    <div class="legend inline-block mr5" style="background-color: rgb(253, 253, 205);"></div>
+                    <label>{{'Awaiting Approval' | translate}}</label>
+                </div>
+                <div class="inline-block pr10">
+                    <div class="legend inline-block mr5" style="background-color: rgb(204, 255, 204);"></div>
+                    <label>{{'Approved' | translate}}</label>
+                </div>
+                <div class="inline-block pr10">
+                    <div class="legend inline-block mr5" style="background-color: rgb(255, 204, 204);"></div>
+                    <label>{{'Cancelled' | translate}}</label>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #messageModal [showHeader]="true" (modalClose)="proceedGridLoad()"> </icabs-modal>
+    <icabs-modal #messageModal1 [showHeader]="true" (modalClose)="proceedGridClear()"></icabs-modal>
+</section>

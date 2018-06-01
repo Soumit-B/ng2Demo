@@ -1,0 +1,41 @@
+.secondarySection {
+    .sectionHead {
+        background: #ccc;
+        height: 35px;
+        a {
+            color: #007bc6;
+            font-weight: bold;
+            line-height: 35px;
+            position: relative;
+            padding-right: 20px;
+            text-decoration: none;
+        }
+        a:before {
+            content: "›";
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 18px;
+        }
+        a.open:before {
+            transform: rotate(90deg);
+        }
+    }
+    .panel-group .panel-heading {
+        padding: 0 15px;
+    }
+    .sectionHeading {
+        color: #333;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 35px;
+    }
+    .sectionCollapcible {
+        border-bottom: 1px solid #333;
+        padding-bottom: 1px;
+        .collapcibleContent {
+            background: #eee;
+            padding: 10px;
+        }
+    }
+}

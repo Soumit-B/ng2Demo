@@ -1,0 +1,171 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="Premises" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <label class="col24" for="PremSelectedContract">{{ 'Selected Contract' | translate }}</label>
+                <div class="col4 pr5">
+                    <input type="text" id="PremSelectedContract" formControlName="PremSelectedContract" size="9" maxlength="9" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col2 pr10">
+                    <input id="CmdPremClearSelected" (click)="cmdPremClearSelectedOnClick($event)" formControlName="CmdPremClearSelected" type="button" class="btn btn-primary" value="{{ 'Clear' | translate }}">
+                </div>
+                <div class="col3 pr10">
+                    <select (change)="premiseSearchOnChange($event)" (keydown)="premiseSearchOnKeyDown($event)" id="PremiseSearchOn" formControlName="PremiseSearchOn" class="form-control">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option *ngFor="let c of dropdownList.PremiseSearchOn" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col2 pr10" *ngIf="fieldVisibility.PremiseSearchValue">
+                    <input type="text" id="PremiseSearchValue" (keydown)="premiseSearchValueOnKeyDown($event)" formControlName="PremiseSearchValue" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col3 pr10" [style.display]="!fieldVisibility.PremiseCommenceDateFrom ? 'none':'inherit'">
+                    <icabs-datepicker [dt]='dateObjects.PremiseCommenceDateFrom' [isDisabled]="!dateObjectsEnabled.PremiseCommenceDateFrom" (selectedValue)="premiseCommenceDateFromSelectedValue($event)" [isRequired]="true" [uiFormGroup]="formGroup" [controlName]="'PremiseCommenceDateFrom'"></icabs-datepicker>
+                </div>
+                <div class="col3 pr10" [style.display]="!fieldVisibility.PremiseCommenceDateTo ? 'none':'inherit'">
+                    <icabs-datepicker [dt]='dateObjects.PremiseCommenceDateTo' [isDisabled]="!dateObjectsEnabled.PremiseCommenceDateTo" (selectedValue)="premiseCommenceDateToSelectedValue($event)" [isRequired]="true" [uiFormGroup]="formGroup" [controlName]="'PremiseCommenceDateTo'"></icabs-datepicker>
+                </div>
+                <div class="col3 pr10">
+                    <select id="PremiseStatusCode" (keydown)="premiseStatusCodeOnKeyDown($event)" formControlName="PremiseStatusCode" class="form-control">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option value="CurrentAll">{{ 'Current (All)' | translate }}</option>
+                        <option *ngFor="let c of dropdownList.PremiseStatusCode" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col2 pr10">
+                    <select (change)="premiseContractTypeCodeOnChange($event)" (keydown)="premiseContractTypeCodeOnKeyDown($event)" id="PremiseContractTypeCode" formControlName="PremiseContractTypeCode" class="form-control">
+                        <option *ngFor="let c of dropdownList.PremiseContractTypeCode" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col3">
+                    <input (click)="cmdPremiseClearSearchOnClick($event)" id="CmdPremiseClearSearch" formControlName="CmdPremiseClearSearch" type="button" class="btn btn-primary" value="{{ 'Reset Filters' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>{{ 'Further Records' | translate }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #premisesGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div *ngIf="fieldVisibility.PremiseForm">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseName">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactName">{{ 'Contact' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactName" formControlName="PremiseContactName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20" *ngIf="fieldVisibility.CmdContactPremise">
+                    <input (click)="cmdContactPremiseOnClick($event)" id="CmdContactPremise" formControlName="CmdContactPremise" type="button" class="btn btn-primary" value="{{ 'Contact Details' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseAddressLine1" formControlName="PremiseAddressLine1" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactPosition">{{ 'Position' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactPosition" formControlName="PremiseContactPosition" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseAddressLine2" formControlName="PremiseAddressLine2" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactTelephone">{{ 'Telephone' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactTelephone" formControlName="PremiseContactTelephone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldVisibility.PremiseAddressLine3">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseAddressLine3" formControlName="PremiseAddressLine3" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseAddressLine4" formControlName="PremiseAddressLine4" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactMobile">{{ 'Mobile' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactMobile" formControlName="PremiseContactMobile" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseAddressLine5">{{ 'Country' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseAddressLine5" formControlName="PremiseAddressLine5" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactFax">{{ 'Fax' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactFax" formControlName="PremiseContactFax" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremisePostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremisePostcode" formControlName="PremisePostcode" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseContactEmail">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseContactEmail" formControlName="PremiseContactEmail" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="PremiseServiceCoverList">{{ 'Service Covers' | translate }}</label>
+                    <div class="col24">
+                        <input id="PremiseServiceCoverList" formControlName="PremiseServiceCoverList" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input id="CmdGoServiceCover" (click)="cmdGoServiceCoverOnClick($event)" formControlName="CmdGoServiceCover" type="button" class="btn btn-primary" value="{{ 'Go to ServiceCovers' | translate }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

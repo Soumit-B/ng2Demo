@@ -1,0 +1,36 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" *ngIf="isLanguageDetail">
+                <div class="col-sm-3">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}</label>
+                    <div class="col12">
+                        <input id="LanguageCode" class="form-control" formControlName="LanguageCode" type="text" size="3" maxlength="3">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageDescription">{{ 'Language Description' | translate}}</label>
+                    <div class="col16">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15" *ngIf="isLanguageDetail">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #riTable [tableheader]="tableTitle" (selectedData)="selectedData($event)" [itemsPerPage]="10" [paginationTop]="true"
+                        [displayError]="false"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

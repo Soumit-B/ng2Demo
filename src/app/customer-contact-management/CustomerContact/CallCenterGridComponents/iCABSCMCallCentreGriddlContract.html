@@ -1,0 +1,63 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="grddlContract" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-6">
+                <div class="col12 pr5 mt20" *ngIf="fieldVisibility.DlContractViewType">
+                    <div class="col24">
+                        <label class="col24" for="DlContractViewType">{{ 'Output Report' | translate }}</label>
+                        <select id="DlContractViewType" formControlName="DlContractViewType" class="form-control" (change)="dlContractViewTypeOnChange($event)">
+                            <option value="view" selected>{{ 'To Screen' | translate }}</option>
+                            <option value="email">{{ 'Via Email' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col12 pr5" *ngIf="fieldVisibility.DlContractEmailAddress">
+                    <label class="col24" for="DlContractEmailAddress">{{ 'Address' | translate }}</label>
+                    <div class="col24">
+                        <input id="DlContractEmailAddress" name="DlContractEmailAddress" formControlName="DlContractEmailAddress" size="40" max="100" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <div class="col12 pr5">
+                    <label class="col24" for="DlContractDocumentType">{{ 'Document Type' | translate }}</label>
+                    <div class="col24">
+                        <select id="DlContractDocumentType" formControlName="DlContractDocumentType" class="form-control">
+                            <option value="quote" selected>{{ 'Quote' | translate }}</option>
+                            <option value="agreement">{{ 'Agreement' | translate }}</option>
+                            <option value="vadd">{{ 'VADD' | translate }}</option>
+                            <option value="accountreview">{{ 'Account Review' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col12 pr5">
+                    <label class="col24" for="DlContractOutputType">{{ 'Output Type' | translate }}</label>
+                    <div class="col24">
+                        <select id="DlContractOutputType" formControlName="DlContractOutputType" class="form-control">
+                            <option value="pdf" selected>{{ 'PDF' | translate }}</option>
+                            <option value="word">{{ 'Word Document' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>Further Records</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #dlContractGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" (sortInfo)="sortGrid($event)" [headerProperties]="headerProperties" [sortIndex]="gridSortHeaders" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,84 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="EventHistory" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="EventHistorySelectedContractPremise">{{ 'Selected Contract/Premises' | translate }}</label>
+                <div class="col17 pr5">
+                    <input type="text" id="EventHistorySelectedContractPremise" formControlName="EventHistorySelectedContractPremise" size="40"
+                        maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col3">
+                    <input (click)="cmdEventHistoryClearSelectedOnClick($event)" id="cmdEventHistoryClearSelected" type="button" class="btn btn-primary"
+                        value="{{ 'Clear' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col8 pr5 mt20">
+                    <select id="EventHistoryType" (keydown)="eventHistoryTypeOnKeyDown($event)" formControlName="EventHistoryType" class="form-control">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option value="visits">{{ 'Visits' | translate }}</option>
+                        <option value="invoices">{{ 'Invoices' | translate }}</option>
+                        <option value="contacts">{{ 'Contacts' | translate }}</option>
+                        <option value="renewals">{{ 'Renewals' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col8 pr5">
+                    <label class="col24">{{ 'From' | translate }}</label>
+                    <icabs-datepicker [dt]='dateObjects.EventHistoryFromDate' [isDisabled]="!dateObjectsEnabled.EventHistoryFromDate" (selectedValue)="eventHistoryFromDateSelectedValue($event)" [uiFormGroup]="formGroup" [controlName]="'EventHistoryFromDate'"></icabs-datepicker>
+                </div>
+                <div class="col8">
+                    <label class="col24">{{ 'To' | translate }}</label>
+                    <icabs-datepicker [dt]='dateObjects.EventHistoryToDate' [isDisabled]="!dateObjectsEnabled.EventHistoryToDate" (selectedValue)="eventHistoryToDateSelectedValue($event)" [uiFormGroup]="formGroup" [controlName]="'EventHistoryToDate'"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>{{ 'Further Records' | translate }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"
+                    [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #eventHistoryGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div class="row mt10" *ngIf="fieldVisibility.EventHistoryForm">
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label class="col24" for="EventHistoryViewType">{{ 'Send' | translate }}</label>
+                    <div class="col24">
+                        <select (change)="eventHistoryViewTypeOnChange($event)" id="EventHistoryViewType" formControlName="EventHistoryViewType"
+                            class="form-control">
+                            <option value="screen" selected>{{ 'To Screen' | translate }}</option>
+                            <option value="email">{{ 'Via Email' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col12" *ngIf="fieldVisibility.DefaultEventHistoryEmailFrom">
+                    <label class="col24" for="DefaultEventHistoryEmailFrom">{{ 'Default Email From' | translate }}</label>
+                    <div class="col24">
+                        <select (change)="defaultEventHistoryEmailFromOnChange($event)" id="DefaultEventHistoryEmailFrom" formControlName="DefaultEventHistoryEmailFrom"
+                            class="form-control">
+                            <option value="account">{{ 'Account' | translate }}</option>
+                            <option value="contract">{{ 'Contract' | translate }}</option>
+                            <option value="premise">{{ 'Premise' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.EventHistoryEmailAddress">
+                <label class="col24" for="EventHistoryEmailAddress">{{ 'Address' | translate }} <span class="mandatory" *ngIf="fieldRequired.EventHistoryEmailAddress === true">* </span></label>
+                <div class="col24">
+                    <input id="EventHistoryEmailAddress" formControlName="EventHistoryEmailAddress" size="40" maxlength="100" value="" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

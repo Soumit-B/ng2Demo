@@ -1,0 +1,165 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Group Account Maintenance'|translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Group Account Number'|translate}}</label>
+                    <div class="col16">
+                        <input class="form-control" formControlName="GroupAccountNumber" id="GroupAccountNumber" size="4" maxlength="4" value=""
+                            (keydown)="onKeyDown($event)" (change)="onGroupAccountNumberChange($event);" eTypeInteger>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="groupAccountNumberSearchParams"
+                            [modalConfig]="modalConfig" [contentComponent]="groupAccountSearchComponent" (ellipsisData)="onGroupAccountDataReceived($event, true)"
+                            [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]="accountEllipsisFlag"
+                            (addModeOn)="btnAddOnClick($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Group Name'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input class="form-control" #GroupName type="text" id="GroupName" size="30" maxlength="30" formControlName="GroupName" (change)="toTitleCase('GroupName')"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Number'|translate}}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="GroupAgreementNumber" size="10" maxlength="10" formControlName="GroupAgreementNumber"
+                            (change)="toTitleCase('GroupAgreementNumber')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Date'|translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="AgreementDate" [dt]='AgreementDate' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="false"
+                            (selectedValue)="dateFromSelectedValue($event)" [clearDate]="'true'"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Name'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" #GroupContactName type="text" id="GroupContactName" size="50" maxlength="40" formControlName="GroupContactName"
+                            (change)="toTitleCase('GroupContactName')" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col12 mt20">
+                    <input type="button" name="Contact Details" value="{{'Contact Details' | translate}}" class="btn btn-secondary" [ngClass]="!this['pageParams']['tdAmendContact'] ? 'hidden': ''"
+                        (click)="btnAmendContact_OnClick()">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Position'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" #GroupContactPosition type="text" id="GroupContactPosition" size="40" maxlength="40" formControlName="GroupContactPosition"
+                            (change)="toTitleCase('GroupContactPosition')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Department'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="GroupContactDepartment" size="40" maxlength="40" formControlName="GroupContactDepartment"
+                            (change)="toTitleCase('GroupContactDepartment')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Telephone Number'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" #GroupContactTelephone type="text" id="GroupContactTelephone" size="20" maxlength="20" formControlName="GroupContactTelephone"
+                            (change)="toTitleCase('GroupContactTelephone')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Mobile Number'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="GroupContactMobile" size="20" maxlength="20" formControlName="GroupContactMobile"
+                            (change)="toTitleCase('GroupContactMobile')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact EMail Address'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="GroupContactEMail" size="50" maxlength="50" formControlName="GroupContactEMail"
+                            (change)="toTitleCase('GroupContactEMail')" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Fax Number'|translate}}</label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="GroupContactFax" size="20" maxlength="20" formControlName="GroupContactFax" (change)="toTitleCase('GroupContactFax')"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="form-control" type="checkbox" id="GroupAccountPhotoRequiredInd" formControlName="GroupAccountPhotoRequiredInd">
+                    <label for="GroupAccountPhotoRequiredInd">{{'Photos Required'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="form-control" type="checkbox" id="PurchaseOrderNoRequiredInd" formControlName="PurchaseOrderNoRequiredInd">
+                    <label for="PurchaseOrderNoRequiredInd">{{'Purchase Order No Required'|translate}}</label>
+                </div>
+            </div>
+        </section>
+        <hr class="mb15 mt15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}" (click)="saveClicked()" [disabled]="!(this['pageParams'].mode === 'ADD NEW' || this['pageParams'].mode === 'UPDATE/DELETE')">
+                    <input type="button" class="btn btn-secondary mr10" value="{{'Cancel'|translate}}" (click)="cancelClicked()" [disabled]="!(this['pageParams'].mode === 'ADD NEW' || this['pageParams'].mode === 'UPDATE/DELETE')">
+                    <input type="button" class="btn btn-additional" value="{{'Delete'|translate}}" (click)="deleteClicked()" [disabled]="!(this['pageParams'].mode === 'UPDATE/DELETE')">
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <select id="menu" class="form-control" (change)="menuOnchange($event.target.value)" [disabled]="this['pageParams'].mode === 'ADD NEW'">
+          <option [selected]= "MenuOption === ''" value="">{{'Options'|translate}}</option>
+          <option value="Group Account Move">{{'Group Account Move'|translate}}</option>
+          <option value="Group Account Details">{{'Group Account Details'|translate}}</option>
+          <option value="Customer Information">{{'Customer Information'|translate}}</option>
+           <option value="contacts" *ngIf="this['pageParams'].vSCMultiContactInd">{{'Contact Details'|translate}}</option>
+            <option value="VisitTolerances" *ngIf="this['pageParams'].vSCVisitTolerances">{{'Visit Tolerances'|translate}}</option>
+            <option value="InfestationTolerances" *ngIf="this['pageParams'].vSCInfestationTolerances">{{'Infestation Tolerances'|translate}}</option>
+          <option value="GroupAccountPriceGroup">{{'Group Account Price Group'|translate}}</option>
+          <option value="GroupAccountProductImport">{{'Group Account Product Import'|translate}}</option>
+        </select>
+                </div>
+            </div>
+        </footer>
+        <input id="WindowClosingName" #savebutton style="display:none" formControlName="WindowClosingName">
+    </form>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-routeaway #routeAwayComponent (cancelRouting)="resetOnRoutCancel()"></icabs-routeaway>
+<icabs-spinner [isRunning]="false"></icabs-spinner>

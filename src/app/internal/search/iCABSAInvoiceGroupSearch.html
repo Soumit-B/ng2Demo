@@ -1,0 +1,46 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="grdInvoiceGroupDetail">
+                <div class="col-sm-4">
+                    <label class="col24" for="Account Number">{{ 'Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" class="form-control" placeholder="" size="9" maxlength="9" formControlName="AccountNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="AccountName" class="form-control" placeholder="" size="40" maxlength="40" formControlName="AccountName">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input class="custom-checkbox" type="checkbox" id="LiveInvoiceGroupInd" formControlName="LiveInvoiceGroupInd" (change)="LiveInvoiceGroupInd($event)">
+                    <label class="col24" for="LiveInvoiceGroupInd">{{'Show Live Only'|translate}}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #InvoiceGroupTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [tableheader]="tableheading"
+                        [columns]="columns" (onRefresh)="onSearchClick()"></icabs-table>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt5">
+                <div class="col-sm-12" *ngIf="addButton">
+                    <input type="button" class="btn btn-primary" value="{{ 'Add Record' | translate }}" [disabled]="AddRecordDisabled" (click)="cmdAddRecord_onclick()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

@@ -1,0 +1,51 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Quote Ref' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="dlContractRef" formControlName="dlContractRef" size="30" maxlength="30" eTypeCode>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Type' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" class="form-control" id="ContractTypeCode" formControlName="ContractTypeCode" size="1">
+                    </div>
+                </div>
+                <!--For implementing Business Logic-->
+                <div class="hidden">
+                    <input type="text" class="form-control" id="dlBatchRef" formControlName="dlBatchRef" size="1" eTypeCode>
+                </div>
+                <div class="hidden">
+                    <input type="text" class="form-control" id="dlPremiseROWID" formControlName="dlPremiseROWID" size="1">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #SOPremisePagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <icabs-grid #SOPremiseGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (getCellData)="gridBodyOnSingleClick($event)" (selectedRowInfo)="gridBodyOnDoubleClick($event)" (sortInfo)="sortGrid($event)"
+                        [sortIndex]="gridSortHeaders" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

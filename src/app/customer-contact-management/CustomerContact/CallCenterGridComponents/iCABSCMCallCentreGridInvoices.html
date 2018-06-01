@@ -1,0 +1,76 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="Invoices" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="InvSelectedContractPremise">{{ 'Selected Contract/Premises' | translate }}</label>
+                <div class="col17 pr5">
+                    <input type="text" id="InvSelectedContractPremise" name="InvSelectedContractPremise" formControlName="InvSelectedContractPremise" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col3">
+                    <input id="CmdInvClearSelected" (click)="cmdInvClearSelectedOnClick($event)" formControlName="CmdInvClearSelected" type="button" class="btn btn-primary" value="{{ 'Clear' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col8 pr5 mt20">
+                    <select id="InvoiceSearchOn" (keydown)="invoiceSearchOnOnKeyDown($event)" (change)="invoiceSearchOnOnChange($event)" formControlName="InvoiceSearchOn" class="form-control">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option value="InvoiceNumber">{{ 'Invoice Number' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col8 pr5 mt20">
+                    <input type="text" id="InvoiceSearchValue" (keydown)="invoiceSearchValueOnKeyDown($event)" formControlName="InvoiceSearchValue" size="40" maxlength="40" class="form-control">
+                </div>
+                <div class="col8 mt20" *ngIf="fieldVisibility.InvoiceContractTypeCode">
+                    <select class="form-control" (keydown)="invoiceContractTypeCodeOnKeyDown($event)" id="InvoiceContractTypeCode" formControlName="InvoiceContractTypeCode">
+                        <option *ngFor="let c of dropdownList.InvoiceContractTypeCode" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong>{{ 'Further Records' | translate }}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #invoicesGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col12 pr5" *ngIf="fieldVisibility.InvoiceViewType">
+                    <label class="col24" for="InvoiceViewType">{{ 'Send' | translate }}</label>
+                    <div class="col24">
+                        <select id="InvoiceViewType" (change)="invoiceViewTypeOnChange($event)" formControlName="InvoiceViewType" class="form-control">
+                            <option value="screen" selected>{{ 'To Screen' | translate }}</option>
+                            <option value="email">{{ 'Via Email' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col12" *ngIf="fieldVisibility.DefaultEmailFrom">
+                    <label class="col24" for="DefaultEmailFrom">{{ 'Default Email From' | translate }}</label>
+                    <div class="col24">
+                        <select id="DefaultEmailFrom" (change)="defaultEmailFromOnChange($event)" formControlName="DefaultEmailFrom" class="form-control">
+                            <option value="account">{{ 'Account' | translate }}</option>
+                            <option value="contract">{{ 'Contract' | translate }}</option>
+                            <option value="premise">{{ 'Premise' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.InvoiceEmailAddress">
+                <label class="col24" for="InvoiceEmailAddress">{{ 'Address' | translate }}<span class="mandatory">* </span></label>
+                <div class="col24">
+                    <input id="InvoiceEmailAddress" type="text" formControlName="InvoiceEmailAddress" size="40" max="100" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

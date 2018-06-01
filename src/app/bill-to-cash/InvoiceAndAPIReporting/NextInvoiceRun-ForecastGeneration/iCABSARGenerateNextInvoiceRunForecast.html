@@ -1,0 +1,85 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Next Invoice Run Forecast Generation' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Business'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" class="form-control" id="BusinessDesc" formControlName="BusinessDesc" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Forecast Date'|translate}}<span class="mandatory">*</span>
+                    </label>
+                    <div class="col10">
+                        <icabs-datepicker formControlName="ForecastDate" id="ForecastDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeAdvancedContracts" formControlName="IncludeAdvancedContracts">
+                        <label for="IncludeAdvancedContracts">{{'Include Advanced Contracts'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeArrearsContracts" formControlName="IncludeArrearsContracts">
+                        <label for="IncludeArrearsContracts">{{'Include Arrears Contracts'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeJobs" formControlName="IncludeJobs">
+                        <label for="IncludeJobs">{{'Include Jobs'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeCredits" formControlName="IncludeCredits">
+                        <label for="IncludeCredits">{{'Include Credits'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <label class="col24">{{'Contract/Job/Product Sale Number Range'|translate}}</label>
+                    <div class="col24">
+                        <textarea class="form-control" id="ContractNumberString" rows="4" formControlName="ContractNumberString" title="{{'Select individual contract numbers separated by a comma, and/or a range (only if numeric contract numbers). Example: 1,5,7-10'|translate}}"
+                            eTypeTextFree></textarea>
+                            <label class="col24">{{'Note: Please Leave Blank If A Full Invoice Forecast Is Required.'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <input type="button" class="btn btn-primary" value="{{'Submit Extract Generation'|translate}}" (click)="generateReport($event)">
+                    </div>
+                </div>
+            </div>
+            <div id="trInformation" class="alert alert-info mt10" *ngIf="thInformationDisplayed">
+                <strong id="thInformation" colspan="6">{{thInformation}}</strong>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

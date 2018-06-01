@@ -1,0 +1,69 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container row">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{ 'Postcode Search' | translate }}</h1>
+        </div>
+    </div>
+
+    <!-- /.row -->
+    <!-- Projects Row -->
+    <div #topContainer>
+        <form method="POST" [formGroup]="zipForm" novalidate (ngSubmit)="getFormData(zipForm.value, zipForm.valid)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col4 pr5 form-group" *ngIf="lstBranchSelectionValueVisible">
+                        <label>{{ 'Option' | translate }} </label>
+                        <select class="form-control" formControlName="lstBranchSelection" (change)="onlstBranchSelection($event.target.value)">
+                            <option *ngFor="let item of optionList" selected="selected" value="{{item.value}}">{{item.title | translate}}</option>
+                        </select>
+                    </div>
+                    <!-- /.col-md-3-->
+                    <div class="col4 pr5 form-group" *ngIf="BranchNumberSearchValueVisible">
+                        <label>{{ 'Branch Number' | translate }} </label>
+                        <!--<input type="text" #BranchNumberSearchValue class="form-control" formControlName="BranchNumberSearchValue" placeholder="">-->
+                        <icabs-branchsearch #BranchNumberSearchValue [inputParams]="dropdown.servicebranch.params" (receivedbranchsearch)="servicebranchOnchange($event)"
+                            [active]="dropdown.servicebranch.active" [isDisabled]="dropdown.servicebranch.disabled" [isRequired]="dropdown.servicebranch.required"></icabs-branchsearch>
+                    </div>
+                    <!-- /.col-md-3-->
+
+                    <div class="col4 pr5 form-group">
+                        <!--*ngIf="PostcodeSearchValueVisible"-->
+                        <label>{{ 'Postcode' | translate }} </label>
+                        <input type="text" class="form-control" maxlength="8" formControlName="PostcodeSearchValue" placeholder="">
+                    </div>
+                    <!-- /.col-md-3-->
+                    <div class="col4 pr5 form-group">
+                        <!--*ngIf="StateSearchValueVisible"-->
+                        <label>{{ 'State' | translate }} </label>
+                        <input type="text" class="form-control" maxlength="20" formControlName="StateSearchValue" placeholder="">
+                    </div>
+                    <!-- /.col-md-3-->
+                    <div class="col4 pr5 form-group">
+                        <!--*ngIf="TownSearchValueVisible"-->
+                        <label>{{ 'Town' | translate }} </label>
+                        <input type="text" class="form-control" maxlength="20" formControlName="TownSearchValue" placeholder="">
+                    </div>
+                    <!-- /.col-md-3-->
+                    <div class="col4 form-group mt10">
+                        <div class="col12 pr5 mt20">
+                            <input type="submit" name="search" value="{{ 'Search' | translate }}" class="btn btn-primary">
+                        </div>
+                        <div class="col8 mt20">
+                            <input type="button" name="Add New" value="{{'Add New' | translate}}" class="btn btn-secondary" [ngClass]="!showAddNew ? 'hidden': ''"
+                                (click)="onAddNew()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </form>
+    </div>
+    <hr class="mt20">
+    <div class="row mt20 mb20">
+        <div class="col-sm-12">
+            <icabs-table #postcodeTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                [paginationTop]="false" (onRefresh)="refresh()"></icabs-table>
+        </div>
+    </div>
+</div>

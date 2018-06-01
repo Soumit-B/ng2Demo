@@ -1,0 +1,123 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="9" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="9" maxlength="5">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="9" maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PlanVisitNumber">{{ 'Plan Visit Number' | translate}}<span class="mandatory">* </span></label>
+                    <div class="col8">
+                        <input id="PlanVisitNumber" class="form-control" formControlName="PlanVisitNumber" type="text" size="3" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="VisitTypeCode">{{ 'Visit Type' | translate}}</label>
+                        <input id="VisitTypeCode" class="form-control" formControlName="VisitTypeCode" type="text" size="6" maxlength="2">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="PlanVisitSystemDesc">{{ 'Plan Visit Status' | translate}}</label>
+                        <input id="PlanVisitSystemDesc" class="form-control" formControlName="PlanVisitSystemDesc" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="OriginalVisitDueDate">{{ 'Visit Due Date' | translate}}</label>
+                        <input id="OriginalVisitDueDate" class="form-control" formControlName="OriginalVisitDueDate" type="text" size="10" maxlength="10">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="PlannedVisitDate">{{ 'Planned Date' | translate}}</label>
+                        <input id="PlannedVisitDate" class="form-control" formControlName="PlannedVisitDate" type="text" size="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="OriginalVisitDuration">{{ 'Original Visit Duration' | translate}}</label>
+                        <input id="OriginalVisitDuration" class="form-control" formControlName="OriginalVisitDuration" type="text" size="7" maxlength="7">
+                    </div>
+
+                    <div class="col10">
+                        <label class="col24" for="PlannedVisitDuration">{{ 'Planned Duration' | translate}}</label>
+                        <input id="PlannedVisitDuration" class="form-control" formControlName="PlannedVisitDuration" type="text" size="7" maxlength="7">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="RemainingDuration">{{ 'Remaining Duration' | translate}}<span class="mandatory">* </span></label>
+                        <input id="RemainingDuration" class="form-control" formControlName="RemainingDuration" type="text" size="8" maxlength="8">
+                    </div>
+                    <div class="col10">
+                        <label class="col24" for="ServicedDuration">{{ 'Serviced Duration' | translate}}</label>
+                        <input id="ServicedDuration" class="form-control" formControlName="ServicedDuration" type="text" size="7" maxlength="7">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="SplitToDate">{{ 'Split To Date' | translate}}<span class="mandatory">* </span></label>
+                        <icabs-datepicker id="SplitToDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

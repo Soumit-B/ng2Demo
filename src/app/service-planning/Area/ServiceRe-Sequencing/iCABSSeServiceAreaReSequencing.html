@@ -1,0 +1,95 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="StartDate">{{ 'Plan From' | translate}}</label>
+                        <icabs-datepicker id="StartDate"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="EndDate">{{ 'To' | translate}}</label>
+                        <icabs-datepicker id="EndDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" for="DateSelection">{{ 'Plan Date' | translate}}</label>
+                        <select id="DateSelection" class="form-control" formControlName="DateSelection"></select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24" for="GridPageSize">{{ 'Display(Lines)' | translate}}</label>
+                        <input id="GridPageSize" class="form-control" formControlName="GridPageSize" type="text" size="2" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" for="LocationStartPostcode">{{ 'Location Start:' | translate}}</label>
+                        <input id="LocationStartPostcode" class="form-control" formControlName="LocationStartPostcode" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" for="LocationEndPostcode">{{ 'End:' | translate}}</label>
+                        <input id="LocationEndPostcode" class="form-control" formControlName="LocationEndPostcode" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col14">
+                        <input type="button" class="btn btn-additional " value="{{ 'Import Sequence Changes' | translate }}">
+                    </div>
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Apply Changes' | translate }}">
+                    </div>
+                </div>
+                <div class="col-sm-4 pull-right hidden">
+                    <div class="message-box info-label" role="alert">
+                        {{'Sequence Changes Require Confirming' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

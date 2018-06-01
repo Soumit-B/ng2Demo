@@ -1,0 +1,206 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{'Contract Number'|translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col7 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" readonly size="7" [attr.maxlength]="8" formControlName="ContractNumber"
+                            eTypeCode>
+                    </div>
+                    <div class="col15">
+                        <input type="text" class="form-control" id="ContractName" disabled size="40" [attr.maxlength]="30" formControlName="ContractName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{'Premises Number'|translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col7 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" #Premise size="7" [attr.maxlength]="8" formControlName="PremiseNumber"
+                            (change)="populatePremiseDescription($event)" eTypeInteger>
+                    </div>
+                    <div class="col15">
+                        <input type="text" class="form-control" id="PremiseName" size="40" [attr.maxlength]="30" formControlName="PremiseName" disabled
+                            eTypeText>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.premise.disabled" [showCloseButton]="ellipsisConfig.premise.showCloseButton" [showHeader]="ellipsisConfig.premise.showHeader"
+                            [childConfigParams]="ellipsisConfig.premise.childConfigParams" [contentComponent]="ellipsisConfig.premise.component"
+                            (ellipsisData)="riMaintenance_Search($event, 'premise')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{'Product Code'|translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col7 pr5">
+                        <input type="text" class="form-control" id="ProductCode" size="7" [attr.maxlength]="6" formControlName="ProductCode" (change)="populateProductDescription($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col15">
+                        <input type="text" class="form-control" id="ProductDesc" size="40" [attr.maxlength]="30" formControlName="ProductDesc" disabled
+                            eTypeText>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.product.disabled" [showCloseButton]="ellipsisConfig.product.showCloseButton" [showHeader]="ellipsisConfig.product.showHeader"
+                            [childConfigParams]="ellipsisConfig.product.childConfigParams" [contentComponent]="ellipsisConfig.product.component"
+                            (ellipsisData)="riMaintenance_Search($event, 'product')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Status">{{'Status'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="Status" size="15" [attr.maxlength]="15" formControlName="Status" [disabled]="true"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceCommenceDate">{{'Commence Date'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ServiceCommenceDate" size="10" [attr.maxlength]="10" formControlName="ServiceCommenceDate"
+                            eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceVisitFrequency">{{'Visit Frequency'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ServiceVisitFrequency" size="10" [attr.maxlength]="5" formControlName="ServiceVisitFrequency"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <label class="col24" for="ServiceQuantity">{{'Service Quantity'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ServiceQuantity" size="10" [attr.maxlength]="5" formControlName="ServiceQuantity"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceSalesEmployee">{{'Old Commission Employee'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ServiceSalesEmployee" size="6" [attr.maxlength]="6" formControlName="ServiceSalesEmployee"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="CommissionEmployeeSurname" size="20" [attr.maxlength]="20" formControlName="CommissionEmployeeSurname"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceAnnualValue">{{'Old Value'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ServiceAnnualValue" size="10" [attr.maxlength]="10" formControlName="ServiceAnnualValue"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{'New Commission Employee'|translate}}
+                        <span class="mandatory" *ngIf="enableMandatoryFields">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" size="6" [attr.maxlength]="6" formControlName="EmployeeCode" (change)="populateNewEmployeeDesc()"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" size="20" [attr.maxlength]="20" formControlName="EmployeeSurname"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsisConfig.employee.showCloseButton" [showHeader]="ellipsisConfig.employee.showHeader"
+                            [childConfigParams]="ellipsisConfig.employee.childConfigParams" [contentComponent]="ellipsisConfig.employee.component"
+                            (ellipsisData)="onEmployeeDataReceived($event)" [disabled]="!enableMandatoryFields"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NewAnnualValue">{{'New Value'|translate}}
+                        <span class="mandatory" *ngIf="enableMandatoryFields">*</span>
+                    </label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="NewAnnualValue" size="10" [attr.maxlength]="10" formControlName="NewAnnualValue"
+                            (change)="riExchange_CBORequest('annualValue')" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SalesEmployeeText">{{'Comments'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="SalesEmployeeText" size="31" [attr.maxlength]="40" formControlName="SalesEmployeeText"
+                            (change)="onCommentsReceived()" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Effective Date'|translate}}
+                        <span class="mandatory" *ngIf="enableMandatoryFields">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-datepicker formControlName="LastChangeEffectDate" id="LastChangeEffectDate" (onChange)="riExchange_CBORequest('effectiveDate')"
+                            [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Reason Code'|translate}}
+                        <span class="mandatory" *ngIf="enableMandatoryFields">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-lostbusinesslanguagesearch #lostbusinesslanguagesearchDropDown [inputParams]="dropdown.languageSearch.inputParams"
+                            [active]="dropdown.languageSearch.active" id="lostbusinesslanguagesearchDropDown" [isRequired]="dropdown.languageSearch.isRequired"
+                            [isDisabled]="dropdown.languageSearch.isDisabled" (receivedlostbusinesslangsearch)="onLostBusinessLanguageSearch($event)">
+                            </icabs-lostbusinesslanguagesearch>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Detail Code'|translate}}
+                        <span class="mandatory" *ngIf="enableMandatoryFields">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-lostbusinessdetails #icabsLostBusinessLangDetail id="icabsLostBusinessLangDetail" [inputParams]="lostBusinessInputParams"
+                            [active]="dropdown.languageSearch.active" (receivedbranchsearch)="onLostBusinessDetailLangDataReceived($event)"
+                            [isDisabled]="this.lostBusinessInputParams.isDisabled" [isRequired]="this.lostBusinessInputParams.isRequired"></icabs-lostbusinessdetails>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="button" [disabled]="controlDisable.updateDisabled" class="btn btn-primary mr10" (click)="save()" value="{{'Save' | translate}}">
+                <input type="button" [disabled]="controlDisable.cancelDisabled" (click)="onCancel()" class="btn btn-secondary" value="{{'Cancel' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

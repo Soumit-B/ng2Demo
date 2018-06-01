@@ -1,0 +1,133 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="10" [attr.maxlength]="9"
+                            (change)="taboutAccountContract($event)" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" size="30" [attr.maxlength]="30" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsAccountSearch" [contentComponent]="accountSearchComponent"
+                            [showHeader]="true" (ellipsisData)="setAccount($event)" [modalConfig]="modalConfig" [autoOpen]="autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="IncreaseValueFrom">{{ 'Where Value is' | translate }}</label>
+                    <div class="col12">
+                        <input id="IncreaseValueFrom" formControlName="IncreaseValueFrom" class="form-control" type="text" size="20" [attr.maxlength]="23"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate }}<span class="mandatory" *ngIf="mandatoryContactNumber">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="10" [attr.maxlength]="8"
+                            (change)="taboutAccountContract($event)" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="30" [attr.maxlength]="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsContractSearch" [contentComponent]="contractSearchComponent"
+                            [showHeader]="true" (ellipsisData)="setContract($event)" [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" size="8" [attr.maxlength]="10" (change)="productTabout($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" size="30" [attr.maxlength]="30" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsProductSearch" [contentComponent]="productSearchComponent"
+                            [showHeader]="true" (ellipsisData)="setProduct($event)" [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessOrigin">{{ 'Business Origin' | translate }}</label>
+                    <div class="col24">
+                        <!--Removed Dropdown and added Ellipsis as per Samik's suggestion 23/05/2017-->
+                        <!--Removed Ellipsis and added Dropdown as per Tamal's suggestion 22/11/2017-->
+                        <icabs-business-origin-language-search [inputParams]="inputParamsBusinessOriginLangSearch" (receivedLostBusinessLangSearch)="setBusinessOrigin($event)"></icabs-business-origin-language-search>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EffectiveDate">{{ 'Effective Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker #effectiveDatePicker [(dt)]="effectiveDate" [isRequired]="true" (selectedValue)="effectiveDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="IncreaseValueBy">{{ 'Increase Value By' | translate }}</label>
+                    <div class="col12">
+                        <input id="IncreaseValueBy" formControlName="IncreaseValueBy" class="form-control" type="text" size="20" [attr.maxlength]="23"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <label class="col24" for="SpecialInstructions">{{ 'Special Instructions' | translate }}</label>
+                    <textarea id="SpecialInstructions" formControlName="SpecialInstructions" class="form-control" [attr.maxlength]="500" size="500"
+                        rows="3" eTypeText></textarea>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <div class="col14">
+                        <icabs-refresh (click)="buildGrid()"></icabs-refresh>
+                        <icabs-pagination #multiPremisesPagination *ngIf="gridParams.totalRecords > 0" [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div>
+                        <label class="col24 message-box warning">{{'Special Instructions Already Exist' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #multiPremisesGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                        (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onRowSelect($event)" (getCellData)="onCellClick($event)"
+                        [sortIndex]="sortIndex" (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+
+<icabs-prompt-modal #promptModalApplyChanges="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitleSave"
+    [content]="promptContentForApplyChanges" [config]="modalConfig" (saveEmit)="applySpecialInstructions($event)"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [showHeader]="true" [content]="messageContentSave">
+</icabs-modal>
+<icabs-modal #errorModal="child" [showHeader]="true" [content]="messageContentError">
+</icabs-modal>
+
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

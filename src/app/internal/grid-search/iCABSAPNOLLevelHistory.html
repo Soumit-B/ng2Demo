@@ -1,0 +1,61 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ 'myRentokil Level Change History' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Business' | translate }}</label>
+                    <!--<div class="col8 pr5 hidden">
+                        <input id="BusinessCode" formControlName="BusinessCode" type="text" class="form-control">
+                    </div>-->
+                    <div class="col16">
+                        <input id="BusinessDesc" formControlName="BusinessDesc" size="30" [attr.maxlength]="40" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanContractNumber">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" type="text" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" size="30" [attr.maxlength]="40" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanPremiseNumber">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" type="text" class="form-control" size="8" [attr.maxlength]="2">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" formControlName="PremiseName" size="30" [attr.maxlength]="40" type="text" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination *ngIf="gridParams.totalRecords > 0" [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        [currentPage]="gridParams.currentPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #pnolLeaveHistoryGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                        (gridInfo)="getGridInfo($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

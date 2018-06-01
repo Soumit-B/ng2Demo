@@ -1,0 +1,164 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body" [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="ProspectNumber">{{'Prospect Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" formControlName="ProspectNumber" id="ProspectNumber" size="8">
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" formControlName="ProspectName" id="ProspectName" size="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ProspectTypeDesc">{{'Business Origin' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="ProspectTypeDesc" id="ProspectTypeDesc" size="50">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ProspectStatusCode">{{'Status Code' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" formControlName="ProspectStatusCode" id="ProspectStatusCode" size="2" [attr.maxlength]="2"
+                        (change)="onProspectStatusCodeChange($event)" icabsZeroPad>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" formControlName="ProspectStatusDesc" id="ProspectStatusDesc" size="40" [attr.maxlength]="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [contentComponent]="prospectStatusSearchComponent" (ellipsisData)="onProspectStatusDataReceived($event)"
+                        [showHeader]="showHeader" [showCloseButton]="showCloseButton"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trLostBusiness}">
+            <div class="col-sm-3">
+                <label class="col24" for="LostBusinessCode">{{'Customer Rejection Reason' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" formControlName="LostBusinessCode" id="LostBusinessCode" size="4" [attr.maxlength]="4">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" formControlName="LostBusinessDesc" id="LostBusinessDesc" size="40" [attr.maxlength]="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [contentComponent]="screenNotReadyComponent" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trLostBusinessDetail }">
+            <div class="col-sm-3">
+                <label class="col24" for="LostBusinessDetailCode">{{'Customer Rejection Detail' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" formControlName="LostBusinessDetailCode" id="LostBusinessDetailCode" size="4" [attr.maxlength]="4">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" formControlName="LostBusinessDetailDesc" id="LostBusinessDetailDesc" size="40" [attr.maxlength]="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [contentComponent]="screenNotReadyComponent" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trEstimatedValue}">
+            <div class="col-sm-3">
+                <label class="col24" for="EstimatedValue">{{'Estimated Lost Value' | translate }}</label>
+                <div class="col8">
+                    <input type="text" class="form-control" formControlName="EstimatedValue" id="EstimatedValue" size="10">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trContractDurationCode}">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractDurationCode">{{'Estimated Duration Code' | translate }}</label>
+                <div class="col8" id="ContractDurationCode">
+                    <icabs-contractduration #contractDurationDropDown [inputParams]="inputParamsContractDuration" (receivedcontractDuration)="onReceivedContractDuration($event)"
+                        [active]="contractDurationDefault"></icabs-contractduration>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trEstimatedExpiryDate}">
+            <div class="col-sm-3">
+                <label class="col24" for="EstimatedExpiryDate">{{'Estimated Expiry Date' | translate }}</label>
+                <div class="col8">
+                    <icabs-datepicker id="EstimatedExpiryDate" [formGroup]="this['uiForm']" [controlName]="'EstimatedExpiryDate'" (selectedValue)="onSelectedDateValue($event)"
+                        size="10"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [ngClass]="{'hidden': !trFollowUpInd}">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="FollowUpInd" formControlName="FollowUpInd" (change)="onFollowUpChange($event)">
+                    <label for="FollowUpInd">{{'Follow Up' | translate }}</label>
+                </div>
+                <div class="col8 mt10" [ngClass]="{'hidden': !tdFollowUpDate}">
+                    <input type="text" class="form-control" formControlName="FollowUpDate" id="FollowUpDate" size="10">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [ngClass]="{'hidden': !trServices}">
+            <div class="col-sm-3">
+                <label class="col24" for="Services">{{'Services' | translate }}</label>
+                <div class="col24">
+                    <textarea id="Services" formControlName="Services" class="form-control" [attr.maxlength]="500" size="500"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="HistoryNarrative">{{'Notes' | translate }}</label>
+                <div class="col24">
+                    <textarea id="HistoryNarrative" formControlName="HistoryNarrative" class="form-control" [attr.maxlength]="500" size="500"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="SalesEmailInd" formControlName="SalesEmailInd">
+                    <label for="SalesEmailInd">{{'Email Notification - Sales' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="ManagerEmailInd" formControlName="ManagerEmailInd">
+                    <label for="ManagerEmailInd">{{'Manager' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col6">
+                    <input type="checkbox" class="form-control" id="OtherEmailInd" formControlName="OtherEmailInd" (change)="onOtherEmailIndChange($event)">
+                    <label for="OtherEmailInd">{{'Other' | translate }}</label>
+                </div>
+                <div class="col18" [ngClass]="{'hidden': !tdOtherEmailAddress}">
+                    <input type="text" class="form-control" formControlName="OtherEmailAddress" id="OtherEmailAddress" size="40" [attr.maxlength]="50">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+    </section>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" (click)="saveData()" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary" (click)="cancelData()" value="{{'Cancel' | translate}}">
+            </div>
+        </div>
+    </footer>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

@@ -1,0 +1,60 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Premises Details'| translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Number'| translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" size="7" maxlength="8" class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" size="40" maxlength="40" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises Number'| translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" size="7" maxlength="5" class="form-control" type="text" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <icabs-refresh (click)="refresh()"></icabs-refresh>
+                        <icabs-pagination #emptyPremiseLocationSearchPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24" *ngIf="tdMenuDisplay">
+                        <select id="menu" class="form-control" (change)="optionsChange($event.target.value)" name="options">
+                            <option value="Options">{{'Options' | translate}}</option>
+                            <option value="AddLocation">{{'Add Location' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12 ">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="onGridRowClick($event)" (bodyDblClick)="getGridOnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+    </footer>
+</section>

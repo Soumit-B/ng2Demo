@@ -1,0 +1,38 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Preparation Search'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt5">
+            <div class="col-sm-4">
+                <label class="col24">{{'Line of Service'|translate}}</label>
+                <div class="col12">
+                    <select class="form-control" (change)="losCodeSelected($event)">
+                             <option value="" selected>{{'All'|translate}}</option>
+                              <option *ngFor="let los of lineOfServiceList" value="{{los.LOSCode}}">{{los.LOSName|translate}}</option>
+                             
+                        </select>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #preparationSearchPagination [totalItems]="totalRecords" [currentPage]="curPage" [itemsPerPage]="itemsPerPage"
+                    (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12">
+                <icabs-grid-advanced #riGrid (TRDblClick)="riGridBodyOnDblClick($event)" (onSuccess)="getGridInfo()"></icabs-grid-advanced>
+            </div>
+        </div>
+    </section>
+</section>
+<icabs-modal #messageModal="child" [showHeader]="isMessageHeaderVisible">

@@ -1,0 +1,92 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-9 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Business' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BusinessCode" formControlName="BusinessCode" class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BusinessDesc" formControlName="BusinessDesc" class="form-control" type="text" eTypeText>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" (change)="employeeCodeOnChange($event)"
+                            [icabsDirFocus]="setFocusEmployeeCode" (keyup)="employeeCode_Keyup($event)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParamsEmployeeSearch.childConfigParams" [contentComponent]="inputParamsEmployeeSearch.contentComponent"
+                            [showHeader]="inputParamsEmployeeSearch.showHeader" [title]="inputParamsEmployeeSearch.modalTitle"
+                            [disabled]="inputParamsEmployeeSearch.disabled" (ellipsisData)="onEmployeeDataReturn($event)">
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'From' | translate }}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateFrom" maxlength="15" class="form-control hidden">
+                            <icabs-datepicker #DateFromDatePicker id="DateFrom" [dt]='DateFrom' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly"
+                                [isRequired]="true" (selectedValue)="dateFromSelectedValue($event)">
+                            </icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24"> {{ 'To' | translate }}</label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateTo" maxlength="15" class="form-control hidden">
+
+                            <icabs-datepicker #DateToDatePicker id="DateTo" [dt]='DateTo' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true"
+                                (selectedValue)="dateToSelectedValue($event)">
+                            </icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="mt10">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #technicianSyncSummaryGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                        (gridInfo)="getGridInfo($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+
+    </form>
+
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+</section>

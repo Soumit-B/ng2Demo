@@ -1,0 +1,113 @@
+<div id="grdDiscount">
+    <form [formGroup]="discountsFormGroup" novalidate (ngSubmit)="$event.preventDefault();">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input id="PromptPaymentInd" formControlName="PromptPaymentInd" type="checkbox" value="false" (change)="onPromptPaymentIndClick()"
+                        size="2" maxlength="2">
+                    <label id="spanPromptPaymentInd" for="PromptPaymentInd">{{ 'Prompt Payment Discount' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.PromptPayment1 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanPromptPaymentRate">{{ 'Prompt Payment Rate' | translate }} <span  *ngIf="fieldRequired.isPromptPaymentRateRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="PromptPaymentRate" size="5" maxlength="5" eTypeDecimal2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.PromptPayment2 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanPromptPaymentNarrative">{{ 'Prompt Payment Narrative' | translate }} <span  *ngIf="fieldRequired.isPromptPaymentNarrativeRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <textarea formControlName="PromptPaymentNarrative" id="PromptPaymentNarrative" class="form-control" rows="4" cols="55"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input (change)="onRetrospectiveIndClick()" formControlName="RetrospectiveInd" type="checkbox" class="form-control" id="RetrospectiveInd"
+                        size="2" maxlength="2">
+                    <label id="spanRetrospectiveInd" for="RetrospectiveInd">{{ 'Retrospective Discount' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.Retrospective1 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanRetrospectiveRate">{{ 'Retrospective Rate' | translate }} <span  *ngIf="fieldRequired.isRetrospectiveRateRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" id="RetrospectiveRate" formControlName="RetrospectiveRate" size="5"
+                        maxlength="5" value="" eTypeDecimal2 >
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.Retrospective2 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanRetrospectiveNarrative">{{ 'Retrospective Narrative' | translate }} <span  *ngIf="fieldRequired.isRetrospectiveNarrativeRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <textarea class="form-control" formControlName="RetrospectiveNarrative" rows=4 cols=55></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="form-control" formControlName="InvoiceDiscountInd" type="checkbox" (change)="onInvoiceDiscountIndClick()" id="InvoiceDiscountInd"
+                        size="2" maxlength="2">
+                    <label id="spanInvoiceDiscountInd" for="InvoiceDiscountInd">{{ 'Invoice Discount' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.InvoiceDiscount1 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanInvoiceDiscountRate">{{ 'Invoice Discount Rate' | translate }}<span  *ngIf="fieldRequired.isInvoiceDiscountRateRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="InvoiceDiscountRate" size="5" maxlength="5" eTypeDecimal2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.InvoiceDiscount2 === true">
+            <div class="col-sm-3">
+                <label class="col24" id="spanInvoiceDiscountNarrative">{{ 'Invoice Discount Narrative' | translate }} <span  *ngIf="fieldRequired.isInvoiceDiscountNarrativeRequired === true" class="mandatory">*</span></label>
+                <div class="col24">
+                    <textarea class="form-control" formControlName="InvoiceDiscountNarrative" rows=4 cols=55></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" *ngIf="fieldVisibility.DiscountTextKey === true">
+            <div class="col-sm-6">
+                <table class="table dataTable table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{{'Invoice Generation Text Replacements' | translate }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>^1^</td>
+                            <td>{{'Discount Percentage' | translate }}</td>
+                        </tr>
+                        <tr>
+                            <td>^2^</td>
+                            <td>{{"Invoice value 'before' discount" | translate }}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!--<label></label>
+                <div class="col24 border-style">
+                    <div class="col4 border-right-style">^1^</div>
+                    <div class="col20">{{'Discount Percentage' | translate }}</div>
+                </div>
+                <div class="col24 border-style">
+                    <div class="col4 border-right-style">^2^</div>
+                    <div class="col20">{{"Invoice value 'before' discount" | translate }}</div>
+                </div>-->
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

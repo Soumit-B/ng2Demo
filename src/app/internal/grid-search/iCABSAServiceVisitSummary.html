@@ -1,0 +1,153 @@
+<form>
+    <div class="container-fluid custom-container">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1 class="page-header">
+                    {{contractLabel| translate}}{{pageTitle | translate}}
+                </h1>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{contractLabel | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" [(ngModel)]="contractNumber" name="contractNumber" [readonly]="!contractNumberEnabled" (blur)="contractNumberChange($event.target.value)"
+                        class="form-control" placeholder="" size="10" [attr.maxlength]="8" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" [(ngModel)]="contractName" [readonly]="!contractNameEnabled" class="form-control" placeholder="" size="25"
+                        [attr.maxlength]="50" name="contractName" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col16">
+                    <div class="mt20">
+                        <select class="form-control" (change)="searchTypeChange($event.target.value)">
+                        <option *ngFor="let searchObj of searchTypeOptions" value="{{searchObj.value}}">{{searchObj.text | translate}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises' | translate}}<span  class="mandatory" *ngIf="premiseRequired === true">* </span></label>
+                <div class="col8 pr5">
+                    <input type="text" id="premiseNumber" [(ngModel)]="premiseNumber" name="premiseNumber" (blur)="premiseNumberChange($event.target.value)"
+                        [readonly]="!premiseNumberEnabled" size="10" [attr.maxlength]="5" class="form-control" placeholder="" [required]="premiseRequired"
+                        eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" [(ngModel)]="premiseName" name="premiseName" [readonly]="!premiseNameEnabled" size="25" [attr.maxlength]="50"
+                        class="form-control" placeholder="" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [contentComponent]="premiseSearchComponent"
+                        [modalConfig]="modalConfig" (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader"
+                        [disabled]='false' [hideIcon]="premiseNumberHide"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col16" [hidden]="!menuDisplay">
+                    <label class="col24">Options</label>
+                    <div class="col24">
+                        <select class="form-control" #filter (change)="menuChanges($event.target.value)">
+                        <option *ngFor="let b of menuOptions" value="{{b.value}}">{{b.text | translate}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="!productDisplay">
+                <label class="col24">{{'Product' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" [(ngModel)]="productCode" (blur)="populateDescriptions($event.target.value)" [readonly]="!productCodeEnabled"
+                        size="10" [attr.maxlength]="6" class="form-control" placeholder="" id="productCode" name="productCode" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" [(ngModel)]="productDesc" [readonly]="!productDescEnabled" size="25" [attr.maxlength]="10" class="form-control"
+                        placeholder="" name="productDesc" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #productCodeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceCover"
+                        [modalConfig]="modalConfig" [contentComponent]="serviceCoverSearchComponent" (ellipsisData)="serviceCoverSearchDataReceived($event)"
+                        [showHeader]="showHeader" [disabled]="false" [hideIcon]="productCodeHide"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label class="col24">{{'From' |translate}}</label>
+                    <div class="col24">
+                        <icabs-datepicker [dt]='currDate' (selectedValue)="effectiveDateSelectedValue($event)" [isReadonly]=false [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col12">
+                    <label class="col24">{{'To' | translate}}</label>
+                    <div class="col24">
+                        <icabs-datepicker [dt]='currDate2' (selectedValue)="toDateSelectedValue($event)" [isReadonly]=false [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label class="col24">{{'Anniversary' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" [(ngModel)]="serviceVisitAnnivDate" [readonly]="!serviceVisitAnnivDateEnabled" [attr.maxlength]="10" size="10"
+                            class="form-control" placeholder="" name="serviceVisitAnnivDate" eTypeDate>
+                    </div>
+                </div>
+                <div class="col12">
+                    <label class="col24">{{'Frequency' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" [(ngModel)]="serviceVisitFrequency" [readonly]="!serviceVisitFrequencyEnabled" [attr.maxlength]="5" size="5"
+                            class="form-control" placeholder="" name="serviceVisitFrequency" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-6">
+                <div class="col9 pr10" [hidden]="!repDestHeaderDisplay">
+                    <label class="col24">{{'Report Destination' | translate}}</label>
+                    <div class="col24" [hidden]="!repDestSelectDisplay">
+                        <select id="RepDest" class="form-control" (change)="selectedOptions($event.target.value)">
+                        <option *ngFor="let repObj of RepDestOptions" value="{{repObj.value}}">{{repObj.text | translate}}</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col12" [hidden]="!submitBlockDisplay">
+                    <div class="col12 mt20">
+                        <button class="btn btn-primary" [disabled]='!cmdSubmitEnabled' (click)="generateReport()">{{btnTxt | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [hidden]="!informationDisplay" class="row">
+            <div class="col-sm-3">{{informationDetails | translate}}</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 pull-right">
+                <input id="ShowFreqInd" type="checkbox" [hidden]="!showFreqIndDisplay" [checked]="showFreqIndChecked" (change)="showFreqIndGet($event.target.checked)">
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-12">
+                <icabs-pagination #historyGridPagination [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #historyGrid [maxColumns]="maxColumn" [infoDataColumnReference]="infoDataColumnReference" [itemsPerPage]="itemsPerPage"
+                    (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)"
+                    (infoData)="informationBox($event)" [showTotalRow]="true" (sortInfo)="sortGrid($event)" [sortIndex]="gridSortHeaders"
+                    [dataFromParent]="formatData" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    </div>
+</form>

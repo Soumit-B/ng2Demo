@@ -1,0 +1,96 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle |translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory" [hidden] = "showStar">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" readonly class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" eTypeTextFree readonly class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanPremiseNumber">{{ 'Premises Number' | translate }}<span class="mandatory" [hidden] = "showStar">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" eTypeInteger readonly class="form-control" type="text">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" formControlName="PremiseName" eTypeTextFree readonly class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" eTypeCode readonly class="form-control" type="text">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" formControlName="ProductDesc" readonly eTypeTextFree class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanFieldName">{{ 'Field' | translate }}</label>
+                    <div class="col24">
+                        <input id="FieldName" formControlName="FieldName" readonly class="form-control" type="text">
+                    </div>
+
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Original Details' | translate }}</label>
+                    <div class="col24">
+                        <textarea formControlName="OriginalValue" eTypeTextFree id="OriginalValue" readonly class="form-control" rows="4" cols="55"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Amended Details' | translate }}</label>
+                    <span *ngIf="originalValueMode"> <div class="col24">
+                        <textarea formControlName="AmendedValue" id="AmendedValue" eTypeTextFree  readonly class="form-control" rows="4" cols="55" [icabsDirFocus]="setFocusAmendedValue" pattern='^[^"]*$'></textarea>
+                    </div>
+                   </span>
+                    <span *ngIf="AmendedValueMode"> <div class="col24">
+                        <textarea formControlName="AmendedValue" id="AmendedValue" eTypeTextFree class="form-control" rows="4" cols="55" [icabsDirFocus]="setFocusAmendedValue" pattern='^[^"]*$'></textarea>
+                    </div>
+                   </span>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb10">
+        <footer class="screen-footer">
+            <span *ngIf="hiddenField"> <div class="row">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" value="{{ 'Save' | translate }}" (click)="dataChangeSave()">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="resetForm()">
+                </div>
+            </div>
+           </span>
+        </footer>
+    </form>
+</section>
+
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+
+    <icabs-modal #messageModal="child" [showHeader]="true" [showCloseButton]="true">
+    </icabs-modal>
+
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>

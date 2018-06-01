@@ -1,0 +1,57 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                Report Viewer
+            </h1>
+        </div>
+    </div>
+    <form novalidate>
+
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Filter By'}}</label>
+                <div class="col11 pr5">
+
+                    <div class="col24">
+                        <Select id="FilterSelect" class="form-control">
+                             <option></option>
+                            
+ 						</Select>
+                    </div>
+                </div>
+                <div class="col11 pr5">
+
+                    <input id="FilterInput" size="40" maxlength="40" value="" readonly="" class="form-control">
+                </div>
+                <div class="col2">
+                    <input type="checkbox" class="form-control" id="FilterInputCheck" hidden="true">
+                    <label for="FilterInputCheck"></label>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"></icabs-grid>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

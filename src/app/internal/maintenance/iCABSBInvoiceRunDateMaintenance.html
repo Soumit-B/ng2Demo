@@ -1,0 +1,136 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']" novalidate>
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Extract Date'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-datepicker #datepck id="ExtractDate" [dt]="ExtractDate" [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true"
+                            (selectedValue)="dateFromSelectedValue($event)" [validate]="extractDateValidate"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="IncludeContractsAdvance" formControlName="IncludeContractsAdvance">
+                        <label for="IncludeContractsAdvance">{{'Include Advance Contracts' | translate}}</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Extract Run Number'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ExtractRunNumber" formControlName="ExtractRunNumber" size="40" [attr.maxlength]="40"
+                            placeholder="" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Process Date'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ProcessDate" size="40" [attr.maxlength]="40" placeholder="" formControlName="ProcessDate">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="IncludeContractsArrears" formControlName="IncludeContractsArrears">
+                        <label for="IncludeContractsArrears">{{'Include Arrears Contracts'| translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice Total Excl. TAX' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="InvoiceTotalExclTAX" size="40" [attr.maxlength]="40" placeholder="" formControlName="InvoiceTotalExclTAX"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice TAX Total'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="InvoiceTAXTotal" size="40" [attr.maxlength]="40" placeholder="" formControlName="InvoiceTAXTotal"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="IncludeJobs" formControlName="IncludeJobs">
+                        <label for="IncludeJobs">{{'Include Jobs'| translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Credit Total Excl. TAX'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="CreditTotalExclTAX" size="40" [attr.maxlength]="40" placeholder="" formControlName="CreditTotalExclTAX"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Credit TAX Total'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="CreditTAXTotal" size="40" [attr.maxlength]="40" placeholder="" formControlName="CreditTAXTotal"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" id="IncludeCredits" formControlName="IncludeCredits">
+                        <label for="IncludeCredits">{{'Include Credits'| translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="contractNumberStringDisplayed">
+                <div class="col-sm-12">
+                    <div class="col24 pr5">
+                        <label class="col24" for="ContractNumberString" id="SpanContractNumberString">{{'Contract/Job/Product Sale Number Range'| translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <textarea id="ContractNumberString" class="form-control" type="text" rows="3" cols="40" formControlName="ContractNumberString"
+                            (keydown)="contractNumberString_onkeydown($event)" eTypeTextFree></textarea>
+                    </div>
+                    <div class="col3">
+                        <icabs-ellipsis #ContractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.component"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHiddenForContract($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="ellipsis.contractSearch.modalConfig"
+                            [hideIcon]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <input id="WarningMessage" style="display:none" formControlName="WarningMessage" eTypeTextFree>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3" [ngClass]="operationMode === 'ADD'? '':'hidden'">
+                    <input class="btn btn-additional" type="button" value="{{ 'Add' | translate }}" (click)="addClicked()">
+                </div>
+                <div class="col-sm-3" [ngClass]="operationMode==='ADD/DELETE' ? '': 'hidden'">
+                    <input class="btn btn-additional " type="button" value="{{ 'Add' | translate }}" (click)="addClicked() ">
+                    <input class="btn btn-secondary " type="button" value="{{ 'Delete' | translate }}" (click)="deleteClicked() ">
+                </div>
+                <div class="col-sm-6" [ngClass]="operationMode==='SAVE/CANCEL' ? '': 'hidden'">
+                    <input class="btn btn-primary" type="button" value="{{ 'Save' | translate }}" (click)="saveClicked() ">
+                    <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" (click)="cancleClicked() ">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptDeleteConfirmed($event)"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="isRequesting "></icabs-spinner>

@@ -1,0 +1,151 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessOriginCode">{{ 'Business Origin' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8">
+                        <input class="form-control" type="text" id="BusinessOriginCode" formControlName="BusinessOriginCode" size="2" maxlength="2"
+                            (change)="BusinessOriginCode_onkeydown($event)" [icabsDirFocus]="setFocusOnBusinessOriginCode">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessOriginSystemDesc">{{ 'System Description' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="BusinessOriginSystemDesc" formControlName="BusinessOriginSystemDesc" size="40"
+                            maxlength="40" [icabsDirFocus]="setFocusOnBusinessOriginSystemDesc">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessSourceCode">{{ 'Business Source Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" type="text" id="BusinessSourceCode" formControlName="BusinessSourceCode" size="8" maxlength="8"
+                            (change)="BusinessSourceCode_onkeydown($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" type="text" id="BusinessSourceDesc" formControlName="BusinessSourceDesc" size="8" maxlength="8">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #BusinessSourceCodeEllipsis [autoOpen]="ellipsis.businessSourceCode.autoOpenSearch" [showCloseButton]="ellipsis.businessSourceCode.showCloseButton"
+                            [childConfigParams]="ellipsis.businessSourceCode.childConfigParams" [modalConfig]="ellipsis.businessSourceCode.modalConfig"
+                            [contentComponent]="ellipsis.businessSourceCode.contentComponent" (ellipsisData)="businessSourceCode_OnSelect($event)"
+                            [showHeader]="ellipsis.businessSourceCode.showHeader" [disabled]='ellipsis.businessSourceCode.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactMediumCode">{{ 'Prospect Contact Medium Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" type="text" id="ContactMediumCode" formControlName="ContactMediumCode" size="2" maxlength="2"
+                            (change)="ContactMediumCode_onkeydown($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" type="text" id="ContactMediumDesc" formControlName="ContactMediumDesc" size="30" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContactMediumCodeEllipsis [autoOpen]="ellipsis.contactMediumCode.autoOpen" [showCloseButton]="ellipsis.contactMediumCode.showCloseButton"
+                            [childConfigParams]="ellipsis.contactMediumCode.childConfigParams" [contentComponent]="ellipsis.contactMediumCode.contentComponent"
+                            (ellipsisData)="contactMediumCode_OnSelect($event)" [showHeader]="ellipsis.contactMediumCode.showHeader"
+                            [disabled]='ellipsis.contactMediumCode.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="NewBusinessInd" formControlName="NewBusinessInd">
+                    <label for="NewBusinessInd">{{'Valid For New Business' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ValidForReneg" formControlName="ValidForReneg">
+                    <label for="ValidForReneg">{{'Valid For Renegs' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ValidForContract" formControlName="ValidForContract">
+                    <label for="ValidForContract">{{'Valid For Contracts' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ValidForJob" formControlName="ValidForJob">
+                    <label for="ValidForJob">{{'Valid For Jobs' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ValidForProductSale" formControlName="ValidForProductSale">
+                    <label for="ValidForProductSale">{{'Valid For Product Sales' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="LeadInd" formControlName="LeadInd">
+                    <label for="LeadInd">{{'Include in Lead Extract' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ActiveInd" formControlName="ActiveInd">
+                    <label for="ActiveInd">{{'Active' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="DetailRequiredInd" formControlName="DetailRequiredInd">
+                    <label for="DetailRequiredInd">{{'Detail Required' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="TransferCodeInd" formControlName="TransferCodeInd">
+                    <label for="TransferCodeInd">{{'Transfer Code' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="hidden" id="ROWID" formControlName="ROWID">
+                    <input type="hidden" id="BusinessCode" formControlName="BusinessCode">
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="button" [ngClass]="this['riMaintenance']['FunctionUpdate'] ? '' : 'disabled' " class="btn btn-primary" value="{{ 'Save' | translate }}"
+                        (click)="save()">
+                    <input type="button" [ngClass]="this['riMaintenance']['FunctionUpdate'] ? '' : 'disabled' " class="btn btn-secondary" value="{{ 'Cancel' | translate }}"
+                        (click)="cancel()">
+                    <input type="button" [ngClass]="!this['riMaintenance']['FunctionDelete'] ? 'hidden' : '' " class="btn btn-additional" value="{{ 'Delete' | translate }}"
+                        (click)="delete()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+
+
+<icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [showCloseButton]="true" (modalClose)="closeModal()"
+    [showHeader]="true"></icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="confirmed($event)">
+</icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

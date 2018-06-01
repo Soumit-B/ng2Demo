@@ -1,0 +1,194 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" *ngIf="sysCharParams['enableCompanyCode']">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Company Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-business-company-search #companyDropdown [isRequired]="true" [inputParams]="companyInputParams" (receivedCompanyCode)="onCompanyChange($event)"
+                            [active]="companyDefault"></icabs-business-company-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice Number'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <input type="text" size="10" [attr.maxlength]="10" class="form-control" id="InvoiceNumber" formControlName="CompanyInvoiceNumber"
+                            (change)="onCompanyInvoiceNumberChange()" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col16 mt10">
+                        <input type="checkbox" id="CopyInvoice" formControlName="CopyInvoice">
+                        <label for="CopyInvoice">{{'Copy Invoice' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <!--Tab function-->
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" id="grdHeaderDetails" [ngClass]="{'active': tabs['tab0'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(0)" tabindex="0">
+                                <span>{{'Header Details' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdPrintLines" [ngClass]="{'active': tabs['tab1'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(1)" tabindex="0">
+                                <span>{{'Print Lines' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="grdVatNumber" [ngClass]="{'active': tabs['tab2'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(2)" tabindex="0">
+                                <span>{{'Tax Number' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane " [ngClass]="{'active': tabs['tab0'].active }">
+                            <div id="grdHeaderDetails">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Invoice Name' | translate}}</label>
+                                        <div class="col22 pr5">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceName" formControlName="InvoiceName" eTypeText>
+                                        </div>
+                                        <div class="col2">
+                                            <input type="button" class="btn-print" (click)="printInvoice()" [disabled]="isFormDisabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 1' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceAddressLine1" formControlName="InvoiceAddressLine1"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceAddressLine2" formControlName="InvoiceAddressLine2"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 3' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceAddressLine3" formControlName="InvoiceAddressLine3"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceAddressLine4" formControlName="InvoiceAddressLine4"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'County' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoiceAddressLine5" formControlName="InvoiceAddressLine5"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="InvoicePostcode" formControlName="InvoicePostcode" eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Header Details-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane " [ngClass]="{'active': tabs['tab1'].active }">
+                            <div id="grdPrintLines">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <icabs-refresh (click)="refresh()"></icabs-refresh>
+                                        <icabs-pagination #invoicePrintLinePagination [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                                            (getCurrentPage)="getCurrentPage($event)" [currentPage]="gridParams.currentPage"></icabs-pagination>
+                                    </div>
+                                    <div class="col-sm-3 pull-right text-right">
+                                        <input class="btn btn-primary mr10" type="button" value="{{'Insert Print Line' | translate}}" (click)="onInsertLineClick()"
+                                            [disabled]="isFormDisabled">
+                                        <!--@TODO - Page descoped; Button hidden-->
+                                        <!--<input class="btn btn-primary" type="button" value="{{'Move Print Line' | translate}}" (click)="onMoveLineClick()" [disabled]="isFormDisabled">-->
+                                    </div>
+                                </div>
+                                <div class="row  mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid #invoicePrintLineGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                                            (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onRowSelect($event)" [validateProperties]="validateProperties"></icabs-grid>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Print Lines-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane active" [ngClass]="{'active': tabs['tab2'].active }">
+                            <div id="grdVatNumber ">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Tax Number' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="CompanyVATNumber" formControlName="CompanyVATNumber"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of VatNumber-->
+                        </div>
+                        <!--end of tabpane-->
+                    </div>
+                    <!--end of tabcontent-->
+                </div>
+            </div>
+            <icabs-ellipsis #invoiceSearchEllipsis [showCloseButton]="true" [childConfigParams]="inputParams" [modalConfig]="modalConfig"
+                [contentComponent]="invoiceSearchComponent" (ellipsisData)="onInvoiceSearchDataReceived($event)" [showHeader]="true"
+                [hideIcon]="true"></icabs-ellipsis>
+            <!--end ofTab-->
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr10" type="button" value="{{ 'Save' | translate }}" (click)="saveData()" [disabled]="isFormDisabled"
+                        (keyup)="onSaveFocus($event)">
+                    <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" (click)="cancelChanges()" [disabled]="isFormDisabled">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    <icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptHeader" [title]="" [content]="promptConfirmContent"
+        (saveEmit)="confirmSave($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

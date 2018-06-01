@@ -1,0 +1,1 @@
+exports.appConfig = require('./qa.config').appConfig;

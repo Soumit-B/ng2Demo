@@ -1,0 +1,61 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ 'Postcodes/Service Area' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Service Branch' | translate}}</label>
+                <div class="col24">
+                    <icabs-branchsearch [inputParams]="inputParamsBranch" [active]="negBranchNumberSelected" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Branch Default' | translate}}</label>
+                <div class="col10">
+                    <Select class="form-control" (change)="selectedBranchDefault($event.target.value)">
+                           <option *ngFor="let branchdefault of branchDefaultOption" [selected]="branchdefault.value=='Yes'" value="{{branchdefault.value}}" >{{branchdefault.text}}</option>
+						</Select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Allocated' |translate}}</label>
+                <div class="col10">
+                    <Select class="form-control" (change)="selectedAllAllocation($event.target.value)">
+                             <option *ngFor="let allAllocation of allocationOption" value="{{allAllocation.value}}">{{allAllocation.text}}</option>
+						</Select>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #postCodePagination [totalItems]="totalItems" [currentPage]="pageCurrent" [itemsPerPage]="itemsPerPage"
+                    (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+
+                <icabs-grid #postCodeGrid [maxColumns]="maxColumn" [showTick]="true" [itemsPerPage]="itemsPerPage" [currentPage]="pageCurrent"
+                    (gridInfo)="getGridInfo($event)" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>

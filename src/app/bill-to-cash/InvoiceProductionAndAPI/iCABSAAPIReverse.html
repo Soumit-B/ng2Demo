@@ -1,0 +1,145 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'API Reverse' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <!-- Projects Row -->
+    <section class="screen-body">
+        <form novalidate [formGroup]="apiReverseFormGroup" (ngSubmit)="onSubmit(apiReverseFormGroup.value, apiReverseFormGroup.valid, $event)">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label for="contractNumber">{{ 'Contract Number' | translate }} <span class="mandatory">* </span></label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input id="contractNumber" #contractNumber formControlName="contractNumber" class="form-control padding-left-zero" type="text"
+                            (change)="onContractBlur($event)" [attr.maxlength]="8" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="contractDesc" #contractDesc formControlName="contractDesc" class="form-control padding-zero" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="contractAutoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig"
+                            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]='isContractDisabled'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="mode !== 'Contract'">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label for="premiseNumber">{{ 'Premise Number' | translate }} <span class="mandatory">* </span></label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input id="premiseNumber" formControlName="premiseNumber" class="form-control padding-left-zero" type="text" [attr.maxlength]="5"
+                            (change)="onPremiseBlur($event);" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="premiseDesc" #premiseDesc formControlName="premiseDesc" class="form-control padding-zero" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [contentComponent]="premiseSearchComponent"
+                            [modalConfig]="modalConfig" (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader"
+                            [disabled]='false'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="mode !== 'Contract' && mode !== 'Premise'">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label for="productCode">{{ 'Product Code' | translate }} <span class="mandatory">* </span></label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input id="productCode" #productCode formControlName="productCode" class="form-control padding-left-zero" type="text" [attr.maxlength]="6"
+                            (change)="onProductBlur($event);" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="productDesc" #productDesc formControlName="productDesc" class="form-control padding-zero" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="serviceAutoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceCoverSearch" [contentComponent]="productSearchComponent"
+                            [modalConfig]="modalConfig" (ellipsisData)="onProductDataReceived($event, true)" [showHeader]="showHeader"
+                            [disabled]='false'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="mode !== 'Contract' && mode !== 'Premise'">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="visitFrequency">{{ 'Visit Frequency' | translate }}</label>
+                    </div>
+                    <div class="col11">
+                        <input id="visitFrequency" #visitFrequency formControlName="visitFrequency" type="text" class="form-control" placeholder="" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="effectiveDate">{{ 'Effective Date of Last API' | translate }}</label>
+                    </div>
+                    <div class="col18">
+                        <input id="effectiveDate" #effectiveDate formControlName="effectiveDate" type="text" class="form-control" placeholder="" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="currentValue">{{ 'Current Value' | translate }}</label>
+                    </div>
+                    <div class="col18">
+                        <input id="currentValue" #currentValue formControlName="currentValue" type="text" class="form-control" placeholder="" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="effectiveValue">{{ 'Value At Effect Date' | translate }}</label>
+                    </div>
+                    <div class="col18">
+                        <input id="effectiveValue" #effectiveValue formControlName="effectiveValue" type="text" class="form-control" placeholder="" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="lastValue">{{ 'Value of Last API' | translate }}</label>
+                    </div>
+                    <div class="col18">
+                        <input id="lastValue" #lastValue formControlName="lastValue" type="text" class="form-control" placeholder="" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label for="lastRemovalValue">{{ 'Value After Removing Last API' | translate }}</label>
+                    </div>
+                    <div class="col18">
+                        <input id="lastRemovalValue" #lastRemovalValue formControlName="lastRemovalValue" type="text" class="form-control" placeholder="" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <footer class="screen-footer">
+                <div class="row mt10">
+                    <div class="col-sm-6">
+                        <input class="btn btn-primary mr10" type="submit" value="{{buttonTranslatedText.update | translate}}" [disabled]="!apiReverseFormGroup.valid || !isFormValid">
+                        <input class="btn btn-secondary mr10" type="button" value="{{buttonTranslatedText.cancel | translate}}" (click)="onCancel();disableForm()">
+                    </div>
+                </div>
+            </footer>
+        </form>
+    </section>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

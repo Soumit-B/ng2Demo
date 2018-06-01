@@ -1,0 +1,78 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle']| translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" *ngIf="showGroupAccountNumber">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Group Account Number'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="GroupAccountNumber" formControlName="GroupAccountNumber" size="9" maxlength="9" value="" class="form-control"
+                            eTypeCodeNumeric>
+                    </div>
+                    <div class="col16">
+                        <input id="GroupName" formControlName="GroupName" size="40" maxlength="40" value="" readonly="" class="form-control" eTypeText>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2" *ngIf="showAccountNumber">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" size="9" maxlength="9" value="" class="form-control" eTypeText>
+                    </div>
+                    <div class="col16">
+                        <input id="AccountName" formControlName="AccountName" size="40" maxlength="40" value="" readonly="" class="form-control"
+                            eTypeText>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row mt2" *ngIf="showContractNumber">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Number'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="9" value="" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" size="40" maxlength="40" value="" readonly="" class="form-control"
+                            eTypeText>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Customer Information Number'| translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="CustomerInfoNumber" formControlName="CustomerInfoNumber" class="form-control" eTypeInteger>
+                        <!--<icabs-dropdown id="CustomerInfoNumber"></icabs-dropdown>-->
+                    </div>
+                    <!--<div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="customerInfoSearchParams" (ellipsisData)="onCustomerInfoDataReceived($event)"
+                            [showHeader]="showHeader" [disabled]="true"></icabs-ellipsis>
+                    </div>-->
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary" type="submit" value="{{'Save'| translate}}" (click)="saveData()">
+                    <input class="btn btn-secondary" type="submit" value="{{'Cancel'| translate}}" (click)="cancelData()">
+                </div>
+            </div>
+        </footer>
+        <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

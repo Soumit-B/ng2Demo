@@ -1,0 +1,77 @@
+<div class="container-fluid custom-container">
+    <!-- <div class="row back-lint-cont">
+        <a class="back-link" href="#" (click)="onBackLinkClick($event)">{{backLinkText}}</a>
+    </div> -->
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{title | translate}} {{'Selection' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="generalMaintenanceFormGroup">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{Numberlab  | translate }} </label>
+                <div class="col8 pr5">
+                    <input class="form-control" #ContractNumber type="text" size="9" maxlength="8" id="ContractNumber" formControlName="ContractNumber"
+                        (blur)="onBlurContract($event)">
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" type="text" size="40" maxlength="40" formControlName="ContractName" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract" [modalConfig]="modalConfig"
+                        [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises Number' | translate }} </label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" size="9" maxlength="6" id="PremiseNumber" (blur)="onBlurPremise($event)" formControlName="PremiseNumber">
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" type="text" formControlName="PremiseName" size="40" maxlength="40" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [modalConfig]="modalConfig"
+                        [contentComponent]="premiseComponent" (ellipsisData)="onpremiseChanged($event)" [disabled]="true"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Product Code' | translate }} </label>
+                <div class="col8 pr5">
+                    <input class="form-control padding-left-zero" type="text" size="9" maxlength="6" id="ProductCode" (blur)="onBlurProduct($event)"
+                        formControlName="ProductCode">
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control padding-left-zero" type="text" size="40" maxlength="40" formControlName="ProductDesc" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsProduct" [modalConfig]="modalConfig"
+                        [contentComponent]="productComponent" (ellipsisData)="onproductChanged($event)" [disabled]="true"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="button" class="btn btn-primary mr10" value="Fetch" (click)="Fetch_OnClick()" [disabled]="!generalMaintenanceFormGroup.valid">
+                <input type="button" class="btn btn-primary mr10" value="Clear" (click)="Clear_OnClick()">
+                <input type="button" class="btn btn-primary mr10" value="Add Contract" [disabled]="AddContractButton" (click)="AddContract_OnClick()">
+                <input type="button" class="btn btn-primary mr10" value="Add Job" [disabled]="AddJobButton" (click)="AddJob_OnClick()">
+                <input type="button" class="btn btn-primary" value="Add Product Sale" [disabled]="AddProductSaleButton" (click)="AddProductSale_OnClick()">
+            </div>
+        </div>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+    <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+        (saveEmit)="CheckCorrectEntryType($event)" (cancelEmit)="CheckCorrectEntryType($event)"></icabs-prompt-modal>
+</div>
+<icabs-routeaway #routeAwayComponent ></icabs-routeaway>

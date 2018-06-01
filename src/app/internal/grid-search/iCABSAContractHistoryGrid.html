@@ -1,0 +1,127 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{pageTitleMain | translate}} {{'History'|translate}}-{{pageTitleSub | translate}}
+
+            </h1>
+        </div>
+    </div>
+    <div class="row mt5">
+        <div class="col-sm-3" [hidden]="accountHide">
+            <label class="col24" for="Account Number">{{'Account Number' | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" [readonly]="AccountNumberReadonly" [(ngModel)]="AccountNumber" class="form-control" placeholder="">
+            </div>
+            <div class="col16">
+                <input type="text" [readonly]="AccountNameReadonly" [(ngModel)]="AccountName" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24" for="View">{{'View' | translate}}</label>
+            <div class="col16">
+                <select class="form-control" #filter (change)="selectedView($event.target.value)">
+                    <option *ngFor="let b of viewList" value="{{b.value}}">{{b.text | translate}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24" for="Contract Number">{{contractLabel | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" [readonly]="ContractNumberReadonly" [(ngModel)]="ContractNumber" class="form-control" placeholder="">
+            </div>
+            <div class="col16">
+                <input type="text" [readonly]="ContractNameReadonly" [(ngModel)]="ContractName" class="form-control" placeholder="">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24" for="Sort By">{{'Sort By' | translate}}</label>
+            <div class="col16">
+                <select class="form-control" #filtersort (change)="selectedSortBy($event.target.value)">
+                    <option *ngFor="let b of sortList" value="{{b.value}}"> {{b.text | translate}} </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24" for="Premises Number">{{'Premises Number' | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" [readonly]="PremisesNumberReadonly" [(ngModel)]="PremisesNumber" (blur)="PremiseNumber_onchange()" class="form-control"
+                    placeholder="">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" [readonly]="PremisesNameReadonly" [(ngModel)]="PremisesName" class="form-control" placeholder="">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [contentComponent]="premiseSearchComponent"
+                    [modalConfig]="modalConfig" (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader"
+                    [disabled]='false'></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24" for="Effective Date">{{'Effective Date' | translate}}<span class="mandatory">*</span></label>
+            <div class="col16">
+                <icabs-datepicker [dt]='CurrDate' (selectedValue)="effectiveDateSelectedValue($event)" isRequired=true></icabs-datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24" for="Product Code">{{'Product Code' | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" [readonly]="ProductCodeReadonly" [(ngModel)]="ProductCode" (blur)="ProductCode_onchange()" class="form-control"
+                    placeholder="">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" [readonly]="ProductDescReadonly" [(ngModel)]="ProductDesc" class="form-control" placeholder="">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsProduct" [contentComponent]="ServiceCoverSearchComponent"
+                    [modalConfig]="modalConfig" (ellipsisData)="onProductDataReceived($event, true)" [showHeader]="showHeader"
+                    [disabled]='false'></icabs-ellipsis>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24" for="Effective To">{{'Effective To' | translate}}</label>
+            <div class="col16">
+                <icabs-datepicker [dt]='CurrDate2' (selectedValue)="toDateSelectedValue($event)"></icabs-datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24" for="History Type"> {{'History Type' | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" [readonly]="false" [(ngModel)]="HistoryTypeCode" class="form-control" placeholder="" (blur)="History_onchange()">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" [readonly]="true" [(ngModel)]="HistoryTypeCodeDesc" class="form-control" placeholder="">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsHistoryCode" [contentComponent]="historyTypeSearchComponent"
+                    [modalConfig]="modalConfig" (ellipsisData)="onHistoryDataReceived($event, true)" [showHeader]="showHeader"
+                    [disabled]='false'></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-3">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #historyGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+        <div class="col-sm-3 pull-right">
+            <select class="form-control" #filter (change)="selectedOptionsBy($event.target.value)">
+                <option *ngFor="let b of options" value="{{b.value}}">{{b.text | translate}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid #historyGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                (selectedRowInfo)="onGridRowClick($event)" (selectedRowInfo)="onGridRowDblClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+</div>

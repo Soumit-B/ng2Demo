@@ -1,0 +1,38 @@
+<!-- Tab 2 - Contact Detail Update -->
+<form [formGroup]="contractNarrativeFormGroup">
+    <div id="grdContactDetails">
+        <div class="row mt10" [hidden]="!isPrintCredit">
+            <div class="col-sm-3">
+                <div class="col24 ">
+                    <input type="checkbox" id="PrintCreditInd" class="form-control" formControlName="PrintCreditInd">
+                    <label id="spanPrintCreditInd" for="PrintCreditInd">{{'Print Credit' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24" id="spanProRataNarrative">{{'Credit Note Narrative' | translate }} <span class="mandatory">*</span></label>
+                <div class="col24">
+                    <textarea id="ProRataNarrative" [ngModel]="ProRataNarrative" rows=6 cols=60 maxlength="500" class="form-control" formControlName="ProRataNarrative"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [hidden]="!vSCEnableUseProRataNarrative">
+            <div class="col-sm-3">
+                <div class="col24 ">
+                    <input type="checkbox" id="UseProRataNarrative" class="form-control" formControlName="UseProRataNarrative">
+                    <label id="spanUseProRataNarrative" for="UseProRataNarrative">{{'Show Narrative As Product Description' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [hidden]="!isAdditionalCreditInfo">
+            <div class="col-sm-3">
+                <label class="col24" id="spanAdditionalCreditInfo">{{'Additional Credit Information' | translate }}</label>
+                <div class="col24">
+                    <textarea id="AdditionalCreditInfo" [ngModel]="AdditionalCreditInfo" rows=6 cols=60 maxlength="100" class="form-control"
+                        formControlName="AdditionalCreditInfo"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

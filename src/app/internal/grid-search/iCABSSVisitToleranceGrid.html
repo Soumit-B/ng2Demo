@@ -1,0 +1,145 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                <!--Page Heading-->{{'Visit Tolerance Entry' | translate }}
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Projects Row -->
+    <form [formGroup]="visitToleranceFormGroup" (ngSubmit)="onSubmit()">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Business' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" name="BusinessCode" readonly formControlName="BusinessCode">
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" formControlName="BusinessDesc" name="BusinessDesc" readonly placeholder="" [value]="visittoleranceContractData.BusinessDesc">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24 ">{{'Group Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="GroupAccountNumber" formControlName="GroupAccountNumber" placeholder="" (keydown.PageDown)="onKeyDown($event)"
+                        maxlength="5" (blur)="onBlur($event)" eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" placeholder="" formControlName="GroupName" name="GroupName" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #groupAccountNumberEllipsis [childConfigParams]="inputParamsGrpAccNumber" [contentComponent]="groupAccNum"
+                        (ellipsisData)="onGroupAccount($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="AccountNumber" formControlName="AccountNumber" placeholder="" (keydown.PageDown)="onKeyDown($event)"
+                        (blur)="onBlur($event)" maxlength="9" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" placeholder="" name="AccountName" formControlName="AccountName" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #accountSearchEllipsis [childConfigParams]="inputParamsAccSearch" [contentComponent]="accountSearchComponent"
+                        (ellipsisData)="setAccountNumber($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24 ">{{'Contract Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" placeholder="" (keydown.PageDown)="onKeyDown($event)"
+                        (blur)="onBlur($event)" maxlength="8" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" placeholder="" formControlName="ContractName" name="ContractName" readonly>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #contractSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract" [modalConfig]="modalConfig"
+                        [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" placeholder="" (keydown.PageDown)="onKeyDown($event)"
+                        maxlength="5" (blur)="onBlur($event)" eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" placeholder="" formControlName="PremiseName" name="PremiseName" [ngModel]="" readonly>
+                </div>
+                <div class="col2">
+                    <!--<icabs-ellipsis #premiseSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract" [modalConfig]="modalConfig"
+                        [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"
+                        [disabled]="isPremiseNumberEllipsisDisabled"></icabs-ellipsis>-->
+
+                    <icabs-ellipsis [autoOpen]="ellipsisConfig.premises.autoOpen" #premisesNumberEllipsis [showCloseButton]="ellipsisConfig.premises.showCloseButton"
+                        [childConfigParams]="ellipsisConfig.premises.childConfigParams" [modalConfig]="ellipsisConfig.premises.modalConfig"
+                        [contentComponent]="ellipsisConfig.premises.contentComponent" (ellipsisData)="onPremisesDataReceived($event, true)"
+                        [showHeader]="ellipsisConfig.premises.showHeader" (modalHidden)="modalHiddenPremises()" [searchModalRoute]="ellipsisConfig.premises.searchModalRoute"
+                        [disabled]="ellipsisConfig.premises.disabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Product Code' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" placeholder="" (keydown.PageDown)="onKeyDown($event)"
+                        maxlength="6" (blur)="onBlur($event)" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" placeholder="" formControlName="ProductDesc" name="ProductDesc" [ngModel]="" readonly>
+                </div>
+                <div class="col2">
+                    <!--<icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract" [modalConfig]="modalConfig"
+                        [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"
+                        [disabled]="isProductCodeEllipsisDisabled"></icabs-ellipsis>-->
+
+                    <icabs-ellipsis [autoOpen]="ellipsisConfig.product.autoOpen" #productcodeEllipsis [showCloseButton]="ellipsisConfig.product.showCloseButton"
+                        [childConfigParams]="ellipsisConfig.product.childConfigParams" [modalConfig]="ellipsisConfig.product.modalConfig"
+                        [contentComponent]="ellipsisConfig.product.contentComponent" (ellipsisData)="onProductDataReceived($event, true)"
+                        [showHeader]="ellipsisConfig.product.showHeader" (modalHidden)="modalHiddenProductCode()" [searchModalRoute]="ellipsisConfig.product.searchModalRoute"
+                        [disabled]="ellipsisConfig.product.disabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <input type="text" class="form-control hidden" placeholder="" name="ServiceCoverRowID" formControlName="ServiceCoverRowID">
+        <input type="text" class="form-control hidden" placeholder="" name="ServiceCoverNumber" formControlName="ServiceCoverNumber">
+    </form>
+    <hr class="mb15 mt15">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (onRefresh)="refresh()"> </icabs-refresh>
+            <icabs-pagination #visitTolerancePagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+        <div class="col-sm-3 pull-right">
+            <div class="col24">
+                <select class="form-control" id="Menu" (change)="optionsChange($event.target.value)">
+                    <option value="" selected>{{'Options' | translate}}</option>
+                    <option value="AddVisitTolerance">{{'Add Visit Tolerance' | translate}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12" align="center">
+            <icabs-grid #visitToleranceGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                (getCellDataonBlur)="onCellClickBlur($event)" (selectedRowInfo)="selectedDataOnDoubleClick($event)" (getCellData)="selectedDataOnCellFocus($event)" [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>

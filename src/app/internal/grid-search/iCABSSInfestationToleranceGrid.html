@@ -1,0 +1,132 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Infestation SLA Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="searchInfestFormGroup">
+        <div class="row mt5">
+            <div hidden>
+                <input class="form-control" formControlName="BusinessCode" id="BusinessCode" type="text">
+                <input class="form-control" formControlName="ServiceCoverRowID" id="ServiceCoverRowID" type="text">
+                <input class="form-control" formControlName="ServiceCoverNumber" id="ServiceCoverNumber" type="text">
+            </div>
+            <div class="col-sm-3">
+                <label id="SpanContractNumber" class="col24">{{'Business' | translate}}</label>
+                <div class="col16">
+                    <input class="form-control" formControlName="BusinessDesc" id="BusinessDesc" type="text">
+                </div>
+            </div>
+            <!--CR:::::Commenting below lines as there may be requirement of this button-->
+            <!--<div class="col-sm-3">
+                <div class="col24 mt20">
+                    <input type="button" class="btn btn-primary" (click)="btnImportSLA_onclick()" value="{{ 'Import SLA' | translate }}">
+                </div>
+            </div>-->
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{ 'Group Account Number' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="GroupAccountNumber" id="GroupAccountNumber" (blur)="onBlurAccountGroup($event)"
+                        type="text" eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" formControlName="GroupName" maxlength="30" id="GroupName" type="text" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #grpAccountEllipsis [childConfigParams]="inputParamsGrpAccNumber" [contentComponent]="groupAccNum" (ellipsisData)="onGroupAccount($event)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{ 'Account Number' | translate}}</label>
+                <div class="col8 pr5">
+                    <input #accnoFocus class="form-control" (blur)="onBlurAccount($event)" formControlName="AccountNumber" id="AccountNumber"
+                        type="text" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" formControlName="AccountName" maxlength="30" id="AccountName" type="text" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #AccountEllipsis [childConfigParams]="inputParamsAccSearch" [contentComponent]="dynamicComponent1" (ellipsisData)="setAccountNumber($event)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Contract Number' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control padding-left-zero" type="text" id="ContractNumber" (blur)="onBlurContract($event)" formControlName="ContractNumber"
+                        eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" type="text" id="ContractName" maxlength="30" formControlName="ContractName" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract" [modalConfig]="modalConfig"
+                        [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Premises Number' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" id="PremiseNumber" (blur)="onBlurPremise($event)" formControlName="PremiseNumber"
+                        eTypeInteger>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" type="text" id="PremiseName" maxlength="30" formControlName="PremiseName" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #PremiseEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [modalConfig]="modalConfig"
+                        [contentComponent]="premiseComponent" (ellipsisData)="onPremiseChanged($event)" [showHeader]="showHeader"
+                        [disabled]="false"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Product Code' | translate}}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" type="text" id="ProductCode" (blur)="onBlurProduct($event)" formControlName="ProductCode" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input class="form-control" type="text" id="ProductDesc" maxlength="30" formControlName="ProductDesc" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #ProductEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsProduct" [modalConfig]="modalConfig"
+                        [contentComponent]="productComponent" (ellipsisData)="onProductChanged($event)" [showHeader]="showHeader"
+                        [disabled]="false"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #infestationPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-3 pull-right option-dropdown">
+                <icabs-dropdown-static #BuildMenuOptions [inputData]="MenuOptionList" [defaultOption]="defaultOpt" (onSelect)="onBuildMenuOptionChange($event)"></icabs-dropdown-static>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #infestationtoleranceGrid [maxColumns]="maxColumn" (sortInfo)="sortGrid($event)" [itemsPerPage]="itemsPerPage"
+                    [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" [showTick]="true"
+                    [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div class="row mt2">
+            <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+            </icabs-modal>
+        </div>
+    </form>
+</div>

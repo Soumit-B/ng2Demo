@@ -1,0 +1,184 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-9 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanInvoiceRangeNumber">{{ 'Invoice Range Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="InvoiceRangeNumber" formControlName="InvoiceRangeNumber" size="9" maxlength="9" class="form-control" value="">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt10">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input id="ActiveRangeInd" eTypeCheckbox class="custom-checkbox" type="checkbox" formControlName="ActiveRangeInd" size="1">
+                        <label for="ActiveRangeInd" class="gray" id="spanActiveRangeInd">
+                            {{'Active Range' | translate}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Invoice Range Description' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="InvoiceRangeDesc" eTypeText id="InvoiceRangeDesc" size="40" maxlength="40"
+                            pattern='^[^"]*$'>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanCompanyCode">{{ 'Company' | translate }}</label>
+                    <div class="col24">
+                        <icabs-business-company-search #bCompanySearchComponent [inputParams]="inputParamsCompanySearch" (receivedCompanyCode)="companySearchdataReceived($event)"
+                            [active]="companyDefault"></icabs-business-company-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanBranchNumber">{{ 'Branch' | translate }}</label>
+                    <!--<div class="col8 pr5">
+                        <input type="hidden" class="form-control" formControlName="BranchNumber" size="5" maxlength="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="hidden" class="form-control" formControlName="BranchName" size="40" maxlength="40">
+                    </div>-->
+                    <div class="col24">
+                        <icabs-branchsearch [inputParams]="inputParamsBranch" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="negBranchNumberSelected"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanTaxCode">{{ 'Tax Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="5" maxlength="5" class="form-control" placeholder="" id="TaxCode" formControlName="TaxCode" eTypeCode
+                            style="text-transform:uppercase" pattern="^[stuxyzSTUXYZ]*$" (blur)=OntaxCodetapout($event)>
+                    </div>
+                    <div class="col14">
+                        <input type="text" size="30" maxlength="30" class="form-control" placeholder="" id="TaxCodeDesc" formControlName="TaxCodeDesc"
+                            eTypeText>
+                    </div>
+                    <div class="col2 pl5">
+                        <icabs-ellipsis #TaxCodeEllipsis [contentComponent]="taxCodeSearchComponent" [childConfigParams]="inputParams" (ellipsisData)="onTaxCodeDataReceived($event)"
+                            [showHeader]="true" [showCloseButton]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanInvoiceCreditCode">{{ 'Invoice/Credit' | translate }}</label>
+                    <div class="col12 pr5">
+                        <icabs-dropdown-static #InvoiceCreditSelectDropdown [inputData]="InvoiceCreditSelectList" (change)="CreditSelectListchange($event)"></icabs-dropdown-static>
+                    </div>
+                    <div class="col12">
+                        <input type="text" class="form-control hidden" formControlName="InvoiceCreditCode" eTypeCode id="InvoiceCreditCode">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanContractTypeCode">{{ 'Contract Type' | translate }}</label>
+                    <div class="col24">
+                        <icabs-contract-type-language-search #contractTypeCodeDropDown [inputParams]="dropdown.contractTypeCode.inputParams" [active]="dropdown.contractTypeCode.active"
+                            [isDisabled]="dropdown.contractTypeCode.isDisabled" [isRequired]="dropdown.contractTypeCode.isRequired"
+                            [triggerValidate]="dropdown.contractTypeCode.triggerValidate" (receivedContractTypeLanguageSearch)="onContractTypeReceived($event)"></icabs-contract-type-language-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanInvoiceRangePrefix">{{ 'Invoice Range Prefix' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="InvoiceRangePrefix" eTypeCode id="InvoiceRangePrefix" size="2" maxlength="2"
+                            style="text-transform:uppercase" pattern='^[^"]*$'>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanInvoiceRangeSuffix">{{ 'Invoice Range Suffix' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="InvoiceRangeSuffix" InvoiceRangeSuffix id="InvoiceRangeSuffix" size="2"
+                            maxlength="2" style="text-transform:uppercase" pattern='^[^"]*$'>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanMinimumInvoiceNumber">{{ 'Minimum Invoice Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="MinimumInvoiceNumber" eTypeInteger id="MinimumInvoiceNumber" maxlength="10"
+                            size="10" (blur)=numberOf($event)>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanMaximumInvoiceNumber">{{ 'Maximum Invoice Number' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="MaximumInvoiceNumber" eTypeInteger id="MaximumInvoiceNumber" maxlength="10"
+                            size="10" (blur)=numberOf($event)>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanNextInvoiceNumber">{{ 'Next Invoice Number' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="NextInvoiceNumber" eTypeInteger id="NextInvoiceNumber" maxlength="10"
+                            size="10" (blur)=numberOf($event)>
+                    </div>
+                </div>
+            </div>
+            <span *ngIf="isHiddenTaxRange"> 
+                <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24 mt5">
+                        <input id="TaxRange" class="custom-checkbox" type="checkbox" formControlName="TaxRange" size="1" eTypeCheckbox>
+                        <label for="TaxRange" class="gray" id="spanTaxRange">
+                            {{'Tax Range' | translate}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            </span>
+        </section>
+        <hr class="mt10">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" (click)="saveInvoiceRangemaintenance()" value="{{ 'Save' | translate }}">
+                    <input type="button" class="btn btn-secondary" (click)="resetForm()" value="{{ 'Cancel' | translate }}">
+                    <span *ngIf="isHideDeleteButton"><input type="button" class="btn btn-additional "  (click)="deleteInvoiceRangemaintenance()" value="{{ 'Delete' | translate }}"></span>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-prompt-modal #promptModalForSave="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitleSave" [content]="promptContentSave"
+    [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+
+<icabs-prompt-modal #promptModalDelete="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitleDelete" [content]="promptContentDelete"
+    [config]="promptModalConfigDelete" (saveEmit)="promptContentDeleteData($event)"></icabs-prompt-modal>
+
+<icabs-modal #messageModal="child" [showHeader]="true">
+</icabs-modal>
+
+<icabs-modal #errorModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

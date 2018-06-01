@@ -1,0 +1,57 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'From' | translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="FromDateSelect" [(dt)]="this['pageParams']['fromDate']" (selectedValue)="dateFromSelectedValue($event)"
+                                [isRequired]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'To' | translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="ToDateSelect" [(dt)]="this['pageParams']['toDate']" (selectedValue)="dateToSelectedValue($event)" [isRequired]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input type="button" [disabled]="this['pageParams'].isSubmitDisabled" class="btn btn-primary" id="cmdSubmitReport" (click)="submitReport()"
+                        [value]="'Submit Report Generation' | translate">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12" id="trBatchProcessInformation" [ngClass]="!this['pageParams']['isBatchProcessInformation'] ? 'hidden' : ''">
+                    <div class="alert alert-info">
+                        <strong>{{batchProcessInformation}}</strong>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb10">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="{'hidden': isHidePagination}" [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="onGridDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer"></footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

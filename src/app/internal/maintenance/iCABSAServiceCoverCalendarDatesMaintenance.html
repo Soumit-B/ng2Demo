@@ -1,0 +1,162 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" icabsZeroPad class="form-control" type="text" size="9" maxlength="8"
+                            (change)="sendContractNumber()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractNumberEllipsis [disabled]="ellipsis.contractNumberEllipsis.disabled" [showCloseButton]="ellipsis.contractNumberEllipsis.showCloseButton"
+                            [showHeader]="ellipsis.contractNumberEllipsis.showHeader" (ellipsisData)="contractNumberOnKeyDown($event, true)"
+                            [childConfigParams]="ellipsis.contractNumberEllipsis.childparams" [contentComponent]="ellipsis.contractNumberEllipsis.component"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" size="9" maxlength="6" (blur)="sendContractPremiseNumber()"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premiseNumberEllipsis [disabled]="ellipsis.premiseNumberEllipsis.disabled" [showCloseButton]="ellipsis.premiseNumberEllipsis.showCloseButton"
+                            [showHeader]="ellipsis.premiseNumberEllipsis.showHeader" (ellipsisData)="premiseLocationOnKeyDown($event, true)"
+                            [childConfigParams]="ellipsis.premiseNumberEllipsis.childparams" [contentComponent]="ellipsis.premiseNumberEllipsis.component"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" class="form-control" type="text" formControlName="ProductCode" size="9" maxlength="6" (change)="postRequestContract()"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDesc" class="form-control" type="text" formControlName="ProductDesc" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productCodeEllipsis [disabled]="ellipsis.ProductCodeEllipsis.disabled" [showCloseButton]="ellipsis.ProductCodeEllipsis.showCloseButton"
+                            [showHeader]="ellipsis.ProductCodeEllipsis.showHeader" (ellipsisData)="ProductNumberOnKeyDown($event, true)"
+                            [childConfigParams]="ellipsis.ProductCodeEllipsis.childparams" [contentComponent]="ellipsis.ProductCodeEllipsis.component"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <div class="col12">
+                        <input id="Status" formControlName="Status" class="form-control" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Visit Frequency' | translate }}</label>
+                    <div class="col12">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" type="text" size="3" maxlength="3"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Quantity' | translate }}</label>
+                    <div class="col12">
+                        <input id="ServiceQuantity" class="form-control" formControlName="ServiceQuantity" type="text" size="3" maxlength="3" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Commence Date' | translate }}</label>
+                    <div class="col12">
+                        <input id="ServiceCommenceDate" class="form-control" formControlName="ServiceCommenceDate" type="text" size="10" maxlength="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <input type="checkbox" id="AnnualCalendarInd" formControlName="AnnualCalendarInd" class="form-control" (change)="AnnualCalendarInd_onClick()">
+                        <label for="AnnualCalendarInd">{{ 'Annual Calendar' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="FollowTemplateInd" formControlName="FollowTemplateInd" class="form-control" (change)="FollowTemplateInd_onClick()">
+                    <label for="FollowTemplateInd">{{ 'Update from Template' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Template No.' | translate }}<span *ngIf="visibleAnnualCalendar" class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="AnnualCalendarTemplateNumber" formControlName="AnnualCalendarTemplateNumber" (change)="doLookupAnnualTemplate()"
+                            class="form-control" type="text" size="10" maxlength="10" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="TemplateName" formControlName="TemplateName" class="form-control" type="text" size="30" eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #AnnualCalendarTemplateEllipsis [disabled]="disableAnnualCalendarEllipsis" [showCloseButton]="ellipsis.AnnualCalendarTemplateEllipsis.showCloseButton"
+                            [showHeader]="ellipsis.AnnualCalendarTemplateEllipsis.showHeader" (ellipsisData)="annualCalendarTemplateEllipsisrOnKeyDown($event, true)"
+                            [childConfigParams]="ellipsis.AnnualCalendarTemplateEllipsis.childparams" [contentComponent]="ellipsis.AnnualCalendarTemplateEllipsis.component"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="visibleEffectiveDate">
+                    <label class="col24">{{ 'Effective Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col10">
+                        <icabs-datepicker id="LastChangeEffectDate" [dt]="dtLastChangeEffectiveDate" (selectedValue)="LastChangeEffectiveDateValue($event)"
+                            [isRequired]="true" [isDisabled]="visibleLastChangeEffecDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-primary" (click)="save()" value="{{ 'Save' | translate }}" [disabled]="disableSaveCancel">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="cancel()" [disabled]="disableSaveCancel">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col12 pull-right">
+                        <select formControlName="menu" (change)="menu_onchange()" class="form-control" id="menu">
+                           <option value="Options">{{ 'Options' | translate}}</option>
+                           <option value="Calendar">{{'Calendar' | translate}}</option>
+                           <option value="PlanVisit">{{'Planned Visits' | translate}}</option>
+                           <option value="StaticVisit">{{'Static Visits' | translate}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>
+<icabs-modal #messageModal [showCloseButton]="true" (modalClose)="closeModal()" [showHeader]="true"></icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [content]="promptContent" (saveEmit)="confirmed($event)">

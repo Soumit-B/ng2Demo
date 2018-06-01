@@ -1,0 +1,20 @@
+<section class="container-fluid custom-container modal-fix">
+	<header class="screen-header">
+		<div class="row">
+			<div class="col-sm-12 page-title mt10">
+				<h1>
+					{{ 'Payment Type Search' | translate }}
+				</h1>
+			</div>
+		</div>
+	</header>
+	<section class="screen-body">
+		<div class="row mt15">
+			<div class="col-sm-12">
+				<icabs-table #paymentTable [paginationTop]="false" (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage"
+					[columns]="columns" [rowmetadata]="rowmetadata" (onRefresh)="updateView()" [doTranslate]="true">
+				</icabs-table>
+			</div>
+		</div>
+	</section>
+</section>

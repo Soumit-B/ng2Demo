@@ -1,0 +1,80 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Contact Redirection' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="EmployeeCode" size="6" maxlength="6" class="form-control" formControlName="EmployeeCode" (keydown.PageDown)="employeeCodeOnKeydown($event)"
+                            (change)="employeeCodeOnChange($event)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="30" maxlength="30" class="form-control" formControlName="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsisConfig.employeeCode.autoOpen" #employeeCodeEllipsis [showCloseButton]="ellipsisConfig.employeeCode.showCloseButton"
+                            [childConfigParams]="ellipsisConfig.employeeCode.childConfigParams" [modalConfig]="ellipsisConfig.employeeCode.modalConfig"
+                            [contentComponent]="ellipsisConfig.employeeCode.contentComponent" (ellipsisData)="onEmployeeSearchDataReceived($event, true)"
+                            [showHeader]="ellipsisConfig.employeeCode.showHeader" [searchModalRoute]="ellipsisConfig.employeeCode.searchModalRoute"
+                            [disabled]="ellipsisConfig.employeeCode.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch (blank for all)' | translate }}</label>
+                    <div class="col24">
+                        <input id="BranchNumber" type="text" size="6" maxlength="5" tabindex="3" hidden>
+                        <input id="BranchName" type="text" size="40" maxlength="40" hidden>
+                        <icabs-branchsearch [inputParams]="dropdownConfig.branchSearch.inputParams" [isDisabled]="dropdownConfig.branchSearch.isDisabled"
+                            (receivedbranchsearch)="onBranchSearchReceived($event)" [active]="dropdownConfig.branchSearch.selected"
+                            [isRequired]='false'></icabs-branchsearch>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Date From' | translate }}
+                        <span *ngIf="datePickerConfig.dateFrom.isRequired" class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-datepicker formControlName="DateFrom" [isDirectiveBased]="false" (onChange)="onSelectedDateFromValue($event)"></icabs-datepicker>
+
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{ 'Date To' | translate }}
+                        <span *ngIf="datePickerConfig.dateTo.isRequired" class="mandatory">*</span>
+                    </label>
+                    <div class="col24">
+                        <icabs-datepicker formControlName="DateTo" [isDirectiveBased]="false" (onChange)="onSelectedDateToValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-refresh (onRefresh)="refresh()"> </icabs-refresh>
+                    <icabs-pagination #riPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [currentPage]="gridCurPage"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGridSort($event)" (bodyDblClick)="riGridBodyOnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

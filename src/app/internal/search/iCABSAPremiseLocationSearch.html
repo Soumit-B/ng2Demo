@@ -1,0 +1,71 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{ this['pageTitle'] | translate }}</h1>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{'Contact Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" formControlName="ContractNumber" size="30" maxlength="30" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" formControlName="ContractName" size="30" maxlength="30" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" formControlName="PremiseNumber" size="30" maxlength="30" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" formControlName="PremiseName" size="30" maxlength="30" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 mt20">
+                        <input type="button" name="Add New" value="{{'Add New' | translate}}" class="btn btn-secondary" [ngClass]="!showAddNew ? 'hidden': ''"
+                            (click)="onAddNew()">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #PremiseLocationSearchPagination [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #PremiseLocationSearchGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                        (gridInfo)="getGridInfo($event)" [validateProperties]="validateProperties" (selectedRowInfo)="gridOnDblClick($event)"></icabs-grid>
+                </div>
+            </div>
+
+            <!--hidden fields-->
+            <select id="menu" formControlName="menu" class="form-control hidden" (change)="menuOnchange()" *ngIf="tdMenuDisplay">
+                <option selected value="">{{ 'Options' | translate }}</option>
+                <option value="Add">{{ 'Add Location' | translate }}</option>
+                <option value="Maintain">{{ 'Maintain Location' | translate }}</option>
+            </select>
+            <input type="hidden" id="PassUpPremiseLocation" formControlName="PassUpPremiseLocation" class="form-control">
+            <input type="hidden" id="PremiseLocationFilterValue" formControlName="PremiseLocationFilterValue" class="form-control">
+            <input type="hidden" id="PremiseLocationFilterDesc" formControlName="PremiseLocationFilterDesc" class="form-control">
+            <input type="hidden" id="PremiseLocationNumber" formControlName="PremiseLocationNumber" class="form-control">
+            <input type="hidden" id="PremiseLocationDesc" formControlName="PremiseLocationDesc" class="form-control">
+            <input type="hidden" id="PremiseLocationNumberTo" formControlName="PremiseLocationNumberTo" class="form-control">
+            <input type="hidden" id="PremiseLocationDescTo" formControlName="PremiseLocationDescTo" class="form-control">
+            <input type="hidden" id="LocationDesc" formControlName="LocationDesc" class="form-control">
+            <input type="hidden" id="SelPremiseLocationNumber" formControlName="SelPremiseLocationNumber" class="form-control">
+            <input type="hidden" id="SelPremiseLocationDesc" formControlName="SelPremiseLocationDesc" class="form-control">
+        </form>
+        <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    </section>
+    <footer class="screen-footer"></footer>
+</section>

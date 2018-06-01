@@ -1,0 +1,71 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Credit Individual Items'| translate }}
+            </h1>
+        </div>
+    </div>
+    <div #topContainer>
+        <form novalidate [formGroup]="creditAndReInvoiceFormGroup">
+            <div class="row mt5" *ngIf="vSCEnableCompanyCode">
+                <div class="col-sm-3">
+                    <label class="col24 " for="CompanyCode">{{ 'Company Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" id="CompanyCode" size="2" [attr.maxlength]="2" formControlName="CompanyCode" type="text"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input class="form-control padding-zero" id="CompanyDesc" size="40" [attr.maxlength]="40" formControlName="CompanyDesc" type="text"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 " for="CompanyInvoiceNumber">{{ 'Invoice Number' | translate }}</label>
+                    <div class="col8">
+                        <input class="form-control padding-left-zero" id="CompanyInvoiceNumber" size="10" [attr.maxlength]="10" formControlName="CompanyInvoiceNumber"
+                            type="text" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="CreditReasonCode">{{ 'Credit Reason Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" disabled="disabled" id="CreditReasonCode" size="4" [attr.maxlength]="4" formControlName="CreditReasonCode"
+                            type="text" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input class="form-control padding-zero" id="CreditReasonDesc" size="40" [attr.maxlength]="40" formControlName="CreditReasonDesc"
+                            type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24" for="InvoiceNumber">{{ 'System Invoice Number' | translate }}</label>
+                    <div class="col8">
+                        <input class="form-control padding-left-zero" id="InvoiceNumber" size="8" [attr.maxlength]="8" formControlName="InvoiceNumber" type="text"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <input type="text" class="hidden" id="UseAddress" formControlName="UseAddress">
+        </form>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #creditReinvoicePagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #creditReinvoiceGrid [maxColumns]="maxColumn" (sortInfo)="sortGrid($event)" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                    (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

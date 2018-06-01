@@ -1,0 +1,19 @@
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+    [config]="config" (onHidden)="onHidden($event)" [ngClass]="{'shiftTop': options.shiftTop}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" [hidden]="!this['options']['showHeader']" [attr.data-hidden]="!this['options']['showHeader']">
+                <button type="button" [hidden]="!this['options']['showCloseButton']" [attr.data-hidden]="!this['options']['showCloseButton']"
+                    class="close" aria-label="Close" (click)="hide()">&nbsp;
+                  <!--<span >&times;</span>-->
+                </button>
+                <h4 class="modal-title">{{options.title | translate}}</h4>
+            </div>
+            <div class="modal-body" [ngClass]="{ 'pt0': options.showHeader, 'modal-body-min-height': !showFooter }"><div *ngIf="showMsg" class="pb20"><div  *ngFor="let msg of msgArr">{{msg | translate}}</div></div><div *ngIf="showFullError"><div *ngFor="let fullErrorMsg of fullErrorArr">{{fullErrorMsg | translate}}</div></div></div>
+            <div class="modal-footer" [ngClass]="{'hidden': !showFooter}">
+                <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal" (click)="cancel()">{{ options.cancelLabel | translate}}</button>
+                <button type="button" class="btn btn-lg btn-primary" (click)="confirm()">{{options.confirmLabel | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

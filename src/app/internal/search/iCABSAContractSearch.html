@@ -1,0 +1,119 @@
+<!-- Page Heading -->
+<section class="container-fluid custom-container modal-fix">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    <!--Page Heading-->
+                    {{pageTitle | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <!-- Projects Row -->
+    <!-- grdAccountDetail -->
+    <section class="screen-body">
+        <div class="row mt10" *ngIf="grdAccountDetail">
+            <div id="grdAccountDetail" class="col-sm-5">
+                <div class="col24">
+                    <label>{{ 'Account Number' | translate }}</label>
+                </div>
+                <div class="col7 pr5">
+                    <input type="text" class="form-control" [attr.maxlength]="9" readonly [(ngModel)]="accountNumber">
+                </div>
+                <div class="col17">
+                    <input type="text" class="form-control" [attr.maxlength]="40" readonly [(ngModel)]="accountName">
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <!-- grdContractSearch -->
+            <div id="grdContractSearch" class="col-sm-12" *ngIf="grdContractSearch">
+                <div class="col2" *ngIf="specificBranch">
+                    <icabs-branchsearch [inputParams]="inputParamsForBranchSearch" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                </div>
+                <!-- ContractSearchType -->
+                <div id="ContractSearchType">
+                    <div class="col3 pr5">
+                        <label class="col24">{{ 'Search By' | translate }}</label>
+                        <select class="form-control" name="searchFilter" [(ngModel)]="searchFilter" (change)="filterOnChange(); clearRowId();">
+                            <option *ngFor="let type of contractSearchType" [ngValue]="type">{{type | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col3 pr5">
+                        <label class="col24">{{ 'Search' | translate }}</label>
+                        <input type="text" class="form-control" (blur)="onBlur($event)" maxlength={{maxlength}} [(ngModel)]="searchValue" name="searchValue"
+                            placeholder="" (keydown)="search_onkeydown($event)">
+                    </div>
+                </div>
+                <div id="StatusSearchType" class="col4 pr5" *ngIf="statusSearchType">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <select class="form-control" [(ngModel)]="status" name="status">
+                            <option *ngFor="let b of statusList" [ngValue]="b.value">{{ b.text | translate }}</option>
+                        </select>
+                </div>
+                <div id="ExpirySearchType" class="col3 pr5" *ngIf="expirySearchType">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <select class="form-control" [(ngModel)]="expiry" name="expiry" (change)="clearRowId();">
+                            <option value="all" selected="selected">{{ 'All' | translate }}</option>
+                            <option value="expired">{{ 'Expired' | translate }}</option>
+                            <option value="unexpired">{{ 'Unexpired' | translate }}</option>
+                        </select>
+                </div>
+                <div class="col3 pr5" [hidden]="!showCountry" [attr.data-hidden]="!showCountry">
+                    <label class="col24">{{ 'Country' | translate }}</label>
+                    <select class="form-control" [(ngModel)]="countryCode" name="countryCode" (change)="countryOnChange($event)" [attr.disabled]="disableCountry">
+                            <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                            <option *ngFor="let c of countryCodeList" [ngValue]="c.value">{{c.text}}</option>
+                        </select>
+                </div>
+                <div class="col3 pr5" [hidden]="!showBusiness" [attr.data-hidden]="!showBusiness">
+                    <label class="col24">{{ 'Business' | translate }}</label>
+                    <select class="form-control" [(ngModel)]="businessCode" name="businessCode" (change)="businessOnChange($event)" [disabled]="businessCodeListDisabled"
+                        [attr.disabled]="disableBusinessCode">
+                        <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                        <option *ngFor="let b of businessCodeList" [ngValue]="b.value">{{b.text}}</option>
+                        </select>
+                </div>
+                <div class="col4 pr5" [hidden]="!showBranch" [attr.data-hidden]="!showBranch">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <select class="form-control" [(ngModel)]="branchCode" name="branchCode" (change)="branchCodeOnChange($event)" [disabled]="branchCodeListDisabled">
+                            <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                            <option *ngFor="let b of branchCodeList" [ngValue]="b.value">{{b.text}}</option>
+                        </select>
+                </div>
+                <div class="col2 pr5 mt20">
+                    <input #searchButton type="submit" (click)="$event.preventDefault();loadData()" name="Search" value="{{ 'Search' | translate }}"
+                        [disabled]="isSearchDisabled" class="form-control btn btn-lg btn-primary">
+                </div>
+                <div class="col2 mt20">
+                    <input type="button" name="" value="{{ 'Add New' | translate }}" class="form-control btn btn-lg btn-secondary" [disabled]="!enableAddNew"
+                        [hidden]="!showAddNew" [attr.data-hidden]="!showAddNew" (click)="onAddNew()">
+                </div>
+            </div>
+            <!-- grdPostcodeDetail  -->
+            <div id="grdPostcodeDetail " class="col-sm-12" *ngIf="grdPostcodeDetail">
+                <div class="col5 pr5">
+                    <label class="col24">{{ 'Contract Postcode' | translate }}</label>
+                    <input type="text" class="form-control" [attr.maxlength]="9" readonly [(ngModel)]="postCode">
+                </div>
+                <div class="col2 mt20">
+                    <input type="button" name="" value="{{ 'Add New' | translate }}" class="form-control btn btn-lg btn-secondary" (click)="onAddNew()"
+                        [disabled]="!enableAddNew" [hidden]="!showAddNew" [attr.data-hidden]="!showAddNew">
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <hr class="mt15">
+        <div class="row mt15">
+            <!-- <div class="col-sm-12">
+                <h2 class="margin-top-zero page-header padding-zero margin-bottom-zero"><small>{{title}}</small></h2>
+            </div> -->
+            <div class="col-sm-12">
+                <icabs-table #contractTable (dataLoaded)="tableDataLoaded($event)" (selectedData)="selectedData($event)" (onRefresh)="loadData()"
+                    [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [rowmetadata]="rowmetadata" [rows]="rows"
+                    [resetRowId]="resetRowId"></icabs-table>
+            </div>
+        </div>
+    </section>
+</section>

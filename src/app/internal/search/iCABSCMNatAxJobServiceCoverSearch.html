@@ -1,0 +1,43 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{this['pageTitle'] | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Number'| translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="ProspectNumber" size="40" maxlength="40" class="form-control" formControlName="ProspectNumber" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+
+                <div class="col-sm-12 mt10">
+                    <icabs-table #jobServiceCoverTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [tableheader]="tableheading"
+                        [columns]="columns" (onRefresh)="onSearchClick()"></icabs-table>
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="screen-footer">
+            <div class="col-sm-3 pull-right">
+                <div class="col24">
+                    <select id="menu" class="form-control" (change)="serviceCoverOnChange($event)">
+                    <option selected value="">{{'Options'| translate}}</option>
+                    <option value="ServiceCover">{{'Add Service Cover'|translate}}</option>
+                </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

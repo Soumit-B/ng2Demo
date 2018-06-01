@@ -1,0 +1,189 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Lead Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div claas="col24">
+                    <label>Employee<span class="mandatory">*</span></label>
+                </div>
+                <div class="col8 pr5">
+                    <input type="txet" class="form-control" id="EmployeeCode" size="9" maxlength="6" formControlName="EmployeeCode">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" id="EmployeeSurname" size="40" maxlength="40" formControlName="EmployeeSurname">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Lead Number<span class="mandatory">*</span></label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="LeadNumber" size="30" maxlength="50" formControlName="LeadNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Lead Date</label>
+                </div>
+                <div class="col16">
+                    <icabs-datepicker></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Contract Number</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="ContractNumber" size="8" maxlength="8" formControlName="ContractNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Premises Number</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseNumber" size="8" maxlength="8" formControlName="PremiseNumber">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Name</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseName" size="40" maxlength="40" formControlName="PremiseName">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Address Line 1</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseAddressLine1" size="40" maxlength="40" formControlName="PremiseAddressLine1">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Address Line  2</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseAddressLine2" size="40" maxlength="40" formControlName="PremiseAddressLine2">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Address Line 3</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseAddressLine3" size="40" maxlength="40" formControlName="PremiseAddressLine3">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Postcode</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremisePostcode" size="15" maxlength="15" formControlName="PremisePostcode">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Contact Name</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseContactName" size="40" maxlength="40" formControlName="PremiseContactName">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <input type="checkbox" class="form-control" id="PremiseContactApproached" type="checkbox" formControlName="PremiseContactApproached">
+                <label>Contact Approached</label>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Position</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseContactPosition" size="30" maxlength="30" formControlName="PremiseContactPosition">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Telephone</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseContactTelephone" maxlength="20" formControlName="PremiseContactTelephone">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Detail Text</label>
+                </div>
+                <div class="col24">
+                    <textarea class="form-control" id="LeadDetailText" rows=4 cols=55 formControlName="LeadDetailText"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Lead Type</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="LeadTypeCode" size="1" formControlName="LeadTypeCode">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Lead Status</label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="LeadStatusCode" size="1" formControlName="LeadStatusCode">
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="Save">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+                <input type="button" class="btn btn-additional" value="Delete">
+            </div>
+        </div>
+    </footer>
+</section>

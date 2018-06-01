@@ -1,0 +1,130 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input icabsZeroPad eTypeCode [icabsDirFocus]="setFocusContractNumber" id="ContractNumber" formControlName="ContractNumber"
+                            class="form-control" type="text" size="8" [attr.maxlength]="8" (blur)="onContractNumberChange()">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" [attr.maxlength]="45">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.contract.disabled" [autoOpen]="ellipsisConfig.contract.autoOpen" [showCloseButton]="ellipsisConfig.contract.showCloseButton"
+                            [showHeader]="ellipsisConfig.contract.showHeader" [childConfigParams]="ellipsisConfig.contract.childConfigParams"
+                            [contentComponent]="ellipsisConfig.contract.component" (ellipsisData)="onDataReceived($event, 'contract')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="InvoiceFrequencyCode">{{ 'Invoice Frequency' | translate}}</label>
+                    <div class="col12">
+                        <input id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode" class="form-control" type="text" size="2" [attr.maxlength]="2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="8" [attr.maxlength]="9">
+                    </div>
+                    <div class="col14">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" [attr.maxlength]="45">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="InvoiceAnnivDate">{{ 'Anniversary Date' | translate}}</label>
+                    <div class="col12">
+                        <input eTypeDate id="InvoiceAnnivDate" formControlName="InvoiceAnnivDate" class="form-control" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NegBranchNumber">{{ 'Neg. Branch' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="NegBranchNumber" formControlName="NegBranchNumber" class="form-control" type="text" size="3" [attr.maxlength]="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="NegBranchName" formControlName="NegBranchName" class="form-control" type="text" [attr.maxlength]="30">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAnnualValue">{{ 'Annual Value' | translate}}</label>
+                    <div class="col12">
+                        <input eTypeCurrency id="ContractAnnualValue" formControlName="ContractAnnualValue" class="form-control" type="text" size="2"
+                            [attr.maxlength]="2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="StatusSearchType">{{ 'Status' | translate}}</label>
+                    <div class="col14 pr5">
+                        <select id="StatusSearchType" formControlName="StatusSearchType" class="form-control" (change)="StatusSearchType_onchange($event.target.value)">
+                            <option value="">{{ 'All' | translate }}</option>
+                            <option value="L">{{ 'Current' | translate }}</option>
+                            <option value="FL">{{ 'Forward Current' | translate }}</option>
+                            <option value="D">{{ 'Deleted' | translate }}</option>
+                            <option value="FD">{{ 'Forward Deleted' | translate }}</option>
+                            <option value="PD">{{ 'Pending Deletion' | translate }} </option>
+                            <option value="T">{{ 'Terminated' | translate }}</option>
+                            <option value="FT">{{ 'Forward Terminated' | translate }}</option>
+                            <option value="PT">{{ 'Pending Termination' | translate }} </option>
+                            <option value="C">{{ 'Cancelled' | translate }}</option>
+                     </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="FilterPremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input eTypeInteger id="FilterPremiseNumber" formControlName="FilterPremiseNumber" class="form-control" type="text" size="5"
+                            [attr.maxlength]="5" pattern="^[0-9]*$">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.premise.disabled" [autoOpen]="ellipsisConfig.premise.autoOpen" [showCloseButton]="ellipsisConfig.premise.showCloseButton"
+                            [showHeader]="ellipsisConfig.premise.showHeader" [childConfigParams]="ellipsisConfig.premise" [contentComponent]="ellipsisConfig.premise.component"
+                            (ellipsisData)="onDataReceived($event, 'premise')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="col8 mt20">
+                        <icabs-refresh (click)="riGrid_BeforeExecute()"></icabs-refresh>
+                        <icabs-pagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" *ngIf="totalRecords> 0" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    </div>
+                    <div class="col6 pr5">
+                        <label class="col24" for="New Visit Anniversary Date">{{ 'New Visit Anniversary Date' | translate}}<span class="mandatory" >*</span></label>
+                        <!-- <input size="15" formControlName="NewAnnivDate" [attr.maxlength]="10" class="form-control"> ngClass]="newAnnivDate['isRequired']?'':'hidden'"-->
+                        <icabs-datepicker [isDirectiveBased]="false" formControlName="NewAnnivDate" (onChange)="dateOnChange($event, 'NewAnnivDate')"></icabs-datepicker>
+                    </div>
+                    <div class="col6 pr5">
+                        <label class="col24" for="Effective Date">{{ 'Effective Date' | translate}}<span class="mandatory">*</span></label>
+                        <!-- <input size="15" formControlName="EffectiveDate" [attr.maxlength]="10" class="form-control"> -->
+                        <icabs-datepicker [isDirectiveBased]="false" formControlName="EffectiveDate" (onChange)="dateOnChange($event, 'EffectiveDate')"></icabs-datepicker>
+                    </div>
+                    <div class="col2 mt20">
+                        <input type="button" formControlName="btnAnnivChange" class="btn btn-primary" value="{{ 'Change Date' | translate }}" (click)="btnAnnivChange_OnClick()">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="riGrid_BodyOnDblClick($event)" (TRDblClick)="tbodyContractServiceSummary_OnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+</section>

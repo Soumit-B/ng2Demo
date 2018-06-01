@@ -1,0 +1,109 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                <!--Page Heading-->
+                {{ 'Assign Account' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="accountFormGroup" (ngSubmit)="onSubmit(accountFormGroup.value, accountFormGroup.valid, $event)">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="fromAccountNumber">{{ 'Assign From Account Number' | translate }} <span class="mandatory">* </span></label>
+                <div class="col22 pr5">
+                    <input id="fromAccountNumber" #fromAccountNumber type="text" class="form-control" formControlName="fromAccountNumber" [attr.maxlength]="9"
+                        (change)="onBlur($event); onFromAccountBlur($event);">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [(autoOpen)]="autoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig"
+                        [contentComponent]="lookupComponent" (ellipsisData)="onDataReceived($event, true)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="accountName">{{ 'Name' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="accountName" class="form-control" [attr.maxlength]="40" formControlName="accountName">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24" for="address1">{{ 'Address Line 1' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="address1" class="form-control" formControlName="address1" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="address2">{{ 'Address Line 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="address2" class="form-control" formControlName="address2" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="address3">{{ 'Address Line 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="address3" class="form-control" formControlName="address3" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="address4">{{ 'Town' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="address4" class="form-control" formControlName="address4" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="address5">{{ 'County' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="address5" class="form-control" formControlName="address5" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="postcode">{{ 'Postcode' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="postcode" class="form-control" formControlName="postcode" [attr.maxlength]="15">
+                </div>
+            </div>
+        </div>
+        <hr class="mb15 mt15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24" for="toAccountNumber">{{ 'New Account Number' | translate }} <span class="mandatory">* </span></label>
+                <div class="col24">
+                    <input id="toAccountNumber" #toAccountNumber type="text" class="form-control" formControlName="toAccountNumber" [attr.maxlength]="9"
+                        (change)="onBlur($event)">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <input class="btn btn-primary" type="submit" value="{{buttonTranslatedText.save | translate}}" [disabled]="!accountFormGroup.valid">
+                <input class="btn btn-secondary" type="button" value="{{buttonTranslatedText.cancel | translate}}" [disabled]="!accountFormGroup.valid"
+                    (click)="disableForm()">
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

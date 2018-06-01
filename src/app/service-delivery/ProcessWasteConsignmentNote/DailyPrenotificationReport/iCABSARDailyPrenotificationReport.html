@@ -1,0 +1,106 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchName">{{ 'Branch' | translate}}</label>
+                    <div class="col24">
+                        <div class="col24 pr10">
+                            <icabs-branchsearch #branchSearchDropDown [inputParams]="inputParams.branchParams" (receivedbranchsearch)="onBranchDataReceived($event)"
+                                [isDisabled]="true"></icabs-branchsearch>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="7" [attr.maxlength]="4"
+                            (change)="onServiceAreaChange($event);">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #serviceAreaSearchEllipsis [showCloseButton]="ellipsis.service.showCloseButton" [childConfigParams]="ellipsis.service.childConfigParams"
+                            [modalConfig]="ellipsis.service.modalConfig" [contentComponent]="ellipsis.service.contentComponent"
+                            (ellipsisData)="onserviceAreaDataReceived($event, true)" [showHeader]="ellipsis.service.showHeader"
+                            [disabled]="ellipsis.service.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="RegulatoryAuthorityNumber">{{ 'Regulatory Authority' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="RegulatoryAuthorityNumber" class="form-control" formControlName="RegulatoryAuthorityNumber" type="text" size="7"
+                            [attr.maxlength]="7" (change)="onRegAuthorityChange($event);">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="RegulatoryAuthorityName" class="form-control" formControlName="RegulatoryAuthorityName" type="text" size="40"
+                            [attr.maxlength]="50">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #serviceAreaSearchEllipsis [showCloseButton]="ellipsis.regAuthority.showCloseButton" [childConfigParams]="ellipsis.regAuthority.childConfigParams"
+                            [modalConfig]="ellipsis.regAuthority.modalConfig" [contentComponent]="ellipsis.regAuthority.contentComponent"
+                            (ellipsisData)="onregAuthorityDataReceived($event, true)" [showHeader]="ellipsis.regAuthority.showHeader"
+                            [disabled]="ellipsis.regAuthority.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="DateFrom">{{ 'Date From' | translate}}</label>
+                        <icabs-datepicker id="DateFrom" formControlName="DateFrom" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{ 'To' | translate}}</label>
+                        <icabs-datepicker id="DateTo" formControlName="DateTo" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="RepDest">{{ 'Report Destination' | translate}}</label>
+                    <div class="col12">
+                        <select id="RepDest" class="form-control" formControlName="RepDest" (change)="selectedReport($event.target.value);">
+                     <option value="direct" selected>{{ 'Report Viewer' | translate}}</option>
+                     <option value="Email">{{ 'Email' | translate}}</option>
+                 </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="isPrinters">
+                <div class="col-sm-3">
+                    <label class="col24" for="Printers">{{ 'Printers' | translate}}</label>
+                    <div class="col12">
+                        <select id="Printers" class="form-control" formControlName="Printers"></select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional" value="{{'Submit Report Generation' | translate}}" (click)="onClickSubmit()">
+            </div>
+        </div>
+        <div id="trInformation" class="alert alert-info mt10" *ngIf="isThInformationDisplayed">
+            <strong id="thInformation" colspan="6">{{thInformation}}</strong>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

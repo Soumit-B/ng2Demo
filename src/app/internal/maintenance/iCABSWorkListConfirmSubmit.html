@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Work List Generation' | translate }}
+
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Branch Number'|translate}}</label>
+                    <div class="col24 pr10">
+                        <input type="hidden" class="form-control" id="BranchNumber" formControlName="BranchNumber" size="5" maxlength="5" eTypeInteger>
+                        <input type="text" class="form-control" id="BranchName" formControlName="BranchName" size="5" maxlength="5" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Date From'|translate}}</label>
+                    <div class="col8">
+                        <icabs-datepicker formControlName="DateFrom" id="DateFrom" [isDirectiveBased]="false"></icabs-datepicker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Employee'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" formControlName="EmployeeCode" size="8" maxlength="9" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.employee.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'To'|translate}}</label>
+                    <div class="col8">
+                        <icabs-datepicker formControlName="DateTo" id="DateTo" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="form-control" type="checkbox" id="IncludeRiskAssessment" formControlName="IncludeRiskAssessment" eTypeCheckbox>
+                    <label for="IncludeRiskAssessment">{{'Risk Assessment'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="form-control" type="checkbox" id="IncludeSurveyDetails" formControlName="IncludeSurveyDetails" eTypeCheckbox>
+                    <label for="IncludeSurveyDetails">{{'Survey Details'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="form-control" type="checkbox" id="IncludeAccessTimes" formControlName="IncludeAccessTimes" eTypeCheckbox>
+                    <label for="IncludeAccessTimes">{{'Access Times'|translate}}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-8">
+                    <label class="col24">{{'Comments'|translate}}</label>
+                    <textarea class="form-control" rows="5" cols="55" id="EmployeeComments" formControlName="EmployeeComments" eTypeText></textarea>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-additional" value="{{'Submit Report Generation'| translate}}" id="SplitService" (click)="submitReport()">
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['pageParams']['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

@@ -1,0 +1,100 @@
+$pageTitleBorderColor: #ff0000;
+$pageTitleColor: #121f2d;
+$pageTitleSize: 20px;
+.right-container {
+    padding-bottom: 2em;
+    .container-fluid {
+        
+    }
+    // .page-title {
+    //     margin-top: 20px;
+    //     margin-bottom: 25px;
+    //     padding-left: 16px !important;
+    //     border-left: 4px solid $pageTitleBorderColor;
+    //     color: $pageTitleColor;
+    //     font-size: $pageTitleSize;
+    //     line-height: 2* $pageTitleSize;
+    //     font-family: $calibri;
+    // }
+    .page-content {
+        margin: 0;
+        padding-left: 20px;
+        .form-group {
+            margin-top: 20px;
+            margin-bottom: 0;
+            padding: 0;
+            
+        }
+        .input-label {
+            margin-top: 0;
+            margin-bottom: 7px;
+            color: $pageTitleColor;
+            font-size: $formLabelSize;
+            line-height: $formLabelSize;
+            font-family: $calibri;
+            height: $formLabelSize;
+            label {
+                padding: 0;
+            }
+        }
+        input.form-control {
+           
+        }
+        
+        
+    }
+    .dropdown:focus {
+        outline: none;
+    }
+    .btn-secondary {
+        box-shadow: none;
+    }
+    // .ellipsis {
+    //         height: 31px;
+    //         width: 32px;
+    //         background-image: url("/assets/images/ellipsis.png");
+    //         background-repeat: no-repeat;
+    //         background-position: center center;
+    //         margin-left: 10px;
+    //         background-color: #fff; //TODO
+    //     }
+    .page-mandate {
+        float: right;
+        font-style: italic;
+        color: $footer_bg_color;
+        font-size: $regularSize - 1px;
+    }
+    .page-asterisk {
+        color: $pageTitleBorderColor;
+    }
+    .container-table {
+        overflow: hidden;
+        margin: 20px;
+        .pagination {
+            font-size: $regularSize;
+            line-height: $regularSize;
+            font-family: $calibri;
+            height: $regularSize;
+            margin: 0;
+        }
+        .pagination-cont {
+            height: 34px;
+        }
+    }
+    
+}
+
+
+/*later we need to remove this when all page convert to full page*/
+.custom-container .right-container .custom-container {
+	margin-top: 0;
+    //padding-left: 0;
+    //padding-right: 0;
+    padding-top:0;
+}
+.custom-container .right-container .col-xs-3{
+            width: 33.33333333%;
+    
+}
+/*later we need to remove this when all page convert to full page*/
+

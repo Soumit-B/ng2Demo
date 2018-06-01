@@ -1,0 +1,50 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyGroupCode">{{ 'Group Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="NotifyGroupCode" class="form-control" formControlName="NotifyGroupCode" type="text" size="15" maxlength="12">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyGroupSystemDesc">{{ 'Group Name' | translate}}</label>
+                    <div class="col16">
+                        <input id="NotifyGroupSystemDesc" class="form-control" formControlName="NotifyGroupSystemDesc" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional mr5" value="{{'Add' | translate}}">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+            <div class="col-sm-offset-4 col-sm-2">
+                <div class="col24">
+                    <input type="button" class="btn btn-additional" value="{{'Group Details' | translate}}">
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>

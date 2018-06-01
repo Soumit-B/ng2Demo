@@ -1,0 +1,153 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{currentContractTypeLabel | translate }} {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ labelnumber |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" formControlName="ContractNumber" placeholder="" id="ContractNumber"
+                            eTypeText>
+                    </div>
+                    <div class="col14">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="ContractName" id="ContractName"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visit Frequency'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8">
+                        <input type="text" size="5" maxlength="5" class="form-control" placeholder="" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" placeholder="" id="PremiseNumber" formControlName="PremiseNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="PremiseName" formControlName="PremiseName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" placeholder="" id="ProductCode" formControlName="ProductCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="ProductDesc" formControlName="ProductDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #serviceCoverSearch [childConfigParams]="serviceCoverSearchParams" [contentComponent]="serviceCoverSearchComponent"
+                            [showHeader]="showHeader" (ellipsisData)="setProductCode($event)" [hideIcon]="disabledSearch"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Transfer From Location'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" size="6" maxlength="6" placeholder="" id="PremiseLocationNumber" formControlName="PremiseLocationNumber"
+                            (change)="PremiseLocationNumberOnChange($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="PremiseLocationDesc" formControlName="PremiseLocationDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premiseLocationEllipsis [childConfigParams]="premiselocationsearchparams" [contentComponent]="premiseLocationComponent"
+                            [showHeader]="showHeader" (ellipsisData)="setPremiseLocation($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Transfer From Effective Date'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker #EffectiveDateFrom [isRequired]="true" id="EffectiveDateFrom" (change)="onChangeDateFrom($event)" [dt]='fromDateDisplay'
+                            name="EffectiveDateFrom" (selectedValue)="dateFromSelectedValue($event)" size="10" maxlength="10"></icabs-datepicker>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #effectDateEllipsis [childConfigParams]="effectDatesearchparams" [contentComponent]="effectDateComponent"
+                            [showHeader]="showHeader" (ellipsisData)="setEffectDate($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Quantity In Source Location'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col12">
+                        <input type="text" size="6" maxlength="6" class="form-control" placeholder="" id="SourceQuantity" formControlName="SourceQuantity"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Transfer To Location'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" size="6" maxlength="6" placeholder="" id="PremiseLocationNumberTo" formControlName="PremiseLocationNumberTo"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="PremiseLocationToDesc" formControlName="PremiseLocationToDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premiseLocationEllipsis [childConfigParams]="premiseLocationToSearchParams" [contentComponent]="premiselocationallocationto"
+                            [showHeader]="showHeader" (ellipsisData)="setPremiseLocationTo($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Transfer To Effective Date'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker #EffectiveDateTo [isRequired]="true" id="EffectiveDateTo" [dt]='toDateDisplay' name="EffectiveDateTo" (selectedValue)="dateToSelectedValue($event)"
+                            size="10" maxlength="10"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Transfer Quantity'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col12">
+                        <input type="text" size="6" maxlength="6" class="form-control" placeholder="" id="TransferQuantity" formControlName="TransferQuantity"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <!--[disabled]="!uiForm.valid"-->
+                    <input class="btn btn-primary" type="button" value="{{'Save'|translate}}" (click)="onSave($event)">
+                    <input class="btn btn-secondary" type="button" value="{{'Cancel'|translate}}" (click)="onCancel($event)">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" [content]="messageContentSave">
+    </icabs-modal>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [content]="messageContentRecord">
+    </icabs-modal>

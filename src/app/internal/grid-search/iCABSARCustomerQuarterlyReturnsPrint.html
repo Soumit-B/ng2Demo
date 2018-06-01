@@ -1,0 +1,87 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchName">{{ 'Branch' | translate}}</label>
+                    <div class="col24">
+                        <input id="BranchName" class="form-control" formControlName="BranchName" type="text" size="30" maxlength="35">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Branch Service Area' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="7" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="EmployeeSurName" class="form-control" formControlName="EmployeeSurName" type="text" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PlanVisitsDue" formControlName="PlanVisitsDue">
+                        <label class="col24" for="PlanVisitsDue">{{'Plan Visits Due'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="DateFrom">{{'From'|translate}}</label>
+                        <icabs-datepicker id="DateFrom"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{'To'|translate}}</label>
+                        <icabs-datepicker id="DateTo"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="RegulatoryAuthorityNumber">{{'Regulatory Authority'|translate}}</label>
+                    <div class="col24">
+                        <select class="form-control" formControlName="RegulatoryAuthorityNumber" id="RegulatoryAuthorityNumber">
+                             <option  selected value="0">{{'All'|translate}}</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt5">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional mr5" value="{{'Generate' | translate}}">
+                <input type="submit" class="btn btn-additional" value="{{'Print All' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

@@ -1,0 +1,56 @@
+<div class="container-fluid custom-container row">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ 'Invoice Group Search' | translate }}
+
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="invoiceSearchFormGroup">
+        <div #topContainer>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="Accountnumber">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="GroupAccountNumber" size="9" maxlength="9" class="form-control" id="AccountNumber" formControlName="AccountNumber">
+
+                    </div>
+                    <div class="col16">
+                        <input id="GroupName" size="40" maxlength="40" value="" class="form-control" id="AccountName" formControlName="AccountName">
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+
+                    <div class="col14 mt20">
+                        <input type="checkbox" id="LiveInvoiceGroupInd" formControlName="LiveInvoiceGroupInd">
+                        <label for="LiveInvoiceGroupInd">{{'Show Live Only' | translate}}</label>
+                    </div>
+                    <div class="col10 mt20">
+                        <input type="button" class="form-control btn btn-lg btn-secondary" value="{{ 'Add New' | translate }}" *ngIf="elementStatus.addNew"
+                            (click)="onAddNew($event)">
+                    </div>
+                </div>
+
+            </div>
+            <hr class="mt10 mb10">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #invoiceGroupGridPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-grid #invoiceGroupGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onRowSelect($event)" [showTick]="true"></icabs-grid>
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+</div>

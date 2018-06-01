@@ -1,0 +1,154 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ContractNumber">{{'Product Sales Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" formControlName="ContractNumber" id="ContractNumber" name="ContractNumber" type="text" (change)="contractNumber_onchange($event.target)"
+                            (keydown)="contractNumber_onkeydown($event)" (blur)="contractNumber_ondeactivate($event)" maxlength="8"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" formControlName="ContractName" name="ContractName" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.component"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHidden($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="ellipsis.contractSearch.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col24" for="StatusFilter">{{'Show' | translate }}</label>
+                    <div class="col16">
+                        <select id="StatusFilter" formControlName="StatusFilter" (change)="statusFilter_onchange()">
+                            <option value="Undelivered">{{ 'Undelivered' | translate }}</option>
+                            <option value="Delivered">{{ 'Delivered' | translate }}</option>
+                            <option value="All">{{ 'All' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="PremiseNumber">{{'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" formControlName="PremiseNumber" id="PremiseNumber" name="PremiseNumber" type="text" (change)="premiseNumber_onchange()"
+                            (keydown)="premiseNumber_onkeydown($event)" (blur)="premiseNumber_ondeactivate($event)" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" formControlName="PremiseName" name="PremiseName" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+
+                        <icabs-ellipsis #premisesNumberEllipsis [autoOpen]="ellipsis.premiseSearch.autoOpenSearch" [showCloseButton]="ellipsis.premiseSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.premiseSearch.childConfigParams" [modalConfig]="ellipsis.premiseSearch.modalConfig"
+                            [contentComponent]="ellipsis.premiseSearch.contentComponent" (ellipsisData)="onPremiseDataReceived($event, true)"
+                            [showHeader]="ellipsis.premiseSearch.showHeader" [disabled]='ellipsis.premiseSearch.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col24" for="DeliveryFilter">{{'Delivered by' | translate }}</label>
+                    <div class="col16">
+                        <select id="DeliveryFilter" formControlName="DeliveryFilter" (change)="deliveryFilter_onchange()">
+                            <option value="All">{{ 'All' | translate }}</option>
+                            <option value="ThirdParty">{{ 'Third Party Deliveries' | translate }}</option>
+                            <option value="Branch">{{ 'Branch Deliveries' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ProductCode">{{'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" formControlName="ProductCode" id="ProductCode" name="ProductCode" type="text" (keydown)="productCode_onkeydown($event)"
+                            (blur)="productCode_ondeactivate($event)" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" formControlName="ProductDesc" name="ProductDesc" type="text" eTypeText>
+                    </div>
+                    <div class="col2" [ngClass]="showProductSearch?'hidden':''">
+                        <icabs-ellipsis #productcodeEllipsis [autoOpen]="ellipsis.serviceCoverSearch.autoOpenSearch" [showCloseButton]="ellipsis.serviceCoverSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.serviceCoverSearch.childConfigParams" [modalConfig]="ellipsis.serviceCoverSearch.modalConfig"
+                            [contentComponent]="ellipsis.serviceCoverSearch.contentComponent" (ellipsisData)="onProductDataReceived($event, true)"
+                            [showHeader]="ellipsis.serviceCoverSearch.showHeader" [disabled]='ellipsis.serviceCoverSearch.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                    <div class="col2" [ngClass]="showProductSearch?'':'hidden'">
+                        <icabs-ellipsis [autoOpen]="ellipsis.productSearch.autoOpenSearch" [showCloseButton]="ellipsis.productSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.productSearch.childConfigParams" [modalConfig]="ellipsis.productSearch.modalConfig"
+                            [contentComponent]="ellipsis.productSearch.contentComponent" (ellipsisData)="onProductSearchDataReceived($event, true)"
+                            [showHeader]="ellipsis.productSearch.showHeader" [disabled]='ellipsis.productSearch.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="StartDate">{{'Orders From' | translate }}</label>
+                        <!-- <input class="form-control hidden" formControlName="StartDateVal" name="StartDateVal" type="text"> -->
+                        <!-- <icabs-datepicker id="StartDate" [dt]='StartDate' [isReadonly]="false" [isDisabled]="false" [isRequired]="true" (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker> -->
+                        <icabs-datepicker formControlName="StartDateVal" [isDirectiveBased]="false" (onChange)="dateFromSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                    <div>
+                        <div class="col12">
+                            <label class="col24" for="EndDate">{{'To' | translate }}</label>
+                            <!-- <input class="form-control hidden" formControlName="EndDateVal" name="EndDateVal" type="text">
+                            <icabs-datepicker id="EndDate" [dt]='EndDate' [isReadonly]="false" [isDisabled]="false" [isRequired]="true" (selectedValue)="dateToSelectedValue($event)"></icabs-datepicker> -->
+                            <icabs-datepicker formControlName="EndDateVal" [isDirectiveBased]="false" (onChange)="dateToSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #productSalesDeliveriesDueGridPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="riGrid_BodyOnDblClick
+($event)" (bodyKeyDown)="riGrid_BodyOnKeyDown
+($event)" (headerClick)="riGrid_Sort($event)" (bodyClick)="riGrid_BodyOnClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+
+            <!--Legends-->
+            <!--assign the colors dynamically-->
+            <div class="row mt10" *ngIf="this['pageParams']['GrdKey']">
+                <div class="col-sm-8 text-left"> <label class="pr5">{{'Legend' | translate}} :</label>
+                    <div class="inline-block pr10" *ngFor="let l of legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{ l.label | translate }}</label>
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onModalClose()"></icabs-modal>

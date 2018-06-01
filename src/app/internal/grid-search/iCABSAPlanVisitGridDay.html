@@ -1,0 +1,71 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{'Planned Visits' | translate}}
+            </h1>
+        </div>
+    </div>
+    <div class="row mt5">
+        <div class="col-sm-4" ng-show="trContractDisplay">
+            <label class="col24">{{'Contract Number' | translate}}</label>
+            <div class="col8 pr5">
+                <input disabled="ContractNumberState" class="form-control" id="ContractNumber" size="9" maxlength="7" [value]="ContractNumber">
+            </div>
+            <div class="col16">
+                <input disabled="ContractNameState" class="form-control" id="ContractName" size="40" maxlength="40" [value]="ContractName">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label class="col24">{{'Date' | translate}}</label>
+            <div class="col16">
+                <input type="text" disabled="true" class="form-control" size=10 maxlength=10 [value]="SelectedDateValue">
+                <!--<icabs-datepicker></icabs-datepicker>-->
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-4" ng-show="trPremiseDisplay">
+            <label class="col24">{{'Premises Number' | translate}}</label>
+            <div class="col8 pr5">
+                <input disabled="PremiseNumberState" id="PremiseNumber" class="form-control" size="9" maxlength="7" [value]="PremiseNumber">
+            </div>
+            <div class="col16">
+                <input disabled="PremiseNameState" id="PremiseName" class="form-control" size="40" maxlength="40" [value]="PremiseName">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-4" ng-show="trProductDisplay">
+            <label class="col24">{{'Product Code' | translate}}</label>
+            <div class="col8 pr5">
+                <input disabled="ProductCodeState" id="ProductCode" class="form-control" size="9" maxlength="6" [value]="ProductCode">
+            </div>
+            <div class="col16">
+                <input disabled="ProductDescState" id="ProductDesc" class="form-control" size="40" maxlength="40" [value]="ProductDesc">
+            </div>
+        </div>
+    </div>
+    <hr class="mb15 mt15">
+    <div class="row">
+        <div class="col-sm-12">
+            <icabs-pagination #visitGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid #visitGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                (selectedRowInfo)="riGrid_BodyOnDblClick($event)" [checkItemsPerPage]="false" [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12 text-center">
+            <label class="pr5">{{'Legend' | translate}} :</label>
+            <div class="inline-block pr10" *ngFor="let l of legend">
+                <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                <label>{{l.label}}</label>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-header-row padding-left-zero margin-top-m">
+            <div class="col-sm-12">
+                <h1 class="page-header margin-zero">
+                    <!--Page Heading-->
+                    <small>{{inputParams.pageHeader}}</small>
+                </h1>
+            </div>
+        </div>
+        <form novalidate [formGroup]="premiseSearchFormGroup">
+            <div class="right-container" #topContainer>
+                <div class="row margin-zero">
+                    <div class="col-sm-4 pl10">
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="ContractNumber">{{ contractTypeLabel | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-4 padding-left-zero">
+                                            <input class="form-control padding-left-zero" id="ContractNumber" formControlName="ContractNumber" type="text" [attr.maxlength]="8" eTypeCode>
+                                        </div>
+                                        <div class="col-sm-8 padding-zero">
+                                            <input class="form-control padding-zero" formControlName="ContractName" type="text" [attr.maxlength]="40" eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="PremisesName">{{ 'Premises Name' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" id="PremisesName" class="form-control" formControlName="PremisesName" placeholder="" [attr.maxlength]="40" eTypeText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="AddressLine1">{{ 'Address' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" id="AddressLine1" formControlName="AddressLine1" class="form-control" placeholder="" [attr.maxlength]="40" eTypeText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-6">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="PostCode">{{ 'Postcode' | translate }}</label>
+                                    <div class="col-sm-12 col-md-12">
+                                        <input type="text" id="PostCode" formControlName="PostCode" class="form-control" placeholder="" [attr.maxlength]="10" eTypeCode>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="ClientReference">{{ 'Client Reference' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="ClientReference" placeholder="" formControlName="ClientReference" [attr.maxlength]="30" eTypeTextFree>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 padding-left-zero">
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="PositionPremiseNumber">{{ 'Position on Premises Number' | translate }}</label>
+                                    <div class="col-sm-6">
+                                        <input id="PositionPremiseNumber" type="text" class="form-control" eTypeInteger formControlName="PositionPremiseNumber"
+                                            placeholder="" [attr.maxlength]="5">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12" *ngIf="showStatus === true">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="status">{{ 'Status' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <select [(ngModel)]="status" id="status" [ngModelOptions]="{standalone: true}" class="form-control" (change)="statusChange($event.target.value)"
+                                            name="status">
+                                            <option *ngFor="let item of statusList" [ngValue]="item.value" [selected]="item.value == 'All'">{{item.text | translate}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 ">{{ 'Servicing Branch' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-12 padding-zero">
+                                            <icabs-dropdown [itemsToDisplay]="branchItemsToDisplay" [inputArray]="branchList" (selectedValue)="onBranchSelected($event)"></icabs-dropdown>
+                                        </div>
+                                        <!-- <div class="col-sm-6 padding-right-zero">
+                                        <input class="form-control padding-zero" formControlName="BranchName" type="text">
+                                    </div>
+
+                                     <div class="pull-left margin-zero ">
+                                      <icabs-ellipsis  [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="serviceComponent" (ellipsisData)="onServiceDataReceived($event, true)" [showHeader]="showHeader" [searchModalRoute]="searchModalRoute"></icabs-ellipsis>
+                                    </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="ProductCode">{{ 'Product' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3 padding-zero">
+                                            <input class="form-control padding-left-zero" id="ProductCode" formControlName="ProductCode" (change)="onProductBlur($event)"
+                                                type="text" [attr.maxlength]="6" eTypeCode>
+                                        </div>
+                                        <div class="col-sm-8 padding-right-zero pr10">
+                                            <input class="form-control padding-zero" formControlName="ProductDesc" type="text" [attr.maxlength]="40" eTypeText>
+                                        </div>
+                                        <div class="pull-left margin-zero ">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsProduct" [modalConfig]="modalConfig" [contentComponent]="productComponent"
+                                                (ellipsisData)="onProductDataReceived($event, true)" [showHeader]="showHeader"
+                                                [searchModalRoute]="searchModalRoute" [disabled]='false'></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12 padding-top-lx">
+                                <div class="col-sm-12 padding-zero">
+                                    <input type="checkbox" id="ShowDeletedProducts" formControlName="ShowDeletedProducts">
+                                    <label for="ShowDeletedProducts">
+                                      {{ 'Show Deleted Products Covered' | translate }}
+                                  </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-6">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12">{{ 'To Date' | translate }}</label>
+                                    <div class="col-sm-12">
+                                        <icabs-datepicker [dt]="dt" (selectedValue)="dateSelectedValue($event)"></icabs-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-sm-12">
+            <hr class="">
+        </div>
+        <div class="col-sm-12">
+            <div class="form-item col-sm-3 margin-top-m">
+                <div class="form-group row">
+                    <div class="col-sm-12 col-lg-12" *ngIf="showMenu">
+                        <select [(ngModel)]="options" [ngModelOptions]="{standalone: true}" class="form-control" (change)="optionsChange($event.target.value)"
+                            name="status" name="options">
+                            <option *ngFor="let item of optionsList" [ngValue]="item.value" [selected]="item.value == 'Options'">{{item.text | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <hr class="">
+        </div>
+        <div class="col-sm-12 padding-bottom-m">
+            <div class="col-sm-6 pagination-cont">
+                <icabs-refresh (onRefresh)="onRefresh()"></icabs-refresh>
+                <icabs-pagination [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="gridTotalItems" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12">
+                <icabs-grid #premiseGrid [maxColumns]="maxColumn" [gridData]="gridData" [currentPage]="currentPage" (gridInfo)='gridInfo($event)'
+                    (selectedRowInfo)="onGridRowDblClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<icabs-modal #errorModal="child">
+</icabs-modal>
+<icabs-modal #messageModal="child">
+</icabs-modal>

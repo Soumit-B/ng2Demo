@@ -1,0 +1,21 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'PestNetOnline Level Search' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #riTable (onRefresh)="buildTable()" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [rows]="rows"
+                        (selectedData)="selectedData($event)" [paginationTop]="true"> </icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,111 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="9" [attr.maxlength]="8" formControlName="BranchServiceAreaCode" class="form-control"
+                            (change)="onEmployeeSurnameChange()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="40" [attr.maxlength]="40" formControlName="EmployeeSurname" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="isOpenBranch" [modalConfig]="modalConfig" [childConfigParams]="inputParamsBranchSearchSearch"
+                            [contentComponent]="bracnhSearch" [showHeader]="true" (ellipsisData)="onBranchSearchDataReturn($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Plan From' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker tabindex="2" id="StartDate" formControlName="StartDate" (onChange)="onStartDateChange($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="pageParams.vbEnablePostcodeDefaulting">
+                    <label class="col24" for="PostcodeFilter">{{ 'Postcode' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PostcodeFilter" size="9" [attr.maxlength]="8" formControlName="PostcodeFilter" class="form-control"
+                            eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'To' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker tabindex="2" id="EndDate" formControlName="EndDate" (onChange)="onEndDateChange($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <select class="form-control" formControlName="VisitTypeFilter" id="VisitTypeFilter">
+                        <option *ngFor="let buildVisitType of buildVisitTypeList" value="{{buildVisitType.value}}">{{buildVisitType.text | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <select class="form-control" formControlName="SummaryDetail" id="SummaryDetail" (change)="onSummaryDetailChange()">
+                        <option selected value="Summary">{{ 'Summary View' | translate }}</option>
+                        <option value="Detail">{{ 'Detail View' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <icabs-refresh (click)="onRefresh()"></icabs-refresh>
+                    <div [style.display]="isHidePagination?'none':'inherit'">
+                        <icabs-pagination #serviceWorkListPagination [currentPage]="pageCurrent" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="GridPageSize">{{ 'Display Lines' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="GridPageSize" formControlName="GridPageSize" [attr.maxlength]="2" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (onSuccess)="onSuccessGridLoad()" (headerClick)="onHeaderClick()" (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9 pull-right">
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalNettValue">{{ 'Nett Value' | translate }}</label>
+                        <input type="text" id="SubtotalNettValue" class="form-control right" formControlName="SubtotalNettValue" eTypeCurrency>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalTime">{{ 'Time' | translate }}</label>
+                        <input type="text" id="SubtotalTime" class="form-control right" formControlName="SubtotalTime" eTypeText>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vbEnableWED">
+                        <label class="col24" for="SubtotalWED">{{ 'W.E.D' | translate }}</label>
+                        <input type="text" id="SubtotalWED" class="form-control right" formControlName="SubtotalWED" eTypeDecimal1>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vbEnableInstallsRemovals">
+                        <label class="col24" for="SubtotalNoOfExchanges">{{ 'Units' | translate }}</label>
+                        <input type="text" id="SubtotalNoOfExchanges" class="form-control right" formControlName="SubtotalNoOfExchanges" eTypeInteger>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalNoOfCalls">{{ 'Total Visits' | translate }}</label>
+                        <input type="text" id="SubtotalNoOfCalls" class="form-control right" formControlName="SubtotalNoOfCalls" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

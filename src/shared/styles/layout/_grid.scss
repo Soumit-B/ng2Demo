@@ -1,0 +1,262 @@
+html,
+body,
+#root {
+    margin: 0;
+    height: auto;
+    font-family: $calibri;
+    padding-right: 0 !important;
+}
+
+body,
+h1,
+h2,
+h3 {
+    font-weight: 300
+}
+
+body {
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    font-size: $regularSize;
+}
+
+// .custom-container {
+//     // padding-top: 0;
+//     // padding-left: 0;
+//     margin-top: $pageMarginTop;
+// }
+.section-container {
+    padding-left: 5px;
+}
+
+.modal .custom-container {
+    padding-top: 0;
+    max-width: $maxWidth;
+    background: transparent;
+}
+
+.page-header-row {
+    border-left: 4px solid $pageHeaderBorderColor;
+}
+
+.page-header {
+    margin-top: 0;
+    color: $pageHeaderColor;
+    border: none;
+    padding-bottom: 0.2em;
+    small {
+        color: $pageHeaderColor;
+    }
+}
+
+.grid-header-row {
+    border-left: 4px solid $gridHeaderBorderColor;
+    margin-bottom: 0.5em;
+}
+
+.grid-header {
+    color: $pageHeaderColor;
+    small {
+        color: $pageHeaderColor;
+    }
+}
+
+.grid-page-detail {
+    color: $gridPageDataColor;
+}
+
+.card-container {
+    margin: 9em auto;
+    max-width: 25em;
+}
+
+.portfolio-item {
+    margin-bottom: 1.7em;
+}
+
+*,
+*:after,
+*:before {
+    @include box-sizing(border-box);
+}
+
+.col {
+    margin-left: 1.6%;
+}
+
+%col {
+    float: left;
+}
+
+// --- Edited by Lopa - 02/02/2017 --->
+.gridtable {
+    border-color: $tableOutsideBorderColor;
+    width: 100%;
+}
+
+.gridtable>thead, .gridtable>tfoot {
+    background-color: $tableHeadBackgroundColor;
+    color: $tableHeaderTextColor;
+    font-size: 14px;
+}
+
+.gridtable>thead>th>span.pageinfo {
+    font-weight: normal;
+}
+
+.gridtable tr:hover {
+    cursor: pointer;
+}
+
+.riGridBodyHighLightBar{
+    background-color: rgba(76, 157, 222, 0.75);
+    cursor: auto;
+}
+
+.gridtable tbody tr {
+    height: 25px;
+}
+
+.gridtable tbody tr.selected td {
+    background-color: rgba(76, 157, 222, 0.75) !important;
+}
+
+.gridtable>thead>tr>th, .gridtable>tbody>tr>td{
+    text-align: center;
+}
+
+.gridtable th, .gridtable tfoot td {
+    background-color: $tableHeadBackgroundColor;
+    border: $tableHeadBorderColor
+}
+
+.gridtable span.linked-text {
+    color: $gridTableLinkedTextColor;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.gridtable span.normal-text {
+    color: $gridTableNormalTextColor;
+    font-size: 13px;
+}
+
+.gridtable.table-bordered>thead>tr>th,
+.gridtable.table-bordered>tbody>tr>th,
+.gridtable.table-bordered>tfoot>tr>th,
+.gridtable.table-bordered>thead>tr>td,
+.gridtable.table-bordered>tbody>tr>td,
+.gridtable.table-bordered>tfoot>tr>td {
+    padding: 3px;
+    border-left: 1px solid $tableHeadBorderColor;
+    border-top: 1px solid $tableHeadBorderColor;
+    border-bottom: none;
+    border-right: none; 
+}
+
+.gridtable.table-bordered>tbody>tr>td {
+    border-left: 1px solid $tableBodyBoderColor;
+    border-top: 1px solid $tableBodyBoderColor;
+    border-bottom: none;
+    border-right: none;
+    color:$gridTableNormalTextColor;
+    input {
+        color: $gridTableNormalTextColor; 
+    }
+}
+
+.gridtable>thead>tr>th:last-child,
+.gridtable>tbody>tr>td:last-child {
+    border-right: 1px solid $tableOutsideBorderColor;
+}
+
+.gridtable>thead>tr>th:first-child,
+.gridtable>tbody>tr>td:first-child {
+    border-left: 1px solid $tableOutsideBorderColor;
+}
+
+.gridtable>tbody>tr>td>input.form-control {
+    height: 18px;
+}
+
+.gridtable>thead>tr>th {
+    padding: 2px;
+}
+
+.gridtable>tbody>tr>td input.error{
+    border: 1px solid red !important;
+}
+
+.gridtable>tbody>tr>td [type="checkbox"]:not(:checked),
+.gridtable>tbody>tr>td [type="checkbox"]:checked {
+    opacity: 1;
+    position: static;
+}
+
+.gridtable>input[type='checkbox'] {
+    height: 20px;
+    width: 20px;
+}
+
+.gridtable.table-bordered .modal-body .page-title, .gridtable.table-bordered .modal-body label {
+    text-align: left;
+}
+.gridtable.table-bordered .modal-body icabs-pagination {
+    float: left;
+}
+table.gridtable>tr>td {
+    word-break: normal;
+}
+table.gridtable>tr:nth-child(odd)>td[bgcolor=''], .icabs-table tr:nth-child(odd) td {
+    background-color: #EAEFF3;
+}
+table.gridtable>tr:nth-child(even)>td[bgcolor=''], .icabs-table tr:nth-child(even) td {
+    background-color: #F1F6F9;
+}
+table.gridtable>tr>td:hover {
+    cursor: auto;
+}
+
+.table-bordered.gridtable>tbody>tr.currentMonth>td {
+    border-bottom: 2px solid #47494c;
+    border-top: 2px solid #47494c;
+}
+
+.table-bordered.gridtable>icabs-grid-cell {
+    display: block;
+}
+
+.table-bordered.gridtable>tbody>icabs-grid-cell>span, 
+.table-bordered.gridtable>tfoot>icabs-grid-cell>span {
+    display: block;    
+    width: 100%;
+    min-height: 18px;
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #888c8f;
+}
+
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+    border-top: 1px solid #888c8f;
+}
+
+.hideinput {
+    opacity: 0 !important;
+}
+
+/* Fix For readonly Fields With Class form-control */
+.gridtable.table-bordered>tbody>tr>td input.form-control[readonly] {
+    background: #FFF;
+}
+
+.gridtable.table-bordered>tbody>tr>td input.form-control[readonly]:focus {
+    background: #FFF!important;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #999;
+}
+
+.icon {
+    height: 25px;
+}

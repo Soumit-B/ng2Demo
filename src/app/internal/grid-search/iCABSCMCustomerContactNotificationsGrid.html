@@ -1,0 +1,185 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Reference Number' | translate}}<span class="mandatory">*</span></label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="CustomerContactNumber" size="10" maxlength="11" formControlName="CustomerContactNumber"
+                            eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Actions' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="ActionCount" size="3" maxlength="3" formControlName="ActionCount" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="false">
+                    <div class="col24">
+                        <label>{{'Team Code' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="CurrentTeamID" size="12" maxlength="12" formControlName="CurrentTeamID" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Closed' | translate}}</label>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ClosedDateTime" size="22" formControlName="ClosedDateTime" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Contact Type' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ContactTypeDesc" size="38" maxlength="40" formControlName="ContactTypeDesc" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Contact Detail' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ContactTypeDetailDesc" size="38" maxlength="40" formControlName="ContactTypeDetailDesc"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Account Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="AccountNumber" size="10" maxlength="9" formControlName="AccountNumber" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="AccountName" size="38" maxlength="40" formControlName="AccountName" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Notify Using' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <select id="IntNotifyTypeSelect" formControlName="IntNotifyTypeSelect" class="form-control" (change)="onIntNotifyTypeSelectChange()">
+                              <option *ngFor="let intNotifyTypeSelect of intNotifyTypeSelectArray" value="{{intNotifyTypeSelect.value}}" >{{intNotifyTypeSelect.text | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Contract Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="10" maxlength="8" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" size="38" maxlength="40" formControlName="ContractName" eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="isTdMessageLength">
+                    <div class="col24">
+                        <label>{{'Maximum Length' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="MaxLength" size="4" maxlength="4" formControlName="MaxLength" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Premises Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="10" maxlength="8" formControlName="PremiseNumber" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" size="38" maxlength="40" formControlName="PremiseName" eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="isTdMessageLength">
+                    <div class="col24">
+                        <label>{{'Current Length' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="CurrLength" size="4" maxlength="4" formControlName="CurrLength" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Product Code' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" size="10" maxlength="6" formControlName="ProductCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProductDesc" size="38" maxlength="40" formControlName="ProductDesc" eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20 mb20">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-primary" value="{{'New Message' | translate}}" id="cmdNewMessage" (click)="onCmdNewMessageClick()">
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="isIntNotifySubjectText">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label>{{'Subject' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="IntNotifySubjectText" size="80" maxlength="150" formControlName="IntNotifySubjectText"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <div class="col24">
+                        <label>{{'Message' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <textarea class="form-control" id="IntNotifyBodyText" formControlName="IntNotifyBodyText" rows=10 cols=77 (input)="afterChangingCalSMSLength($event)"
+                            eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}" (click)="onSaveClick()">
+                <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' |translate}}" (click)="onCancelClick()">
+            </div>
+        </div>
+    </footer>
+    <icabs-prompt-modal #promptModal="child" [showHeader]="true" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

@@ -1,0 +1,77 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Work List Entry ' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" maxlength="6" size="7" formControlName="EmployeeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" maxlength="30" size="30" formControlName="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TotalMileage">{{'Total Mileage' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="TotalMileage" size="5" formControlName="TotalMileage">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr10">
+                        <label class="col24" for="DateFrom">{{'From' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateFrom" size="10"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{'To' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateTo" size="10"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24" for="TotalDuration">{{'Total Duration' | translate }}</label>
+                        <div class="col8">
+                            <input type="text" class="form-control" id="TotalDuration" size="5" formControlName="TotalDuration">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-primary" value="Visit Map" id="cmdVisitMap">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh></icabs-refresh>
+            <icabs-pagination></icabs-pagination>
+        </div>
+        <div class="col-sm-3 pull-right">
+            <icabs-dropdown id="Menu"></icabs-dropdown>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid></icabs-grid>
+        </div>
+    </div>
+</section>

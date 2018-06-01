@@ -1,0 +1,96 @@
+<div class="container-fluid custom-container">
+    <form novalidate>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="Accounttype">Bank Account Type Code</label>
+                <div class="col8 pr5">
+                    <input id="Accounttype" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col14 pr5">
+                    <input id="Accountname" size="40" maxlength="40" value="" readonly="" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Accountsort">Bank Account Sort Code</label>
+                <div class="col16 pr5">
+                    <input id="Accountsort" size="40" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Accountnumber">Bank Account Number</label>
+                <div class="col16 pr5">
+                    <input id="Accountnumber" size="40" maxlength="40" class="form-control">
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Virtualnumber">Virtual Bank Account Number</label>
+                <div class="col16 pr5">
+                    <input id="Virtualnumber" size="40" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Accountinfo">Bank Account Info</label>
+                <div class="col16 pr5">
+                    <input id="Accountinfo" size="40" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="SEPAnumber">SEPA Mandate Reference</label>
+                <div class="col16 pr5">
+                    <input id="SEPAnumber" size="40" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="SEPAmandatenumber">SEPA Mandate Reference</label>
+                <div class="col16 pr5">
+                    <input id="SEPAmandatenumber" size="40" maxlength="40" class="form-control">
+                </div>
+                <div class="col6 pr5">
+                    <input type="button" class="btn btn-primary" value="Generate New Button">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Financenumber">Finance Mandate Reference</label>
+                <div class="col16 pr5">
+                    <input id="Financenumber" size="40" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="Mandatedate">Mandate Date</label>
+                <div class="col16">
+                    <icabs-datepicker></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="debittype">SEPA Direct Debit Type</label>
+                <div class="col16">
+                    <Select class="form-control">
+                            <option></option>
+						</Select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,51 @@
+<section class="container-fluid custom-container">
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Business' | translate }}</label>
+                    <div class="col16">
+                        <input id="BusinessCode" size="1" maxlength="1" style="display:none" formControlName="BusinessCode" eTypeCode>
+                        <input type="text" id="BusinessDesc" size="35" maxlength="40" class="form-control" formControlName="BusinessDesc" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Company Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="CompanyCode" size="9" maxlength="2" class="form-control" formControlName="CompanyCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="CompanyDesc" size="40" maxlength="40" class="form-control" formControlName="CompanyDesc" eTypeText>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Invoice/Credit Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input type="text" id="CompanyInvoiceNumber" size="10" maxlength="10" class="form-control" formControlName="CompanyInvoiceNumber"
+                            eTypeInteger>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #invoiceSearchPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid-advanced #riGrid id="riGrid" (TRDblClick)="gridOnDblClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

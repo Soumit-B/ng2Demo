@@ -1,0 +1,91 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ 'Contact Centre - Search' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="formGroup">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="CountryCode">{{ 'Country' | translate }}</label>
+                <div class="col24">
+                    <select class="form-control" name="CountryCode" id="CountryCode" formControlName="CountryCode" (change)="countryOnChange($event)">
+                        <option *ngFor="let c of countryCodeList" [ngValue]="c.value">{{c.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" for="BusinessCode">{{ 'Business' | translate }}</label>
+                <div class="col24">
+                    <select class="form-control" name="BusinessCode" id="BusinessCode" formControlName="BusinessCode" (change)="businessOnChange($event)">
+                        <option value="All">{{ 'All' | translate }}</option>
+                        <option *ngFor="let b of businessCodeList" [ngValue]="b.value">{{b.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.VisibleCurrentCallLogID">
+                <label class="col24" for="VisibleCurrentCallLogID">{{ 'Log Ref' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="VisibleCurrentCallLogID" name="VisibleCurrentCallLogID" formControlName="VisibleCurrentCallLogID" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountProspectNumber">{{ 'Account' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="AccountProspectNumber" name="AccountProspectNumber" formControlName="AccountProspectNumber" size="9" maxlength="9" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col16">
+                    <input type="text" id="AccountProspectName" name="AccountProspectName" formControlName="AccountProspectName" maxlength="35" value="" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-6 mt20">
+                <input type="button" *ngIf="fieldVisibility.CmdNotepad" (click)="cmdNotepadOnClick($event)" id="CmdNotepad" formControlName="CmdNotepad" class="btn btn-primary mr5" value="{{ 'Notepad' | translate }}">
+                <input type="button" (click)="cmdNewCallOnClick($event)" *ngIf="fieldVisibility.CmdNewCall" id="CmdNewCall" formControlName="CmdNewCall" class="btn btn-primary mr5" value="{{ 'Start Log' | translate }}">
+                <input type="button" (click)="cmdEndCallOnClick($event)" *ngIf="fieldVisibility.CmdEndCall" id="CmdEndCall" formControlName="CmdEndCall" class="btn btn-primary mr5" value="{{ 'End Log' | translate }}">
+                <input type="button" (click)="cmdEmployeeOnClick($event)" *ngIf="fieldVisibility.CmdEmployee" id="CmdEmployee" formControlName="CmdEmployee" class="btn btn-primary" value="{{ 'Employee' | translate }}">
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountProspectContactName">{{ 'Contact' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="AccountProspectContactName" name="AccountProspectContactName" formControlName="AccountProspectContactName" size="35" maxlength="35" value="" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.TdContactManagementWarning">
+                <div class="redbg col12">
+                    <input type="text" id="TdContactManagementWarning" class="center form-control" value="{{ 'WARNING CUSTOMER IN JEOPARDY DO NOT APPROACH' | translate }}">
+                </div>
+                <div class="col12" *ngIf="fieldVisibility.TdBlankWarning">
+                    <input id="TdBlankWarning" class="center form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt15">
+            <div class="col-sm-12">
+                <div #tabCont id="tabCont" class="tabs-cont">
+                    <icabs-tabs [tabs]="tabs" [componentList]="componentList" (onTabSelect)="onTabSelect($event);">
+                    </icabs-tabs>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div id="actionBtnCont" class="col-sm-12">
+                <input id="CmdUpdateAccount" formControlName="CmdUpdateAccount" (click)="cmdUpdateAccountOnClick($event)" type="button" class="btn btn-primary mr5" value="{{ 'Amend Account' | translate }}" (keyup)="onActionBtnFocus($event)">
+                <input id="CmdUpdateProspect" formControlName="CmdUpdateProspect" (click)="cmdUpdateProspectOnClick($event)" type="button" class="btn btn-primary mr5" value="{{ 'Amend Prospect' | translate }}" (keyup)="onActionBtnFocus($event)">
+                <input id="CmdNewCContact" formControlName="CmdNewCContact" type="button" class="btn btn-primary mr5" value="{{ 'New/Amend Current Log' | translate }}" (keyup)="onActionBtnFocus($event);" (click)="onNewCCClick($event);">
+                <input (click)="cmdViewEmployeeOnClick($event)" id="CmdViewEmployee" formControlName="CmdViewEmployee" type="button" class="btn btn-primary" value="{{ 'Contact Employee' | translate }}" (keyup)="onActionBtnFocus($event)">
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

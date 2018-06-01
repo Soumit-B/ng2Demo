@@ -1,0 +1,503 @@
+<section class="container-fluid custom-container">
+	<header class="screen-header">
+		<div class="row">
+			<div class="col-sm-12 page-title mt10">
+				<h1>
+					{{this['pageTitle']|translate}}
+				</h1>
+			</div>
+		</div>
+	</header>
+	<form novalidate [formGroup]="this['uiForm']">
+		<section class="screen-body">
+			<div class="row mt5">
+				<div class="col-sm-3">
+					<label class="col24">{{this['pageParams'].currentContractTypeLabel | translate}} {{'Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ContractNumber']].required">*</span></label>
+					<div class="col8 pr5">
+						<input type="text" id="ContractNumber" size="8" [attr.maxlength]="8" eTypeCode formControlName="ContractNumber" class="form-control">
+					</div>
+					<div class="col16">
+						<input type="text" id="ContractName" size="40" [attr.maxlength]="40" eTypeText formControlName="ContractName" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-3">
+					<label class="col24">{{'Premises Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseNumber']].required">*</span></label>
+					<div class="col8 pr5">
+						<input type="text" id="PremiseNumber" size="8" [attr.maxlength]="5" eTypeInteger formControlName="PremiseNumber" class="form-control">
+					</div>
+					<div class="col16">
+						<input type="text" id="PremiseName" size="40" [attr.maxlength]="40" eTypeText formControlName="PremiseName" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-3">
+					<label class="col24">{{'Product Code'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ProductCode']].required">*</span></label>
+					<div class="col8 pr5">
+						<input type="text" id="ProductCode" size="8" [attr.maxlength]="6" eTypeCode formControlName="ProductCode" class="form-control">
+					</div>
+					<div class="col16">
+						<input type="text" id="ProductDesc" size="40" [attr.maxlength]="40" eTypeText formControlName="ProductDesc" class="form-control">
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt15">
+				<div class="col-sm-12">
+					<ul class="nav nav-tabs">
+						<li class="nav-item" id="grdMain" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}" (click)="riTab.TabFocus(1)">
+							<a class="nav-link" [ngClass]="{'active': tab.tab1.active}">
+								<span>{{ 'Main' | translate}}</span>
+							</a>
+						</li>
+						<li class="nav-item" id="grdAdditional" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}" (click)="riTab.TabFocus(2)">
+							<a class="nav-link" [ngClass]="{'active': tab.tab1.active}">
+								<span>{{ 'Additional' | translate}}</span>
+							</a>
+						</li>
+						<li class="nav-item" id="grdSiteRiskAssessment" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}" (click)="riTab.TabFocus(3)">
+							<a class="nav-link" [ngClass]="{'active': tab.tab3.active}">
+								<span>{{ 'Site Risk Assessment' | translate}}</span>
+							</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+						<!-- Main -->
+						<div class="tab-pane" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}">
+							<div id="grdMain" class="mt10">
+								<div class="row">
+									<div class="col-sm-3">
+										<label class="col24">{{'Visit Type'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['VisitTypeCode']].required">*</span></label>
+										<div class="col24">
+											<icabs-visit-type-search #visitTypeSearch id="VisitTypeCode" 
+												[uiFormGroup]="this['uiForm']"
+												[controlName]="'VisitTypeCode'"
+												[isRequired]="dropDown.VisitTypeCode.isRequired"
+												[triggerValidate]="dropDown.VisitTypeCode.triggerValidate"
+												[active]="dropDown.VisitTypeCode.active"
+												[inputParams]="dropDown.VisitTypeCode.inputParams"
+												(receivedVisitType)="visitTypeSelectedValue($event)"
+												(emitVisitTypeData)="visitTypeDataRecieved($event)"></icabs-visit-type-search>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<label class="col24">{{'Plan Visit Numbers'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['PlanVisitNumber']].required">*</span></label>
+										<div class="col12 pr5">
+											<div class="col20 pr5">
+												<input type="text" id="PlanVisitNumber" size="4" [attr.maxlength]="4" eTypeInteger formControlName="PlanVisitNumber" class="form-control" (change)="riExchangeCBORequest()">
+											</div>
+											<div class="col2">
+												<icabs-ellipsis #PlanVisitNumber 
+													[disabled]="uiForm.controls.PlanVisitNumber?.disabled"
+													[showCloseButton]="ellipsis.PlanVisitNumber.isCloseButtonEnabled"
+													[showHeader]="ellipsis.PlanVisitNumber.isHeaderEnabled"
+													[childConfigParams]="ellipsis.PlanVisitNumber.childparams"
+													[contentComponent]="ellipsis.PlanVisitNumber.component"
+													(ellipsisData)="ellipsisRespHandler($event, 'PlanVisitNumber')"></icabs-ellipsis>
+											</div>
+										</div>
+										<div class="col12 pr5">
+											<div class="col20 pr5">
+												<input type="text" id="PlanVisitNumber2" size="4" [attr.maxlength]="4" eTypeInteger formControlName="PlanVisitNumber2" class="form-control" (change)="riExchangeCBORequest()">
+											</div>
+											<div class="col2">
+												<icabs-ellipsis #PlanVisitNumber2 
+													[disabled]="uiForm.controls.PlanVisitNumber2?.disabled"
+													[showCloseButton]="ellipsis.PlanVisitNumber2.isCloseButtonEnabled"
+													[showHeader]="ellipsis.PlanVisitNumber2.isHeaderEnabled"
+													[childConfigParams]="ellipsis.PlanVisitNumber2.childparams"
+													[contentComponent]="ellipsis.PlanVisitNumber2.component"
+													(ellipsisData)="ellipsisRespHandler($event, 'PlanVisitNumber2')"></icabs-ellipsis>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trWasteConsignmentNoteNumber">
+									<div class="col-sm-3">
+										<label class="col24">{{'Waste Consignment Note Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['WasteConsignmentNoteNumber']].required">*</span></label>
+										<div class="col24">
+											<input type="text" id="WasteConsignmentNoteNumber" size="52" [attr.maxlength]="50" eTypeTextFree formControlName="WasteConsignmentNoteNumber" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3">
+										<label class="col24">{{'Visit Narrative'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['VisitNarrativeCode']].required">*</span></label>
+										<div class="col24">
+											<input type="text" id="VisitNarrativeCode" eTypeCode formControlName="VisitNarrativeCode" class="form-control">
+											<icabs-dropdown></icabs-dropdown>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3">
+										<label class="col24">{{'Service Employee'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['EmployeeCode']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="EmployeeCode" size="6" [attr.maxlength]="6" eTypeCode formControlName="EmployeeCode" class="form-control">
+										</div>
+										<div class="col14 pr5">
+											<input type="text" id="EmployeeSurname" size="40" eTypeText formControlName="EmployeeSurname" class="form-control">
+										</div>
+										<div class="col2">
+											<icabs-ellipsis #EmployeeCode 
+												[disabled]="uiForm.controls.EmployeeCode?.disabled"
+												[showCloseButton]="ellipsis.EmployeeCode.isCloseButtonEnabled"
+												[showHeader]="ellipsis.EmployeeCode.isHeaderEnabled"
+												[childConfigParams]="ellipsis.EmployeeCode.childparams"
+												[contentComponent]="ellipsis.EmployeeCode.component"
+												(ellipsisData)="ellipsisRespHandler($event, 'EmployeeCode')"></icabs-ellipsis>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<label class="col24">{{'Vehicle Registration'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['VehicleRegistration']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="VehicleRegistration" size="10" [attr.maxlength]="10" eTypeText formControlName="VehicleRegistration" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="this['pageParams'].vSCEnableSharedTeamVisits">
+									<div class="col-sm-3">
+										<label class="col24">{{'Additional Employees'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['AdditionalEmployees']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="AdditionalEmployees" size="6" [attr.maxlength]="2" eTypeCode formControlName="AdditionalEmployees" class="form-control" (change)="generateAdditionAlEmpObj()">
+										</div>
+									</div>
+								</div>
+								<div *ngIf="uiForm.controls.AdditionalEmployees.value > 0">
+									<div class="row mt2" *ngFor="let AddEmp of arrAdditionalEmployees">
+										<div class="col-sm-3">
+											<label class="col24">{{'Additional Service Employee'|translate}} {{AddEmp.index}}<span class="mandatory">*</span></label>
+											<div class="col8 pr5">
+												<input type="text" [id]="AddEmp.code" size="6" [attr.maxlength]="6" eTypeCode [formControlName]="AddEmp.code" class="form-control">
+											</div>
+											<div class="col14 pr5">
+												<input type="text" [id]="AddEmp.desc" size="35" eTypeText [formControlName]="AddEmp.desc" class="form-control">
+											</div>
+											<div class="col2">
+												<icabs-ellipsis #AdditionalEmployee 
+													[disabled]="false"
+													[showCloseButton]="true"
+													[showHeader]="true"
+													[childConfigParams]="ellipsis.AdditionalEmployee.childparams"
+													[contentComponent]="ellipsis.AdditionalEmployee.component"
+													(ellipsisData)="ellipsisRespHandler($event, AddEmp.code)" ></icabs-ellipsis>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trOrderQuantity">
+									<div class="col-sm-3">
+										<label class="col24">{{'Order Quantity'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceQuantity']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="ServiceQuantity" size="6" [attr.maxlength]="6" eTypeInteger formControlName="ServiceQuantity" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trUnDeliveredQuantity">
+									<div class="col-sm-3">
+										<label class="col24">{{'Undelivered Quantity'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['UndeliveredQuantity']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="UndeliveredQuantity" size="6" [attr.maxlength]="6" eTypeInteger formControlName="UndeliveredQuantity" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.trDeliveryQuantity">
+										<label class="col24">{{'Delivery Quantity'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['DeliveryQuantity']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="DeliveryQuantity" size="6" [attr.maxlength]="6" eTypeInteger formControlName="DeliveryQuantity" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trServiceCoverItemNumber">
+									<div class="col-sm-3">
+										<label class="col24">{{'Service Cover Item Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceCoverItemNumber']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="ServiceCoverItemNumber" size="6" [attr.maxlength]="6" eTypeCode formControlName="ServiceCoverItemNumber" class="form-control">
+										</div>
+										<div class="col16">
+											<input type="text" id="ServiceCoverItemDesc" size="35" eTypeCode formControlName="ServiceCoverItemDesc" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3" *ngIf="uiDisplay.trPremiseLocationNumber">
+										<label class="col24">{{'Premises Location Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseLocationNumber']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="PremiseLocationNumber" size="6" [attr.maxlength]="6" eTypeText formControlName="PremiseLocationNumber" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trProductComponentCode">
+									<div class="col-sm-3">
+										<label class="col24">{{'Component Installed'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ProductComponentCode']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="ProductComponentCode" size="6" [attr.maxlength]="6" eTypeCode formControlName="ProductComponentCode" class="form-control">
+										</div>
+										<div class="col14 pr5">
+											<input type="text" id="ProductComponentDesc" size="60" [attr.maxlength]="60" eTypeText formControlName="ProductComponentDesc" [attr.title]="uiForm.controls.ProductComponentDesc.value" class="form-control">
+										</div>
+										<div class="col2">
+											<icabs-ellipsis #ProductComponentCode 
+												[disabled]="uiForm.controls.ProductComponentCode?.disabled"
+												[showCloseButton]="ellipsis.ProductComponentCode.isCloseButtonEnabled"
+												[showHeader]="ellipsis.ProductComponentCode.isHeaderEnabled"
+												[childConfigParams]="ellipsis.ProductComponentCode.childparams"
+												[contentComponent]="ellipsis.ProductComponentCode.component"
+												(ellipsisData)="ellipsisRespHandler($event, 'ProductComponentCode')"></icabs-ellipsis>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trServicedQuantity">
+									<div class="col-sm-3">
+										<label class="col24">{{'Serviced Quantity'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServicedQuantity']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="ServicedQuantity" size="6" [attr.maxlength]="6" eTypeInteger formControlName="ServicedQuantity" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3 mt20" *ngIf="uiDisplay.tdReviewDisplays">
+										<input type="button" class="btn btn-primary" id="cmdReviewDisplays" value="{{'Review Displays'|translate}}" (click)="onClickReviewDisplays()">
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trProductComponentRemoved">
+									<div class="col-sm-3">
+										<label class="col24">{{'Component Removed'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ProductComponentRemoved']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="ProductComponentRemoved" size="6" [attr.maxlength]="6" eTypeText formControlName="ProductComponentRemoved" class="form-control">
+										</div>
+										<div class="col16">
+											<input type="text" id="ProductComponentRemDesc" size="60" [attr.maxlength]="60" eTypeCode formControlName="ProductComponentRemDesc" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trRemovalQuantity">
+									<div class="col-sm-3">
+										<label class="col24">{{'Removal Quantity'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['RemovalQuantity']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="RemovalQuantity" size="6" [attr.maxlength]="6" eTypeInteger formControlName="RemovalQuantity" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trInvoiceUnitValue">
+									<div class="col-sm-3">
+										<label class="col24">{{'Invoice Unit Value'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['InvoiceUnitValue']].required">*</span></label>
+										<div class="col8 pr5">
+											<input type="text" id="InvoiceUnitValue" size="12" [attr.maxlength]="12" eTypeText formControlName="InvoiceUnitValue" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3" *ngIf="uiDisplay.trAdditionalChargeValue">
+										<label class="col24">{{'Additional Charge Value'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['AdditionalChargeValue']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="AdditionalChargeValue" size="12" [attr.maxlength]="12" eTypeCurrency formControlName="AdditionalChargeValue" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt10">
+									<div class="col-sm-3">
+										<input type="checkbox" class="form-control" id="SharedInd" eTypeCheckBox formControlName="SharedInd" (change)="fnBuildMenuAddOption()">
+										<label class="col24" for="SharedInd">{{'Shared'|translate}}</label>
+									</div>
+								</div>
+								<div class="row mt10" *ngIf="uiDisplay.trPrepUsed">
+									<div class="col-sm-3">
+										<input type="checkbox" class="form-control" id="PrepUsedInd" eTypeCheckBox formControlName="PrepUsedInd" (change)="fnBuildMenuAddOption()">
+										<label class="col24" for="PrepUsedInd">{{'Preps Used'|translate}}</label>
+									</div>
+								</div>
+								<div class="row mt10" *ngIf="uiDisplay.trInfestation">
+									<div class="col-sm-3">
+										<input type="checkbox" class="form-control" id="InfestationInd" eTypeCheckBox formControlName="InfestationInd" (change)="fnBuildMenuAddOption()">
+										<label class="col24" for="InfestationInd">{{'Infestation'|translate}}</label>
+									</div>
+								</div>
+								<div class="row mt10" *ngIf="uiDisplay.trWasteCollected">
+									<div class="col-sm-3">
+										<input type="checkbox" class="form-control" id="WasteCollected" eTypeCheckBox formControlName="WasteCollected" (change)="fnBuildMenuAddOption()">
+										<label class="col24" for="WasteCollected">{{'Waste Collected'|translate}}</label>
+									</div>
+								</div>
+								<div class="row mt10">
+									<div class="col-sm-3">
+										<input type="checkbox" class="form-control" id="SignatureRecordedInd" eTypeCheckBox formControlName="SignatureRecordedInd" (change)="fnBuildMenuAddOption()">
+										<label class="col24" for="SignatureRecordedInd">{{'Signature Recorded'|translate}}</label>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3">
+										<label class="col24">{{labelStartDate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceDateStart']].required">*</span></label>
+										<div class="col16">
+											<icabs-datepicker formControlName="ServiceDateStart" [isDirectiveBased]="false" (onChange)="onChangeServiceDateStart($event)"></icabs-datepicker>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<label class="col24">{{'Standard Duration'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['StandardDuration']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="StandardDuration" size="4" [attr.maxlength]="5" eTypeTime formControlName="StandardDuration" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.trServiceStart">
+										<label class="col24">{{labelStartTime}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceTimeStart']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="ServiceTimeStart" size="4" [attr.maxlength]="5" eTypeTime formControlName="ServiceTimeStart" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<label class="col24">{{'Overtime Duration'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['OvertimeDuration']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="OvertimeDuration" size="4" [attr.maxlength]="5" eTypeTime formControlName="OvertimeDuration" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.trServiceEnd">
+										<label class="col24">{{'Service End Date'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceDateEnd']].required">*</span></label>
+										<div class="col16">
+											<icabs-datepicker formControlName="ServiceDateEnd" [isDirectiveBased]="false" (onChange)="onChangeServiceDateEnd($event)"></icabs-datepicker>
+										</div>
+									</div>
+									<div class="col-sm-3" *ngIf="uiDisplay.trServiceStart">
+										<label class="col24">{{'Service End Time'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceTimeEnd']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="ServiceTimeEnd" size="4" [attr.maxlength]="5" eTypeTime formControlName="ServiceTimeEnd" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trDeliveryNoteNumber">
+									<div class="col-sm-3">
+										<label class="col24">{{'Delivery Note Number'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['DeliveryNoteNumber']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="DeliveryNoteNumber" size="10" [attr.maxlength]="10" eTypeText formControlName="DeliveryNoteNumber" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3" *ngIf="uiDisplay.trWEDSQty">
+										<label class="col24">{{'W.E.D'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['WEDSQty']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="WEDSQty" size="6" [attr.maxlength]="6" eTypeDecimal1 formControlName="WEDSQty" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.trWorkLoadIndex">
+										<label class="col24">{{'Workload Index Total'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['WorkLoadIndexTotal']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="WorkLoadIndexTotal" size="10" [attr.maxlength]="10" eTypeDecimal2 formControlName="WorkLoadIndexTotal" class="form-control">
+										</div>
+									</div>
+									<div class="col-sm-3" *ngIf="uiDisplay.trCustVisitReference">
+										<label class="col24">{{'Customer Visit Reference'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['CustomerVisitRef']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="CustomerVisitRef" size="15" [attr.maxlength]="100" eTypeText formControlName="CustomerVisitRef" class="form-control">
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.tdVisitReference">
+										<label class="col24">{{'Visit Reference'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['VisitReference']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="VisitReference" size="15" [attr.maxlength]="100" eTypeText formControlName="VisitReference" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Additional -->
+						<div class="tab-pane" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}">
+							<div id="grdAdditional" class="mt10">
+								<div class="row" *ngIf="uiDisplay.trReasonDesc">
+									<div class="col-sm-3">
+										<label class="col24">{{'Signature Unavailable Reason'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ReasonNumber']].required">*</span></label>
+										<div class="col24">
+											<input type="text" id="ReasonNumber" eTypeCode formControlName="ReasonNumber" class="form-control">
+											<icabs-dropdown></icabs-dropdown>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trSignature">
+									<div class="col-sm-3">
+										<label class="col24">{{'Signature'|translate}}<!--<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactSignatureDUP']].required">*</span>--></label>
+										<div class="col24">
+											<textarea id="PremiseContactSignatureDUP" eTypeTextFree formControlName="PremiseContactSignature" class="form-control"></textarea>
+											<img id="PremiseContactSignature" [src]="uiForm.controls.PremiseContactSignatureURL?.value">
+											<!-- TODO *ngIf="uiDisplay.PremiseContactSignature -->
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trSignature">
+									<div class="col-sm-3">
+										<label *ngIf="uiDisplay.tdContactName" class="col24">{{'Contact Name'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactName']].required">*</span></label>
+										<div class="col16">
+											<input type="text" id="PremiseContactName" *ngIf="uiDisplay.PremiseContactName" size="40" [attr.maxlength]="40" eTypeText formControlName="PremiseContactName" class="form-control">
+											<img id="PremiseContactPrintedName" *ngIf="uiDisplay.PremiseContactPrintedName" src="about:blank">
+											<!-- TODO -->
+										</div>
+									</div>
+								</div>
+								<div class="row mt2" *ngIf="uiDisplay.trReasonNumber">
+									<div class="col-sm-3">
+										<label class="col24">{{'Signature Unavailable Reason'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactReason']].required">*</span></label>
+										<div class="col24">
+											<textarea id="PremiseContactReason" [attr.maxlength]="500" size="500" eTypeText formControlName="PremiseContactReason" class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3" *ngIf="uiDisplay.trManualVisitReason">
+										<label class="col24">{{'Manual Visit Reason'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ManualVisitReasonCode']].required">*</span></label>
+										<div class="col24">
+											<input type="text" id="ManualVisitReasonCode" eTypeCode formControlName="ManualVisitReasonCode" class="form-control">
+											<icabs-dropdown></icabs-dropdown>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3">
+										<label class="col24">{{'Service Visit Text'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['ServiceVisitText']].required">*</span></label>
+										<div class="col24">
+											<textarea id="ServiceVisitText" [attr.maxlength]="500" size="500" eTypeText formControlName="ServiceVisitText" class="form-control"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="row mt2">
+									<div class="col-sm-3">
+										<label class="col24">{{'No Service Reason'|translate}}<span class="mandatory" *ngIf="controls[controlsMap['NoServiceReasonCode']].required">*</span></label>
+										<div class="col24">
+											<input type="text" id="NoServiceReasonCode" eTypeCode formControlName="NoServiceReasonCode" class="form-control">
+											<icabs-dropdown></icabs-dropdown>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Site Rist Assessment -->
+						<div class="tab-pane" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}">
+							Out of scope
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<hr class="mt15 mb15">
+		<footer class="screen-footer">
+			<div class="row">
+				<div class="col-sm-6">
+					<input type="button" id="dummy" class="btn dummy" value="" (focus)="focusSave($event)">
+					<input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}" (click)="save()">
+					<input type="button" class="btn btn-additional mr10" value="{{'Delete'|translate}}" *ngIf="pageMode !== 'eModeAdd'" (click)="delete()">
+					<input type="button" class="btn btn-secondary" value="{{'Cancel'|translate}}" (click)="cancel()">
+				</div>
+				<div class="col-sm-3 pull-right">
+					<select id="menu" formControlName="menu" class="form-control" (change)="onChangeMenu()">
+						<option value="Options">{{'Options' | translate}}</option>
+						<option *ngFor="let item of dropDown.menu" [value]="item.value">
+							{{item.label | translate}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</footer>
+	</form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

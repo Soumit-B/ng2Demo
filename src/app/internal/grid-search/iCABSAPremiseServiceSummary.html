@@ -1,0 +1,171 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ this['pageTitle'] | translate }}
+            </h1>
+        </div>
+    </div>
+
+    <form novalidate [formGroup]="this['uiForm']">
+
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label for="labelContractNumber" class="col24">{{ labelContractNumber | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="ContractNumber" readonly id="ContractNumber" size="8" [attr.maxlength]="8" name="ContractNumber"
+                        eTypeCode>
+                </div>
+                <div class="col16">
+                    <input class="form-control" formControlName="ContractName" readonly id="ContractName" [attr.maxlength]="40" name="ContractName"
+                        eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Invoice Frequency' | translate }}</label>
+                <div class="col12">
+                    <input class="form-control" formControlName="InvoiceFrequencyCode" readonly id="InvoiceFrequencyCode" size="2" [attr.maxlength]="2"
+                        name="InvoiceFrequencyCode" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Neg. Branch' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="NegBranchNumber" readonly id="NegBranchNumber" size="5" [attr.maxlength]="5" name="NegBranchNumber"
+                        eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input class="form-control" formControlName="NegBranchName" readonly id="NegBranchName" [attr.maxlength]="30" name="NegBranchName"
+                        eTypeText>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="AccountNumber" readonly id="AccountNumber" size="8" [attr.maxlength]="9" name="AccountNumber">
+                </div>
+                <div class="col16">
+                    <input class="form-control" formControlName="AccountName" readonly id="AccountName" [attr.maxlength]="40" name="AccountName" eTypeText>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+
+                <label class="col24">{{'Anniversary Date' | translate }}</label>
+                <div class="col12">
+                    <input class="form-control" formControlName="InvoiceAnnivDate" readonly id="InvoiceAnnivDate" size="10" [attr.maxlength]="10" name="InvoiceAnnivDate"
+                        eTypeDate>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Service Branch' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="ServiceBranchNumber" readonly id="ServiceBranchNumber" size="2" [attr.maxlength]="5"
+                        name="ServiceBranchNumber" eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input class="form-control" formControlName="BranchName" readonly id="BranchName" [attr.maxlength]="30" name="BranchName" eTypeText>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="PremiseNumber" readonly id="PremiseNumber" size="8" [attr.maxlength]="5" name="PremiseNumber"
+                        eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input class="form-control" formControlName="PremiseName" readonly id="PremiseName" [attr.maxlength]="40" name="PremiseName" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="tdAnnualValue">
+                <label class="col24" id="tdAnnualValueLab">{{'Annual Value' | translate }}</label>
+                <div class="col24" id="tdAnnualValue">
+                    <input class="form-control" formControlName="PremiseAnnualValue" id="PremiseAnnualValue" size="20" [attr.maxlength]="23" name="PremiseAnnualValue"
+                        eTypeCurrency>
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="tdTelesalesOrder">
+                <label id="tdTelesalesOrderLab" class="col24">{{'Telesales Order' | translate }}</label>
+                <div class="col12" id="tdTelesalesOrder">
+                    <input class="form-control" formControlName="TelesalesOrderNumber" id="TelesalesOrderNumber" size="6" [attr.maxlength]="9" name="TelesalesOrderNumber"
+                        eTypeInteger>
+                </div>
+                <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+
+            </div>
+        </div>
+
+        <hr>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <div class="col6 pr10">
+                    <div class="col24">
+                        <label class="col24">{{'Status' | translate }}</label>
+                    </div>
+                    <div class="col24">
+                        <select class="form-control" formControlName="StatusSearchType" name="status" id="StatusSearchType" (change)="onStatusChange()">
+                    <option *ngFor="let b of statusList" [value]="b.value">{{b.text}}</option>
+                </select>
+                    </div>
+                </div>
+                <div class="col6 pr10">
+                    <div class="col24">
+                        <label class="col24">{{'Line of Service' | translate }}</label>
+                    </div>
+                    <div class="col24">
+                        <select class="form-control" id="LOSCodeSel" [(ngModel)]="LOS" name="LOSCodeSel" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let LOS of LOSArray" [ngValue]="LOS.LOSCode">{{LOS.LOSName}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col6" *ngIf="tdServiceDetail">
+                    <label class="col24">{{'Service Cover Detail' | translate }}</label>
+                    <div class="col24">
+                        <input class="custom-checkbox" id="DetailInd" [checked]="detailInd" (change)="onDetailIndChange()" name="DetailInd" type="checkbox">
+                        <label for="DetailInd"></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="getRefreshData()"></icabs-refresh>
+                <icabs-pagination #premiseServiceSummaryPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                    (getCurrentPage)="getCurrentPage($event)">
+                </icabs-pagination>
+
+            </div>
+            <div class="col-sm-3 pull-right" *ngIf="tdAddRecord">
+                <select class="form-control" id="menu" (change)="menu_onchange($event)">
+                        <option selected value="Options">{{'Options' | translate }}</option>
+                        <option value="AddRecord">{{'Add' | translate }}</option>
+                </select>
+            </div>
+            <div class="col-sm-12">
+                <icabs-grid #premiseServiceSummaryGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                    (gridInfo)="getGridInfo($event)" (getCellData)="onGridRowClick($event)" [sortIndex]="gridSortHeaders" (selectedRowInfo)="onGridRowDBClick($event)"
+                    (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div class="row mt10">
+            <input formControlName="ServiceCoverRowID" name="ServiceCoverRowID" id="ServiceCoverRowID" *ngIf="uiDisplay.ServiceCoverRowID">
+            <input formControlName="RunningReadOnly" name="RunningReadOnly" id="RunningReadOnly" *ngIf="uiDisplay.RunningReadOnly">
+            <input formControlName="vAllowUserAuthView" name="vAllowUserAuthView" id="vAllowUserAuthView" type="checkbox" *ngIf="uiDisplay.vAllowUserAuthView">
+            <input formControlName="CallLogID" name="CallLogID" id="CallLogID" *ngIf="uiDisplay.CallLogID">
+            <input formControlName="CurrentCallLogID" name="CurrentCallLogID" id="CurrentCallLogID" *ngIf="uiDisplay.CurrentCallLogID">
+        </div>
+
+    </form>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+</div>

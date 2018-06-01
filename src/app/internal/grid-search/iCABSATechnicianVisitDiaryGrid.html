@@ -1,0 +1,1367 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Diary'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Employee' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" [attr.maxlength]="11" class="form-control" id="EmployeeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" id="EmployeeSurname">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input type="button" id="cmdGenerate" class="btn btn-additional" value="{{'Refresh' | translate}}">
+                    <input type="button" id="cmdGenerate" class="btn btn-additional" value="{{'Print' | translate}}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 pull-right text-right">
+                    <label class="col24">Last Update:Unknown </label>
+                </div>
+
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24 topClass">
+                        <div class="col24 mt10 mb10">
+                            <input type="button" id="cmdGenerate" class="btn btn-additional col24" value="{{'Sort Available Visits' | translate}}">
+                        </div>
+                        <div class="col24 mb10">
+                            <input type="button" id="cmdGenerate" class="btn btn-additional col24" value="{{'Color Key' | translate}}">
+                        </div>
+                        <div class="col24 mb10">
+                            <input type="button" id="cmdGenerate" class="btn btn-additional col24" value="{{'Visit Conflicts' | translate}}">
+                        </div>
+                        <div class="col24">
+                            <h4>
+                                {{'Totals'|translate}}
+                            </h4>
+                        </div>
+                        <div class="col24">
+                            <label class="col24">{{'Total Visits' |translate}} </label>
+                            <div class="col24">
+                                <input type="text" size="11" [attr.maxlength]="11" class="form-control" id="EmployeeCode">
+                            </div>
+                        </div>
+                        <div class="col24">
+                            <label class="col24">{{'Visit Value' |translate}} </label>
+                            <div class="col24">
+                                <input type="text" size="11" [attr.maxlength]="11" class="form-control" id="EmployeeCode">
+                            </div>
+                        </div>
+                        <div class="col24">
+                            <label class="col24">{{'Visit Time' |translate}} </label>
+                            <div class="col24 mb10">
+                                <input type="text" size="11" [attr.maxlength]="11" class="form-control" id="EmployeeCode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col24 mt10 bottomClass">
+                        <div class="col24">
+                            <h4>
+                                {{'Available Visit'|translate}}
+                            </h4>
+                        </div>
+                        <div class="col24">
+                            <label class="col24">10/12/2016 TestContract 100D30 100 00:/NET; </label>
+                        </div>
+                        <div class="col24">
+                            <label class="col24">10/12/2016 TestContract 100D30 100 00:/NET; </label>
+                        </div>
+                        <div class="col24 mb10">
+                            <label class="col24">10/12/2016 TestContract 100D30 100 00:/NET; </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-5">
+                    <div class="col12 pull-right">
+                        <input type="button" class="btn btn-additional" value="{{ 'Month' | translate }}">
+                        <input type="button" class="btn btn-additional" value="{{ 'Week' | translate }}">
+                        <input type="button" class="btn btn-additional" value="{{ 'Day' | translate }}">
+                    </div>
+
+                    <div id="month">
+                        <div class="control">
+                            <input class="btn btn-additional" type="button" value="<">
+                            <input class="btn btn-additional" type="button" value=">">
+                            <input type="button" class="btn btn-additional" value="{{ 'Today' | translate }}">
+                        </div>
+                        <table class="calendarTable table-bordered mt10">
+                            <thead>
+                                <tr>
+                                    <th colspan="7">
+                                        May 2017
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tr>
+                                <th>
+                                    Sun
+                                </th>
+                                <th>
+                                    Mon
+                                </th>
+                                <th>
+                                    Tue
+                                </th>
+                                <th>
+                                    Wed
+                                </th>
+                                <th>
+                                    Thu
+                                </th>
+                                <th>
+                                    Fri
+                                </th>
+                                <th>
+                                    Sat
+                                </th>
+                            </tr>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        2
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        4
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                    <td>
+                                        6
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+
+                    <div id="week" hidden>
+                        <div class="control">
+                            <input class="btn btn-additional" type="button" value="<">
+                            <input class="btn btn-additional" type="button" value=">">
+                            <input type="button" class="btn btn-additional" value="{{ 'Today' | translate }}">
+                        </div>
+                        <div class="scrollableDiv">
+                            <table class="calendarTable table-bordered mt10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="8">
+                                            May 17 - 23 2017
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                        </th>
+                                        <th>
+                                            Sun 17/7
+                                        </th>
+                                        <th>
+                                            Mon 18/7
+                                        </th>
+                                        <th>
+                                            Tue 19/7
+                                        </th>
+                                        <th>
+                                            Wed 20/7
+                                        </th>
+                                        <th>
+                                            Thu 21/7
+                                        </th>
+                                        <th>
+                                            Fri 22/7
+                                        </th>
+                                        <th>
+                                            Sat 23/7
+                                        </th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            all day
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            6 am
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            7 am
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            8 am
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            9 am
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            10 am
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            11 am
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            12 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            3 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            4 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            5 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            6 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            7 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            8 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            9 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            10 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            11 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <div id="day" hidden>
+                        <div class="control">
+                            <input class="btn btn-additional" type="button" value="<">
+                            <input class="btn btn-additional" type="button" value=">">
+                            <input type="button" class="btn btn-additional" value="{{ 'Today' | translate }}">
+                        </div>
+                        <div class="scrollableDiv">
+                            <table class="calendarTable table-bordered mt10">
+                                <thead>
+                                    <tr>
+                                        <th colspan="8">
+                                            May 17 - 23 2017
+                                        </th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                    <tr>
+                                        <td>
+                                            all day
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>
+                                            1
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            6 am
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                        <td>
+                                            2
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            7 am
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                        <td>
+                                            3
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            8 am
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                        <td>
+                                            4
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            9 am
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                        <td>
+                                            5
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            10 am
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            11 am
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            12 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            1 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            3 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            4 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            5 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            6 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            7 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            8 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            9 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            10 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            11 pm
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                        <td>
+                                            6
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

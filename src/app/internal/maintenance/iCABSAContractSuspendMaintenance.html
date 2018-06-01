@@ -1,0 +1,167 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ numberLabel | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="9" [attr.maxlength]="8"
+                            eTypeCode (change)="onContractChange($event);" icabsZeroPad>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="isAutoOpen" [modalConfig]="modalConfig" [showCloseButton]="true" [childConfigParams]="contractSearchParams"
+                            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="Status">{{ 'Status' | translate}}</label>
+                    <div class="col12">
+                        <input id="Status" formControlName="Status" class="form-control" type="text" size="20" [attr.maxlength]="20" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="9" [attr.maxlength]="8"
+                            eTypeCode icabsZeroPad>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAddressLine1">{{ 'Account Address Line 1' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input id="ContractAddressLine1" formControlName="ContractAddressLine1" class="form-control" type="text" size="37" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NegBranchNumber">{{ 'Neg Branch' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="NegBranchNumber" formControlName="NegBranchNumber" class="form-control" type="text" size="3" [attr.maxlength]="5"
+                            eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input id="BranchName" formControlName="BranchName" class="form-control" type="text" size="15" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAddressLine2">{{ 'Account Address Line 2' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input id="ContractAddressLine2" formControlName="ContractAddressLine2" class="form-control" type="text" size="37" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAddressLine3">{{ 'Account Address Line 3' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input id="ContractAddressLine3" formControlName="ContractAddressLine3" class="form-control" type="text" size="37" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAddressLine4">{{ 'Town' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input id="ContractAddressLine4" formControlName="ContractAddressLine4" class="form-control" type="text" size="37" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAddressLine5">{{ 'County' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input id="ContractAddressLine5" formControlName="ContractAddressLine5" class="form-control" type="text" size="37" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractPostcode">{{ 'Postcode' | translate}}</label>
+                    <div class="col12">
+                        <input id="ContractPostcode" formControlName="ContractPostcode" class="form-control" type="text" size="15" [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceFrequencyCode">{{ 'Invoice Frequency' | translate}}</label>
+                    <div class="col12">
+                        <input id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode" class="form-control" type="text" size="2" [attr.maxlength]="2"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractAnnualValue">{{ 'Value' | translate}}</label>
+                    <div class="col12">
+                        <input id="ContractAnnualValue" formControlName="ContractAnnualValue" class="form-control" type="text" size="15" [attr.maxlength]="15"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceAnnivDate">{{ 'Invoice Anniv Date' | translate}}</label>
+                    <div class="col12">
+                        <input id="InvoiceAnnivDate" formControlName="InvoiceAnnivDate" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractCommenceDate">{{ 'Commence Date' | translate}}</label>
+                    <div class="col12">
+                        <input id="ContractCommenceDate" formControlName="ContractCommenceDate" class="form-control" type="text" size="15" [attr.maxlength]="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="">{{ 'Suspend Invoice' | translate}}</label>
+                    <div class="col2 pr10">
+                        <input id="InvoiceSuspendInd" name="InvoiceSuspendInd" formControlName="InvoiceSuspendInd" class="form-control" type="checkbox"
+                            size="2" [attr.maxlength]="2" (change)="checkAddress()">
+                        <label for="InvoiceSuspendInd"></label>
+                    </div>
+                    <div class="col20 pr5">
+                        <input id="InvoiceSuspendText" formControlName="InvoiceSuspendText" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" class="btn btn-primary mr10" value="{{ 'Save' | translate }}" (click)="saveOnClick()" [disabled]="this['pageParams']['isSaveCancelEnable']">
+                        <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="cancelOnClick()" [disabled]="this['pageParams']['isSaveCancelEnable']">
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

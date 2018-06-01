@@ -1,0 +1,104 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{this['pageTitle'] | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contract' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="ContractNumber" formControlName="ContractNumber" readonly size="8" maxlength="8" value="" class="form-control">
+                </div>
+                <div class="col16">
+                    <input type="text" id="ContractName" formControlName="ContractName" readonly size="16" maxlength="40" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col12 pr5" [hidden]="this['pageParams'].vPercTolerance">
+                    <label class="col12">{{ 'Perc Tol' | translate }}</label>
+                    <input type="text" id="PercTolerance" formControlName="PercTolerance" readonly size="5" maxlength="5" value="" class="form-control">
+                </div>
+                <div class="col12 pr5">
+                    <label class="col12">{{ 'View' | translate }}</label>
+                    <select id="ServiceFilter" class="form-control" formControlName="ServiceFilter" (change)="ServiceFilter_onChange($event.target.value)">
+                    <option value="all" selected>{{ 'All' | translate }}</option> 
+                    <option value="under">{{ 'Under Serviced' | translate }}</option> 
+                    <option value="over">{{ 'Over Serviced' | translate }}</option> 
+                </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premise' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="PremiseNumber" formControlName="PremiseNumber" readonly size="8" maxlength="8" value="" class="form-control">
+                </div>
+                <div class="col16">
+                    <input type="text" id="PremiseName" formControlName="PremiseName" readonly size="16" maxlength="40" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label class="col12">{{ 'From' | translate }}</label>
+                    <input type="text" id="FromDate" formControlName="FromDate" readonly size="10" maxlength="10" value="" class="form-control">
+                </div>
+                <div class="col12 pr5">
+                    <label class="col12">{{ 'To' | translate }}</label>
+                    <input type="text" id="ToDate" formControlName="ToDate" readonly size="10" maxlength="10" value="" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Waste Trans Type' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="WasteTransferTypeCode" formControlName="WasteTransferTypeCode" readonly size="1" maxlength="1" value="" class="form-control">
+                </div>
+                <div class="col16">
+                    <input type="text" id="WasteTransferTypeDesc" formControlName="WasteTransferTypeDesc" readonly size="16" maxlength="40" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'EWC Code' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="EWCCode" formControlName="EWCCode" readonly size="6" maxlength="6" value="" class="form-control">
+                </div>
+                <div class="col16">
+                    <input type="text" id="EWCDescription" formControlName="EWCDescription" readonly size="25" maxlength="40" value="" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="hidden">
+            <input type="hidden" id="BusinessCode" formControlName="BusinessCode" size="1" maxlength="1">
+            <input type="hidden" id="BusinessDesc" formControlName="BusinessDesc" size="35" maxlength="40">
+            <label>{{ 'Level' | translate }}</label>
+            <select id="ViewBy" formControlName="ViewBy" class="form-control">
+            <option value="branch" selected>{{'branch' | translate}}</option> 
+            <option value="region">{{'Region' | translate}}</option> 
+        </select>
+        </div>
+    </form>
+    <hr class="mt20 mb20">
+    <div class="row">
+        <div class="col-sm-12">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #actVsContServiceCoverPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid #actVsContServiceCoverGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)"></icabs-grid>
+        </div>
+    </div>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

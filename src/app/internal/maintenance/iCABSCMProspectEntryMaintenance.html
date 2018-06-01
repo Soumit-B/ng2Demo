@@ -1,0 +1,556 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Prospect Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Prospect Number<span class="mandatory">*</span></label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="ProspectNumber" size="6" [attr.maxlength]="6" formControlName="ProspectNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Account<span class="mandatory"></span></label>
+                </div>
+                <div class="col18">
+                    <input type="text" class="form-control" id="AccountNumber" size="9" [attr.maxlength]="9" formControlName="AccountNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Contract<span class="mandatory"></span></label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="ContractNumber" size="8" [attr.maxlength]="8" formControlName="ContractNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label>Premises<span class="mandatory"></span></label>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" id="PremiseNumber" size="5" [attr.maxlength]="5" formControlName="PremiseNumber">
+                </div>
+            </div>
+        </div>
+        <div class="row mt15">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item "><a class="nav-link"><span>{{ 'General' | translate }}</span></a></li>
+                    <li class="nav-item active"><a class="nav-link"><span>{{ 'Premises' | translate }}</span></a></li>
+                    <li class="nav-item"><a class="nav-link"><span>{{ 'Notes' | translate }}</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!--General section-->
+        <div class="tab-content">
+            <div class="tab-pane active">
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Name<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="Name" size="40" [attr.maxlength]="40" formControlName="Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Address Line 1<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16 pr5">
+                            <input type="text" class="form-control" id="AddressLine1" size="40" [attr.maxlength]="40" formControlName="AddressLine1">
+                        </div>
+                        <div class="col8">
+                            <input type="button" class="btn btn-primary" value="Get Address" id="cmdGetAddress" formControlName="cmdGetAddress">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Address Line 2</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AddressLine2" size="40" [attr.maxlength]="40" formControlName="AddressLine2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Address Line 3<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AddressLine3" size="40" [attr.maxlength]="40" formControlName="AddressLine3">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Town<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AddressLine4" size="40" [attr.maxlength]="40" formControlName="AddressLine4">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>County</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AddressLine5" size="40" [attr.maxlength]="40" formControlName="AddressLine5">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Postcode<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="Postcode" size="15" [attr.maxlength]="15" formControlName="Postcode">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Contact Name<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactName" size="40" [attr.maxlength]="40" formControlName="ContactName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Contact Position<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactPosition" size="40" [attr.maxlength]="40" formControlName="ContactPosition">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Telephone<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactTelephone" [attr.maxlength]="20" formControlName="ContactTelephone">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Mobile</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactMobile" [attr.maxlength]="20" formControlName="PremiseContactMobile">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Fax</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactFax" [attr.maxlength]="20" formControlName="PremiseContactFax">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Email</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactEmail" size="50" [attr.maxlength]="50" formControlName="PremiseContactEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Business Origin</label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="BusinessOriginCode" size="6" [attr.maxlength]="2" formControlName="BusinessOriginCode">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="BusinessOriginDesc" size="40" [attr.maxlength]="40" formControlName="BusinessOriginDesc">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Prospect Origin (Contact Medium)<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ContactMediumCode" size="6" [attr.maxlength]="2" formControlName="ContactMediumCode">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ContactMediumDesc" size="40" [attr.maxlength]="40" formControlName="ContactMediumDesc">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Assign To</label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="txet" class="form-control" id="AssignToEmployeeCode" size="6" [attr.maxlength]="6" formControlName="AssignToEmployeeCode">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AssignToEmployeeName" size="40" [attr.maxlength]="40" formControlName="AssignToEmployeeName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Submitted By Service Employee</label>
+                        </div>
+                        <div class="col2 pr5">
+                            <input type="checkbox" class="form-control" id="PDALeadInd" formControlName="PDALeadInd">
+                            <label></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="PDALeadEmployeeCode" size="8" formControlName="PDALeadEmployeeCode">
+                        </div>
+                        <div class="col14">
+                            <input type="text" class="form-control" id="PDALeadEmployeeSurname" size="30" formControlName="PDALeadEmployeeSurname">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>SMS Message</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="SMSMessage" size="50" [attr.maxlength]="140" formControlName="SMSMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Premises-->
+        <div class="tab-content">
+            <div class="tab-pane">
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Premises Name<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseName" size="40" [attr.maxlength]="40" formControlName="PremiseName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Premises Address Line 1<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16 pr5">
+                            <input type="text" class="form-control" id="PremiseAddressLine1" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine1">
+                        </div>
+                        <div class="col8">
+                            <input type="button" class="btn btn-primary" value="Get Address" id="cmdGetPremiseAddress" formControlName="cmdGetPremiseAddress">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Premises Address Line 2</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseAddressLine2" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine2">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Premises Address Line 3<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseAddressLine3" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine3">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Town<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseAddressLine4" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine4">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>County</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseAddressLine5" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine5">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Postcode<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremisePostcode" size="15" [attr.maxlength]="15" formControlName="PremisePostcode">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Contact Name<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseContactName" size="40" [attr.maxlength]="40" formControlName="PremiseContactName">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Contact Position<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseContactPosition" size="40" [attr.maxlength]="40" formControlName="PremiseContactPosition">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Telephone<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PremiseContactTelephone" [attr.maxlength]="20" formControlName="PremiseContactTelephone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Commence Date<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col16">
+                            <icabs-datepicker></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Expiry Date</label>
+                        </div>
+                        <div class="col16">
+                            <icabs-datepicker></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Value</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="AnnualValue" size="10" [attr.maxlength]="10" formControlName="AnnualValue">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Payment Type<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="PaymentTypeCode" size="3" [attr.maxlength]="3" formControlName="PaymentTypeCode">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="PaymentDesc" size="20" [attr.maxlength]="40" formControlName="PaymentDesc">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Invoice Group<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="InvoiceGroupNumber" size="7" [attr.maxlength]="6" formControlName="InvoiceGroupNumber">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="InvoiceGroupDesc" size="20" [attr.maxlength]="40" formControlName="InvoiceGroupDesc">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Customer Type<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="CustomerTypeCode" size="12" [attr.maxlength]="10" formControlName="CustomerTypeCode">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="CustomerTypeDesc" size="20" [attr.maxlength]="40" formControlName="CustomerTypeDesc">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Neg sales Employee<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="NegotiatingSalesEmployeeCode" size="7" [attr.maxlength]="6" formControlName="NegotiatingSalesEmployeeCode">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="NegotiatingSalesEmployeeSurname" size="20" [attr.maxlength]="40" formControlName="NegotiatingSalesEmployeeSurname">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Servicing Branch<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="BranchNumber" size="3" [attr.maxlength]="5" formControlName="BranchNumber">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="BranchName" size="20" [attr.maxlength]="40" formControlName="BranchName">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Service Sales Employee<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ServicingSalesEmployeeCode" size="7" [attr.maxlength]="6" formControlName="ServicingSalesEmployeeCode">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="ServicingSalesEmployeeSurname" size="20" [attr.maxlength]="40" formControlName="ServicingSalesEmployeeSurname">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Purchase Order No</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="PurchaseOrderNumber" size="20" [attr.maxlength]="20" formControlName="PurchaseOrderNumber">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Client Reference</label>
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ClientReference" size="20" [attr.maxlength]="30" formControlName="ClientReference">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Notes-->
+        <div class="tab-content">
+            <div class="tab-pane">
+                <div class="row mt2">
+                    <div class="col-sm-6">
+                        <div class="col24">
+                            <label>Notes<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col24">
+                            <textarea class="form-control" id="Narrative" rows="6" cols="63" formControlName="Narrative"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Status<span class="mandatory">*</span></label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ProspectStatusCode" size="2" [attr.maxlength]="2" formControlName="ProspectStatusCode">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ProspectStatusDesc" size="40" [attr.maxlength]="40" formControlName="ProspectStatusDesc">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <div class="col24">
+                            <label>Converted To Job</label>
+                        </div>
+                        <div class="col8">
+                            <input type="text" class="form-control" id="ConvertedToNumber" size="9" [attr.maxlength]="8" formControlName="ConvertedToNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-6">
+                        <div class="col8 pr5">
+                            <input type="checkbox" class="form-control" id="chkAuthorise" formControlName="chkAuthorise">
+                            <label>Authorise</label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="checkbox" class="form-control" id="chkReject" formControlName="chkReject">
+                            <label>Reject</label>
+                        </div>
+                        <div class="col8 pr5">
+                            <input type="checkbox" class="form-control" id="chkBranch" formControlName="chkBranch">
+                            <label>Await Branch Update</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-5">
+                <input type="button" class="btn btn-primary mr10" value="Save">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+            </div>
+            <div class="col-sm-3 pull-right">
+                <icabs-dropdown></icabs-dropdown>
+            </div>
+        </div>
+    </footer>
+</section>

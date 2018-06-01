@@ -1,0 +1,42 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <hr class="mt15 mb15">
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="grdBusinessDetail" [ngClass]="!IsgrdBusinessDetail ? 'hidden' : '' ">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessCode">{{ 'Business Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BusinessCode" class="form-control" type="text" maxlength="1" size="1" formControlName="BusinessCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="BusinessDesc" class="form-control" type="text" maxlength="40" size="40" formControlName="BusinessDesc">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col10 mt10">
+                        <input type="button" class="form-control btn btn-lg btn-secondary" [ngClass]="showAddNew?'hidden':''" value="{{ 'Add New' | translate }}"
+                            (click)="onAddNew()">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15" [ngClass]="!IsgrdBusinessDetail ? 'hidden' : '' ">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #closedTemplateSearchTable (selectedData)="onSelect($event)" [columns]="columns" [paginationTop]="true" [displayError]="false"
+                        [tableheader]="tableheading" (dataLoaded)="tableDataLoaded($event)"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

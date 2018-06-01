@@ -1,0 +1,91 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" size="8" maxlength="9" class="form-control" formControlName="AccountNumber" (change)="accountNumberOnchange($event)">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="AccountName" size="40" maxlength="40" class="form-control" formControlName="AccountName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #accountSearch [childConfigParams]="inputParamsAccSearch" [contentComponent]="accountSearchComponent" [showHeader]="showHeader"
+                            (ellipsisData)="setAccountNumber($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Bank Account Type Code' | translate }}</label>
+                    <div class="col16">
+                        <!--<icabs-dropdown-static #bankAccountTypeCodeDropdown [inputData]="BankAccountTypeCodeSelectList"></icabs-dropdown-static>-->
+                        <icabs-common-dropdown #commonDropDown [inputParams]="inputParamsiCABSSSystemBankAccountTypeSearchDropdown" [displayFields]="displayiCABSSSystemBankAccountTypeSearchColumns"
+                            (onDataReceived)="oniCABSSSystemBankAccountTypeSearchDropdownDataRecieved($event)" [isDisabled]="isDisabledDropdown"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Bank Account SortCode' | translate }}</label>
+                    <div class="col18">
+                        <input id="BankAccountSortCode" size="12" maxlength="12" class="form-control" formControlName="BankAccountSortCode" (change)="onDataChanged($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Bank Account Number' | translate }}</label>
+                    <div class="col22">
+                        <input id="BankAccountNumber" size="46" maxlength="40" class="form-control" formControlName="BankAccountNumber" (change)="onDataChanged($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Virtual Bank Account Number' | translate }}</label>
+                    <div class="col22">
+                        <input id="VirtualBankAccountNumber" size="46" maxlength="40" class="form-control" formControlName="VirtualBankAccountNumber"
+                            (change)="onDataChanged($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Bank Account Info' | translate }}</label>
+                    <div class="col22">
+                        <input id="BankAccountInfo" size="46" maxlength="30" class="form-control" formControlName="BankAccountInfo" (change)="onDataChanged($event)">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+        </section>
+        <footer class="screen-footer">
+            <div class="col-sm-3">
+                <input class="btn btn-primary mr10" type="submit" [disabled]="showSaveDisable" (click)="saveOnclick()" value="{{'Save' | translate}}">
+                <input class="btn btn-secondary mr10" type="button" [disabled]="showCancelDisable" (click)="cancelOnclick()" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" [disabled]="showDeleteDisable" (click)="deleteOnclick()" value="{{'Delete' | translate}}">
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+<icabs-prompt-modal #promptModalDelete="child" [showHeader]="headerDelete" [showCloseButton]="closeButtonDelete" [title]="promptContentDelete"
+    (saveEmit)="promptDelete($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

@@ -1,0 +1,50 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Branch Service Area Employees' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="5" maxlength="5" class="form-control" formControlName="BranchServiceAreaCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BranchServiceAreaDesc" size="40" maxlength="40" class="form-control" formControlName="BranchServiceAreaDesc">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="BranchNumber" size="5" maxlength="5" formControlName="BranchNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-4 pull-right">
+                    <div class="col12 pull-right">
+                        <select class="form-control" id="menu" formControlName="menu">
+                            <option [selected]= "true" value="Options">{{'Options' | translate }}</option>
+                            <option value="Add">{{ 'Add' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

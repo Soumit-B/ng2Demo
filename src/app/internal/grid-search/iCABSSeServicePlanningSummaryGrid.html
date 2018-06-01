@@ -1,0 +1,105 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Planning Summary' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="9" [attr.maxlength]="8" formControlName="BranchServiceAreaCode" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="EmployeeSurname" size="40" [attr.maxlength]="40" formControlName="EmployeeSurname" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Week' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input type="text" id="WeekNumber" size="2" [attr.maxlength]="2" formControlName="WeekNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label for="StartDate">{{ 'Plan From' | translate }}</label>
+                        <input type="text" id="StartDate" size="10" [attr.maxlength]="10" formControlName="StartDate" class="form-control col20 pr5">
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'To' | translate }}</label>
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Plan Number' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input type="text" id="ServicePlanNumber" size="10" [attr.maxlength]="10" formControlName="ServicePlanNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <input type="button" id="cmdWorkList" class="btn btn-additional" value="{{ 'Worklist' | translate }}">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-4 mt20">
+                    <input type="button" class="btn btn-primary mr5" value="{{'Automatic' | translate}}">
+                    <input type="button" class="btn btn-primary mr5" value="{{'Manual' | translate}}">
+                    <input type="button" class="btn btn-primary mr5" value="{{'Undo' | translate}}">
+                </div>
+                <div class="col-sm-8 pull-right">
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalNoOfCalls">{{ 'Total Visits' | translate }}</label>
+                        <input type="text" id="TotalNoOfCalls" class="form-control" [attr.maxlength]="6" size="6" formControlName="TotalNoOfCalls">
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalNoOfExchanges">{{ 'Units' | translate }}</label>
+                        <input type="text" id="TotalNoOfExchanges" class="form-control" [attr.maxlength]="6" size="6" formControlName="TotalNoOfExchanges">
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalWeight">{{ 'Weights' | translate }}</label>
+                        <input type="text" id="TotalWeight" class="form-control" [attr.maxlength]="6" size="6" formControlName="TotalWeight">
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalWED">{{ 'W.E.D' | translate }}</label>
+                        <input type="text" id="TotalWED" class="form-control" [attr.maxlength]="6" size="6" formControlName="TotalWED">
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalTime">{{ 'Time' | translate }}</label>
+                        <input type="text" id="TotalTime" class="form-control" [attr.maxlength]="6" size="6" formControlName="TotalTime">
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24" for="TotalNettValue">{{ 'Nett Value' | translate }}</label>
+                        <input type="text" id="TotalNettValue" class="form-control" [attr.maxlength]="15" size="15" formControlName="TotalNettValue">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="col-sm-5">
+            <input type="button" class="btn btn-primary mr5" value="{{'Undo Proposed Plan' | translate}}">
+            <input type="button" class="btn btn-primary" value="{{'Confirm Plan' | translate}}">
+        </div>
+    </footer>
+</section>

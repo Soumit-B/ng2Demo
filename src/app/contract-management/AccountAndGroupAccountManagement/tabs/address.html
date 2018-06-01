@@ -1,0 +1,207 @@
+<form novalidate [formGroup]="addressFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div id="grdAccountAddress">
+
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24" for="addressLine1">{{'Address Line 1' | translate }}<span class="mandatory" *ngIf="fieldRequired.isAccountAddressLine1Required === true">* </span> </label>
+                <div class="col24">
+                    <input type="text" id="AccountAddressLine1" class="form-control" formControlName="AccountAddressLine1" size="40" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40"
+                        value="" (blur)="onBlur($event)">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24 mt20" *ngIf="fieldVisibility.cmdGetAddress === true">
+                    <input id="cmdGetAddress" class="btn btn-sm btn-primary" type="button" value="{{'Get Address' | translate}}" formControlName="cmdGetAddress"
+                        (click)="onCmdGetAddressClick($event)">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="fieldVisibility.AccountAddressLine2 === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountAddressLine2">{{'Address Line 2' | translate }}<span id="spanAccountAddressLine2"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountAddressLine2" formControlName="AccountAddressLine2" size="40" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40"
+                        value="" (blur)="onBlur($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountAddressLine3 === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountAddressLine3">{{'Address Line 3' | translate }}<span  *ngIf="fieldRequired.isAccountAddressLine3Required === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountAddressLine3" formControlName="AccountAddressLine3" size="40" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40"
+                        value="" (blur)="onBlur($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountAddressLine4 === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountAddressLine4">{{'Town' | translate }}<span  *ngIf="fieldRequired.isAccountAddressLine4Required === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" id="AccountAddressLine4" class="form-control" formControlName="AccountAddressLine4" size="40" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40"
+                        value="" (blur)="onBlur($event);onFocusOut($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountAddressLine5 === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountAddressLine5">{{'County' | translate }}<span  *ngIf="fieldRequired.isAccountAddressLine5Required === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" id="AccountAddressLine5" class="form-control" formControlName="AccountAddressLine5" size="30" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40"
+                        value="" (blur)="onBlur($event);onFocusOut($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt10" *ngIf="fieldVisibility.AccountPostcode === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountPostcode">{{'Postcode' | translate }}<span class="mandatory" id="spanAccountPostcode" *ngIf="fieldRequired.isAccountPostcodeRequired === true">* </span> </label>
+                <div class="col21 pr5">
+                    <input type="text" #AccountPostcode class="form-control" id="AccountPostcode" formControlName="AccountPostcode" size="15"
+                        maxlength="15" value="" (blur)="onFocusOut($event)" (change)="accountPostcode_onchange($event)" (keydown.PageDown)="onFocusOut($event)"
+                        eTypeCode>
+                </div>
+                <div class="2">
+                    <icabs-ellipsis #zipCodeEllipsis [autoOpen]="postCodeAutoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams"
+                        [modalConfig]="modalConfig" [contentComponent]="zipSearchComponent" (ellipsisData)="onZipDataReceived($event, true)"
+                        [showHeader]="showHeader" (modalHidden)="modalHidden()" [disabled]="isZipCodeEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.GPSCoordinate === true">
+                <label class="col24" for="GPSCoordinateX">{{'GPS Coordinate X' | translate }}<span id="spanGPSCoordinateX"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="GPSCoordinateX" formControlName="GPSCoordinateX" size="15" maxlength="15" value=""
+                        eTypeText>
+                </div>
+            </div>
+
+            <div class="col-sm-3" *ngIf="fieldVisibility.GPSCoordinate === true">
+                <label class="col24" for="GPSCoordinateY">{{'GPS Coordinate Y' | translate }}<span id="spanGPSCoordinateY"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="GPSCoordinateY" formControlName="GPSCoordinateY" size="15" maxlength="15" value=""
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.CountryCode === true">
+            <div class="col-sm-3">
+                <label class="col24">{{'Country' | translate }}<span  *ngIf="fieldRequired.isCountryCodeRequired === true"  class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="hidden" class="form-control" formControlName="CountryCode" size="4" maxlength="2">
+                    <input type="hidden" class="form-control" formControlName="CountryDesc" size="40">
+                    <icabs-countrycode [inputParams]="inputParamsCountryCode" (receivedCountryCode)="onCountryCodeReceived($event)" [isRequired]='fieldRequired.isCountryCodeRequired'
+                        [active]="countrySelected" [isDisabled]="isCountryCodeDisabled"></icabs-countrycode>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountContactName === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountContactName">{{'Contact Name' | translate }}<span  *ngIf="fieldRequired.isAccountContactNameRequired === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactName" formControlName="AccountContactName" size="40" maxlength="40"
+                        value="" (blur)="onBlur($event)">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24 mt20" *ngIf="fieldVisibility.spanAmendContact === true">
+                    <input class="btn btn-sm btn-primary" type="button" value="{{'Contact Details' | translate }}" formControlName="BtnAmendContact"
+                        (click)="btnAmendContactOnClick($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountContactPosition === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountContactPosition">{{'Position' | translate }}<span  *ngIf="fieldRequired.isAccountContactPositionRequired === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactPosition" formControlName="AccountContactPosition" size="40" maxlength="30"
+                        value="" (blur)="onBlur($event)">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24 mt20" id="spanEmergencyContact" *ngIf="fieldVisibility.spanEmergencyContact === true">
+                    <input class="btn btn-sm btn-primary" type="button" value="{{'Emergency Contact Details' | translate }}" formControlName="BtnEmergencyContact"
+                        (click)="btnEmergencyContactOnClick($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" *ngIf="fieldVisibility.AccountContactDepartment === true">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountContactDepartment">{{'Department' | translate }}<span id="spanAccountContactDepartment"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactDepartment" formControlName="AccountContactDepartment" size="20"
+                        maxlength="20" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactTelephone === true">
+                <label class="col24" for="AccountContactTelephone">{{'Telephone' | translate }}<span  *ngIf="fieldRequired.isAccountContactTelephoneRequired === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactTelephone" formControlName="AccountContactTelephone" size="20"
+                        maxlength="20" value="">
+                </div>
+            </div>
+
+            <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactMobile === true">
+                <label class="col24" for="AccountContactMobile">{{'Mobile Number' | translate }}<span id="spanAccountContactMobile"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactMobile" formControlName="AccountContactMobile" size="20" maxlength="20"
+                        value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactFax === true">
+                <label class="col24" for="AccountContactFax">{{'Fax' | translate }}<span id="spanAccountContactFax"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactFax" formControlName="AccountContactFax" size="20" maxlength="20"
+                        value="">
+                </div>
+            </div>
+            <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactEmail === true">
+                <label class="col24" for="AccountContactEmail">{{'Email' | translate }}<span id="spanAccountContactEmail"></span> </label>
+                <div class="col24">
+                    <input type="text" class="form-control" id="AccountContactEmail" formControlName="AccountContactEmail" size="50" maxlength="50"
+                        value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col16 pr5">
+                    <input id="BtnSendToNAV" type="button" class="btn btn-sm btn-primary" value="{{ 'Send To NAV' | translate }}" formControlName="BtnSendToNAV"
+                        *ngIf="fieldVisibility.BtnSendToNAV === true" (click)="onBtnSendToNAVClick()" />
+                </div>
+                <div class="col8 pr5">
+                    <input formControlName="SentToNAVStatus" class="form-control" id="SentToNAVStatus" [attr.maxlength]="2" *ngIf="fieldVisibility.SentToNAVStatus === true">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="message-box info" role="alert" id="SentToNAVStatusNOTSENT" *ngIf="fieldVisibility.tdSentToNAVStatusNOTSENT === true">
+                    {{'Send To NAV STATUS WAITING' | translate }}
+                </div>
+                <div class="message-box success" role="alert" id="SentToNAVStatusOK" *ngIf="fieldVisibility.tdSentToNAVStatusOK === true">
+                    {{'Sent To NAV STATUS SENT' | translate }}
+                </div>
+                <div class="message-box error" role="alert" id="SentToNAVStatusFAIL" *ngIf="fieldVisibility.tdSentToNAVStatusFAIL === true">
+                    {{'Sent To NAV STATUS FAIL' | translate }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>

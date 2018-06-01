@@ -1,0 +1,200 @@
+<section class="container-fluid custom-container">
+	<header class="screen-header">
+		<div class="row">
+			<div class="col-sm-12 page-title mt10">
+				<h1>
+					{{ this['pageTitle'] | translate }}
+				</h1>
+			</div>
+		</div>
+	</header>
+	<form novalidate [formGroup]="this['uiForm']">
+		<section class="screen-body">
+			<div class="row mt5">
+				<div class="col-sm-4">
+					<label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}<span class="mandatory">*</span></label>
+					<div class="col8 pr5">
+						<input id="ContactTypeCode" class="form-control" formControlName="ContactTypeCode" type="text" size="12" eTypeCode>
+					</div>
+					<div class="col16">
+						<input id="ContactTypeSystemDesc" class="form-control" formControlName="ContactTypeSystemDesc" type="text" size="50" eTypeTextFree>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="ContactTypeDetailCode">{{ 'Contact Type Detail Code' | translate}}<span class="mandatory">*</span></label>
+					<div class="col8 pr5">
+						<input id="ContactTypeDetailCode" class="form-control" formControlName="ContactTypeDetailCode" type="text" size="12" eTypeCode>
+					</div>
+					<div class="col16">
+						<input id="ContactTypeDetailSystemDesc" class="form-control" formControlName="ContactTypeDetailSystemDesc" type="text" size="50" eTypeTextFree>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="PropertiesCode">{{ keyTypeCodeLabel | translate}}<span class="mandatory">*</span></label>
+					<div class="col8 pr5">
+						<input id="PropertiesCode" class="form-control" formControlName="PropertiesCode" type="text" size="12" eTypeCode>
+					</div>
+					<div class="col16">
+						<input id="PropertyDesc" class="form-control" formControlName="PropertyDesc" type="text" size="50" eTypeTextFree>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="">{{ 'Team Code' | translate}}</label>
+					<select id="TeamID" class="form-control" formControlName="TeamID">
+                        <option *ngFor="let item of menuTeam" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4 mt20">
+					<div class="col24">
+						<input type="checkbox" class="form-control" id="TeamIDCreatorInd" formControlName="TeamIDCreatorInd">
+						<label class="col24" for="TeamIDCreatorInd">{{'Assign Team Of Ticket Creator'|translate}}</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24"><strong>{{ 'External Notifications' | translate}}</strong></label>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CreateExtEmailNotifyTemplateCode">{{ 'On Create Email Template' | translate}}</label>
+					<select id="CreateExtEmailNotifyTemplateCode" class="form-control" formControlName="CreateExtEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="CreateExtSMSNotifyTemplateCode">{{ 'On Create SMS Template' | translate}}</label>
+					<select id="CreateExtSMSNotifyTemplateCode" class="form-control" formControlName="CreateExtSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CloseExtEmailNotifyTemplateCode">{{ 'On Close Email Template' | translate}}</label>
+					<select id="CloseExtEmailNotifyTemplateCode" class="form-control" formControlName="CloseExtEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="ContactTypeCode">{{ 'On Close SMS Template' | translate}}</label>
+					<select id="CloseExtSMSNotifyTemplateCode" class="form-control" formControlName="CloseExtSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24"><strong>{{ 'Internal Notifications' | translate}}</strong></label>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CreateIntEmailNotifyTemplateCode">{{ 'On Create Email Template' | translate}}</label>
+					<select id="CreateIntEmailNotifyTemplateCode" class="form-control" formControlName="CreateIntEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="CreateIntSMSNotifyTemplateCode">{{ 'On Create SMS Template' | translate}}</label>
+					<select id="CreateIntSMSNotifyTemplateCode" class="form-control" formControlName="CreateIntSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CreateIntNotifyGroupCode">{{ 'On Create Notify Group' | translate}}</label>
+					<select id="CreateIntNotifyGroupCode" class="form-control" formControlName="CreateIntNotifyGroupCode">
+                        <option *ngFor="let item of menuGroup" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="UpdateIntEmailNotifyTemplateCode">{{ 'On Update Email Template' | translate}}</label>
+					<select id="UpdateIntEmailNotifyTemplateCode" class="form-control" formControlName="UpdateIntEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="UpdateIntSMSNotifyTemplateCode">{{ 'On Update SMS Template' | translate}}</label>
+					<select id="UpdateIntSMSNotifyTemplateCode" class="form-control" formControlName="UpdateIntSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="UpdateIntNotifyGroupCode">{{ 'On Update Notify Group' | translate}}</label>
+					<select id="UpdateIntNotifyGroupCode" class="form-control" formControlName="UpdateIntNotifyGroupCode">
+                        <option *ngFor="let item of menuGroup" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CloseIntEmailNotifyTemplateCode">{{ 'On Close Email Template' | translate}}</label>
+					<select id="CloseIntEmailNotifyTemplateCode" class="form-control" formControlName="CloseIntEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="CloseIntSMSNotifyTemplateCode">{{ 'On Close SMS Template' | translate}}</label>
+					<select id="CloseIntSMSNotifyTemplateCode" class="form-control" formControlName="CloseIntSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="CloseIntNotifyGroupCode">{{ 'On Close Notify Group' | translate}}</label>
+					<select id="CloseIntNotifyGroupCode" class="form-control" formControlName="CloseIntNotifyGroupCode">
+                        <option *ngFor="let item of menuGroup" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="PassedIntEmailNotifyTemplateCode">{{ 'On Passed To Actioner Email Template' | translate}}</label>
+					<select id="PassedIntEmailNotifyTemplateCode" class="form-control" formControlName="PassedIntEmailNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+				<div class="col-sm-4">
+					<label class="col24" for="PassedIntSMSNotifyTemplateCode">{{ 'On Passed To Actioner SMS Template' | translate}}</label>
+					<select id="PassedIntSMSNotifyTemplateCode" class="form-control" formControlName="PassedIntSMSNotifyTemplateCode">
+                        <option *ngFor="let item of menuTemp" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="PassedIntNotifyGroupCode">{{ 'On Passed To Actioner Notify Group' | translate}}</label>
+					<select id="PassedIntNotifyGroupCode" class="form-control" formControlName="PassedIntNotifyGroupCode">
+                        <option *ngFor="let item of menuGroup" [value]="item.code">{{item.desc}}</option>
+                    </select>
+				</div>
+			</div>
+		</section>
+	</form>
+	<hr class="mt15 mb15">
+	<footer class="screen-footer">
+		<div class="row">
+			<div class="col-sm-6">
+				<input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="save()">
+				<input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}" (click)="cancel()">
+				<input type="button" class="btn btn-additional" value="{{'Delete' | translate}}" (click)="delete()">
+			</div>
+		</div>
+	</footer>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

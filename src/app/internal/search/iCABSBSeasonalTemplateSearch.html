@@ -1,0 +1,40 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3" *ngIf="isShow">
+                    <label class="col24">{{'Business Code' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BusinessCode" size="9" maxlength="9" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BusinessDesc" size="40" maxlength="40" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col24">
+                        <input type="button" name="Add New" value="{{'Add New' | translate}}" class="btn btn-secondary" [ngClass]="!showAddNew ? 'hidden': ''"
+                            (click)="onAddNew()">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #riTable [page]="page" [itemsPerPage]="itemsPerPage" [paginationTop]="true" (selectedData)="selectedData($event)"
+                        [doTranslate]="true"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

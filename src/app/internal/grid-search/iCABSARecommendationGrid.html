@@ -1,0 +1,93 @@
+<div class="container-fluid custom-container">
+	<div class="row">
+		<div class="col-sm-12 page-title mt10">
+			<h1>
+				{{ pageHeader | translate}} - {{'Service Recommendations' | translate }}
+			</h1>
+		</div>
+	</div>
+	<form [formGroup]="this['uiForm']">
+		<div #topContainer>
+			<div class="row mt5">
+				<div class="col-sm-3">
+					<label class="col24">{{ labelContractNumber | translate }}</label>
+					<div class="col8 pr5">
+						<input type="text" class="form-control" formControlName="ContractNumber" readonly eTypeCode>
+					</div>
+					<div class="col16">
+						<input type="text" class="form-control" formControlName="ContractName" readonly eTypeText>
+						<input type="text" class="form-control" *ngIf="viewEmployeeCode" formControlName="EmployeeCode">
+						<input type="text" class="form-control" *ngIf="viewPDAVisitRef" formControlName="PDAVisitRef">
+					</div>
+				</div>
+				<div class="col-sm-3" *ngIf="trFilter">
+					<label class="col24">{{ 'Filter' | translate }}</label>
+					<div class="col16">
+						<select class="form-control" formControlName="ShowType" (change)="onChangeShow($event.target.value)">
+                            <option *ngFor="let option of filterList" [selected]="option.value == 'All'" value="{{option.value}}">{{option.name | translate}}</option>
+                        </select>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-3" *ngIf="trPremise">
+					<label class="col24">{{ 'Premises' | translate }}</label>
+					<div class="col8 pr5">
+						<input type="text" class="form-control" formControlName="PremiseNumber" (blur)="onPremiseBlur()" eTypeInteger>
+					</div>
+					<div class="col14 pr5">
+						<input type="text" class="form-control" formControlName="PremiseName" readonly eTypeText>
+					</div>
+					<div class="col2">
+						<icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccountPremise" [modalConfig]="modalConfig"
+						 [contentComponent]="premiseSearchComponent" (ellipsisData)="onPremiseSearchDataReceived($event, true)" [showHeader]="showHeader"
+						 [disabled]="false"></icabs-ellipsis>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label class="col24">{{ 'From' | translate }}</label>
+					<div class="col12">
+						<icabs-datepicker [dt]='ServiceDateFrom' [isReadonly]="false" [isRequired]="true" (selectedValue)="serviceDateFromSelectedValue($event)"></icabs-datepicker>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-3" *ngIf="trProduct">
+					<label class="col24">{{ 'Product' | translate }}</label>
+					<div class="col8 pr5">
+						<input type="text" class="form-control" formControlName="ProductCode" (blur)="onProductCodeBlur()" eTypeCode>
+					</div>
+					<div class="col14 pr5">
+						<input type="text" class="form-control" formControlName="ProductDesc" readonly eTypeText>
+					</div>
+					<div class="col2">
+						<icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsProductCode" [modalConfig]="modalConfig"
+						 [contentComponent]="productComponent" (ellipsisData)="onProductSearchDataReceived($event, true)" [showHeader]="showHeader"
+						 [disabled]="false"></icabs-ellipsis>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<label class="col24">{{ 'To' | translate }}</label>
+					<div class="col12">
+						<icabs-datepicker [dt]='ServiceDateTo' [isReadonly]="false" [isRequired]="true" (selectedValue)="serviceDateToSelectedValue($event)"></icabs-datepicker>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<hr class="mt15 mb15">
+	<div class="row">
+		<div class="col-sm-12">
+			<icabs-refresh (click)="refresh()"></icabs-refresh>
+			<icabs-pagination #recommendationPagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+			 (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+		</div>
+		<div class="col-sm-12 mt10" [ngClass]="getMaxColClass()">
+			<icabs-grid #recommendationGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+			 (selectedRowInfo)="onGridRowClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [validateProperties]="validateProperties"></icabs-grid>
+		</div>
+		<div class="col-sm-12 mt10">
+			<icabs-modal #errorModal="child" [showHeader]="true" [showCloseButton]="true"></icabs-modal>
+		</div>
+	</div>
+</div>

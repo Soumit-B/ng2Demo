@@ -1,0 +1,202 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-xs-12 page-title mt10">
+            <h1 class="page-header">
+                {{this['pageTitle'] | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-xs-3">
+                <label class="col24" for="ProspectName">{{'Name' |translate}}</label>
+                <div class="col24">
+                    <input id="ProspectName" type="text" formControlName="ProspectName" [readonly]="this['uiForm'].controls.ProspectName?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trProspect">
+            <div class="col-xs-3">
+                <label class="col24" for="ProspectNumber">{{'Prospect Number' |translate}}</label>
+                <div class="col16">
+                    <input id="ProspectNumber" type="text" formControlName="ProspectNumber" [readonly]="this['uiForm'].controls.ProspectNumber?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeCode>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <label class="col24" for="QuoteNumber">{{'Quote Number' |translate}}</label>
+                <div class="col8">
+                    <input id="QuoteNumber" type="text" formControlName="QuoteNumber" [readonly]="this['uiForm'].controls.QuoteNumber?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeCode>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-xs-3">
+                <label class="col24" for="dlContractRef">{{'Ref' |translate}}</label>
+                <div class="col16">
+                    <input id="dlContractRef" formControlName="dlContractRef" type="text" [readonly]="this['uiForm'].controls.dlContractRef?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeCode>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-xs-3">
+                <label class="col24">{{'Current Status Code' |translate}}</label>
+                <!--add ellipsis-->
+                <div class="col8 pr5">
+                    <input id="dlStatusCode" type="text" formControlName="dlStatusCode" [readonly]="this['uiForm'].controls.dlStatusCode?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input id="dlStatusDesc" type="text" formControlName="dlStatusDesc" [readonly]="this['uiForm'].controls.dlStatusDesc?.readonly"
+                        size="40" maxlength="40" value="" readonly="" class="form-control" eTypeTextFree>
+                </div>
+                <!--<div class="col2">
+                    <icabs-ellipsis [contentComponent]="dlStatusSearchComponent"></icabs-ellipsis>
+                </div>-->
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-xs-3">
+                <label class="col24" for="ServiceFilter">{{'Update Status' |translate}}</label>
+                <div class="col16">
+                    <select id="StatusSelect" [(ngModel)]="selectedUpdateStatus" formControlName="StatusSelect" class="form-control" (change)="StatusSelect_OnChange($event)">
+                            <option value="none">{{'No Change' | translate}}</option>
+                            <option *ngFor="let item of ValidStatusesIndividual" [value]="item[0]">{{ item[1] | translate}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trRejection">
+            <!--add ellipsis-->
+            <div class="col-xs-5">
+                <label class="col24">{{'iCABS Rejection Reason' |translate}}  <span class="mandatory">* </span></label>
+                <div class="col4 pr5">
+                    <input id="dlRejectionCode" type="text" (blur)="onDlRejectionCodeBlur()" formControlName="dlRejectionCode" [readonly]="this['uiForm'].controls.dlRejectionCode?.readonly"
+                        size="9" maxlength="9" class="form-control" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input id="dlRejectionDesc" type="text" formControlName="dlRejectionDesc" [readonly]="this['uiForm'].controls.dlRejectionDesc?.readonly"
+                        size="40" maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [contentComponent]="dlRejectionSearchComponent" [showHeader]="showHeader" [showCloseButton]="showCloseButton"
+                        (ellipsisData)="onRejectionReasonFromEllipsis($event)"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trLostBusiness">
+            <div class="col-xs-5">
+                <label class="col24">{{'Customer Rejection Reason' |translate}} <span class="mandatory">* </span></label>
+                <!--add ellipsis-->
+                <div class="col10 pr5">
+                    <icabs-lostbusinesslanguagesearch #iCABSBLostBusinessLanguageSearch [inputParams]="lostBusinessLangDetailInputParams" (receivedlostbusinesslangsearch)="onLostBusinessLangSearchDataReceived($event)">
+                    </icabs-lostbusinesslanguagesearch>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trLostBusinessDetail">
+            <div class="col-xs-5">
+                <label class="col24">{{'Customer Rejection Detail' |translate}} <span class="mandatory">* </span></label>
+                <!--add ellipsis-->
+                <div class="col4 pr5">
+                    <input id="LostBusinessDetailCode" type="text" (blur)="doLookupformData()" formControlName="LostBusinessDetailCode" [readonly]="this['uiForm'].controls.LostBusinessDetailCode?.readonly"
+                        size="9" maxlength="9" class="form-control" (blur)="checkIfValid($event.target)" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input id="LostBusinessDetailDesc" type="text" formControlName="LostBusinessDetailDesc" [readonly]="this['uiForm'].controls.LostBusinessDetailDesc?.readonly"
+                        size="40" maxlength="40" value="" readonly="" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [contentComponent]="lostBusinessDetailSearchComponent" [showHeader]="showHeader" [showCloseButton]="showCloseButton"
+                        [childConfigParams]="lostBusinessDetailSearchhParams" (ellipsisData)="onLostBusinessDeatilSearchFromEllipsis($event)"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-xs-5">
+                <label class="col24">{{'SMS Message' |translate}}</label>
+                <div class="col24">
+                    <input id="SMSMessage" type="text" formControlName="SMSMessage" [readonly]="this['uiForm'].controls.SMSMessage?.readonly"
+                        size="50" maxlength="140" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-xs-5">
+                <label class="col24">{{'Notes' |translate}}</label>
+                <div class="col24">
+                    <textarea id="dlHistoryNarrative" formControlName="dlHistoryNarrative" [readonly]="this['uiForm'].controls.dlHistoryNarrative?.readonly"
+                        maxlength="500" size="500" class="form-control" eTypeTextFree></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trEmail">
+            <div class="col-xs-7">
+                <label class="col24">{{'Email Notification' |translate}} :-</label>
+                <div class="col3 pr5">
+                    <input id="SalesEmailInd" formControlName="SalesEmailInd" [readonly]="this['uiForm'].controls.SalesEmailInd?.readonly" type="checkbox"
+                        class="form-control">
+                    <label for="SalesEmailInd">{{ 'Sales' | translate }}</label>
+                </div>
+                <div class="col3 pr5">
+                    <input id="ManagerEmailInd" formControlName="ManagerEmailInd" [readonly]="this['uiForm'].controls.ManagerEmailInd?.readonly"
+                        type="checkbox" class="form-control">
+                    <label for="ManagerEmailInd">{{ 'Manager' | translate }}</label>
+                </div>
+                <div class="col3 pr5">
+                    <input id="OtherEmailInd" formControlName="OtherEmailInd" [readonly]="this['uiForm'].controls.OtherEmailInd?.readonly" type="checkbox"
+                        class="form-control" (change)="OtherEmailInd_OnClick()">
+                    <label for="OtherEmailInd">{{ 'Other' | translate }}</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="uiDisplay.trEmail">
+            <div class="col-sm-3">
+                <div *ngIf="uiDisplay.tdOtherEmailAddress">
+                    <label class="col24">{{'Email Address' |translate}}<span class="mandatory">* </span> :</label>
+                    <input id="OtherEmailAddress" type="text" formControlName="OtherEmailAddress" [readonly]="this['uiForm'].controls.OtherEmailAddress?.readonly"
+                        size="40" maxlength="50" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <hr class="mb15 mt15">
+        <div class="row">
+            <div class="col-xs-12">
+                <input class="btn btn-primary mr10" value="Save" type="button" [disabled]="isSaveCancelDisabled" (click)="onSaveData()" id="btnsave"
+                    *ngIf="uiDisplay.btnSaveCancel" value="{{ 'Save' | translate }}">
+                <input class="btn btn-primary mr10" value="Update" type="button" (click)="onUpdate()" id="btnstatussave" *ngIf="uiDisplay.btnStatusUpdate"
+                    value="{{ 'Update' | translate }}">
+                <input class="btn btn-secondary mr10" type="button" value="Cancel" [disabled]="isSaveCancelDisabled" (click)="onCancel()"
+                    *ngIf="uiDisplay.btnSaveCancel" value="{{ 'Cancel' | translate }}">
+                <input class="btn btn-primary" value="Status" type="button" (click)="onStatus()" id="btnstatus" *ngIf="uiDisplay.btnStatusUpdate"
+                    value="{{ 'Status' | translate }}">
+            </div>
+        </div>
+        <div style="display:none">
+<input id="ValueInd" formControlName="ValueInd" type="checkbox">
+<input id="ReasonInd" formControlName="ReasonInd" type="checkbox">
+<input id="RejectionInd" formControlName="RejectionInd" type="checkbox">
+<input id="LanguageCode" formControlName="LanguageCode">
+<input id="UpdateableInd" formControlName="UpdateableInd" type="checkbox">
+<input id="OpenWONumber" formControlName="OpenWONumber">
+<input id="PassWONumber" formControlName="PassWONumber">
+<input id="ValidStatuses" formControlName="ValidStatuses" type="text">
+<input id="UpdateStatusCode" formControlName="UpdateStatusCode">
+</div>
+</form>
+</div>
+
+<!--<icabs-confirmok #confirmOkModal="child" [(showHeader)]="showMessageHeader" [(showCancel)]="showCancel" (confirmClose)="saveData()"></icabs-confirmok>
+<icabs-confirmok #confirmstatusOkModal="child" [(showHeader)]="showMessageHeader" [(showCancel)]="showCancel" (confirmClose)="saveStatusData()"></icabs-confirmok>
+-->
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptConfirmContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

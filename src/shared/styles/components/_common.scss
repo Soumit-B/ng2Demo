@@ -1,0 +1,918 @@
+/* Radio */
+
+input[type='radio'] {
+    -ms-transform: scale(1.5);
+    /* IE 9 */
+    -webkit-transform: scale(1.5);
+    /* Chrome, Safari, Opera */
+    -moz-transform: scale(1.5);
+    /* Firefox */
+    transform: scale(1.5);
+}
+
+/* Empty Label */
+form label:empty {
+    height: 1.4em;
+}
+
+form label {
+    display: inline-block;
+    min-height: 1em !important;
+}
+
+
+/* Select/Input */
+
+input:disabled {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+
+/* Anchor */
+
+.main-nav a[href="#"],
+.main-nav a[href=""],
+.main-nav a[href="#/?fromMenu=true"],
+.main-nav a[href*="javascript:void(0)"] {
+    color: #B5B2A6 !important;
+}
+
+
+/* Custom Dropdown */
+
+.ui-select-choices-row>a>div {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.ui-select-toggle .ui-select-match-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+.dropdown-menu .ui-select-choices-row a {
+    min-height: 1.4em
+}
+
+input.form-control,
+select.form-control {
+    border-radius: $inputBorderRadius;
+    border: 1px solid $inputBorderColor;
+    @include box-shadow(inset, 0, 1px, 1px, rgba(0, 0, 0, 0.05));
+    height: $inputHeight;
+    font-family: $openSans;
+    font-weight: normal;
+    font-size: $inputFontSize;
+    padding: 0 0.5em;
+    color: $inputTextColor;
+}
+
+select.form-control {
+    width: 100%;
+    max-width: 100%;
+    font-size: 12px;
+    font-family: $openSans;
+    font-weight: normal;
+    outline: none;
+    @include box-shadow();
+    line-height: 1;
+    border: 1px solid $inputBorderColor;
+    border-radius: $inputBorderRadius;
+    height: $inputHeight;
+    cursor: pointer;
+    /*background: #fff right center/34px 33px no-repeat padding-box;
+    background-image:url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMzQiIGhlaWdodD0iMzMiIHZpZXdCb3g9IjAgMCAzNCAzMyI+PHBhdGggZmlsbD0iNTY1NjU2IiBkPSJNMTIuNiAxM2wtMS41IDIgNi40IDUgNi40LTUtMS41LTItNC45IDMuOC00LjktMy44eiIvPjxwYXRoIGZpbGw9IiNDQ0NDQ0MiIGQ9Ik0wIDBoMXYzM0gweiIvPjwvc3ZnPg==);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;*/
+}
+
+textarea.form-control {
+    font-size: $inputFontSize;
+    font-family: $openSans;
+    font-weight: normal;
+    outline: none;
+    @include box-shadow();
+    line-height: 1;
+    border: 1px solid $inputBorderColor;
+    border-radius: $inputBorderRadius;
+}
+
+input[type=text].form-control,
+input[type=search].form-control,
+select.form-control,
+textarea.form-control {
+    &:focus {
+        background-color: #FCF0C4 !important
+    }
+}
+
+.focus,
+.ui-select-container .focus {
+    background-color: #FCF0C4
+}
+
+.ui-select-container .ui-disabled + .ui-select-match .focus {
+    background-color: transparent;
+}
+icabs-dropdown[ ng-reflect-disabled='true' ] .ui-select-container {
+    pointer-events: none;
+}
+
+// input:read-only {
+//     pointer-events: none;
+// }
+
+select.form-control::-ms-expand {
+    display: none;
+}
+
+.ie9 select.form-control {
+    background: none;
+    padding-right: 0;
+}
+
+option {
+    width: auto;
+    max-width: 100%;
+}
+
+
+/* Textarea */
+
+textarea.form-control {
+    height: auto;
+    border-radius: 0;
+    padding: 5px;
+}
+
+
+/* Form Model */
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+    border: 1px solid $inputErrorBorderColor !important;
+}
+
+
+/* Mandatory */
+
+.mandatory {
+    color: #ed1c24;
+    font-size: 16px;
+}
+
+
+/* Button submit */
+
+input[type="submit"],
+button.btn,
+a.btn {
+    background-color: $buttonBackgroundColor;
+    color: $buttonColor;
+    border: none;
+    line-height: 1.15;
+    border-radius: $inputBorderRadius;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    background-color: $buttonBackgroundColor;
+}
+
+
+/*input.btn-submit{background-color: #707070; color: #FFF; margin-top: 5px;border: 2px solid #eee;}
+input.btn-submit:hover,
+input.btn-submit:focus {border: 2px solid #949494;box-shadow: none;}*/
+
+
+/* Table */
+
+.icabs-table table {
+    width: 100%;
+}
+
+.icabs-table table tbody tr.selected td,
+.icabs-table table tbody tr:focus td,
+.icabs-table table tbody tr:hover td {
+    background-color: rgba(76,157,222,0.75) !important;
+    outline: none;
+}
+
+table.dataTable tr:hover {
+    background-color: #c4e3f5;
+    cursor: pointer;
+}
+
+table.dataTable > thead > tr > th {
+    background-color: $tableHeadBackgroundColor;
+    border-left: 1px solid $tableHeadBorderColor;
+    border-right: 1px solid $tableHeadBorderColor;
+    color: #fff;
+    text-align: center;
+    white-space: normal;
+    word-break: normal;
+}
+
+table.dataTable tr td {
+    text-align: center;
+    white-space: normal;
+    word-break: normal;
+}
+
+table.dataTable tr td.text-right {
+    text-align: right;
+}
+
+table.dataTable tr td.text-left {
+    text-align: left;
+}
+
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td {
+    padding: 7px;
+}
+.table-bordered>tbody>tr>td.noborder, .noborder{
+    border: none;
+}
+
+.dataTables_length {
+    display: none;
+}
+
+/* Modal */
+
+.modal-content {
+    border-radius: 0;
+}
+
+.modal-close {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    z-index: 10;
+}
+
+.modal-content .page-title {
+    margin-bottom: 0px;
+    .title-label {
+        margin-top: 0;
+    }
+}
+
+.modal-lg {
+    width: 85%;
+    .modal-lg {
+        width: 95%;
+    }
+    .modal.fade.in {
+        -webkit-transform: scale(1.035);
+        -ms-transform: scale(1.035);
+        transform: scale(1.035);
+    }
+}
+
+.modal-footer .btn-secondary {
+    padding: 6px 16px;
+    color: #000;
+    background: transparent;
+    border-radius: 0px;
+    border: none;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+    .modal-lg {
+        padding: 5em;
+        min-width: auto;
+    }
+}
+
+
+/* Modal */
+
+.modal-sm {
+    width: 70%;
+}
+
+.modal-header {
+    border-bottom: none;
+    .close {
+        opacity: 1;
+    }
+    button {
+        height: 100%;
+        width: 100%;
+        background-image: url("/assets/images/popup-close.svg");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100% 100%;
+        position: absolute;
+        right: -0.8em;
+        top: -0.5em;
+        padding: 3px;
+        height: 30px;
+        width: 30px;
+        font-size: 1.4em;
+    }
+}
+
+//Comment -Pradeep - Red line going out
+
+/*
+.modal .page-header-row {
+    margin-left: -30px;
+}*/
+
+
+/* Spinner */
+
+.spinner {
+    width: 70px;
+    text-align: center;
+    position: fixed;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    margin-left: -35px;
+}
+
+.spinner>div {
+    width: 18px;
+    height: 18px;
+    background-color: #007CC5;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+    animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bouncedelay {
+    0%,
+    80%,
+    100% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+    40% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+    }
+}
+
+.screen-overlay {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ddd;
+    opacity: 0.3;
+    z-index: 5;
+}
+
+
+/* Slim loader */
+
+.slim-loading-bar {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+}
+
+
+/* Styling for the Slim Loading Progress Bar itself */
+
+.slim-loading-bar-progress {
+    margin: 0;
+    padding: 0;
+    z-index: 99998;
+    background-color: green;
+    color: green;
+    box-shadow: 0 0 10px 0;
+    /* Inherits the font color */
+    height: 2px;
+    opacity: 0;
+    /* Add CSS3 styles for transition smoothing */
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+
+/* Accordion */
+
+.panel-group .panel,
+.panel-heading {
+    border-radius: 0;
+}
+
+.panel-group .panel-heading {
+    padding: 15px;
+}
+
+.accordion-child-cont {
+    padding-left: 1em;
+}
+
+.tab-nav {
+    padding-left: 0;
+}
+
+.tab-nav a {
+    margin: 5px 0 8px 0;
+    display: inline-block;
+}
+
+.nav-tabs>li>a.highlight {
+    background-color: #00BEFF;
+}
+
+.tick {
+    height: 15px;
+    width: 15px;
+}
+
+.cross-tick {
+    height: 10px;
+    width: 10px;
+}
+
+.center-align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-absolute {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+// Page
+.custom-container {
+    //padding-top: $headerHeight;
+    // padding: 0;
+    background-color: #F2F2F2;
+    padding-bottom: 15px;
+    min-height: calc(100% - 60px);
+}
+
+
+/* Pagination */
+
+.pagination {
+    border-radius: 0;
+}
+
+
+/* Print icon */
+
+
+/*.print-icon {
+   // height: 1.5em;
+    //width: 1.5em;
+}*/
+
+
+/* Tick */
+
+.tick-icon,
+.info-icon {
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.cross-icon {
+    height: 0.9em;
+    width: 0.9em;
+}
+
+.smile-icon {
+    height: 0.9em;
+    width: 0.9em;
+}
+
+.bluearrow-icon {
+    height: 0.9em;
+    width: 0.9em;
+}
+
+
+/* Add new button */
+
+input.btn-add {
+    background-color: $bgBlue;
+}
+
+
+/* Back link */
+
+.back-lint-cont {
+    padding-top: 1.5em;
+}
+
+.back-link {
+    font-weight: bold;
+    margin: 1em;
+}
+
+.modal-inner-msg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    // height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    left: 0;
+    //background-color: #fff;
+    .wrapper {
+        background-color: #fff;
+        opacity: 0.5;
+    }
+    .message {
+        text-align: center;
+        font-size: 1.4em;
+    }
+}
+
+
+/*new common css*/
+
+.page-title {
+    border-left: 4px solid $pageHeaderBorderColor;
+    padding-left: 11px;
+    h1 {
+        margin: 10px 0;
+        font-size: 20px;
+        color: $pageHeaderColor;
+        font-weight: 400;
+    }
+}
+
+.page-sub-title {
+    font-size: 20px;
+    color: $pageHeaderColor;
+    font-weight: 400;
+}
+
+.componentCont {
+    width: 100%;
+    height: 200px;
+    background: #ccc;
+}
+
+.color-box {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    line-height: 9px;
+}
+
+.flag-fixed {
+    position: absolute;
+    right: 0;
+    background: #fff;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .12);
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        li {
+            border-bottom: 1px solid #ccc;
+            min-height: 40px;
+            padding: 10px 15px 10px 50px;
+            img {
+                margin-right: 15px;
+                width: 20px;
+                margin-left: -35px;
+            }
+            [type="checkbox"]:not(:checked)+label:before,
+            [type="checkbox"]:checked+label:before {
+                top: 0;
+            }
+        }
+    }
+}
+
+label {
+    color: $labelColor;
+    font-size: $labelFontSize;
+}
+
+button.btn.btn-default {
+    color: #007dc5;
+    background-color: #fff;
+    border: 1px solid #007dc5;
+}
+
+// Message-info
+.message-box {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .12);
+    border: 1px solid #000;
+    font-size: 15px;
+    border-radius: 0;
+    line-height: 25px;
+    padding: 0 15px;
+    padding-left: 20px;
+    background-repeat: no-repeat;
+    background-position: 5px 8px;
+    background-size: auto 10px;
+}
+
+.message-box.error {
+    background-image: url("/assets/images/cross-icon.svg");
+    background-color: #f3e2e4;
+    color: #992d3a;
+    border-color: #c2848c;
+}
+
+.message-box.success {
+    background-image: url("/assets/images/tick-icon.svg");
+    background-color: #dbf2c9;
+    color: #22351b;
+    border-color: #94b47b;
+}
+
+.message-box.info {
+    background-image: url("/assets/images/cross-icon.svg");
+    background-color: #fcfad3;
+    color: #553406;
+    border-color: #d9ae5c;
+}
+
+.legend {
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+    vertical-align: middle;
+}
+
+.legend-label {
+    font-weight: bold;
+}
+
+
+/* Datepicker */
+
+.btn-info.active {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+/*later we need to remove this when from-group class wil not there*/
+
+.form-group .modal label {
+    padding-top: 0;
+    line-height: normal;
+}
+/*later we need to remove this when from-group class wil not there*/
+
+
+
+table tr.nohov:hover {
+    background-color: transparent;
+    cursor: auto;
+}
+.message-center {
+    width: 75%;
+    border: 1px solid $inputBorderColor;
+    padding: 10px;
+}
+
+.print-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.btnAddDetail {
+    position: absolute;
+    width: 40px;
+    bottom: 0;
+    left: 50%
+}
+
+.btn.btn-additional,
+.btn.btn-additional:hover {
+    color: #007dc5;
+    border: 1px solid #578bab;
+    background-color: #d2dde6;
+}
+
+.plusmin {
+    font-size: 10px;
+}
+
+plusmin.glyphicon-minus{
+    top: -2px;
+}
+
+.btn-additional {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    font: calibri bold 15px #007dc5;
+    border: 1px #578bab;
+    background-color: #dedde6;
+}
+
+.btn-print {
+    background-image: url('/assets/images/print.png');
+    width: 26px;
+    background-size: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.border-style {
+    border: 2px solid #ccc;
+}
+
+.border-right-style {
+    border-right: 2px solid #ccc;
+}
+
+.border-left-style {
+    border-left: 2px solid #ccc;
+}
+
+.modal-fix {
+    margin: 0 -15px;
+}
+
+.raw-wrap {
+    white-space: pre;
+}
+
+.font-capitalise {
+    text-transform: uppercase;
+}
+
+.message-box.warning {
+    background-color: #f3e2e4;
+    color: #992d3a;
+    border-color: #c2848c;
+    text-align: center;
+
+}
+
+.message-box.info-label {
+    background-color: #fcfad3;
+    border: 1px solid #d9ae5c;
+    color: #553406;
+    text-align: center;
+    font-weight: bold;
+    padding: 0px 24px;
+}
+
+.btn.dummy {
+    background-color: transparent;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: 0;
+}
+.signature-box{
+    border: 1px solid #999;
+    height: 96px;
+    width: 100%;
+    background-color: #fff;
+}
+.message-box.info-success {
+   background-color: #dbf2c9;
+   color: #22351b;
+   border-color: #94b47b;
+}
+.topClass {
+    background-color: #e7e8ea;
+    padding: 10px;
+}
+.bottomClass {
+    background-color: #e7e8ea;
+    padding: 10px;
+}
+.calendarTable {
+    width: 100%;
+
+}
+.scrollableDiv{
+    height: 200px;
+    overflow-y: scroll;
+}
+.glyphicon-info {
+    color: blue;
+}
+
+// Ajax Overlay
+.ajax-overlay {
+    position: fixed;
+    z-index: 1039;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+//textarea 
+textarea.textareasize{
+ width: 100%;
+ height: 240px;
+}
+.verticalLine {
+   border-right: 1px solid $inputBorderColor;
+}
+.map-container{
+    position: relative;
+    height: 500px;
+}
+.map_canvas{
+     width: 100%;
+     height: 100%;
+}
+.draggable {
+    z-index:1000;
+    position:absolute;
+    top:7%;
+    bottom:0%;
+    left:78%;
+    width:20%;
+    background-color: #bdd7ee;
+}
+.dialog-title{
+   background-color: #5c9ccc;
+   color: #ffffff;
+   font-size: 14px;
+   font-weight: bold;
+   padding: 5px 15px;
+}
+.MapButton{
+    width: 100%;
+}
+.KeyTable{
+    list-style: none;
+    margin: 0px;
+    padding: 0px 10px;
+    li{
+       padding: 15px;
+       label {
+         font-size: 12px;
+       }
+    }
+    img {
+        width: 20px;
+    }
+}
+.no-wrap {
+    white-space: nowrap;
+}
+.colorCrimson {
+    color: crimson;
+}
+

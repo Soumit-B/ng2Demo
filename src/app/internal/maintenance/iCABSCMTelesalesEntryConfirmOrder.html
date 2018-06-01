@@ -1,0 +1,127 @@
+<section class="container-fluid custom-container">
+	<header class="screen-header">
+		<div class="row">
+			<div class="col-sm-12 page-title mt10">
+				<h1>{{this['pageTitle'] | translate}}</h1>
+			</div>
+		</div>
+	</header>
+	<form novalidate [formGroup]="this['uiForm']">
+		<section class="screen-body">
+			<div class="row mt5">
+				<div class="col-sm-6">
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label><strong>{{'Confirm Telesales Order' | translate }}</strong></label>
+						</div>
+						<div class="col-sm-12">
+							<label>{{'Order Number' | translate }}</label>
+						</div>
+						<div class="col-sm-2">
+							<input type="text" size="10" [attr.maxlength]="10" class="form-control" id="TelesalesOrderNumber" formControlName="TelesalesOrderNumber"
+								eTypeInteger>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" size="40" [attr.maxlength]="40" class="form-control" id="TelesalesName" formControlName="TelesalesName" eTypeTextFree>
+						</div>
+					</div>
+					<div class="row mt2" [ngClass]="{'hidden': !uiDisplay.trTelesalesContactEmail}">
+						<div class="col-sm-12">
+							<label>{{'Contact Email' | translate }}<span class="mandatory">*</span></label>
+						</div>
+						<div class="col-sm-4">
+							<input #TelesalesContactEmail type="text" size="30" [attr.maxlength]="100" class="form-control" id="TelesalesContactEmail" formControlName="TelesalesContactEmail"
+								eTypeTextFree>
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label>{{'Customer PO Ref' | translate }}<span class="mandatory">*</span></label>
+						</div>
+						<div class="col-sm-4">
+							<input #TelesalesPurchaseOrderNo type="text" size="30" [attr.maxlength]="40" class="form-control" id="TelesalesPurchaseOrderNo"
+								formControlName="TelesalesPurchaseOrderNo" TelesalesPurchaseOrderNo>
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label>{{'Payment Type' | translate }}</label>
+						</div>
+						<div class="col-sm-4">
+							<select class="form-control" formControlName="PaymentTypeCodeSelect" (change)="PaymentTypeCodeSelect_OnChange()">
+                                <option *ngFor="let list of PaymentTypeCodeDropdown" [value]="list.value">
+                                    {{list.desc | translate}}
+                                </option>
+                            </select>
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label>{{'Payment Ref' | translate }}<span *ngIf="this['utils'].isRequired(this['uiForm'].controls.PaymentAuthorityCode)" class="mandatory">*</span></label>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" size="20" [attr.maxlength]="30" class="form-control" id="PaymentAuthorityCode" formControlName="PaymentAuthorityCode"
+								PaymentAuthorityCode>
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12 hidden">
+							<input type="checkbox" id="CallBackInd" formControlName="CallBackInd" class="form-control">
+						</div>
+						<div class="col-sm-12">
+							<label class="">{{'Call Back?' | translate }}</label>
+						</div>
+						<div class="col-sm-4">
+							<select #CallBackSelect class="form-control" formControlName="CallBackSelect" (change)="CallBackSelect_OnChange()">
+                                <option value="0">{{'Please Select' | translate }}</option>
+                                <option value="1">{{'Yes' | translate }}</option>
+                                <option value="2">{{'No' | translate }}</option>
+                            </select>
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label>{{'Call Back Date' | translate }}</label>
+						</div>
+						<div class="col-sm-4">
+							<icabs-datepicker [dt]="dtCallBackDate" [clearDate]="true" [isDisabled]="this['uiForm'].controls.CallBackDate?.disabled"
+								(selectedValue)="selectedCallBackDate($event)"></icabs-datepicker>
+							<input id="CallBackDate" formControlName="CallBackDate" [readonly]="true" class="hidden">
+						</div>
+					</div>
+					<div class="row mt2">
+						<div class="col-sm-12">
+							<label>{{'Call Back Notes' | translate }}</label>
+						</div>
+						<div class="col-sm-10">
+							<textarea class="form-control" id="CallBackNotes" formControlName="CallBackNotes"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="col-sm-12">
+						<label><strong>{{'Telesales Order Value' | translate }}</strong></label>
+					</div>
+					<div class="col-sm-8">
+						<icabs-grid #grid [maxColumns]="maxColumn" [showPageCount]="false" [showTotalRow]="true" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+							[validateProperties]="validateProperties"></icabs-grid>
+					</div>
+				</div>
+			</div>
+		</section>
+		<hr class="mt20 mb20">
+		<footer class="screen-footer">
+			<div class="row mt10">
+				<div class="col-sm-3">
+					<input class="btn btn-primary mr10" type="button" value="{{'Confirm Order' | translate}}" (click)="cmdConfirm_OnClick()">
+					<input class="btn btn-secondary" type="button" value="{{'Cancel' | translate}}" (click)="cmdCancel_OnClick()">
+				</div>
+			</div>
+		</footer>
+	</form>
+</section>
+<icabs-modal #messageModal [showCloseButton]="true" (modalClose)="closeModal()" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [showHeader]="true" [title]="promptTitle" [content]="promptContent" (saveEmit)="confirmed($event, 'YES')"
+	(cancelEmit)="confirmed($event, 'NO')"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

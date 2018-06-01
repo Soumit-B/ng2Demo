@@ -1,0 +1,78 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Supervisor'|translate}}</label>
+                    <div class="col7 pr5">
+                        <input type="text" id="SupervisorEmployeeCode" formControlName="SupervisorEmployeeCode" class="form-control" size="6" maxlength="8"
+                            (change)="onSupervisorEmployeeCodeChange($event)" eTypeCode>
+                    </div>
+                    <div class="col15 pr5">
+                        <input type="text" id="SupervisorEmployeeName" formControlName="SupervisorEmployeeName" class="form-control" size="20" maxlength="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.supervisor.childConfigParams" [contentComponent]="ellipsisParams.supervisor.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('Supervisor', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.supervisor.disabled" [showCloseButton]="ellipsisParams.supervisor.showCloseButton"
+                            [showHeader]="ellipsisParams.supervisor.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Debrief Date From'|translate}}</label>
+                        <icabs-datepicker id="DebriefFromDate" formControlName="DebriefFromDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area'|translate}}</label>
+                    <div class="col7 pr5">
+                        <input type="text" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" class="form-control"
+                            size="6" maxlength="8" (change)="onBranchServiceAreaCodeChange($event)" eTypeCode [icabsDirFocus]="setFocusBranchServiceAreaCode">
+                    </div>
+                    <div class="col15 pr5">
+                        <input type="text" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" class="form-control" size="20" maxlength="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.serviceArea.childConfigParams" [contentComponent]="ellipsisParams.serviceArea.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('ServiceArea', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.serviceArea.disabled" [showCloseButton]="ellipsisParams.serviceArea.showCloseButton"
+                            [showHeader]="ellipsisParams.serviceArea.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'To'|translate}}</label>
+                        <icabs-datepicker id="DebriefToDate" formControlName="DebriefToDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="onRiGridRefresh($event)"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="gridConfig.totalRecords" [itemsPerPage]="gridConfig.pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [currentPage]="gridConfig.currentPage"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onTBodyGridDblClick($event)" (bodyKeyDown)="onRiGridBodyKeyDown($event)"
+                        (headerClick)="onRiGridSort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

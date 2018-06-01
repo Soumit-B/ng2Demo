@@ -1,0 +1,112 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Installation / Removal Receipts' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="Business" class="col24">{{'Business' | translate}}</label>
+                        <input id="Business" formControlName="Business" class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="CompanyCode" class="col24">{{'Company (blank for all)' | translate}}</label>
+                    <div class="col12">
+                        <icabs-business-company-search #bCompanySearchComponent [inputParams]="ellipseConfig.bCompanySearchComponent.inputParamsCompanySearch"
+                            (receivedCompanyCode)="companySearchdataReceived($event)" [isDisabled]="ellipseConfig.bCompanySearchComponent.isDisabled"
+                            [isRequired]="ellipseConfig.bCompanySearchComponent.isRequired" [active]="ellipseConfig.bCompanySearchComponent.active"></icabs-business-company-search>
+                            <input type="hidden" id="CompanyCode" formControlName="CompanyCode" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="BranchNumber" class="col24">{{'Branch (blank for all)' | translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" id="BranchNumber" formControlName="BranchNumber">
+                            <option *ngFor="let b of branchCodeList" [ngValue]="b.value">{{b.text}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="DateFrom" class="col24">{{'From Date' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="DateFrom" [dt]="datePickerConfig.DateFrom" (selectedValue)="onSelectDateFrom($event)"></icabs-datepicker>
+                        <input type="hidden" id="DateFrom" formControlName="DateFrom" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="DateTo" class="col24">{{'To Date' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="DateTo" [dt]="datePickerConfig.DateTo" (selectedValue)="onSelectDateTo($event)"></icabs-datepicker>
+                        <input type="hidden" id="DateTo" formControlName="DateTo" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="ReportType" class="col24">{{'Report Type' | translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" id="ReportType" formControlName="ReportType">
+                            <option value="Processed" selected>{{'Processed Date' | translate}}</option>
+                            <option value="Installation">{{'Installation Date' | translate}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="ReceiptType" class="col24">{{'Receipt Type' | translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" id="ReceiptType" formControlName="ReceiptType">
+                            <option value="All" selected>{{'All' | translate}}</option>
+                            <option value="Installation">{{'Installation' | translate}}</option>
+                            <option value="Removal">{{'Removal' | translate}}</option>
+                            <option value="CallOut">{{'Call Out' | translate}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="RepDest" class="col24">{{'Report Destination' |translate}}</label>
+                    <div class="col12">
+                        <select class="form-control" id="RepDest" formControlName="RepDest">
+                            <option value="direct" selected>{{'Report Viewer' |translate}}</option>
+                            <option value="Email">{{'Email' | translate}}</option>
+						</select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary" value="{{ 'Submit Report Generation' | translate }}" (click)="onClickSubmit()">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12" id="trInformation" *ngIf="trInformation">
+                    <div class="alert alert-info" id="thInformation">
+                        <strong>{{reportGenMsg}}</strong>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>

@@ -1,0 +1,344 @@
+<form novalidate [formGroup]="maintenancePremiseFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div #premiseContainer>
+        <div class="row mt10" [hidden]="fieldVisibility.isHiddenLOSCodeSelect">
+            <div class="col-sm-3">
+                <label class="col24">{{'Line of Service' | translate}}<span  class="mandatory" *ngIf="fieldRequired.LOSCodeSelect === true">* </span></label>
+                <div class="col24">
+                    <icabs-dropdown-static #LOSCodeSelectDropdown class="" [inputData]="lineOfServiceOptions" [disabled]="fieldDisable.LOSCodeSelect"
+                        (onSelect)="lineOfServiceChange($event)"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPremiseName">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises Name' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseName === true">* </span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseName" [attr.id]="PremiseName" [attr.size]="40" [attr.maxlength]="40" class="form-control"
+                        (change)="premiseNameOnchange()" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenPremiseAddressLine1">
+                <label class="col24" for="PremiseAddressLine1">{{'Premises Address Line 1' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseAddressLine1 === true">* </span></label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="PremiseAddressLine1" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseAddressLine1Onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3 mt25" [hidden]="fieldVisibility.isHiddencmdGetPremiseAddress">
+                <input class="btn btn-sm btn-secondary" type="button" value="{{'Get Address' | translate}}" (click)="onGetPremiseAddressClick()"
+                    [disabled]="fieldDisable.cmdGetPremiseAddress">
+            </div>
+        </div>
+        <div class="row m2" [hidden]="fieldVisibility.isHiddenPremiseAddressLine2">
+            <div class="col-sm-3">
+                <label class="col24 " for="PremiseAddressLine2">{{'Premises Address Line 2' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseAddressLine2 === true">*</span></label>
+                <div class="co24">
+                    <input type="text" formControlName="PremiseAddressLine2" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseAddressLine2Onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPremiseAddressLine3">
+            <div class="col-sm-3">
+                <label class="col24 " for="PremiseAddressLine3">{{'Premises Address Line 3' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseAddressLine3 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseAddressLine3" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseAddressLine3Onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPremiseAddressLine4">
+            <div class="col-sm-3">
+                <label class="col24" for="PremiseAddressLine4">{{'Town' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseAddressLine4 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseAddressLine4" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseAddressLine4Onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPremiseAddressLine5">
+            <div class="col-sm-3">
+                <label class="col24 " for="PremiseAddressLine5">{{'County' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseAddressLine5 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseAddressLine5" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseAddressLine5onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPremisePostcode">
+            <div class="col-sm-3">
+                <label class="col24 " for="PremisePostcode">{{'Postcode' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremisePostcode === true">*</span></label>
+                <div class="col22 pr5">
+                    <input type="text" formControlName="PremisePostcode" class="form-control" [attr.size]="15" [attr.maxlength]="15" (change)="premisePostcodeOnchange($event.target.value)"
+                        (focusout)="premisePostcodeOnfocusout()" eTypeCode>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #postcodeSearchEllipsis [childConfigParams]="inputParamsPostcode" [contentComponent]="postcodeSearchComponent"
+                        [showHeader]="true" [disabled]="ellipsisDisable.poscodeSearchDisable" [modalConfig]='modalConfig' (ellipsisData)="onPremisePostcodeDataReturn($event)"
+                        [hideIcon]="poscodeSearchHide"></icabs-ellipsis>
+                    <icabs-ellipsis #postcodeSearchSBEllipsis [childConfigParams]="inputParamsPostcode" [contentComponent]="postcodeSearchSBComponent"
+                        [showHeader]="true" [disabled]="false" [modalConfig]='modalConfig' (ellipsisData)="onPremisePostcodeDataReturn($event)"
+                        [hideIcon]="true" (modalHidden)="postcodeValidate()"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenPremiseContactName">
+                <label class="col24 " for="PremiseContactName">{{'Contact Name' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseContactName === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactName" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseContactPositiononfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3 " [hidden]="fieldVisibility.isHiddenPremiseContactPosition">
+                <label class="col24 " for="PremiseContactPosition">{{'Position' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseContactPosition === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactPosition" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenPremiseContactTelephone">
+                <label class="col24 " for="PremiseContactTelephone">{{'Telephone' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseContactTelephone === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactTelephone" class="form-control" [attr.size]="20" [attr.maxlength]="20"
+                        (focusout)="premiseContactPositiononfocusout()" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3 " [hidden]="fieldVisibility.isHiddenPremiseContactMobile">
+                <label class="col24 " for="PremiseContactMobile">{{'Mobile' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseContactMobile === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactMobile" class="form-control" [attr.size]="20" [attr.maxlength]="20" (focusout)="premiseContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenPremiseContactFax">
+                <label class="col24 " for="PremiseContactFax">{{'Fax' | translate}}<span  class="mandatory" *ngIf="fieldRequired.contractPostcode === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactFax" class="form-control" [attr.size]="20" [attr.maxlength]="20" (focusout)="premiseContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+
+            </div>
+            <div class="col-sm-3 " [hidden]="fieldVisibility.isHiddenPremiseContactEmail">
+                <label class="col24 " for="PremiseContactEmail">{{'Email' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PremiseContactEmail === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="PremiseContactEmail" class="form-control" [attr.size]="40" [attr.maxlength]="40" (focusout)="premiseContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7" [hidden]="fieldVisibility.isHiddenDecisionMakerInd">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" (click)="decisionMakerIndOnChange($event.target.checked)" id="DecisionMakerInd" [checked]="isCheckedDecisionMakerInd"
+                        [disabled]="fieldDisable.isCheckedDecisionMakerInd">
+                    <label class="col24" id="DecisionMakerInd" for="DecisionMakerInd">{{ 'Decision Maker' | translate }}<span  class="mandatory" *ngIf="fieldRequired.DecisionMakerInd === true">*</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenBusinessSourceCodeSelect">
+            <div class="col-sm-3">
+                <label class="col24 " for="BusinessSourceCodeSelect">{{'Business Source' | translate}} <span  class="mandatory" *ngIf="fieldRequired.BusinessSourceCodeSelect === true">*</span></label>
+                <div class="col24">
+                    <icabs-dropdown-static #BusinessSourceCodeSelectDropdown class="" [inputData]="this.systemParametersFromParent.ttBusiness"
+                        [disabled]="fieldDisable.BusinessSourceCodeSelect" (onSelect)="businessSourceCodeSelectChange($event)"
+                        [doTranslate]="false"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenBusinessOriginCodeSelect">
+                <label class="col24 " for="BusinessOriginCodeSelect">{{'Business Origin' | translate}}<span  class="mandatory" *ngIf="fieldRequired.BusinessOriginCodeSelect === true">*</span></label>
+                <div class="col24">
+                    <icabs-dropdown-static #BusinessOriginCodeSelectDropdown class="" [inputData]="businessOriginCodeOptions" [disabled]="fieldDisable.BusinessOriginCodeSelect"
+                        (onSelect)="businessOriginCodeSelectChange($event,'cntrl')" [doTranslate]="false"></icabs-dropdown-static>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenBusinessOriginDetailCodeSelect">
+                <label class="col24 " for="BusinessOriginDetailCodeSelect">{{'Origin Detail' | translate}}<span  class="mandatory" *ngIf="fieldRequired.BusinessOriginDetailCodeSelect === true">*</span></label>
+                <div class="col24">
+                    <icabs-dropdown-static #BusinessOriginDetailCodeSelectDropdown class="" [inputData]="businessOriginDetailCodeOptions" [disabled]="fieldDisable.BusinessOriginDetailCodeSelect"
+                        (onSelect)="businessOriginDetailCodeSelectChange($event)" [doTranslate]="false"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactMediumCode">
+                <label class="col24 " for="ContactMediumCode">{{'Prospect Origin (Contact Medium)' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactMediumCode === true">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" formControlName="ContactMediumCode" [attr.size]="6" [attr.maxlength]="2" class="form-control" (blur)="populateContactDesc()"
+                        eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" formControlName="ContactMediumDesc" [attr.size]="30" [attr.maxlength]="40" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #contactMediumCodeEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContactMediumLanguageSearch"
+                        [modalConfig]="modalConfig" [contentComponent]="contactMediumLanguageSearchComponent" (ellipsisData)="onContactMediumCodeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-6" [hidden]="fieldVisibility.isHiddenWOStartTime">
+                <label class="col24 " for="WOStartTime">{{'Appointment Details' | translate}}<span  class="mandatory" *ngIf="fieldRequired.WOStartTime === true">*</span></label>
+                <div class="col8 pr5">
+                    <icabs-datepicker [dt]='defaultWODate' (selectedValue)="wODateSelectedValue($event)" [isRequired]="fieldRequired.WODate"></icabs-datepicker>
+                </div>
+                <div class="col8 pr5">
+                    <input type="text" formControlName="WOStartTime" [attr.size]="4" class="form-control" eTypeTime>
+                </div>
+                <div class="col8">
+                    <input type="text" formControlName="WOEndTime" [attr.size]="4" class="form-control " eTypeTime>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenAssignToEmployeeCode">
+                <label class="col24 " for="AssignToEmployeeCode">{{'Assign To' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AssignToEmployeeCode === true">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" formControlName="AssignToEmployeeCode" [attr.size]="6" [attr.maxlength]="6" class="form-control" (blur)="setServicingEmployee()"
+                        eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" formControlName="AssignToEmployeeName" [attr.size]="30" [attr.maxlength]="40" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #employeeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsEmployeeSearch"
+                        [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent" (ellipsisData)="onAssignEmployeeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="ellipsisDisable.isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3 " [hidden]="fieldVisibility.isHiddenDefaultAssigneeEmployeeDetails">
+                <label class="col24 " for="DefaultAssigneeEmployeeDetails">{{'Usual Employee' | translate}} <span  class="mandatory" *ngIf="fieldRequired.DefaultAssigneeEmployeeDetails === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="DefaultAssigneeEmployeeDetails" [attr.size]="45" [attr.maxlength]="45" class="form-control"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7" [hidden]="fieldVisibility.isHiddenPDALeadEmployeeCode">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input id="PDALeadInd" type="checkbox" class="form-control" (click)="pdaLeadIndOnChange($event.target.checked)" [checked]="isCheckedPDALeadInd"
+                        [disabled]="fieldDisable.isDisablePDALeadInd">
+                    <label for="PDALeadInd">{{'Submitted by Service Employee' | translate}}<span  class="mandatory" *ngIf="fieldRequired.PDALeadEmployeeCode === true">*</span></label>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col8 pr5">
+                    <input type="text" formControlName="PDALeadEmployeeCode" [attr.size]="8" class="form-control" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" formControlName="PDALeadEmployeeSurname" [attr.size]="30" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPDAEmployeeSearch" [modalConfig]="modalConfig"
+                        [contentComponent]="employeeSearchComponent" (ellipsisData)="onServicePDAEmployeeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="ellipsisDisable.isPDAEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenSMSMessage">
+            <div class="col-sm-3">
+                <label class="col24 " for="SMSMessage">{{'SMS Message' | translate}}<span  class="mandatory" *ngIf="fieldRequired.SMSMessage === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="SMSMessage" [attr.size]="50" [attr.maxlength]="140" class="form-control" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <hr class="mt20 mb20">
+        <div [hidden]="fieldVisibility.isHiddenNatAccountDetails">
+            <div class="row" [hidden]="fieldVisibility.isHiddenCommenceDate">
+                <div class="col-sm-3">
+                    <label class="col24" for="CommenceDate">{{'Commence Date' | translate}}<span  class="mandatory" *ngIf="fieldRequired.CommenceDate === true">* </span></label>
+                    <div class="col24">
+                        <icabs-datepicker [dt]='defaultCommenceDate' (selectedValue)="commenceDateSelectedValue($event)" isRequired="fieldRequired.CommenceDate"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContractExpiryDate">
+                    <label class="col24" for="ContractExpiryDate">{{'Expiry Date' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContractExpiryDate === true">* </span></label>
+                    <div class="col24">
+                        <icabs-datepicker #ContractExpiryDate [dt]='defaultContractExpiryDate' (selectedValue)="exppiryDateSelectedValue($event)"
+                            isRequired="fieldRequired.ContractExpiryDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldVisibility.isHiddenAnnualValue">
+                <div class="col-sm-3">
+                    <label class="col24" for="AnnualValue">{{'Value' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AnnualValue === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" formControlName="AnnualValue" [attr.size]="10" [attr.maxlength]="10" class="form-control" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenPaymentTypeCode">
+                    <label class="col24 " for="PaymentTypeCode">{{'Payment Type' | translate}} <span  class="mandatory" *ngIf="fieldRequired.PaymentTypeCode === true"> *</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="PaymentTypeCode" [attr.size]="3" [attr.maxlength]="3" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="PaymentDesc" [attr.size]="20" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPaymentType" [modalConfig]="modalConfig"
+                            [contentComponent]="paymentTypeCodeComponent" (ellipsisData)="onPaymentTypeDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="ellipsisDisable.isPaymentTypeEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldVisibility.isHiddenNegotiatingSalesEmployeeCode">
+                <div class="col-sm-3 ">
+                    <label class="col24 " for="NegotiatingSalesEmployeeCode">{{'Neg Sales Employee' | translate}} <span  class="mandatory" *ngIf="fieldRequired.NegotiatingSalesEmployeeCode === true">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="NegotiatingSalesEmployeeCode" [attr.size]="7" [attr.maxlength]="6" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="NegotiatingSalesEmployeeSurname" [attr.size]="20" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsNegotiatingSalesEmployeeSearch" [modalConfig]="modalConfig"
+                            [contentComponent]="employeeSearchComponent" (ellipsisData)="onEmployeeNegotiatingSalesDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="ellipsisDisable.isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenBranchNumber">
+                    <label class="col24 " for="BranchNumber">{{'Service Branch' | translate}}<span  class="mandatory" *ngIf="fieldRequired.BranchNumber === true">*</span></label>
+                    <div class="col24">
+                        <icabs-branchsearch [inputParams]="inputParams" (receivedbranchsearch)="onBranchDataReceived($event)" #BranchNumberDropdwon></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col-sm-3 " [hidden]="fieldVisibility.isHiddenServicingSalesEmployeeCode">
+                    <label class="col24 " for="ServicingSalesEmployeeCode">{{'Service Sales Employee' | translate}} <span  class="mandatory" *ngIf="fieldRequired.ServicingSalesEmployeeCode === true">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="ServicingSalesEmployeeCode" [attr.size]="7" [attr.maxlength]="6" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="ServicingSalesEmployeeSurname" [attr.size]="20" [attr.maxlength]="40" class="form-control">
+                    </div>
+
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceEmployeeSearch" [modalConfig]="modalConfig"
+                            [contentComponent]="employeeSearchComponent" (ellipsisData)="onServiceEmployeeDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="ellipsisDisable.isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+<icabs-modal #errorModal [showHeader]="true"> </icabs-modal>

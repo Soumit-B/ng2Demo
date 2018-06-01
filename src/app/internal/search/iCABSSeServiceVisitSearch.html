@@ -1,0 +1,62 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="8" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="8" maxlength="5">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="8" maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table></icabs-table>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-offset-9 col-sm-3">
+                    <select id="menu" class="form-control" formControlName="menu">
+                         <option value="" selected>{{ 'Options' | translate }}</option>
+                        <option value="AddVisit">{{ 'Add Service Visit' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

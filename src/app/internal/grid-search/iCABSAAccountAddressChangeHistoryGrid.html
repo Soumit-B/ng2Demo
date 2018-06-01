@@ -1,0 +1,58 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{'Account Address Amendments'| translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="accountAddressGroup">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <div class="col12 pr5">
+                    <label>{{ 'Date From'| translate }}</label>
+                    <icabs-datepicker [dt]='FromDate' [setFocus]="true" [isDisabled]="!dateObjectsEnabled.FromdtDisplayed" (selectedValue)="fromDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+                <div class="col12">
+                    <label>{{'Date To' | translate }}</label>
+                    <icabs-datepicker #date1 [dt]='ToDate' [isDisabled]="!dateObjectsEnabled.ToDate" (selectedValue)="toDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="AccountNumber" class="form-control" (keyup)="onblurAccount($event)" (blur)="onBlur($event)" placeholder=""
+                        formControlName="AccountNumber" size="9" maxlength="9">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="AccountName" class="form-control" placeholder="" formControlName="AccountName" size="40" maxlength="40"
+                        readonly="">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="inputParamsAccSearch" [contentComponent]="dynamicComponent1" (ellipsisData)="setAccountNumber($event)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #employeeGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid-advanced #riGrid (bodyKeyDown)="riGrid_BodyOnKeyDown($event)" (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                    (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal="child">
+    </icabs-modal>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+</div>

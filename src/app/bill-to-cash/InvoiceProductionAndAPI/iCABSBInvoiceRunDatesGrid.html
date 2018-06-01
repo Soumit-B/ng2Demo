@@ -1,0 +1,39 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #invoiceRunDatesGridPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col12 pr5">
+                        <input type="checkbox" id="AutoRefreshInd" class="form-control" [checked]="false" (change)="autoRefresh($event)">
+                        <label for="AutoRefreshInd">{{ 'Auto Refresh' | translate }}</label>
+                    </div>
+                    <div class="col12">
+                        <icabs-dropdown-static #runDatesSelectDropdown [inputData]="runDatesSelectList" (onSelect)="menuOnchange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="riGrid_onGridRowClick($event)" (bodyDblClick)="riGrid_getGridOnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #messageModal="child" [showHeader]="true"></icabs-modal>
+<icabs-modal #errorModal="child" [showHeader]="true"></icabs-modal>

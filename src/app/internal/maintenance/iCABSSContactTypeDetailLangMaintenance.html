@@ -1,0 +1,96 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input #formLanguageCode id="LanguageCode" class="form-control" eTypeCode formControlName="LanguageCode" type="text" size="3"
+                            [attr.maxlength]="3" (blur)="markFieldPristine()" (change)="languageCodeOnChange()">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" eTypeText type="text" size="20"
+                            [attr.maxlength]="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ellipsisContactTypeDetailCode [showCloseButton]="ellipsisConfig.languageCode.showCloseButton" [showHeader]="ellipsisConfig.languageCode.showHeader"
+                            [childConfigParams]="ellipsisConfig.languageCode.childConfigParams" [contentComponent]="ellipsisConfig.languageCode.component"
+                            (ellipsisData)="onLanguageDataReceived($event)" [modalConfig]="ellipsisConfig.languageCode.modalConfig"
+                            [autoOpen]="ellipsisConfig.languageCode.autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-contact-type-search #contactTypeDropDown [isTriggerValidate]="dropdown.contactTypeDropDown.isTriggerValidate" [inputParams]="inputParams"
+                            [isRequired]="true" (receivedContactType)="onReceivedContactType($event)"></icabs-contact-type-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetailCode">{{ 'Contact Type Detail Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-contacttype-detailsearch #ddContactTypeDetailSearch [inputParams]="dropdown.contactTypeDetailSearch" [active]="dropdown.contactTypeDetailSearch.active"
+                            [isDisabled]="dropdown.contactTypeDetailSearch.isDisabled" [isRequired]="dropdown.contactTypeDetailSearch.isRequired"
+                            (receivedContactTypeDetailSearch)="onContactTypeDetailCodeDropdownDataReceived($event)" [isTriggerValidate]="dropdown.contactTypeDetailSearch.isTriggerValidate"></icabs-contacttype-detailsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetailDesc">{{ 'Description' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input #ContactTypeDetailDesc id="ContactTypeDetailDesc" class="form-control" formControlName="ContactTypeDetailDesc" eTypeText
+                            type="text" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ExternalSMSDescription">{{ 'External SMS Description' | translate}}</label>
+                        <textarea id="ExternalSMSDescription" class="form-control" formControlName="ExternalSMSDescription" eTypeText rows="10" cols="80"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ExternalEmailDescription">{{ 'External Email Description' | translate}}</label>
+                        <textarea id="ExternalEmailDescription" class="form-control" formControlName="ExternalEmailDescription" eTypeText rows="10"
+                            cols="80"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" (click)="addMode()" value="{{'Add' | translate}}" [disabled]="isbtnAdd">
+                <input type="submit" class="btn btn-primary mr5" (click)="showSaveConfirm()" value="{{'Save' | translate}}" [disabled]="isbtnSave">
+                <input type="button" class="btn btn-secondary mr5" (click)="onCancel()" value="{{'Cancel' | translate}}" [disabled]="isbtnCancel">
+                <input type="button" class="btn btn-additional" (click)="showDeleteConfirm()" value="{{'Delete' | translate}}" [disabled]="isbtnDelete">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="isShowPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="saveUpdatedData()"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [(showHeader)]="isShowPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="deleteSavedData()"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

@@ -1,0 +1,47 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <label class="col24">{{ 'Expense Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col10 pr5">
+                        <icabs-expensecode #expenseCodeDropdown [inputParams]="inputParamsExpenseCode" (receivedExpenseCode)="onExpenseCodeReceived($event)"
+                            *ngIf="this['formMode']!==this['c_s_MODE_ADD']" [active]="activeExpenseCode" [isRequired]="true"
+                            [isFirstItemSelected]="true" (getDefaultInfo)="initExpenseCodeSearch($event)"></icabs-expensecode>
+                        <input class="form-control" id="ExpenseCode" formControlName="ExpenseCode" size="10" [attr.maxlength]="7" *ngIf="this['formMode']===this['c_s_MODE_ADD']"
+                            eTypeCode>
+                    </div>
+                    <div class="col12 pr5">
+                        <input class="form-control" id="ExpenseDesc" formControlName="ExpenseDesc" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" value="{{'Add' | translate}}" (click)="addNewExpenseCode()" *ngIf="this['formMode']!==this['c_s_MODE_ADD']">
+                    <input type="submit" class="btn btn-primary" value="{{'Save' | translate}}" (click)="promptModalForSaveData()" [disabled]="this['formMode']!==this['c_s_MODE_ADD'] && !this['uiForm'].dirty">
+                    <input type="button" class="btn btn-primary" value="{{'Cancel' | translate}}" (click)="cancelExpenseCode()" [disabled]="this['formMode']!==this['c_s_MODE_ADD'] && !this['uiForm'].dirty">
+                    <input type="button" class="btn btn-primary" value="{{'Delete' | translate}}" (click)="promptModalForDeleteData()" *ngIf="this['formMode']===this['c_s_MODE_UPDATE']">
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-prompt-modal #promptModalForSave="child" [showHeader]="true" [showCloseButton]="true" [content]="promptContentSave"
+    [config]="modalConfig" (saveEmit)="saveExpenseCode($event)"></icabs-prompt-modal>
+<icabs-prompt-modal #promptModalForDelete="child" [showHeader]="true" [showCloseButton]="true" [content]="promptContentDelete"
+    [config]="modalConfig" (saveEmit)="deleteExpenseCode($event)"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-modal #errorModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

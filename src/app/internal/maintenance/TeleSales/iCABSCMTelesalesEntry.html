@@ -1,0 +1,966 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{ 'Telesales Entry' | translate }}</h1>
+        </div>
+    </div>
+
+    <form [formGroup]="this['uiForm']">
+        <div class="row mt10">
+            <div class="col-sm-4" [hidden]="!this['pageParams'].tdTransactionDetails">
+                <label class="col24" id="tdTransactionLabel">{{ this['pageParams'].tdTransactionLabel | translate }}</label>
+                <div class="col6 pr5" id="tdTransactionDetails">
+                    <input type="text" id="TransactionNumber" formControlName="TransactionNumber" readonly size="12" value="" class="form-control">
+                </div>
+                <div class="col18">
+                    <input type="text" id="TransactionName" formControlName="TransactionName" readonly size="30" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" id="tdTelesalesOrderNumberLabel">{{ 'Telesales Order' | translate }}</label>
+                <div class="col6 pr5" id="tdTelesalesOrderNumber">
+                    <input type="text" id="TelesalesOrderNumber" formControlName="TelesalesOrderNumber" size="8" value="" class="form-control">
+                </div>
+                <div class="col18">
+                    <input type="text" id="TelesalesOrderStatusDesc" formControlName="TelesalesOrderStatusDesc" readonly size="35" value="" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="col24" id="tdCurrentCallLogID">{{ 'Log Ref' | translate }}</label>
+                <div class="col24" id="tdTransactionDetails">
+                    <input type="text" id="CurrentCallLogID" formControlName="CurrentCallLogID" readonly size="8" value="" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt30">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item active" id="grdOrderHistory" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab1.active}" (click)="renderTab(1, true)">
+                            <span>{{'Order History' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="grdProduct" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active}" (click)="renderTab(2, true)">
+                            <span>{{'Product Selector' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="grdOrderHeader" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active}" (click)="renderTab(3, true)">
+                            <span>{{'Deliver To' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item " id="grdOrderNotes" [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab4.active}" (click)="renderTab(4, true)">
+                            <span>{{'Order Notes' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item " id="grdOrderLine" [ngClass]="{'active': uiDisplay.tab.tab5.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab5.active}" (click)="renderTab(5, true)">
+                            <span>{{'Order Lines' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item " id="grdOrderInvoice" [ngClass]="{'active': uiDisplay.tab.tab6.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab6.active}" (click)="renderTab(6, true)">
+                            <span>{{'Invoice To' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item " id="grdOrderStatus" [ngClass]="{'active': uiDisplay.tab.tab7.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab7.active}" (click)="renderTab(7, true)">
+                            <span>{{'Order Status' | translate}}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item " id="grdStock" [ngClass]="{'active': uiDisplay.tab.tab8.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab8.active}" (click)="renderTab(8, true)">
+                            <span>{{'Stock Requests' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                        <div id="grdOrderHistory">
+                            <div class="row mt10">
+                                <div class="col-sm-9">
+                                    <div class="col5 pr5">
+                                        <label for="LevelFilter">{{'Order' | translate}}</label>
+                                        <select id="LevelFilter" formControlName="LevelFilter" class="form-control" (change)="iCABSCMTelesalesEntryOrderHistory.levelFilterOnChange()">
+                                            <option *ngFor="let level of this['pageParams'].levelFilter" [ngValue]="level.value">{{level.text}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col5 pr5">
+                                        <label for="DateFilter">{{'Order Period' | translate}}</label>
+                                        <select id="DateFilter" formControlName="DateFilter" class="form-control">
+                                            <option value="Ordered" selected>{{'Orders Created Between' | translate}}</option>
+                                            <option value="Delivered">{{'Orders Delivered Between' | translate}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col4 pr5">
+                                        <label for="1">{{'From' | translate}}</label>
+                                        <div class="col24">
+                                            <icabs-datepicker formControlName="OrderFromDate" [isDirectiveBased]="false"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col4 pr5">
+                                        <label for="OrderToDate1">{{'To' | translate}}</label>
+                                        <div class="col24">
+                                            <icabs-datepicker formControlName="OrderToDate" [isDirectiveBased]="false"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col6">
+                                        <label for="TelesalesOrderStatusCodeFilter">{{'Order Status' | translate}}</label>
+                                        <select id="TelesalesOrderStatusCodeFilter" formControlName="TelesalesOrderStatusCodeFilter" class="form-control">
+                                            <option *ngFor="let status of this['pageParams'].ttTelesalesOrderStatus" [ngValue]="status.telesalesOrderStatusCode">{{status.telesalesOrderStatusDesc}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-6">
+                                    <input id="cmdCreateOrderHistory" formControlName="cmdCreateOrderHistory" type="button" class="btn btn-sm btn-gray mr10"
+                                        value="{{'Copy To New Order' | translate}}" (click)="iCABSCMTelesalesEntryOrderHistory.cmdCreateOrderHistoryOnClick()">
+                                    <input id="cmdCreateOrderHistoryCurrent" formControlName="cmdCreateOrderHistoryCurrent" type="button" class="btn btn-sm btn-gray mr10"
+                                        value="{{'Copy To Current Order' | translate}}" (click)="iCABSCMTelesalesEntryOrderHistory.cmdCreateOrderHistoryCurrentOnClick()">
+                                    <input id="cmdClearOrderHistory" formControlName="cmdClearOrderHistory" type="button" class="btn btn-sm btn-gray mr10" value="{{'Clear Selected' | translate}}"
+                                        (click)="iCABSCMTelesalesEntryOrderHistory.cmdClearOrderHistoryOnClick()">
+                                </div>
+                            </div>
+                            <hr class="mt15 mb15">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <icabs-refresh (click)="refresh('riGridOrderHistory')"> </icabs-refresh>
+                                    <icabs-pagination #OrderHistoryPagination [totalItems]="gridConfig.riGridOrderHistory.totalItems" [currentPage]="gridConfig.riGridOrderHistory.currentPage"
+                                        [itemsPerPage]="10" (getCurrentPage)="getCurrentPage($event, 'riGridOrderHistory')"></icabs-pagination>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                    <icabs-grid-advanced #riGridOrderHistory id="riGridOrderHistory" (bodyClick)="iCABSCMTelesalesEntryOrderHistory.riGridOrderHistoryBodyOnClick($event)"
+                                        (bodyDblClick)="iCABSCMTelesalesEntryOrderHistory.riGridOrderHistoryBodyOnDblClick($event)"
+                                        (headerClick)="riGridSort($event, 'riGridOrderHistory')" (onSuccess)="iCABSCMTelesalesEntryOrderHistory.riGridOrderHistoryAfterExecute()"></icabs-grid-advanced>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                        <div id="grdProduct">
+                            <div class="row mt10">
+                                <div class="col-sm-6">
+                                    <div class="col8 pr5">
+                                        <label for="ProductDescriptionContains">{{'Product Description Contains' | translate}}</label>
+                                        <input type="text" class="form-control" id="ProductDescriptionContains" formControlName="ProductDescriptionContains" (keydown)="iCABSCMTelesalesEntryProduct.productDescriptionContainsOnKeyDown($event)">
+                                    </div>
+                                    <div class="col8 pr5">
+                                        <label for="ProductCodeBegins">{{'Product Code Begins' | translate}}</label>
+                                        <input type="text" class="form-control" id="ProductCodeBegins" formControlName="ProductCodeBegins" (keydown)="iCABSCMTelesalesEntryProduct.productCodeBeginsOnKeyDown($event)">
+                                    </div>
+                                    <div class="col8">
+                                        <label for="SelectedProductValue">{{'Selected Value' | translate}}</label>
+                                        <input type="text" class="form-control" id="SelectedProductValue" readonly formControlName="SelectedProductValue">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col24 mt20">
+                                        <input type="button" class="btn btn-sm btn-gray" id="cmdCreateProduct" value="{{ 'Copy To New Order' | translate }}" (click)="iCABSCMTelesalesEntryProduct.cmdCreateProductOnClick()">
+                                        <input type="button" class="btn btn-sm btn-gray" id="cmdCreateProductCurrent" value="{{'Copy To Current Order' | translate}}"
+                                            (click)="iCABSCMTelesalesEntryProduct.cmdCreateProductCurrentOnClick()">
+                                        <input type="button" class="btn btn-sm btn-gray" id="cmdClearProduct" value="{{'Clear Selected' | translate}}" (click)="iCABSCMTelesalesEntryProduct.cmdClearProductOnClick()">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mt15 mb15">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <icabs-refresh (click)="refresh('riGridProduct')"> </icabs-refresh>
+                                    <icabs-pagination #ProductPagination [totalItems]="gridConfig.riGridProduct.totalItems" [currentPage]="gridConfig.riGridProduct.currentPage"
+                                        [itemsPerPage]="10" (getCurrentPage)="getCurrentPage($event, 'riGridProduct')"></icabs-pagination>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                    <icabs-grid-advanced #riGridProduct id="riGridProduct" (bodyClick)="iCABSCMTelesalesEntryProduct.riGridProductBodyOnClick($event)"
+                                        (bodyDblClick)="iCABSCMTelesalesEntryProduct.riGridProductBodyOnDblClick($event)" (headerClick)="riGridSort($event, 'riGridOrderHistory')"
+                                        (onSuccess)="iCABSCMTelesalesEntryProduct.riGridProductAfterExecute()"></icabs-grid-advanced>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                        <div id="grdOrderHeader">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Delivery Address' | translate}}</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Dates And Charges' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Name' | translate }}
+                                        <span id="spanTelesalesName" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesName" formControlName="TelesalesName" size="40" [attr.maxLength]="maxLength" value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Order Date' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesOrderDate" formControlName="TelesalesOrderDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 1' | translate }}
+                                        <span id="spanTelesalesAddressLine1" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesAddressLine1" formControlName="TelesalesAddressLine1" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Quote Expiry Date' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="QuoteExpiryDate" formControlName="QuoteExpiryDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 2' | translate }}
+                                        <span id="spanTelesalesAddressLine2"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesAddressLine2" formControlName="TelesalesAddressLine2" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Delivery Date' | translate }}
+                                        <span id="spanTelesalesDeliveryDate" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <icabs-datepicker formControlName="TelesalesDeliveryDate" [isDirectiveBased]="false" (onChange)="telesalesDeliveryDateSelectedValue($event)"></icabs-datepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2" [hidden]="!this['pageParams'].trTelesalesAddressLine3">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 3' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesAddressLine3)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesAddressLine3" formControlName="TelesalesAddressLine3" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Town' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesAddressLine4)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesAddressLine4" formControlName="TelesalesAddressLine4" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Delivery Charge' | translate }} </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesDeliveryCharge" formControlName="TelesalesDeliveryCharge" size="40" [attr.maxLength]="maxLength"
+                                            value="" (blur)="TelesalesDeliveryChargeOnChange()" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'County' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesAddressLine5)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesAddressLine5" formControlName="TelesalesAddressLine5" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Postcode' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesPostcode)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesPostcode" formControlName="TelesalesPostcode" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Order Contact Details' | translate}}</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Customer References' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Name' | translate }}
+                                        <span id="spanTelesalesContactName" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactName" formControlName="TelesalesContactName" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Customer PO Ref' | translate }}
+                                        <span id="spanTelesalesPurchaseOrderNo"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesPurchaseOrderNo" formControlName="TelesalesPurchaseOrderNo" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Position' | translate }}
+                                        <span id="spanTelesalesContactPosition" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactPosition" formControlName="TelesalesContactPosition" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Contract Ref' | translate }}
+                                        <span id=""></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="ContractReference" formControlName="ContractReference" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Telephone' | translate }}
+                                        <span id="spanTelesalesContactTelephone" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactTelephone" formControlName="TelesalesContactTelephone" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Mobile' | translate }}
+                                        <span id=""></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactMobile" formControlName="TelesalesContactMobile" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Customer Type' | translate }}
+                                        <span id="spanmanualCustomerTypeCodeSelect" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <select id="CustomerTypeCodeSelect" formControlName="CustomerTypeCodeSelect" class="form-control">
+                                            <option *ngFor="let type of this['pageParams'].ttCustomerType" [ngValue]="type.customerTypeCode">{{type.customerTypeDesc}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Email' | translate }}
+                                        <span id="spanTelesalesContactEmail"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactEmail" formControlName="TelesalesContactEmail" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Fax' | translate }}
+                                        <span id=""></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesContactFax" formControlName="TelesalesContactFax" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Commission Employee' | translate }}
+                                        <span id="spanCommissionEmployeeCode" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col6 pr5">
+                                        <input type="text" id="CommissionEmployeeCode" formControlName="CommissionEmployeeCode" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16 pr5">
+                                        <input type="text" id="CommissionEmployeeName" formControlName="CommissionEmployeeName" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col2">
+                                        <icabs-ellipsis [disabled]="ellipsisConfig.employee.disabled" [showCloseButton]="ellipsisConfig.employee.showCloseButton"
+                                            [showHeader]="ellipsisConfig.employee.showHeader" [childConfigParams]="ellipsisConfig.employee"
+                                            [contentComponent]="ellipsisConfig.employee.component" (ellipsisData)="commissionEmpSelection($event)"></icabs-ellipsis>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                        <div id="grdOrderNotes">
+                            <div class="row mt10">
+                                <div class="col-sm-6">
+                                    <label for="">{{'Internal Notes' | translate}}</label>
+                                    <div class="col24">
+                                        <textarea id="TelesalesOrderNotes" formControlName="TelesalesOrderNotes" rows="15" cols="10" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label for="">{{'Supplier Delivery Notes' | translate}}</label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesDeliveryInstructions" formControlName="TelesalesDeliveryInstructions" size="8" value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab5.active}">
+                        <div id="grdOrderLine">
+                            <div class="row mt10">
+                                <div class="col-sm-9 mt20">
+                                    <icabs-refresh (click)="refresh('riGridOrderLine')"> </icabs-refresh>
+                                    <icabs-pagination #OrderLinePagination [totalItems]="gridConfig.riGridOrderLine.totalItems" [currentPage]="gridConfig.riGridOrderLine.currentPage"
+                                        [itemsPerPage]="10" (getCurrentPage)="getCurrentPage($event, 'riGridOrderLine')"></icabs-pagination>
+                                </div>
+                                <div class="col-sm-3" [hidden]="!this['pageParams'].tdBulkDiscountPerc">
+                                    <label class="col24">{{'Bulk Discount Percentage' | translate}}
+                                        <span id="spanBulkDiscountPerc"></span>
+                                    </label>
+                                    <div class="col10 pr5">
+                                        <input type="text" id="BulkDiscountPerc" formControlName="BulkDiscountPerc" size="8" value="" class="form-control">
+                                    </div>
+                                    <div class="col14 ">
+                                        <input type="button" id="cmdBulkDiscountPerc" class="btn btn-sm btn-gray" formControlName="cmdBulkDiscountPerc" size="8"
+                                            value="{{'Apply Bulk Discount' | translate}}" (click)="iCABSCMTelesalesEntry1.cmdBulkDiscountPercOnClick()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                    <icabs-grid-advanced #riGridOrderLine id="riGridOrderLine" (bodyClick)="iCABSCMTelesalesEntryOrderLine.riGridOrderLineBodyOnClick($event)"
+                                        (bodyDblClick)="iCABSCMTelesalesEntryOrderLine.riGridOrderLineBodyOnDblClick($event)"
+                                        (headerClick)="riGridSort($event, 'riGridOrderLine')" (onSuccess)="iCABSCMTelesalesEntryOrderLine.riGridOrderLineAfterExecute()"></icabs-grid-advanced>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab6.active}">
+                        <div id="grdOrderInvoice">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Invoice Address' | translate}}</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Company Details' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Name' | translate }}
+                                        <span id="spanTelesalesInvName" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvName" formControlName="TelesalesInvName" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Company Reg Number' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="CompanyRegistrationNumber" formControlName="CompanyRegistrationNumber" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 1' | translate }}
+                                        <span id="spanTelesalesInvAddressLine1" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvAddressLine1" formControlName="TelesalesInvAddressLine1" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Company VAT Number' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="CompanyVATNumber" formControlName="CompanyVATNumber" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 2' | translate }}
+                                        <span id="spanTelesalesInvAddressLine2"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvAddressLine2" formControlName="TelesalesInvAddressLine2" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Company VAT Number2' | translate }} </label>
+                                    <div class="col24">
+                                        <input type="text" id="CompanyVATNumber2" formControlName="CompanyVATNumber2" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2" [hidden]="!this['pageParams'].trTelesalesInvAddressLine3">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Address Line 3' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesInvAddressLine3)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvAddressLine3" formControlName="TelesalesInvAddressLine3" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Town' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesInvAddressLine4)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvAddressLine4" formControlName="TelesalesInvAddressLine4" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 mt20">
+                                    <span class="head">{{'Payment Details' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'County' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesInvAddressLine5)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvAddressLine5" formControlName="TelesalesInvAddressLine5" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Payment Type' | translate }} </label>
+                                    <div class="col24">
+                                        <input type="text" id="PaymentTypeDesc" formControlName="PaymentTypeDesc" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Postcode' | translate }}
+                                        <span class="mandatory" [ngClass]="{'hidden': !this['utils'].isRequired(uiForm.controls.TelesalesInvPostcode)}">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvPostcode" formControlName="TelesalesInvPostcode" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Payment Ref' | translate }} </label>
+                                    <div class="col24">
+                                        <input type="text" id="PaymentRef" formControlName="PaymentRef" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Invoice Contact Details' | translate}}</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Invoice Details' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Name' | translate }}
+                                        <span id="spanTelesalesInvContactName" class="mandatory">*</span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactName" formControlName="TelesalesInvContactName" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Invoice Number' | translate }}
+                                        <span id="spanTelesalesInvoiceNumber"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvoiceNumber" formControlName="TelesalesInvoiceNumber" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Position' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactPosition" formControlName="TelesalesInvContactPosition" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Telephone' | translate }}</label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactTelephone" formControlName="TelesalesInvContactTelephone" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Mobile' | translate }}
+                                        <span id="spanTelesalesInvContactMobile"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactMobile" formControlName="TelesalesInvContactMobile" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Email' | translate }}
+                                        <span id="spanTelesalesInvContactEmail"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactEmail" formControlName="TelesalesInvContactEmail" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Fax' | translate }}
+                                        <span id="spanTelesalesInvContactFax"></span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="TelesalesInvContactFax" formControlName="TelesalesInvContactFax" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab7.active}">
+                        <div id="grdOrderStatus">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Current Status' | translate}}
+                                        <span id=""> </span>
+                                    </label>
+                                    <div class="col24">
+                                        <input type="text" id="OSStatusDesc" formControlName="OSStatusDesc" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt30">
+                                <div class="col-sm-10">
+                                    <div class="col4 pr5 mt20">{{ 'Creation Details' | translate }}</div>
+                                    <div class="col4 pr25">
+                                        <label class="col24 bold">{{ 'Date' | translate }}</label>
+                                        <input type="text" id="OSOrderDate" formControlName="OSOrderDate" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            eTypeDate class="form-control">
+                                    </div>
+                                    <div class="col4 pr25">
+                                        <label class="col24 bold">{{ 'Time' | translate }}</label>
+                                        <input type="text" id="OSOrderTime" formControlName="OSOrderTime" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                    <div class="col4 pr25 hidden">
+                                        <label class="col24 bold">{{ 'User' | translate }}</label>
+                                        <input type="text" id="OSCreatedBy" formControlName="OSCreatedBy" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                    <div class="col6 pr25">
+                                        <label class="col24 bold">{{ 'User Name' | translate }}</label>
+                                        <input type="text" id="OSCreatedByName" formControlName="OSCreatedByName" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-10">
+                                    <div class="col4 pr5">{{ 'Quote Confirmation Details' | translate }}</div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesQConfirmedDate" formControlName="TelesalesQConfirmedDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesQConfirmedTime" formControlName="TelesalesQConfirmedTime" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25 hidden">
+                                        <input type="text" id="TelesalesQConfirmedUserCode" formControlName="TelesalesQConfirmedUserCode" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col6 pr25">
+                                        <input type="text" id="OSQConfirmedByName" formControlName="OSQConfirmedByName" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-10">
+                                    <div class="col4 pr5">{{ 'Order Confirmation Details' | translate }}</div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesQConfirmedDate" formControlName="TelesalesQConfirmedDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesConfirmedTime" formControlName="TelesalesConfirmedTime" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25 hidden">
+                                        <input type="text" id="TelesalesConfirmedUserCode" formControlName="TelesalesConfirmedUserCode" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col6 pr25">
+                                        <input type="text" id="OSConfirmedByName" formControlName="OSConfirmedByName" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-10">
+                                    <div class="col4 pr5">{{ 'Cancellation Details' | translate }}</div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesCancelledDate" formControlName="TelesalesCancelledDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesCancelledTime" formControlName="TelesalesCancelledTime" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25 hidden">
+                                        <input type="text" id="TelesalesCancelledUserCode" formControlName="TelesalesCancelledUserCode" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col6 pr25">
+                                        <input type="text" id="OSCancelledByName" formControlName="OSCancelledByName" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-10">
+                                    <div class="col4 pr5">{{ 'Completion Details' | translate }}</div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesCompletedDate" formControlName="TelesalesCompletedDate" readonly size="40" [attr.maxLength]="maxLength"
+                                            eTypeDate value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25">
+                                        <input type="text" id="TelesalesCompletedTime" formControlName="TelesalesCompletedTime" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col4 pr25 hidden">
+                                        <input type="text" id="TelesalesCompletedUserCode" formControlName="TelesalesCompletedUserCode" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col6 pr25">
+                                        <input type="text" id="OSCompletedByName" formControlName="OSCompletedByName" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <span class="head">{{'Related Transactions' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Prospect Number' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSProspectNumber" formControlName="OSProspectNumber" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSProspectName" formControlName="OSProspectName" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Account Number' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSAccountNumber" formControlName="OSAccountNumber" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSAccountName" formControlName="OSAccountName" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Product Sale' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSContractNumber" formControlName="OSContractNumber" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSContractName" formControlName="OSContractName" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Premise Number' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSPremiseNumber" formControlName="OSPremiseNumber" readonly size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSPremiseName" formControlName="OSPremiseName" readonly size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'From Contract Number' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSOrigContractNumber" formControlName="OSOrigContractNumber" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSOrigContractName" formControlName="OSOrigContractName" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'From Premise Number' | translate }} </label>
+                                    <div class="col8 pr5">
+                                        <input type="text" id="OSOrigPremiseNumber" formControlName="OSOrigPremiseNumber" size="40" [attr.maxLength]="maxLength"
+                                            value="" class="form-control">
+                                    </div>
+                                    <div class="col16">
+                                        <input type="text" id="OSOrigPremiseName" formControlName="OSOrigPremiseName" size="40" [attr.maxLength]="maxLength" value=""
+                                            class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab8.active}">
+                        <div id="grdStock">
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                    <icabs-refresh (click)="refresh('riGridStock')"> </icabs-refresh>
+                                    <icabs-pagination #StockPagination [totalItems]="gridConfig.riGridStock.totalItems" [currentPage]="gridConfig.riGridStock.currentPage"
+                                        [itemsPerPage]="10" (getCurrentPage)="getCurrentPage($event, 'riGridStock')"></icabs-pagination>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                    <icabs-grid-advanced #riGridStock id="riGridStock" (bodyClick)="iCABSCMTelesalesEntryStock.riGridStockBodyOnClick($event)"
+                                        (headerClick)="riGridSort($event, 'riGridStock')" (onSuccess)="iCABSCMTelesalesEntryStock.riGridStockAfterExecute()"></icabs-grid-advanced>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt20 mb20">
+        <div class="row">
+            <div class="col-sm-9">
+                <input type="button" id="dummy" class="btn dummy" value="" (focus)="focusSave($event)">
+                <input type="button" class="btn btn-sm btn-primary" id="cmdConfirmQuotation" formControlName="cmdConfirmQuotation" value="{{'Confirm Quote' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdConfirmQuotationOnClick()">
+                <input type="button" class="btn btn-sm btn-primary" id="cmdConfirmOrder" formControlName="cmdConfirmOrder" value="{{'Confirm Order' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdConfirmOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" id="cmdCancelQuote" formControlName="cmdCancelQuote" value="{{'Cancel Quote' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdCancelQuoteOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" id="cmdCancelOrder" formControlName="cmdCancelOrder" value="{{'Cancel Order' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdCancelOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" id="cmdTelesalesValue" formControlName="cmdTelesalesValue" value="{{'Value' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdTelesalesValueOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" id="cmdViewOrder" formControlName="cmdViewOrder" value="{{'View' | translate}}"
+                    (click)="iCABSCMTelesalesEntry1.cmdViewOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" [ngClass]="!this['pageParams'].tdcmdEmailOrder?'hidden':''" id="cmdEmailOrder"
+                    formControlName="cmdEmailOrder" value="{{'Email' | translate}}" (click)="iCABSCMTelesalesEntry1.cmdEmailOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" [ngClass]="!this['pageParams'].tdcmdUpdateOrder?'hidden':''" id="cmdUpdateOrder"
+                    formControlName="cmdUpdateOrder" value="{{'Update' | translate}}" (click)="iCABSCMTelesalesEntry1.cmdUpdateOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" [ngClass]="!this['pageParams'].tdcmdSaveOrder?'hidden':''" id="cmdSaveOrder"
+                    formControlName="cmdSaveOrder" value="{{'Save' | translate}}" (click)="iCABSCMTelesalesEntry1.cmdSaveOrderOnClick()">
+                <input type="button" class="btn btn-sm btn-secondary" [ngClass]="!this['pageParams'].tdcmdAbandonOrder?'hidden':''" id="cmdAbandonOrder"
+                    formControlName="cmdAbandonOrder" value="{{'Cancel' | translate}}" (click)="iCABSCMTelesalesEntry1.cmdAbandonOrderOnClick()">
+            </div>
+        </div>
+        <div id="HiddenFields" style="display:none">
+            <input id="InitialContractNumber" formControlName="InitialContractNumber">
+            <input id="InitialPremiseNumber" formControlName="InitialPremiseNumber">
+            <input id="SelectedProduct" formControlName="SelectedProduct">
+            <input id="SelectedOrderHistory" formControlName="SelectedOrderHistory">
+            <input id="SelectedOrderLine" formControlName="SelectedOrderLine">
+            <input id="SelectedStock" formControlName="SelectedStock">
+            <input id="AccountNumber" formControlName="AccountNumber">
+            <input id="ContractNumber" formControlName="ContractNumber">
+            <input id="PremiseNumber" formControlName="PremiseNumber">
+            <input id="ProspectNumber" formControlName="ProspectNumber">
+            <input id="TelesalesOrderLineNumber" formControlName="TelesalesOrderLineNumber">
+            <input id="TelesalesOrderStatusCode" formControlName="TelesalesOrderStatusCode">
+            <input id="OSStatusCode" formControlName="OSStatusCode" readonly>
+            <input id="PaymentTypeCode" formControlName="PaymentTypeCode">
+            <input id="FixedTelesalesOrderNumber" formControlName="FixedTelesalesOrderNumber">
+            <input id="WindowClosingName" formControlName="WindowClosingName">
+            <input id="ClosedWithChanges" formControlName="ClosedWithChanges">
+            <input id="ErrorMessageCustomerType" formControlName="ErrorMessageCustomerType">
+            <input id="CanEmailOrder" formControlName="CanEmailOrder">
+            <input id="ErrorMessageEmailAddress" formControlName="ErrorMessageEmailAddress">
+        </div>
+    </form>
+</div>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

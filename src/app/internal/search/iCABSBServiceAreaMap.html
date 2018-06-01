@@ -1,0 +1,93 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="BranchNumber" class="form-control" formControlName="BranchNumber" type="text" size="5" maxlength="3">
+                    </div>
+                    <div class="col16">
+                        <input id="BranchName" class="form-control" formControlName="BranchName" type="text" size="30" maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 map-container">
+                <div class="col-sm-12 map_canvas" id="map_canvas">
+                </div>
+                <div class="draggable">
+                    <div class="row">
+                        <div class="col-sm-12 text-left">
+                            <div class="dialog-title">{{'Service Areas'| translate }}</div>
+                        </div>
+                    </div>
+                    <div class="row mt5">
+                        <div class="col-sm-12 pr20 pl20">
+                            <input type="submit" class="btn btn-primary MapButton" value="{{'Update Map' | translate}}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 ">
+                            <ul class="KeyTable">
+                                <li>
+                                    <div class="col3 pr5">
+                                        <span><img alt="" src="/assets/images/square1.png" /></span>
+                                    </div>
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="LindaButhelezi" formControlName="LindaButhelezi">
+                                        <label for="LindaButhelezi">{{'Linda Buthelezi'|translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col3 pr5">
+                                        <span><img alt="" src="/assets/images/square2.png" /></span>
+                                    </div>
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="sifficodummy" formControlName="sifficodummy">
+                                        <label for="sifficodummy">{{'siffico DUMMY'|translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col3 pr5">
+                                        <span><img alt="" src="/assets/images/square3.png" /></span>
+                                    </div>
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="dummyremoval" formControlName="dummyremoval">
+                                        <label for="dummyremoval">{{'DUMMY removal'|translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col3 pr5">
+                                        <span><img alt="" src="/assets/images/square4.png" /></span>
+                                    </div>
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="Remegremoval" formControlName="Remegremoval">
+                                        <label for="Remegremoval">{{'Remeg removal'|translate}}</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col3 pr5">
+                                        <span><img alt="" src="/assets/images/square5.png" /></span>
+                                    </div>
+                                    <div class="col20">
+                                        <input type="checkbox" class="form-control" id="WaterMandella" formControlName="WaterMandella">
+                                        <label for="WaterMandella">{{'Water Mandella'|translate}}</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

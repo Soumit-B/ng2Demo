@@ -1,0 +1,118 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="" *ngIf="trBusiness">
+                <div class="row mt10">
+                    <div class="col-sm-3">
+                        <label class="col24" for="BusinessCode">{{ 'Business' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input id="BusinessCode" formControlName="BusinessCode" class="form-control" type="text" [attr.maxlength]="2" size="2" eTypeCode>
+                        </div>
+                        <div class="col16">
+                            <input id="BusinessDesc" formControlName="BusinessDesc" class="form-control " type="text" size="23" [attr.maxlength]="30"
+                                eTypeText>
+                        </div>
+                        <input id="Level" class="form-control" formControlName="Level" type="text" [attr.maxlength]="6" size="6" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3" *ngIf="trBranch">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchNumber" formControlName="BranchNumber" class="form-control" type="text" [attr.maxlength]="5" size="3" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input id="BranchName" formControlName="BranchName" class="form-control" type="text" size="23" [attr.maxlength]="30" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" (blur)="doLookupformDataEmployee()" formControlName="EmployeeCode" class="form-control" type="text"
+                            [attr.maxlength]="6" size="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control " type="text" size="30" [attr.maxlength]="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.employeeSearchComponent.childparams" [modalConfig]="modalConfig"
+                            [contentComponent]="ellipsis.employeeSearchComponent.component" (ellipsisData)="onEmployeeDataReceived($event, 'EmployeeCode','EmployeeSurname')"
+                            [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="DateFrom">{{ 'From' | translate }}<span class="mandatory">*</span></label>
+                        <icabs-datepicker id="DateFrom" [setFocus]="true" [isRequired]="true" [dt]="DateFrom" [isReadonly]="false" (selectedValue)="fromDateSelectedValue($event)"></icabs-datepicker>
+                        <input type="hidden" id="DateFrom" formControlName="DateFrom" eTypeDate/>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{ 'To' | translate }}<span class="mandatory">*</span></label>
+                        <icabs-datepicker id="DateTo" [dt]="DateTo" [isRequired]="true" [isReadonly]="false" (selectedValue)="toDateSelectedValue($event)"></icabs-datepicker>
+                        <input type="hidden" id="DateTo" formControlName="DateTo" eTypeDate/>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="SupervisorEmployeeCode">{{ 'Supervisor Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="SupervisorEmployeeCode" (blur)="doLookupformDataEmployeeSuper()" formControlName="SupervisorEmployeeCode" class="form-control"
+                            type="text" [attr.maxlength]="6" size="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="SupervisorSurname" formControlName="SupervisorSurname" class="form-control " type="text" size="30" [attr.maxlength]="30"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.employeeSearchComponentSuper.childparams"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.employeeSearchComponentSuper.component"
+                            (ellipsisData)="onEmployeeDataReceivedSuper($event, 'EmployeeCode','EmployeeSurname')" [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input class="custom-checkbox" (change)="onCheckboxChange($event)" formControlName="ShowDetailInd" type="checkbox" id="ShowDetailInd"
+                        eTypeCheckBox>
+                        <label class="col24" for="ShowDetailInd">{{'Show Detail'|translate}}</label>
+                </div>
+
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #technicianworksummaryPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-8">
+                    <label class="pr5">{{ 'Legend' | translate }}</label>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" style="background-color:rgb(173, 255, 47)"></div>
+                        <label>{{ 'Means Paused Visit' | translate }}</label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGrid_Sort($event)" (bodyClick)="setContractType($event)" (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>

@@ -1,0 +1,35 @@
+.search-container {
+    border-bottom: 1px solid #344a55;
+    padding: 0 15px 7px 15px;
+    margin: 0 -15px;
+    input.form-control {
+        height: 28px;
+    }
+}
+
+// .search-container{
+//     width: 100%;
+// }
+@media (min-width: 768px) {
+    //sm
+    .search-container {
+        width: 15%;
+        padding: 0 10px 0px 0;
+        border-bottom: none;
+        margin: 7px 0 0 0;
+        float: left;
+        input.form-control {
+            height: 22px;
+            font-size: 12px;
+        }
+    }
+}
+
+@media (min-width: 1200px) {
+    //lg
+    .nav-container {
+        .search-container {
+            width: 10%;
+        }
+    }
+}

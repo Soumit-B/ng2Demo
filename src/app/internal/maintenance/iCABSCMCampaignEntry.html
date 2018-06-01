@@ -1,0 +1,243 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row" id="trAccountDetailsHeader">
+                <div class="col-sm-12">
+                    <label>{{ pageVariables.thAccountDetailsHeaderName }}</label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Number' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" class="form-control" type="text" size="9" maxlength="6" formControlName="AccountNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="AccountName" class="form-control" type="text" size="40" maxlength="40" formControlName="AccountName" eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="pageVariables.isTdCVCScore">
+                    <label class="col24">{{ 'CVCScore' | translate }}</label>
+                    <div class="col16">
+                        <input id="CVCScore" class="form-control right" type="text" size="9" maxlength="6" formControlName="CVCScore" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contact Name' | translate }}<span class="mandatory" *ngIf="pageVariables.isAccountReviewMandatory">*</span></label>
+                    <div class="col16">
+                        <input #ContactName id="ContactName" class="form-control" type="text" size="40" maxlength="40" formControlName="ContactName"
+                            [attr.transform]="'caps'" (blur)="fieldValidateTransform($event)" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Position' | translate }}<span class="mandatory" *ngIf="pageVariables.isAccountReviewMandatory">*</span></label>
+                    <div class="col16">
+                        <input id="ContactPosition" class="form-control" type="text" size="40" maxlength="40" formControlName="ContactPosition" [attr.transform]="'caps'"
+                            (blur)="fieldValidateTransform($event)" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Telephone' | translate }}<span class="mandatory" *ngIf="pageVariables.isAccountReviewMandatory">*</span></label>
+                    <div class="col16">
+                        <input id="ContactTelephone" class="form-control" type="text" size="20" maxlength="20" formControlName="ContactTelephone"
+                            [attr.transform]="'caps'" (blur)="fieldValidateTransform($event)" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input id="ContactMobile" class="form-control" type="text" size="20" maxlength="20" formControlName="ContactMobile" [attr.transform]="'caps'"
+                            (blur)="fieldValidateTransform($event)" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Email' | translate }}</label>
+                    <div class="col16">
+                        <input id="ContactEmail" class="form-control" type="text" size="40" maxlength="40" formControlName="ContactEmail" [attr.transform]="'caps'"
+                            (blur)="fieldValidateTransform($event)" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5" *ngIf="pageVariables.isShowBtnEmployee">
+                <div class="col-sm-4">
+                    <input id="btnEmployee" type="button" class="btn btn-primary" value="{{ 'Employee' | translate }}" (click)="btnEmployeeOnClick($event)">
+                    <icabs-ellipsis #EmployeeSearchEllipsis [childConfigParams]="ellipsisParams.employee.childConfigParams" [contentComponent]="ellipsisParams.employee.contentComponent"
+                        (ellipsisData)="onEllipsisDataReceived('Employee', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                        [disabled]="ellipsisParams.employee.isDisabled" [showCloseButton]="ellipsisParams.employee.isShowCloseButton"
+                        [showHeader]="ellipsisParams.employee.isShowHeader" [hideIcon]="true">
+                    </icabs-ellipsis>
+                </div>
+            </div>
+            <div>
+                <hr class="mt15 mb15">
+            </div>
+            <div class="row" *ngIf="pageVariables.isTrAccountReviewLine1">
+                <div class="col-sm-12">
+                    <label id="thAccountReviewLine1">{{ 'Sales Opportunities, Risks Or Other Issues' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt5" *ngIf="pageVariables.isTrAccountReviewLine3">
+                <div class="col-sm-3">
+                    <input id="btnIssues" type="button" class="btn btn-primary" value="{{ 'Enter New Sales, Risks or Other Issues' | translate }}"
+                        (click)="btnIssuesOnClick($event)">
+                </div>
+            </div>
+            <div *ngIf="pageVariables.isTrAccountReviewLine4">
+                <hr class="mt15 mb15">
+            </div>
+            <div class="row" *ngIf="pageVariables.isTrAccountReviewLine5">
+                <div class="col-sm-12">
+                    <label>{{ 'Next Account Review Details' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt5" *ngIf="pageVariables.isTrAccountReviewLine7">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="SuspendReviewInd" class="form-control" formControlName="SuspendReviewInd" (change)="suspendReviewIndOnClick($event)">
+                    <label for="SuspendReviewInd">{{ 'Suspend Future Reviews' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="pageVariables.isTrAccountReviewLine8">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Review Cycle (Months)' | translate }}<span class="mandatory" *ngIf="pageVariables.isAccountReviewMandatory">*</span></label>
+                    <div class="col12 pr5">
+                        <input id="ReviewCycleMonths" class="form-control right" type="text" size="3" maxlength="3" formControlName="ReviewCycleMonths"
+                            pattern="^(?:[0-9]+)?(||null)$" (blur)="fieldValidateTransform($event)" eTypeInteger>
+                    </div>
+                    <input type="button" id="btnCalcReviewDate" class="btn btn-primary" value="{{ 'Calculate Review Date' | translate }}" (click)="btnCalcReviewDateOnClick($event)">
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="pageVariables.isTrAccountReviewLine9">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Next Review Date' | translate }}<span class="mandatory" *ngIf="pageVariables.isAccountReviewMandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-datepicker formControlName="NextReviewDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="pageVariables.isTrAccountReviewLine10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Review Notes' | translate }}</label>
+                    <textarea id="AccountReviewNotes" class="form-control" rows="15" cols="75" formControlName="AccountReviewNotes" eTypeTextFree></textarea>
+                </div>
+            </div>
+            <div *ngIf="pageVariables.isTrAccountReviewLine11">
+                <hr class="mt15 mb15">
+            </div>
+            <div *ngIf="pageVariables.isTrCampaignEntryInput">
+                <table class="table dataTable table-bordered">
+                    <thead>
+                        <tr id="trSectionName">
+                            <th>
+                                <div class="text-left">{{pageVariables.thScrCategoryDesc}}</div>
+                            </th>
+                            <th [attr.colspan]="pageVariables.thSectionColspan">
+                                <div class="text-left">{{pageVariables.thScrSectionName}}</div>
+                            </th>
+                            <th>
+                                <div class="text-left">{{pageVariables.thScrSectionPosn}}</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="nohov" id="trScrSectionColumns">
+                            <td *ngIf="!pageVariables.isNoQuestion" class="noborder">
+                                <div *ngIf="pageVariables.isTdScrSectionColLabel1" class="row text-left">
+                                    <label class="col-sm-12">{{pageVariables.ScrSectionColLabel1}}</label>
+                                </div>
+                            </td>
+                            <td *ngIf="pageVariables.isTdScrSectionColLabelNA" class="noborder">
+                                <div class="row text-left">
+                                    <label class="col-sm-12">{{ 'N/A' | translate}}</label>
+                                </div>
+                            </td>
+                            <td *ngIf="!pageVariables.isNoQuestion" class="noborder">
+                                <div *ngIf="pageVariables.isTdScrSectionColLabel2" class="row text-left">
+                                    <label class="col-sm-12">{{pageVariables.ScrSectionColLabel2}}</label>
+                                </div>
+                            </td>
+                            <td class="noborder" [attr.colspan]="pageVariables.tdScrSectionColLabel3Colspan">
+                                <div *ngIf="pageVariables.isTdScrSectionColLabel3" class="row text-left">
+                                    <label class="col-sm-12">{{pageVariables.ScrSectionColLabel3}}</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="nohov" id="trQuestionLine">
+                            <td *ngIf="!pageVariables.isNoQuestion" width="40%" class="noborder">
+                                <div *ngIf="pageVariables.isTdScrQuestionText" class="row text-left">
+                                    <label class="col-sm-12">{{pageVariables.ScrQuestionText}}</label>
+                                </div>
+                            </td>
+                            <td *ngIf="pageVariables.isTdScrNA" class="noborder">
+                                <div class="col10 left">
+                                    <input #ScrNA type="checkbox" id="ScrNA" class="form-control" formControlName="ScrNA">
+                                    <label for="ScrNA"></label>
+                                </div>
+                            </td>
+                            <td class="noborder" *ngIf="pageVariables.isTdScrSectionColLabel2">
+                                <div class="col10" *ngIf="pageVariables.isTdScrCheckBox">
+                                    <input #ScrCheckBox type="checkbox" id="ScrCheckBox" class="form-control" formControlName="ScrCheckBox">
+                                    <label for="ScrCheckBox"></label>
+                                </div>
+                                <div *ngIf="pageVariables.isTdScrCombo">
+                                    <icabs-dropdown-static #ScrCombo [inputData]="comboSelectList" [doTranslate]="false"></icabs-dropdown-static>
+                                </div>
+                                <div class="col10" *ngIf="pageVariables.isTdScrInputLogical">
+                                    <input #ScrInputLogical type="checkbox" id="ScrInputLogical" class="form-control" formControlName="ScrInputLogical">
+                                    <label for="ScrInputLogical"></label>
+                                </div>
+                                <div class="col10" *ngIf="pageVariables.isTdScrInputInteger">
+                                    <input #ScrInputInteger class="form-control" type="text" size="40" maxlength="40" id="ScrInputInteger" formControlName="ScrInputInteger">
+                                </div>
+                                <div class="col10" *ngIf="pageVariables.isTdScrInputDecimal">
+                                    <input #ScrInputDecimal class="form-control" type="text" size="40" maxlength="40" id="ScrInputDecimal" formControlName="ScrInputDecimal">
+                                </div>
+                                <div class="col15" *ngIf="pageVariables.isTdScrInputDate">
+                                    <input #ScrInputDate class="form-control" type="text" size="10" maxlength="10" id="ScrInputDate" formControlName="ScrInputDate">
+                                </div>
+                                <div class="col10" *ngIf="pageVariables.isTdScrInputText">
+                                    <input #ScrInputText class="form-control" type="text" size="40" maxlength="40" id="ScrInputText" formControlName="ScrInputText">
+                                </div>
+                            </td>
+                            <td class="noborder" [attr.colspan]="pageVariables.tdScrSectionColLabel3Colspan">
+                                <div *ngIf="pageVariables.isTdScrComments">
+                                    <textarea #ScrComments class="form-control" rows="5" cols="50" id="ScrComments" formControlName="ScrComments"></textarea>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+        <div class="row mt20">
+            <div class="col-sm-12">
+                <input id="btnLastAnswered" type="button" class="btn btn-primary" value="{{ 'Last Answered' | translate }}" (click)="btnLastAnsweredOnClick($event)"
+                    [disabled]="pageVariables.btnDisableStatus.isLastAnswered">
+                <input id="btnFirst" type="button" class="btn btn-primary" value="{{ 'First' | translate }}" (click)="btnFirstOnClick($event)"
+                    [disabled]="pageVariables.btnDisableStatus.isFirst">
+                <input id="btnPrevious" type="button" class="btn btn-primary" value="{{ 'Previous' | translate }}" (click)="btnPreviousOnClick($event)"
+                    [disabled]="pageVariables.btnDisableStatus.isPrevious">
+                <input id="btnNext" type="button" class="btn btn-primary" value="{{ pageVariables.btnNextText }}" (click)="btnNextOnClick($event)"
+                    [disabled]="pageVariables.btnDisableStatus.isNext">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

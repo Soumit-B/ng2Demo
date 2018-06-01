@@ -1,0 +1,130 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container row minH600">
+  <div class="row">
+    <div class="col-sm-12 page-title">
+      <h1>
+        {{tableTitle }}
+      </h1>
+    </div>
+  </div>
+  <form novalidate [formGroup]="this['uiForm']">
+    <div class="row mt2">
+      <div class="col-sm-4" *ngIf="fieldVisibility.trContract === true">
+        <label class="col24">{{labelContractNumber }}</label>
+        <div class="col7 pr5">
+          <input id="ContractNumber" formControlName="ContractNumber" [attr.maxlength]="8" class="form-control" type="text">
+        </div>
+        <div class="col17 pr5">
+          <input id="ContractName" formControlName="ContractName" [attr.maxlength]="40" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="fieldVisibility.trCopyContract === true">
+        <label class="col24">{{'Copy From Contract Number' | translate }}</label>
+        <div class="col22 pr5">
+          <input id="CopyContractNumber" formControlName="CopyContractNumber" [attr.maxlength]="8" (keydown)="onKeyDown($event)" (change)="onBlurCopyFromContract($event)"
+            class="form-control" type="text">
+        </div>
+        <div class="col2">
+          <icabs-ellipsis #contractNumberEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig"
+            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"
+            (modalHidden)="modalHidden()" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="fieldVisibility.tdStatusSearch === true">
+        <label class="col24">{{'Status' | translate }}</label>
+        <div class="col24 padding-left-zero">
+          <select id="StatusSearchType" class="form-control" formControlName="StatusSearchType">
+                      <option *ngFor="let b of optionsList" [selected]="b.value == ''"  [value]="b.value">{{b.text | translate }}</option>
+                  </select>
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-4" *ngIf="fieldVisibility.trPremise === true">
+        <label class="col24">{{'Premises Number' | translate }}</label>
+        <div class="col7 pr5">
+          <input id="PremiseNumber" formControlName="PremiseNumber" [attr.maxlength]="5" class="form-control" type="text">
+        </div>
+        <div class="col17 pr5">
+          <input id="PremiseName" formControlName="PremiseName" [attr.maxlength]="40" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="fieldVisibility.trCopyPremise === true">
+        <label class="col24">{{'Premises Number' | translate }}</label>
+        <div class="col8 pr5">
+          <input id="CopyPremiseNumber" formControlName="CopyPremiseNumber" [attr.maxlength]="5" class="form-control" type="text">
+        </div>
+        <div class="col2">
+          <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsisConfig.premise.childConfigParams" [modalConfig]="modalConfig"
+            [contentComponent]="ellipsisConfig.premise.component" (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader"
+            (modalHidden)="modalHidden()" [disabled]="ellipsisConfig.premise.disabled"></icabs-ellipsis>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <label class="col24">{{'Line of Business' | translate }}</label>
+        <div class="col16 padding-left-zero">
+          <select class="form-control" formControlName="LOSCode" id="LOSCode">
+                    <option value="" selected>{{'All' | translate }}</option>
+                    <option *ngFor="let b of lineOfService" [value]="b.LOSCode">{{b.LOSName}}</option>
+                  </select>
+        </div>
+      </div>
+      <div class="col-sm-1">
+        <label class="col24">&nbsp;</label>
+        <div class="col10 padding-left-zero">
+          <input class="btn btn-primary" type="button" id="AssignAll" value="{{'Search' | translate }}" (click)="refresh()">
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label class="col24">&nbsp;</label>
+        <div class="col12 padding-left-zero" style="margin-left:10px">
+          <input class="form-control btn btn-lg btn-secondary" type="button" id="Add" value="{{'Add New' | translate }}" [ngClass]="!showAddNew ? 'hidden': ''"
+            (click)="add()">
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-4" [ngClass]="!fieldVisibility.trProduct ? 'hidden' : ''">
+        <label class="col24">{{'Product Code' | translate }}</label>
+        <div class="col7 pr5">
+          <input id="ProductCode" formControlName="ProductCode" [attr.maxlength]="6" class="form-control" type="text">
+        </div>
+        <div class="col17 pr5">
+          <input id="ProductDesc" formControlName="ProductDesc" [attr.maxlength]="40" class="form-control" type="text">
+        </div>
+      </div>
+    </div>
+
+    <hr class="mt15 mb15">
+    <!--<div class="row">
+            <div class="col-sm-12">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination></icabs-pagination>
+            </div>
+        </div>-->
+    <div class="row mt2">
+      <div class="col-sm-12">
+        <!--<icabs-grid id="grdTable"></icabs-grid>-->
+        <icabs-table #searchCovertable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+          [paginationTop]="true" [displayError]="false" (click)="refresh()"></icabs-table>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-3 pull-right">
+        <div class="col20 padding-left-zero pull-right" *ngIf="displayMenu === true">
+          <select class="form-control" formControlName="menu" name="menu" (change)="onChangeOption($event.target.value)">
+                     <option value="Options" selected>{{'Options' | translate }}</option>
+                     <option value="AddRecord" >{{'Add Service Cover' | translate }}</option>
+                  </select>
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-12">
+        <input id="DispenserInd" formControlName="DispenserInd" type="checkbox" [hidden]="true">
+        <input id="ConsumableInd" formControlName="ConsumableInd" type="checkbox" [hidden]="true">
+        <input id="SCProductCode" formControlName="SCProductCode" type="text" [hidden]="true">
+      </div>
+    </div>
+  </form>
+</div>

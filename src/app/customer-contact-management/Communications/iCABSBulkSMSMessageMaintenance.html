@@ -1,0 +1,48 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Bulk Send SMS Message' | translate}} {{this['pageTitle'] | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Occupations' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="OccupationCodeString" formControlName="OccupationCode"
+                            (change)="occupationSearchOnChange($event.target.value)" (keyup)="occupationCodekey_down($event.target.value)">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpen" [childConfigParams]="inputParamsOccupationalSearch" [contentComponent]="occSearchComponent"
+                            [showHeader]="showHeader" [title]="modalTitle" [disabled]="false" (ellipsisData)="onOccupationDataReturn($event)">
+                        </icabs-ellipsis>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Message' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <textarea class="form-control" rows="5" cols="" id="SMSMessageText" formControlName="Message" (keyup)="smsMsgkey_down($event.target.value)"
+                            (change)="smsMsgOnChange($event.target.value)"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr10" type="button" value="{{'Send' | translate}}" (click)="save()">
+                    <input class="btn btn-secondary" type="button" value="{{'Cancel' | translate}}" (click)="cancel()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>

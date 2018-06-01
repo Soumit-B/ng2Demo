@@ -1,0 +1,180 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Group Account Move' |translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <!--<div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'From Group Account' |translate}}</label>
+                    <div class="col12">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>-->
+
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'From Group Account' |translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="GroupAccountNumber1" #groupAccountNumber1 formControlName="GroupAccountNumber1" size="9" maxlength="8"
+                            class="form-control" (change)="fromInputField_OnChange($event)" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="GroupName1" formControlName="GroupName1" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #fromGroupAccountMoveEllipsis [showCloseButton]="fromGroupAccountShowCloseButton" [childConfigParams]="inputParamsGrpAccNumber"
+                            [contentComponent]="fromGroupAccountSearchComponent" (ellipsisData)="onFromGroupAccountDataReceived($event, true)"
+                            [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Number' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupAgreementNumber1" size="10" maxlength="10" value="" formControlName="GroupAgreementNumber1" [readonly]="this['uiForm'].controls.GroupAgreementNumber1?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Date'| translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupAgreementDate1" size="10" maxlength="10" value="" formControlName="GroupAgreementDate1" [readonly]="this['uiForm'].controls.GroupAgreementDate1?.readonly"
+                            class="form-control" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact Name'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactName1" size="40" maxlength="40" value="" formControlName="GroupContactName1" [readonly]="this['uiForm'].controls.GroupContactName1?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Telephone'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactTelephone1" size="20" maxlength="20" value="" formControlName="GroupContactTelephone1"
+                            [readonly]="this['uiForm'].controls.GroupContactTelephone1?.readonly" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact EMail'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactEMail1" size="50" maxlength="50" value="" formControlName="GroupContactEMail1" [readonly]="this['uiForm'].controls.GroupContactEMail1?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <!--<div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'To Group Account' |translate}}</label>
+                    <div class="col12">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>-->
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'To Group Account' |translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="GroupAccountNumber2" formControlName="GroupAccountNumber2" size="9" maxlength="8" class="form-control"
+                            (change)="toInputField_OnChange($event)" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="GroupName2" formControlName="GroupName2" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #toGroupAccountMoveEllipsis [showCloseButton]="toGroupAccountShowCloseButton" [childConfigParams]="inputParamsGrpAccNumber"
+                            [contentComponent]="toGroupAccountSearchComponent" (ellipsisData)="onToGroupAccountDataReceived($event, true)"
+                            [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Number' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupAgreementNumber2" size="10" maxlength="10" value="" formControlName="GroupAgreementNumber2" [readonly]="this['uiForm'].controls.GroupAgreementNumber2?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Agreement Date'| translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupAgreementDate2" size="10" maxlength="10" value="" formControlName="GroupAgreementDate2" [readonly]="this['uiForm'].controls.GroupAgreementDate2?.readonly"
+                            class="form-control" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact Name'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactName2" size="40" maxlength="40" value="" formControlName="GroupContactName2" [readonly]="this['uiForm'].controls.GroupContactName2?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Telephone'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactTelephone2" size="20" maxlength="20" value="" formControlName="GroupContactTelephone2"
+                            [readonly]="this['uiForm'].controls.GroupContactTelephone2?.readonly" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact EMail'|translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="GroupContactEMail2" size="50" maxlength="50" value="" formControlName="GroupContactEMail2" [readonly]="this['uiForm'].controls.GroupContactEMail2?.readonly"
+                            class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label class="col24"><strong>{{statusMessage | translate}}</strong></label>
+                </div>
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <button id="" class="btn btn-additional mr10" (click)="cmd_AccountMove_onclick()" [disabled]="!this['uiForm'].valid">
+                    {{'Move Group Accounts' | translate}}</button>
+                <button id="" class="btn btn-secondary" (click)="disableForm()">{{'Cancel'| translate}}</button>
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)" [optValueYesorNo]="true"></icabs-prompt-modal>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

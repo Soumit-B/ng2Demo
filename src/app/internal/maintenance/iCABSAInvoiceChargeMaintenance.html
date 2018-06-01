@@ -1,0 +1,133 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Invoice Charge Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="7" [attr.maxlength]="8" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" size="40" [attr.maxlength]="40" formControlName="ContractName" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5" [ngClass]="trPremiseNumber?'':'hidden'">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="7" [attr.maxlength]="5" formControlName="PremiseNumber" eTypeCodeNumeric>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" size="40" [attr.maxlength]="40" formControlName="PremiseName" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5" style="display:none">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Invoice Charge Number' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" class="form-control" id="ContractInvoiceChargeNumber" size="6" [attr.maxlength]="6" formControlName="ContractInvoiceChargeNumber"
+                            eTypeAutoNumber>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="mt20 mb20">
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Invoice Charge Type' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <select class="form-control" [ngClass]="setInvoiceChargeInvalid? 'error-disbaled': ''" (change)="selectedChargeType($event.target.value)"
+                            formControlName="InvoiceChargeType">
+                            <option *ngFor="let cType of chargeTypeList" [ngValue]="cType">{{cType.InvoiceChargeTypeCode}} - {{cType.InvoiceChargeLocalDesc}}</option>
+                            </select>
+                            <!--<icabs-dropdown></icabs-dropdown>-->
+                            <!--<icabs-invoiceChargeType [inputParams]="invoiceChargeTypeInputParams" (receivedInvoiceChargeTypeSearch)="onInvoiceChargeTypeReceived($event)"></icabs-invoiceChargeType>-->
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Value' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <input type="text" class="form-control" id="InvoiceChargeValue" size="15" [attr.maxlength]="15" formControlName="InvoiceChargeValue"
+                            (keyup)="invoiceChargeValueChange()" eTypeCurrency>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Description On Invoice' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <input type="text" class="form-control" id="InvoiceChargeDesc" size="50" [attr.maxlength]="50" formControlName="InvoiceChargeDesc"
+                            (keyup)="invoiceChargeDescChange()" eTypeTextFree>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Tax Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <!--<icabs-dropdown></icabs-dropdown>-->
+                        <!--<icabs-taxCode [inputParams]="taxCodeInputParams" (receivedTaxCodeSearch)="onTaxCodeReceived($event)"></icabs-taxCode>-->
+                        <select class="form-control" [ngClass]="setTaxCodeTypeInvalid? 'error-disbaled': ''" (change)="selectedTaxCode($event)" formControlName="TaxCodeType">
+                <option *ngFor="let taxC of taxCodeList" [ngValue]="taxC" >{{taxC.TaxCode}} - {{taxC.TaxCodeDesc}}</option>
+            </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+
+                    <label class="col24">{{ 'Effective Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <!-- <icabs-datepicker #datepck [dt]='effectiveDate' [clearDate]='clearDate.effectiveDate' [isDisabled]="false" (selectedValue)="effectiveDateSelectedValue($event)"
+                [isRequired]="true" [validate]="dateObjectsValidate.effectiveDate"></icabs-datepicker> -->
+                        <icabs-datepicker formControlName="EffectiveDate" (onChange)="effectiveDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt20 mb20">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <!--<input type="submit" class="btn btn-secondary" [ngClass]="crudMode === 'UPDATE/DELETE'?'':'hidden'" (click)="addClicked()"
+                value="{{'Add' | translate}}">-->
+                <input type="submit" class="btn btn-primary" (click)="saveClicked()" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary" (click)="cancelClicked()" value="{{'Cancel' | translate}}">
+                <input type="button" (click)="deleteClicked()" [ngClass]="crudMode === 'UPDATE/DELETE'?'':'hidden'" class="btn btn-secondary"
+                    value="{{'Delete' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('update')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmModalDeleteContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

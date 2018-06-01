@@ -1,0 +1,145 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="ContractNumber" id="ContractNumber" size="9" [attr.maxlength]="9" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" formControlName="ContractName" id="ContractName" size="40" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="ProductCode" id="ProductCode" size="9" [attr.maxlength]="9" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" formControlName="ProductDesc" id="ProductDesc" size="40" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="PremiseNumber" id="PremiseNumber" size="9" [attr.maxlength]="9" class="form-control"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" formControlName="PremiseName" id="PremiseName" size="40" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Season Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="ServiceCoverSeasonNumber" id="ServiceCoverSeasonNumber" size="8" [attr.maxlength]="8"
+                            class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Annual Season Code' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="ActualSeasonNumber" id="ActualSeasonNumber" [icabsDirFocus]="setFocusOnActualSeasonNumber"
+                            size="2" [attr.maxlength]="2" class="form-control" eTypeInteger>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visits In Season' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="VisitsPerSeason" id="VisitsPerSeason" value="" size="4" [attr.maxlength]="4" class="form-control"
+                            eTypeInteger>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'From Date' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col10">
+                        <icabs-datepicker formControlName="SeasonStartDate" id="SeasonStartDate" (onChange)="seasonStartDateOnChange($event)" [isDirectiveBased]="false"
+                            [icabsDirFocus]="setFocusOnSeasonStartDate" [attr.maxlength]="10"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Week No' |translate}}<span class="mandatory">*</span> </label>
+                        <div class="col24">
+                            <input type="text" formControlName="SeasonStartWeek" id="SeasonStartWeek" size="4" [attr.maxlength]="2" class="form-control"
+                                (change)="seasonStartWeekOnChange($event)" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'Year' |translate}}<span class="mandatory">*</span> </label>
+                        <div class="col24">
+                            <input type="text" formControlName="SeasonStartYear" id="SeasonStartYear" size="4" [attr.maxlength]="4" class="form-control"
+                                (change)="seasonStartYearOnChange($event)" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'To Date' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col10">
+                        <icabs-datepicker formControlName="SeasonEndDate" id="SeasonEndDate" (onChange)="seasonEndDateOnChange($event)" [isDirectiveBased]="false"
+                            [icabsDirFocus]="setFocusOnSeasonEndDate" [attr.maxlength]="10"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Week No' |translate}}<span class="mandatory">*</span> </label>
+                        <div class="col24">
+                            <input type="text" formControlName="SeasonEndWeek" id="SeasonEndWeek" size="4" [attr.maxlength]="2" class="form-control"
+                                (change)="seasonEndWeekOnChange($event)" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'Year' |translate}}<span class="mandatory">*</span> </label>
+                        <div class="col24">
+                            <input type="text" formControlName="SeasonEndYear" id="SeasonEndYear" size="4" [attr.maxlength]="4" class="form-control"
+                                (change)="seasonEndYearOnChange($event)" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt20">
+                <div class="col-sm-6">
+                    <input type="button" *ngIf="this['pageParams']['riMaintenanceFunctionAdd']" class="btn btn-additional mr5" value="{{'Add'|translate}}"
+                        (click)="add()">
+                    <input type="button" class="btn btn-primary mr5" value="{{'Save'|translate}}" *ngIf="this['pageParams']['riMaintenanceFunctionUpdate']"
+                        (click)="save()">
+                    <input type="button" class="btn btn-secondary mr5" value="{{'Cancel'|translate}}" *ngIf="this['pageParams']['riMaintenanceFunctionUpdate']"
+                        (click)="cancel()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

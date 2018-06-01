@@ -1,0 +1,145 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Barcode' | translate}}</label>
+                    <div class="col14">
+                        <input type="text" class="form-control" id="Barcode" size="40" maxlength="40" placeholder="" formControlName="Barcode" (change)="onBarcodeChange()"
+                            eTypeCode>
+                    </div>
+
+                </div>
+                <div class="col-sm-3" *ngIf="showAcceptedLabel">
+                    <label class="mt20 message-box info-label">{{ 'Accepted' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" size="9" maxlength="4" placeholder="" formControlName="BranchServiceAreaCode"
+                            (change)="onBranchServiceAreaChange()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" size="40" maxlength="40" placeholder="" formControlName="BranchServiceAreaDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="ellipsisParams.serviceAreaSearchParams" [modalConfig]="modalConfig"
+                            [contentComponent]="serviceAreaSearchComponent" [showHeader]="true" [disabled]="this['uiForm']['controls']['BranchServiceAreaCode'].disabled"
+                            (ellipsisData)="onServiceAreaSearchDataReceieved($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Barcode OK' | translate}}</label>
+                    <div class="col14">
+                        <input type="text" class="form-control" id="BarcodeOK" size="40" maxlength="40" placeholder="" formControlName="BarcodeOK"
+                            (change)="onBarcodeOkChange()" eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Plan Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ServicePlanNumber" size="40" maxlength="10" placeholder="" formControlName="ServicePlanNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="ellipsisParams.servicePlanSearchParams" [modalConfig]="modalConfig"
+                            [contentComponent]="servicePlanSearchComponent" [disabled]="this['uiForm']['controls']['ServicePlanNumber'].disabled"
+                            [showHeader]="true" (ellipsisData)="onServicePlanSearchDataReceieved($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Employee' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" size="9" maxlength="6" placeholder="" formControlName="EmployeeCode"
+                            (change)="onEmployeeCodeChange()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" size="40" maxlength="40" placeholder="" formControlName="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="ellipsisParams.employeeSearchParams" [modalConfig]="modalConfig"
+                            [contentComponent]="employeeSearchComponent" [showHeader]="true" [disabled]="employeeCodeDisabled"
+                            (ellipsisData)="onEmployeeDataReceieved($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="9" maxlength="8" placeholder="" formControlName="ContractNumber"
+                            (changedFormat)="onContractNumberChange()" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input type="text" class="form-control" id="ContractName" size="40" maxlength="40" placeholder="" formControlName="ContractName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col14">
+                        <icabs-datepicker #serviceDatepicker [(dt)]="serviceDate" (selectedValue)="onServiceDateSelect($event)" [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="9" maxlength="4" placeholder="" formControlName="PremiseNumber"
+                            (change)="onPremiseNumberChange()" eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input type="text" class="form-control" id="PremiseName" size="40" maxlength="40" placeholder="" formControlName="PremiseName">
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 mt20">
+                        <input class="btn btn-additional" id="cmdAcceptAll" type="button" value="{{ 'Accept All' | translate }}" [disabled]="acceptAllDisabled"
+                            (click)="acceptAll()">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Planned Visit Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker #visitDatepicker id="visitDatepicker" [(dt)]="planVisitDate" (selectedValue)="onVisitDateSelect($event)"
+                            [isRequired]="true"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #serviceDocketPagination [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onGridRowDoubleClick($event)" (bodyColumnBlur)="saveVisitQty($event)"
+                        (headerClick)="sortGrid($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+
+        <footer class="screen-footer">
+
+        </footer>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+</section>

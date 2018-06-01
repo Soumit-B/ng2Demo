@@ -1,0 +1,67 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Menu Selection' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Menu Description Level 1' | translate}}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Menu Description Level 2' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Menu Description Level 3' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Business' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Search text' | translate }}</label>
+                    <div class="col24">
+                        <input class="form-control" type="text" id="TextFilter" size="50" formControlName="TextFilter">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

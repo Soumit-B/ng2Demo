@@ -1,0 +1,437 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Prospect Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Prospect Number' | translate }}<span class="mandatory">*</span></label>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProspectNumber" size="8" [attr.maxlength]="8" formControlName="ProspectNumber">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Account Number' | translate }}<span class="mandatory"></span></label>
+                    </div>
+                    <div class="col18">
+                        <input type="text" class="form-control" id="AccountNumber" size="9" [attr.maxlength]="9" formControlName="AccountNumber">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Contract Number' | translate }}<span class="mandatory"></span></label>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractNumber" size="10" [attr.maxlength]="10" formControlName="ContractNumber">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Premises Number' | translate }}<span class="mandatory"></span></label>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseNumber" size="6" [attr.maxlength]="6" formControlName="PremiseNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-xs-12">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" id="premiseTab" [ngClass]="{'active': tabs['tab0'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(0)" tabindex="0">
+                                <span>{{ 'Premise' | translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="notesTab" [ngClass]="{'active': tabs['tab1'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(1)" tabindex="0">
+                                <span>{{ 'Notes' | translate }} </span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="accountTab" [ngClass]="{'active': tabs['tab2'].active }">
+                            <a href="javascript:void(0);" class="nav-link" (click)="onTabClick(2)" tabindex="0">
+                                <span>{{ 'Account' | translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--Premise section-->
+            <div class="tab-content">
+                <div class="tab-pane" [ngClass]="{'active': tabs['tab0'].active }">
+                    <div id="premiseTab">
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Name' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseName" size="40" [attr.maxlength]="40" formControlName="PremiseName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 1' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16 pr5">
+                                    <input type="text" class="form-control" id="PremiseAddressLine1" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine1">
+                                </div>
+                                <div class="col8">
+                                    <input type="button" class="btn btn-primary" value="Get Address" id="cmdGetAddress">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 2' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseAddressLine2" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 3' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseAddressLine3" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Town' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseAddressLine4" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'County' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseAddressLine5" size="40" [attr.maxlength]="40" formControlName="PremiseAddressLine5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Postcode' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremisePostCode" size="15" [attr.maxlength]="15" formControlName="PremisePostCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Contact Name' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactName" size="40" [attr.maxlength]="40" formControlName="PremiseContactName">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Contact Position' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactPosition" size="40" [attr.maxlength]="40" formControlName="PremiseContactPosition">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Telephone' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactTelephone" [attr.maxlength]="20" formControlName="PremiseContactTelephone">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Mobile' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactMobile" [attr.maxlength]="20" formControlName="PremiseContactMobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Fax' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactFax" [attr.maxlength]="20" formControlName="PremiseContactFax">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Email' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PremiseContactEmail" size="50" [attr.maxlength]="50" formControlName="PremiseContactEmail">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Status' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col8 pr5">
+                                    <input type="text" class="form-control" id="ProspectStatusCode" size="2" [attr.maxlength]="2" formControlName="ProspectStatusCode">
+                                </div>
+                                <div class="col14 pr5">
+                                    <input type="text" class="form-control" id="ProspectStatusDesc" size="40" [attr.maxlength]="40" formControlName="ProspectStatusDesc">
+                                </div>
+                                <div class="col2">
+                                    <icabs-ellipsis></icabs-ellipsis>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Business Origin' | translate }}</label>
+                                </div>
+                                <div class="col8">
+                                    <icabs-dropdown></icabs-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <input type="checkbox" class="form-control">
+                                <label>{{ 'Submitted By Service Employee' | translate }}</label>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col8 pr5">
+                                    <input type="text" class="form-control" id="PDALeadEmployeeCode" size="8" formControlName="PDALeadEmployeeCode">
+                                </div>
+                                <div class="col14 pr5">
+                                    <input type="text" class="form-control" id="PDALeadEmployeeSurname" size="30" formControlName="PDALeadEmployeeSurname">
+                                </div>
+                                <div class="col2">
+                                    <icabs-ellipsis></icabs-ellipsis>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Total Converted Value' | translate }}</label>
+                                </div>
+                                <div class="col8">
+                                    <input type="text" class="form-control" id="TotalConvertedValue" size="10" formControlName="TotalConvertedValue">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Sales Employee' | translate }}</label>
+                                </div>
+                                <div class="col8 pr5">
+                                    <input type="text" class="form-control" id="ConvertedSalesEmployeeCode" size="8" formControlName="ConvertedSalesEmployeeCode">
+                                </div>
+                                <div class="col14">
+                                    <input type="text" class="form-control" id="ConvertedSalesEmployeeSurname" size="30" formControlName="ConvertedSalesEmployeeSurname">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Notes-->
+            <div class="tab-content">
+                <div class="tab-pane" [ngClass]="{'active': tabs['tab1'].active }">
+                    <div id="notesTab">
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Notes' | translate }}<span class="mandatory">*</span></label>
+                                </div>
+                                <div class="col24">
+                                    <textarea class="form-control" id="Narrative" rows="6" cols="63"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Account-->
+            <div class="tab-content">
+                <div class="tab-pane active" [ngClass]="{'active': tabs['tab2'].active }">
+                    <div id="accountTab">
+                        <div class="row mt5">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Name' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="Name" size="40" [attr.maxlength]="40" formControlName="Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 1' | translate }}</label>
+                                </div>
+                                <div class="col16 pr5">
+                                    <input type="text" class="form-control" id="AddressLine1" size="40" [attr.maxlength]="40" formControlName="AddressLine1">
+                                </div>
+                                <div class="col8">
+                                    <input type="button" class="btn btn-primary" value="Get Address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 2' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="AddressLine2" size="40" [attr.maxlength]="40" formControlName="AddressLine2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Address Line 3' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="AddressLine3" size="40" [attr.maxlength]="40" formControlName="AddressLine3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Town' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="AddressLine4" size="40" [attr.maxlength]="40" formControlName="AddressLine4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Country' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="AddressLine5" size="40" [attr.maxlength]="40" formControlName="AddressLine5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Postcode' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="PostCode" size="15" [attr.maxlength]="15" formControlName="PostCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Contact Name' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactName" size="40" [attr.maxlength]="40" formControlName="ContactName">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Contact Position' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactPosition" size="40" [attr.maxlength]="40" formControlName="ContactPosition">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Telephone' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactTelephone" [attr.maxlength]="20" formControlName="ContactTelephone">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Mobile' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactMobile" [attr.maxlength]="20" formControlName="ContactMobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt2">
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Fax' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactFax" [attr.maxlength]="20" formControlName="ContactFax">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="col24">
+                                    <label>{{ 'Email' | translate }}</label>
+                                </div>
+                                <div class="col16">
+                                    <input type="text" class="form-control" id="ContactEmail" size="50" [attr.maxlength]="50" formControlName="ContactEmail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-5">
+                <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+            </div>
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-primary" value="{{'Export Contact' | translate">
+            </div>
+            <div class="col-sm-3 pull-right">
+                <icabs-dropdown></icabs-dropdown>
+            </div>
+        </div>
+    </footer>
+</section>

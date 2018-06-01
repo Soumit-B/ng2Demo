@@ -1,0 +1,41 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Account History Detail' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" [(ngModel)]="accountNumber" name="accountNumber" disabled="" maxlength="9" eTypeText>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" [(ngModel)]="accountName" name="accountName" disabled="" maxlength="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" *ngIf="invoiceGroupNumber!=='' && invoiceGroupNumber!=null">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Invoice Group Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" maxlength="8" [(ngModel)]="invoiceGroupNumber" name="invoiceGroupNumber" disabled="" eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input type="text" class="form-control" maxlength="40" [(ngModel)]="invoiceGroupDesc" name="invoiceGroupDesc" disabled="" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <label class="col24 pl15">{{ 'Detail' | translate }}</label>
+            <div class="col-sm-6">
+                <textarea cols="180" rows="10" class="form-control" maxlength="500" disabled="" [(ngModel)]="accountHistoryNarrative" name="accountHistoryNarrative" eTypeText></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<input id="AccountHistoryNumber" style="display:none">
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

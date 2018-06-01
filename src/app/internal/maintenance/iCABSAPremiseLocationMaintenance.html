@@ -1,0 +1,104 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" maxlength="11" class="form-control" id="ContractNumber" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" id="ContractName" formControlName="ContractName" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" maxlength="11" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" id="PremiseName" formControlName="PremiseName" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises Location Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col22 pr5">
+                        <input type="text" size="11" maxlength="11" class="form-control" [icabsDirFocus]="setFocusOnPremiseLocationNumber" id="PremiseLocationNumber"
+                            formControlName="PremiseLocationNumber" (change)="premiseLocationOnChange()" eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premisesLocationEllipsis [autoOpen]="ellipsis.premiseLocation.autoOpen" [showCloseButton]="ellipsis.premiseLocation.showCloseButton"
+                            [childConfigParams]="ellipsis.premiseLocation.childConfigParams" [modalConfig]="ellipsis.premiseLocation.modalConfig"
+                            [contentComponent]="ellipsis.premiseLocation.contentComponent" (addModeOn)="btnAddOnClick($event)"
+                            (modalHidden)="getModalinfo($event)" (ellipsisData)="premiseLocationOnKeyDown($event, true)" [showHeader]="ellipsis.premiseLocation.showHeader"
+                            [disabled]="ellipsis.premiseLocation.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Description' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col24">
+                        <input type="text" size="40" maxlength="40" class="form-control" [icabsDirFocus]="setFocusOnPremiseLocationDesc" id="PremiseLocationDesc"
+                            formControlName="PremiseLocationDesc" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary" type="button" [ngClass]="!this['pageParams'].FunctionUpdate?'hidden':''" [disabled]="this['pageParams']['isModalAutoOpen']"
+                        value="{{ 'Save' | translate}}" (click)="onSubmit()">
+                    <input class="btn btn-secondary" type="button" [ngClass]="!this['pageParams'].FunctionUpdate?'hidden':''" [disabled]="this['pageParams']['isModalAutoOpen']"
+                        value="{{ 'Cancel' | translate}}" (click)="onAbandon()">
+                    <input [ngClass]="!this['pageParams'].IsDeleteEnable?'hidden':''" [disabled]="this['pageParams']['isModalAutoOpen']" class="btn btn-secondary"
+                        type="button" value="{{ 'Delete' | translate}}" (click)="btnDeleteOnClick()">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <select class="form-control" formControlName="menu" id="menu" (change)="menuOptionsChange($event.target.value)">
+                        <option value="Options">{{'Options' | translate}}</option>
+                        <option value="Purge">{{'Delete History' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="hidden">
+                <input type="text" id="ContractTypeCode" formControlName="ContractTypeCode" eTypeCode>
+                <input type="text" id="PremiseLocationRowID" formControlName="PremiseLocationRowID">
+            </div>
+        </footer>
+    </form>
+
+    <icabs-spinner [isRunning]="this['pageParams'].isRequesting"></icabs-spinner>
+    <icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+    <icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+        (cancelEmit)="promptCancel($event)" (saveEmit)="promptSave($event)">
+    </icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+
+</section>

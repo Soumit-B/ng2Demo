@@ -1,0 +1,25 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #riGridPagination [ngClass]="this['pageParams']['totalRecords'] > 0 ? '':'hidden'" [totalItems]="this['pageParams']['totalRecords']"
+                    [currentPage]="this['pageParams']['curPage']" [itemsPerPage]="this['pageParams']['pageSize']" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGridAfterExecute()" (bodyClick)="riGridBodyOnClick($event)" (bodyDblClick)="riGridBodyOnDblClick($event)"
+                    (bodyKeyDown)="riGridBodyOnKeyDown($event)" (bodyColumnBlur)="selectedRowFocus($event)" (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+    </section>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

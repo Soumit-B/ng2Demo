@@ -1,0 +1,15 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{ this['pageTitle'] | translate }}</h1>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-table #paymentTermSearch (selectedData)="onSelect($event)" [columns]="columns" [paginationTop]="true" [displayError]="false"
+                    [tableheader]="tableheading" [page]="page" (onRefresh)="buildTable()" [itemsPerPage]="itemsPerPage" [doTranslate]="true"></icabs-table>
+            </div>
+        </div>
+    </section>
+</section>

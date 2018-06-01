@@ -1,0 +1,53 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" size="8" maxlength="9" class="form-control" formControlName="AccountNumber" (keydown)="accountNumber_onkeydown($event)"
+                            (change)="accountNumber_onchange($event.target)">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="AccountName" size="40" maxlength="40" class="form-control" formControlName="AccountName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccount"
+                            [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountDataReceived($event, false)"
+                            [showHeader]="showHeader" [searchModalRoute]="searchModalRoute" [disabled]="isAccountEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Tax Registration' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col14 pr5">
+                        <input id="CompanyVATNumber" size="20" maxlength="20" class="form-control" formControlName="CompanyVATNumber" (keydown)="companyVatNumber_onkeydown()"
+                            (change)="companyVatNumber_onchange($event.target)">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr10" type="submit" value="{{'Save' | translate}}" (click)="updateData()">
+                    <input class="btn btn-secondary mr10" type="button" value="{{'Cancel' | translate}}" (click)="cancelClicked()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirmSave()"></icabs-prompt-modal>

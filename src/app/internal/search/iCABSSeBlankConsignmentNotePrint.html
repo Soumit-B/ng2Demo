@@ -1,0 +1,72 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col20">
+                        <label class="col24" for="FilterRegAuthority">{{'Regulatory Authority' | translate }}</label>
+                        <select id="FilterRegAuthority" class="form-control" formControlName="FilterRegAuthority">
+                     </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col20">
+                        <label class="col24" for="FilterWasteTransferType">{{'Waste Transfer Type' | translate }}</label>
+                        <select id="FilterWasteTransferType" class="form-control" formControlName="FilterWasteTransferType">
+                     </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PrintCopies">{{'Copies To Print' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input id="PrintCopies" type="text" formControlName="PrintCopies" size="10" maxlength="7" class="form-control">
+                    </div>
+                    <div class="co6">
+                        <input type="button" class="btn btn-additional" value="{{ 'Print' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SchedulePrintCopies">{{'Schedule Copies To Print' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input id="SchedulePrintCopies" type="text" formControlName="SchedulePrintCopies" size="10" maxlength="7" class="form-control">
+                    </div>
+                    <div class="co6">
+                        <input type="button" class="btn btn-additional" value="{{ 'Print' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="AuthorityPrintCopies">{{'Authority Copies To Print' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input id="AuthorityPrintCopies" type="text" formControlName="AuthorityPrintCopies" size="10" maxlength="7" class="form-control">
+                    </div>
+                    <div class="co6">
+                        <input type="button" class="btn btn-additional" value="{{ 'Print' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="UsePrintTool" formControlName="UsePrintTool">
+                    <label class="col24" for="UsePrintTool">{{'Use Print Tool'|translate}}</label>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

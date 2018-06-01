@@ -1,0 +1,141 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label for="EmployeeCode" class="col24 ">{{'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" size="9" maxlength="9" class="form-control" formControlName="EmployeeCode" eTypeCode>
+
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="EmployeeName" size="30" maxlength="40" class="form-control" formControlName="EmployeeName" eTypeText>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'View By' | translate}}</label>
+                        <div class="col16">
+                            <select id="ViewTypeFilter" class="form-control" (change)="selectedViewBy($event.target.value)">
+                            <option value="All" selected>{{'All' | translate}}</option>
+                            <option value="Holidays">{{'Holidays' | translate}}</option>
+                            <option value="Sickness">{{'Sickness' | translate}}</option>
+                            <option value="Tickets">{{'Tickets' | translate}}</option>
+                            <option value="Workorders">{{'WorkOrders' | translate}}</option>
+                            <option value="BranchHolidays">{{'Branch Holidays' | translate}}</option>
+                            <option value="Other">{{'Other' | translate}}</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+
+                    <div class="col8 pr5">
+                        <label for="SelectedYear" class="col24">{{'Year' | translate }}</label>
+                        <input id="SelectedYear" size="9" maxlength="9" readonly class="form-control" formControlName="SelectedYear" (keypress)="keyboardInput($event)"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2 pr5 mt15">
+                        <span class="glyphicon glyphicon-plus plusmin" (click)="onPlusClick($event)"></span>
+                        <span class="glyphicon glyphicon-minus plusmin" (click)="onMinusClick($event)"></span>
+                    </div>
+                    <div class="col10 mt20">
+                        <select id="menu" class="form-control" (change)="selectedAllDiary($event.target.value)">
+                            <option value="Options" selected>{{'Options' | translate}}</option>
+                            <option value="Add Diary Entry" >{{'Add Diary Entry' | translate}}</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col3 pr10">
+                        <label for="TotalEntries" class="col24">{{ 'Total Entries' | translate  }} </label>
+                        <div class="col24">
+                            <input id="TotalEntries" size="6" maxlength="10" class="form-control" formControlName="TotalEntries" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col3 pr10">
+                        <label for="TotalHolidays" class="col24">{{ 'Holidays' | translate  }}</label>
+                        <div class="col24">
+                            <input id="TotalHolidays" size="6" maxlength="10" class="form-control" formControlName="TotalHolidays" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col3 pr10">
+                        <label for="TotalSickness" class="col24">{{ 'Sickness'   | translate }}</label>
+                        <div class="col24">
+                            <input id="TotalSickness" size="6" maxlength="10" class="form-control" formControlName="TotalSickness" eTypeInteger>
+                        </div>
+                    </div>
+
+                    <div class="col3 pr10">
+                        <label for="TotalTickets" class="col24">{{'Tickets'  | translate }}</label>
+                        <div class="col24">
+                            <input id="TotalTickets" maxlength="10" size="6" class="form-control" formControlName="TotalTickets" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col3 pr10">
+                        <label for="TotalWorkOrders" class="col24">{{'WorkOrders' | translate  }}</label>
+                        <div class="col24">
+                            <input id="TotalWorkOrders" maxlength="10" size="6" class="form-control" formControlName="TotalWorkOrders" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col3 pr10">
+                        <label for="TotalBranchHolidays" class="col24">{{'Branch Holidays' | translate  }}</label>
+                        <div class="col24">
+                            <input id="TotalBranchHolidays" maxlength="10" size="6" class="form-control" formControlName="TotalBranchHolidays" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <label for="TotalOther " class="col24">{{'Other' | translate  }}</label>
+                        <div class="col24">
+                            <input id="TotalOther" maxlength="15" size="10" class="form-control" formControlName="TotalOther" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #diaryGridPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #diaryGridPagination [totalItems]="totalRecords" *ngIf="totalRecords > 0 && showGrid" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div classs="row" [ngClass]="showGrid?'':'hidden'">
+                <div class="col-sm-12 mt10">
+                    <!--<icabs-grid #diaryYearGrid [hidden]="!showHideGrid" [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="pageCurrent"
+                        (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (TRDblClick)="tbodyDiary_onDblClick($event)" (onSuccess)="riGrid_AfterExecute()"></icabs-grid-advanced>
+                </div>
+            </div>
+            <!--Legends-->
+            <!--assign the colors dynamically-->
+            <div class="row">
+                <!--assign the colors dynamically-->
+                <div class="col-sm-12 text-center">
+                    <label class="pr5">{{'Legend'|translate}} </label>
+                    <div class="inline-block pr10" *ngFor="let l of legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{l.label|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">

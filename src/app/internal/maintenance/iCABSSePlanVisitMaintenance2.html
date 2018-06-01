@@ -1,0 +1,135 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="10" [attr.maxlength]="10" class="form-control" formControlName="ContractNumber"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractName">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="10" [attr.maxlength]="10" class="form-control" formControlName="PremiseNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control" formControlName="PremiseName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="10" [attr.maxlength]="10" class="form-control" formControlName="ProductCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control" formControlName="ProductDesc">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PlanVisitNumber">{{ 'Plan Visit Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PlanVisitNumber" size="4" [attr.maxlength]="4" class="form-control" formControlName="PlanVisitNumber"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="VisitTypeCode">{{ 'Visit Type' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="VisitTypeCode" size="10" [attr.maxlength]="10" class="form-control" formControlName="VisitTypeCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="VisitTypeDesc" size="40" [attr.maxlength]="40" class="form-control" formControlName="VisitTypeDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Servicing Branch' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchNumber" size="10" [attr.maxlength]="10" class="form-control" formControlName="BranchNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="BranchName" size="40" [attr.maxlength]="40" class="form-control" formControlName="BranchName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area Code' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="10" [attr.maxlength]="10" class="form-control" formControlName="BranchServiceAreaCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="BranchServiceAreaDesc" size="40" [attr.maxlength]="40" class="form-control" formControlName="BranchServiceAreaDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="OriginalVisitDueDate">{{ 'Original Visit Due Date' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col12">
+                        <icabs-datepicker id="OriginalVisitDueDate" formControlName="OriginalVisitDueDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PlanQuantity">{{ 'Plan Quantity' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col12">
+                        <input type="text" id="PlanQuantity" size="5" [attr.maxlength]="5" class="form-control" formControlName="PlanQuantity" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="VisitDurationDefault">{{ 'Visit Duration Default' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="VisitDurationDefault" size="5" class="form-control" formControlName="VisitDurationDefault" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <footer class="screen-footer">
+                <div class="row mt10">
+                    <div class="col-sm-6">
+                        <div class="col24">
+                            <input type="button" class="btn btn-primary" value="{{ 'Save' | translate }}">
+                            <input type="button" class="btn btn-primary" value="{{ 'cancel' | translate }}">
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+</section>

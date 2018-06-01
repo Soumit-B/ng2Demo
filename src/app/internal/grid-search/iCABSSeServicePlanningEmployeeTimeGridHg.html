@@ -1,0 +1,68 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="EmployeeCode" class="form-control" formControlName="EmployeeCode" type="text" size="8" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="25" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24" for="StartDate">{{ 'Plan From' | translate}}</label>
+                        <input id="StartDate" class="form-control" formControlName="StartDate" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="EndDate">{{ 'To' | translate}}</label>
+                        <input id="EndDate" class="form-control" formControlName="EndDate" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PlannedVisitDate">{{ 'Date' | translate}}</label>
+                    <div class="col6">
+                        <input id="PlannedVisitDate" class="form-control" formControlName="PlannedVisitDate" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8">
+                        <label class="col24" for="WeekNumber">{{ 'Week' | translate}}</label>
+                        <input id="WeekNumber" class="form-control" formControlName="WeekNumber" type="text" size="2" [attr.maxlength]="2">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+            <!--<div class="col-sm-6 text-center">
+                    <div class="inline-block pr10" *ngFor="let l of uiDisplay.legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{l.label}}</label>
+                    </div>
+                </div>-->
+        </section>
+    </form>
+</section>

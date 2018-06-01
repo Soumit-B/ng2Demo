@@ -1,0 +1,218 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="9" [attr.maxlength]="8"
+                            eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="9" [attr.maxlength]="9"
+                            eTypeText>
+                    </div>
+                    <div class="col18">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" [ngClass]=" this.uiDisplay.isTrPremise ? '': 'hidden'">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" size="9" [attr.maxlength]="8"
+                            eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" [ngClass]=" this.uiDisplay.isTrProduct ? '': 'hidden'">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" size="9" [attr.maxlength]="8" eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" size="40" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="LostBusinessRequestNumber">{{ 'Request Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <input id="LostBusinessRequestNumber" formControlName="LostBusinessRequestNumber" class="form-control" type="text" size="9"
+                            [attr.maxlength]="5" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="CommenceDate">{{ 'Commence Date' | translate}}</label>
+                    <div class="col16">
+                        <input id="CommenceDate" formControlName="CommenceDate" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="LostBusinessContactNumber">{{ 'Contact Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <input id="LostBusinessContactNumber" formControlName="LostBusinessContactNumber" class="form-control" type="text" size="9"
+                            [attr.maxlength]="5" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="RequestStatus">{{ 'Request Status' | translate}}</label>
+                    <div class="col16">
+                        <input id="RequestStatus" formControlName="RequestStatus" class="form-control" type="text" size="10" [attr.maxlength]="10"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ClientContact">{{ 'Client Contact Name' | translate}}</label>
+                    <div class="col16">
+                        <input id="ClientContact" formControlName="ClientContact" class="form-control" type="text" size="20" [attr.maxlength]="20"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ClientContactTelephoneNumber">{{ 'Client Contact Telephone' | translate}}</label>
+                    <div class="col16">
+                        <input id="ClientContactTelephoneNumber" formControlName="ClientContactTelephoneNumber" class="form-control" type="text"
+                            size="20" [attr.maxlength]="20" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactDate">{{ 'Contact Date' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-datepicker id="ContactDate" formControlName="ContactDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]=" this.uiDisplay.isTdSavedValue ? '': 'hidden'">
+                    <label class="col24" for="SavedValue">{{ 'Value Saved' | translate}}</label>
+                    <div class="col16">
+                        <input id="SavedValue" formControlName="SavedValue" class="form-control" type="text" size="10" [attr.maxlength]="10" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-contactype-languagesearch #apiContactTypeLangSearch [inputParams]="inputParams.contactTypeLangSearch" (receivedLanguageSearch)="onContactTypeLangDataReceived($event)"></icabs-contactype-languagesearch>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]=" this.uiDisplay.isTdLostValue ? '': 'hidden'">
+                    <label class="col24" for="LostValue">{{ 'Value Lost' | translate}}</label>
+                    <div class="col16">
+                        <input id="LostValue" formControlName="LostValue" class="form-control" type="text" size="10" [attr.maxlength]="10" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactOutcomeCode">{{ 'Contact Outcome Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input formControlName="ContactOutcomeCode" type="text" id="ContactOutcomeCode" class="form-control" size="2" [attr.maxlength]="2"
+                            (change)="onContactOutcomeLangChange()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input formControlName="LBContactOutcomeDesc" type="text" id="LBContactOutcomeDesc" class="form-control" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #LostBusinessContactOutcomeLanguageSearchEllipsis [childConfigParams]="inputParams.contactOutcomeLangSearch"
+                            [contentComponent]="contactOutcomeLangSearchComponent" [showHeader]="isShowHeader" [title]="modalTitle"
+                            [disabled]="false" (ellipsisData)="onContactOutcomeLangDataReturn($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]=" this.uiDisplay.isTdPassword ? '': 'hidden'">
+                    <label class="col24" for="Password">{{ 'Password' | translate}}</label>
+                    <div class="col16">
+                        <input id="Password" formControlName="Password" class="form-control" type="text" size="20" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{ 'Actioned By Employee' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" size="6" [attr.maxlength]="6" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #EmployeeSearchEllipsis [childConfigParams]="inputParams.employeeSearch" [contentComponent]="employeeSearchComponent"
+                            [showHeader]="isShowHeader" [title]="modalTitle" [disabled]="false" (ellipsisData)="onEmployeeSearchDataReturn($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="LostBusinessContactNarrative">{{ 'Narrative' | translate}}</label>
+                    <textarea id="LostBusinessContactNarrative" formControlName="LostBusinessContactNarrative" class="form-control" rows="3"
+                        cols="40" [attr.maxlength]="100" eTypeTextFree></textarea>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" class="btn btn-primary mr10" (click)="onSaveData()" value="{{ 'Save' | translate }}">
+                        <input type="button" class="btn btn-secondary" (click)="onCancelData()" value="{{ 'Cancel' | translate }}">
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <select id="menu" class="form-control" formControlName="menu" (change)="menuOnChange()">
+                        <option value="Options" selected>{{ 'Options' | translate }}</option>
+                        <option value="detail">{{ 'View Details' | translate }}</option>
+                    </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

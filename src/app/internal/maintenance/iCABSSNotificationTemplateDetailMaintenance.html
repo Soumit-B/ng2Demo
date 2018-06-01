@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyTemplateCode">{{ 'Template Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="NotifyTemplateCode" class="form-control" formControlName="NotifyTemplateCode" type="text" size="15" maxlength="12">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="NotifyTemplateSystemDesc" class="form-control" formControlName="NotifyTemplateSystemDesc" type="text" size="30"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="LanguageCode" class="form-control" formControlName="LanguageCode" type="text" size="3" maxlength="3">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" type="text" size="30" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <label class="col24" for="NotifySubjectText">{{ 'Subject Text' | translate}}</label>
+                        <textarea id="NotifySubjectText" class="form-control" formControlName="NotifySubjectText" rows="2" cols="80"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <label class="col24" for="NotifyBodyText">{{ 'Body Text' | translate}}</label>
+                        <textarea id="NotifyBodyText" class="form-control" formControlName="NotifyBodyText" rows="10" cols="80"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="CustomerContactNumber">{{ 'Customer Reference' | translate}}</label>
+                    <div class="col12 pr5">
+                        <input id="CustomerContactNumber" class="form-control" formControlName="CustomerContactNumber" type="text" size="10" maxlength="10">
+                    </div>
+                    <div class="col12">
+                        <input type="button" class="btn btn-additional" value="{{'Test Template As Email' | translate}}">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+            <div class="col-sm-offset-4 col-sm-2">
+                <input type="button" class="btn btn-secondary" value="{{'Group Details' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

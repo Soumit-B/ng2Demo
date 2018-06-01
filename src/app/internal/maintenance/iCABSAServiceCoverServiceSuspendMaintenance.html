@@ -1,0 +1,197 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Service Cover Invoice and Service Suspension Maintenance'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Number' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises Number' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Code' |translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Status' |translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="Status" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visit Frequency' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceVisitFrequency" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Value' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceAnnualValue" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Quantity' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceQuantity" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Suspend Quantity' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="SuspendQuantity" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Commence Date' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceCommenceDate" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Visit Anniversary Date' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceVisitAnnivDate" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Suspension Start Date' |translate}}</label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker id="SuspendStartdate"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'End Date' |translate}}</label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker id="SuspendEndDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 mt20">
+                    <div class="col16">
+                        <input type="checkbox" id="ServiceVisitAnnivDateInd" class="form-control">
+                        <label for="ServiceVisitAnnivDateInd">{{ 'Reset Visit Anniv Date' | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Updated Visit Anniv Date' |translate}}</label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker id="UpdatedAnnivDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 mt20">
+                    <div class="col16">
+                        <input type="checkbox" id="CreditSuspendServiceInd" class="form-control">
+                        <label for="CreditSuspendServiceInd">{{ 'Issue Credit' | translate }}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Balance' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountBalance" size="9" [attr.maxlength]="9" class="form-control">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Suspend Reason Code' |translate}}</label>
+                    <div class="col8 pr5">
+                        <icabs-dropdown id="SuspendReasonCode"></icabs-dropdown>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Suspend Location' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="SuspendLocation" size="9" [attr.maxlength]="9" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-additional mr10" value="{{'Add'|translate}}">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}">
+                    <input type="button" class="btn btn-secondary mr10" value="{{'Cancel'|translate}}">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col16 pull-right">
+                        <select class="form-control" id="Menu">
+                                <option value="options" selected>Options</option>
+                                 <option value="PlanVisit">Planned Visits</option>
+                                  <option value="StaticVisit">Static Visits</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

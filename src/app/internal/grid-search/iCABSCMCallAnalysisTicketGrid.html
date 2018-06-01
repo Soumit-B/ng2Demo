@@ -1,0 +1,114 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24" for="ViewBy">{{ 'View By' | translate}}</label>
+                    <div class="col16">
+                        <select id="ViewBy" class="form-control" formControlName="ViewBy" (change)="selectedViewBy($event.target.value)">
+                            <option value="account" selected>{{ 'Account' | translate }}</option>
+                            <option value="branch">{{ 'Branch' | translate }}</option>
+                            <option value="employee">{{ 'Employee' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20" *ngIf="viewByOption!=='branch'">
+                    <div class="col8 pr5">
+                        <input id="ViewByValue" class="form-control" formControlName="ViewByValue" type="text" size="12" maxlength="12">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ViewByValueDesc" class="form-control" formControlName="ViewByValueDesc" type="text" size="25" maxlength="25" eTypeTextFree>
+                    </div>
+                    <div class="col2" [ngClass]="viewByOption === 'employee' ? '': 'hidden'">
+                        <icabs-ellipsis [contentComponent]="DynamicComponent1" [childConfigParams]="inputParamsEmployee" (ellipsisData)="onEmpDataReceived($event)"
+                            [showHeader]="true" [showCloseButton]="true"></icabs-ellipsis>
+                    </div>
+                    <div class="col2" [ngClass]="viewByOption === 'account' ? '': 'hidden'">
+                        <icabs-ellipsis [contentComponent]="DynamicComponent2" [childConfigParams]="inputParamsAccount" (ellipsisData)="onAccDataReceived($event)"
+                            [showHeader]="true" [showCloseButton]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20" *ngIf="viewByOption==='branch'">
+                    <icabs-branchsearch [inputParams]="inputParamsBranch" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="branchSelected"></icabs-branchsearch>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="spanContactType">{{ 'Contact Type' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #ContactTypeCodeDropdown class="" [inputData]="ContactTypeCodeList" (change)="ContactTypeOnChange($event.target.value)"></icabs-dropdown-static>
+
+                        <!--<select id="ContactType" formControlName="ContactType" (change)="ContactTypeOnChange($event.target.value)" class="form-control">
+                            <option value="all">{{ 'All' | translate }}</option>
+                              <option value="all">{{ 'Closed (All)' | translate }}</option>
+                        </select>-->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="spanContactTypeDetail">{{ 'Detail' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #contactDetailDropdown class="" [inputData]="contactTypeDetailCodesList" (onSelect)="onContactTypeDetailSelect($event)"></icabs-dropdown-static>
+
+                        <!--<select id="ContactTypeDetail" formControlName="ContactTypeDetail" class="form-control">
+                             <option value="all">{{ 'All' | translate }}</option>
+                        </select>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col16">
+                        <label class="col24" for="ContactStatusCode">{{ 'Contact Status' | translate}}</label>
+                        <select id="ContactStatusCode" formControlName="ContactStatusCode" (change)="selectedContactStatusCode($event.target.value)"
+                            class="form-control">
+                            <option value="all">{{ 'All' | translate }}</option>
+                            <option value="hardwiredopen">{{ 'Open (All)' | translate }}</option>
+                            <option value="hardwiredclosed">{{ 'Closed (All)' | translate }}</option>
+                            <option value="Closed">{{ 'Closed' | translate }}</option>
+                            <option value="Open">{{ 'Open' | translate }}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label for="FromDate">{{'From'| translate}}<span class="mandatory">*</span></label>
+                        <icabs-datepicker #fromDate id="FromDate" [dt]="fromDateValue" [isRequired]="true" (selectedValue)="datePickerSelectedValue($event,'FromDate')"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label for="ToDate">{{'To'| translate}}<span class="mandatory">*</span></label>
+                        <icabs-datepicker #toDate id="ToDate" [dt]="toDateValue" [isRequired]="true" (selectedValue)="datePickerSelectedValue($event,'ToDate')"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #CallAnalysisTicketGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #CallAnalysisTicketGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [sortHeaders]="gridSortHeaders"
+                        (gridInfo)="getGridInfo($event)" (selectedRowInfo)="selectedDataOnDoubleClick($event)" (getCellData)="gridOnClick($event)"
+                        [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+            <input type="checkbox" id="chkIncludeInactive" formControlName="chkIncludeInactive" hidden>
+            <input id="PassLevel" formControlName="PassLevel" hidden>
+            <input id="PassContactStatusCode" formControlName="PassContactStatusCode" hidden>
+            <input id="ThisLevel" formControlName="ThisLevel" hidden>
+
+
+        </section>
+    </form>
+</section>

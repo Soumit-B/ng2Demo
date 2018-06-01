@@ -1,0 +1,211 @@
+<div class="container-fluid custom-container">
+	<div class="row">
+		<div class="col-sm-12 page-title mt10">
+			<h1>
+				{{ 'Planned Visits' | translate }}
+			</h1>
+		</div>
+	</div>
+
+	<form novalidate [formGroup]="uiForm">
+		<div #topContainer>
+			<div class="row mt5">
+				<div class="col-sm-3" *ngIf="uiDisplay.trContract">
+					<label class="col24 " for="ContractNumber">{{ 'Contract'  | translate  }}</label>
+					<div class="col8 pr5">
+						<input id="ContractNumber" size="9" [attr.maxlength]="8" class="form-control" formControlName="ContractNumber" [readonly]="uiForm.controls.ContractNumber?.readonly"
+							eTypeCode>
+					</div>
+					<div class="col16">
+						<input id="ContractName" size="30" [attr.maxlength]="40" class="form-control" formControlName="ContractName" [readonly]="uiForm.controls.ContractName?.readonly"
+							eTypeText>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="col16 pr5">
+						<label class="col24" for="View">{{'View By'  | translate }}</label>
+						<div class="col24">
+							<select id="ViewTypeFilter" formControlName="ViewTypeFilter" (change)="ViewTypeFilter_onchange($event.target.value)" class="col24 form-control">
+                                <option *ngFor="let b of viewTypeList" value="{{b.value}}">{{b.text  | translate }}</option>
+                            </select>
+						</div>
+					</div>
+					<div class="col8">
+						<label class="col24" for="View">{{'Year'  | translate  }}</label>
+						<div class="col24">
+							<select id="SelectedYear" formControlName="SelectedYear" (change)="YearFilter_onchange($event.target.value)" class="col24 form-control">
+                                <option *ngFor="let b of yearList" value="{{b.value}}">{{b.text }}</option>
+                            </select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-3" *ngIf="uiDisplay.trPremise">
+					<label class="col24 " for="PremiseNumber">{{ 'Premises'  | translate  }}</label>
+					<div class="col8 pr5">
+						<input id="PremiseNumber" class="form-control" size="9" [attr.maxlength]="7" formControlName="PremiseNumber" [readonly]="uiForm.controls.PremiseNumber?.readonly"
+							eTypeInteger>
+					</div>
+					<div class="col16">
+						<input id="PremiseName" class="form-control" size="30" [attr.maxlength]="40" formControlName="PremiseName" [readonly]="uiForm.controls.PremiseName?.readonly"
+							eTypeText>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="col24">
+						<label class="col24" for="View">{{'Options'  | translate  }}</label>
+						<div class="col16 pr5">
+							<select id="menu" formControlName="menu" (change)="menu_onchange($event.target.value)" class="col24 form-control">
+                                <option *ngFor="let b of menuList" value="{{b.value}}">{{b.text | translate}}</option>
+                            </select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt2">
+				<div class="col-sm-3" *ngIf="uiDisplay.trProduct">
+					<label class="col24 " for="ProductCode">{{ 'Product'  | translate  }}</label>
+					<div class="col8 pr5">
+						<input id="ProductCode" size="9" [attr.maxlength]="6" formControlName="ProductCode" [readonly]="uiForm.controls.ProductCode?.readonly"
+							class="form-control" eTypeCode>
+					</div>
+					<div class="col16">
+						<input id="ProductDesc" size="30" [attr.maxlength]="40" formControlName="ProductDesc" [readonly]="uiForm.controls.ProductDesc?.readonly"
+							class="form-control" eTypeText>
+					</div>
+				</div>
+			</div>
+			<hr class="mt15 mb15">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="col4 pr5" *ngIf="uiDisplay.VisitCycleInWeeks">
+						<label id="tdVisitCycleInWeeksLabel" class="pull-left pr5">{{ uiDisplay.label.tdVisitCycleInWeeksLabel  | translate  }} </label>
+						<div class="col24">
+							<input id="VisitCycleInWeeks" size="3" class="col3" class="form-control" formControlName="VisitCycleInWeeks" [readonly]="uiForm.controls.VisitCycleInWeeks?.readonly"
+								eTypeInteger>
+						</div>
+					</div>
+					<div class="col4 pr5" *ngIf="uiDisplay.VisitsPerCycle">
+						<label id="tdVisitsPerCycleLabel" class="col24">{{ uiDisplay.label.tdVisitsPerCycleLabel  | translate  }}</label>
+						<div class="col24">
+							<input id="VisitsPerCycle" size="3" class="col3" class="form-control" formControlName="VisitsPerCycle" [readonly]="uiForm.controls.VisitsPerCycle?.readonly"
+								eTypeInteger>
+						</div>
+					</div>
+					<div class="col4 pr5" *ngIf="uiDisplay.ServiceVisitFrequency">
+						<label id="tdServiceVisitFrequencyLabel" class="col24">{{ uiDisplay.label.tdServiceVisitFrequencyLabel   | translate }}</label>
+						<div class="col24">
+							<input id="ServiceVisitFrequency" size="3" readonly="readonly" class="form-control" formControlName="ServiceVisitFrequency"
+								[readonly]="uiForm.controls.ServiceVisitFrequency?.readonly" eTypeInteger>
+						</div>
+					</div>
+					<div class="col4 pr5">
+						<label class="col24">{{'Total Visits'  | translate }}</label>
+						<div class="col24">
+							<input id="TotalVisits" [attr.maxlength]="10" size="6" class="form-control" formControlName="TotalVisits" [readonly]="uiForm.controls.TotalVisits?.readonly"
+								eTypeInteger>
+						</div>
+					</div>
+					<div class="col4 pr5">
+						<label id="tdTotalUnitsLab" class="col24">{{'Units' | translate  }}</label>
+						<div class="col24">
+							<input id="TotalUnits" [attr.maxlength]="10" size="6" class="form-control" formControlName="TotalUnits" [readonly]="uiForm.controls.TotalUnits?.readonly"
+								eTypeInteger>
+						</div>
+					</div>
+					<div class="col4 pr5" *ngIf="uiDisplay.tdTotalWED">
+						<label id="tdTotalWEDLab" class="col24">{{'W.E.D.' | translate  }}</label>
+						<div class="col24">
+							<input id="TotalWED" [attr.maxlength]="10" size="6" class="form-control" formControlName="TotalWED" [readonly]="uiForm.controls.TotalWED?.readonly"
+								eTypeDecimal1>
+						</div>
+					</div>
+					<div class="col4 pr5">
+						<label class="col24">{{'Time' | translate  }}</label>
+						<div class="col24">
+							<input id="TotalTime" [attr.maxlength]="10" size="6" class="form-control" formControlName="TotalTime" [readonly]="uiForm.controls.TotalTime?.readonly"
+								eTypeText>
+						</div>
+					</div>
+					<div class="col4">
+						<label id="tdVisitsPerCycleLabel" class="col24">{{'Nett Value'  | translate }}</label>
+						<div class="col24">
+							<input id="TotalNettValue" [attr.maxlength]="15" size="10" class="form-control" formControlName="TotalNettValue" [readonly]="uiForm.controls.TotalNettValue?.readonly"
+								eTypeCurrency>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="mt15 mb15">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="col24">
+						<div class="inline-block mr10" *ngIf="uiDisplay.cmd_TabularView">
+							<button (click)="cmd_TabularView_onclick()" id="cmd_TabularView" class="btn btn-primary">{{ 'Tabular View' | translate }}</button>
+						</div>
+						<div *ngIf="uiDisplay.trCompliance">
+							<div class="inline-block mr10">
+								<input type="checkbox" formControlName="chkIntervalTooShort" [readonly]="uiForm.controls.chkIntervalTooShort?.readonly">
+								<label id="tdIntervalTooShort">{{ uiDisplay.label.tdIntervalTooShort  | translate }}</label>
+							</div>
+							<div class="inline-block mr10" *ngIf="uiDisplay.IntervalShortFirstDate">
+								<label id="tdIntervalShortFirstDateLabel" class="pr5">{{ uiDisplay.label.tdIntervalShortFirstDateLabel  | translate  }}</label>
+								<input id="IntervalShortFirstDate" formControlName="IntervalShortFirstDate" [readonly]="uiForm.controls.IntervalShortFirstDate?.readonly">
+							</div>
+							<div class="inline-block mr10">
+								<input type="checkbox" id="chkIntervalTooLong" formControlName="chkIntervalTooLong" [readonly]="uiForm.controls.chkIntervalTooLong?.readonly">
+								<label id="tdIntervalTooLong">{{ uiDisplay.label.tdIntervalTooLong  | translate  }}</label>
+							</div>
+							<div class="inline-block mr10" *ngIf="uiDisplay.IntervalLongFirstDate">
+								<label id="tdIntervalLongFirstDateLabel" class="pr5">{{ uiDisplay.label.tdIntervalLongFirstDateLabel  | translate  }}</label>
+								<input id="IntervalLongFirstDate" formControlName="IntervalLongFirstDate" [readonly]="uiForm.controls.IntervalLongFirstDate?.readonly">
+							</div>
+							<div class="inline-block mr10">
+								<input formControlName="chkVisitsTooLow" [readonly]="uiForm.controls.chkVisitsTooLow?.readonly" type="checkbox" id="chkVisitsTooLow">
+								<label id="tdVisitsTooLow">{{'Visits Too Low' | translate }}</label>
+							</div>
+							<div class="inline-block mr10">
+								<input formControlName="chkVisitsTooHigh" [readonly]="uiForm.controls.chkVisitsTooHigh?.readonly" type="checkbox" id="chkVisitsTooHigh">
+								<label id="tdVisitsTooLow">{{'Visits Too High'  | translate }}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="mt15 mb15">
+			<div class="row">
+				<div class="col-sm-12">
+					<icabs-refresh (click)="refresh()"></icabs-refresh>
+					<icabs-pagination #gridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+					<!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #employeeGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<!--<icabs-grid #visitGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onCellClicked($event)"></icabs-grid>-->
+
+					<icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGrid_AfterExecute()" (TRDblClick)="tbodyPlanVisit_onDblClick($event)"></icabs-grid-advanced>
+				</div>
+			</div>
+			<div class="row">
+				<!--assign the colors dynamically-->
+				<div class="col-sm-12 text-center">
+					<label class="pr5">{{'Legend' | translate}} :</label>
+					<div class="inline-block pr10" *ngFor="let l of uiDisplay.legend">
+						<div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+						<label>{{l.label}}</label>
+					</div>
+				</div>
+			</div>
+			<input id="BusinessCode" formControlName="BusinessCode" [readonly]="uiForm.controls.BusinessCode?.readonly" class="hidden">
+			<input id="ServiceCoverNumber" formControlName="ServiceCoverNumber" [readonly]="uiForm.controls.ServiceCoverNumber?.readonly"
+				class="hidden">
+		</div>
+	</form>
+</div>
+<icabs-modal #messageModal [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

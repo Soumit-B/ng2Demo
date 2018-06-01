@@ -1,0 +1,107 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate>
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Number'}}</label>
+                    <div class="col24">
+                        <input type="text" size="9" maxlength="9" class="form-control" id="ProspectNo">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'Value'}}</label>
+                        <select class="form-control">
+                            <option selected value="Options">{{'Options'}}</option>
+                            <option value="full">{{'Full'}}</option>
+                            <option value="weighted">{{'Weighted'}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Assign To'}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="EmployeeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="30" maxlength="37" class="form-control" id="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'By'}}</label>
+                        <select class="form-control">
+                            <option selected value="Options">{{'Options'}}</option>
+                            <option value="created">{{'Created'}}</option>
+                            <option value="closed">{{'Closed'}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24">{{'Stage'}}</label>
+                        <select class="form-control">
+                            <option selected value="Options">{{'Options'}}</option>
+                            <option value="">{{'All'}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'Status'}}</label>
+                        <select class="form-control">
+                            <option selected value="Options">{{'Options'}}</option>
+                            <option value="">{{'All'}}</option>
+                            <option value="open">{{'Open'}}</option>
+                            <option value="closed">{{'Closed'}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <div class="col8 pr10">
+                        <label class="col24">{{'From Date'}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="FromDate"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'To'}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="ToDate"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>

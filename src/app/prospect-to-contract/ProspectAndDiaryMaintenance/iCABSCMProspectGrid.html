@@ -1,0 +1,108 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Prospect Number' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" formControlName="ProspectNo" size="9" maxlength="9" class="form-control" id="ProspectNo" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'Value' | translate}}</label>
+                        <icabs-dropdown-static #valueSelectDropdown class="" [inputData]="valueOptions" [disabled]="valueOptionsDisabled" (onSelect)="valueOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Assign To' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input formControlName="EmployeeCode" type="text" size="6" maxlength="6" class="form-control" id="EmployeeCode" (change)="employeeCodeChange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="EmployeeSurname" type="text" size="30" maxlength="37" class="form-control" id="EmployeeSurname" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #employeeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsEmployeeSearch"
+                            [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent" (ellipsisData)="onAssignEmployeeDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'By' | translate}}</label>
+                        <icabs-dropdown-static #byViewOptionSelectDropdown class="" [inputData]="byViewOptions" [disabled]="ByViewOptionsDisabled"
+                            (onSelect)="byviewOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24">{{'Stage' | translate}}</label>
+                        <icabs-dropdown-static #stageOptionSelectDropdown class="" [inputData]="stageOptions" [disabled]="stageOptionsDisabled" (onSelect)="stageOptionsChange($event)"
+                            [doTranslate]="false"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label class="col24">{{'Status' | translate}}</label>
+                        <icabs-dropdown-static #statusOptionSelectDropdown class="" [inputData]="statusOptions" [disabled]="statusOptionsDisabled"
+                            (onSelect)="statusptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12 pr10">
+                        <label class="col24">{{'From Date' | translate}}<span  class="mandatory" *ngIf="fieldRequired.FromDate === true">* </span></label>
+                        <div class="col24">
+                            <icabs-datepicker #fromDateChild [dt]='defaultFromdate' (selectedValue)="fromDateSelectedValue($event)" [isRequired]="fieldRequired.FromDate"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'To' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ToDate === true">* </span></label>
+                        <div class="col24">
+                            <icabs-datepicker #toDateChild [dt]='defaultToDate' (selectedValue)="toDateSelectedValue($event)" [isRequired]="fieldRequired.ToDate"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #prospectGridPagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #prospectGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)" (sortInfo)="sortGrid($event)"
+                        [sortIndex]="gridSortHeaders" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal [(showHeader)]="showHeader">
+</icabs-modal>
+<icabs-modal #errorModal [showHeader]="true"> </icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

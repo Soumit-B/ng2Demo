@@ -1,0 +1,39 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-5">
+                    <div class="col6 pr5">
+                        <select id="LostBusinessDetailSearchType" class="form-control" formControlName="LostBusinessDetailSearchType" (change)="menuOptionsChange($event.target.value)">
+                            <option value="Code" [selected]="true">{{'Code'|translate}}</option>
+                            <option value="Description">{{'Description'|translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="LostBusinessDetailSearchValue" class="form-control" formControlName="LostBusinessDetailSearchValue" type="text"
+                            size="20" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <input type="button" class="btn btn-additional" (click)="buildTable()" value="{{'Search' | translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #riTable (onRefresh)="buildTable()" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" (selectedData)="selectedData($event)"
+                        [paginationTop]="true"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

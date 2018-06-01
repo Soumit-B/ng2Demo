@@ -1,0 +1,95 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service visit Entry' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract/Job' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="8" maxlength="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="6" maxlength="4">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{ 'Premise' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="8" maxlength="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaSeqNo">{{ 'From Seq No' | translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="BranchServiceAreaSeqNo" formControlName="BranchServiceAreaSeqNo" size="6" maxlength="6">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" size="8" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName="ProductDesc" size="30" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Visit Freq' | translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" size="3">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <div class="row mt10">
+        <div class="col-sm-6">
+            <icabs-refresh></icabs-refresh>
+            <icabs-pagination></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid></icabs-grid>
+        </div>
+    </div>
+</section>

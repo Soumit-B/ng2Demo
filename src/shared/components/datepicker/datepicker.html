@@ -1,0 +1,25 @@
+<div class='date'>
+    <!--Directive Based -->
+    <div class="input-group datepicker-input-cont" *ngIf="isDirectiveBased">
+        <input type="text" [id]="randomId" class="form-control" (change)="dateChange()" [(ngModel)]="dtDisplay" [disabled]="isDisabled"
+            [readonly]="isReadonly" [autofocus]="setFocus" [required]="isRequired" (keyup)='changeDateOnKeyDown($event);' maxlength="10"
+        />
+        <span class="input-group-addon pointer" [ngClass]="{ 'disabled': isDisabled }" (click)="open()">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+    <datepicker *ngIf="isDirectiveBased" class="datepicker-cont" (selectionDone)="selectionDone($event);" [hidden]="!opened"
+        [attr.data-hidden]="!opened" [(ngModel)]="dt" [showWeeks]="false" [datepickerMode]="'day'"></datepicker>
+
+    <!--FormControl Based -->
+    <div class="input-group datepicker-input-cont" *ngIf="!isDirectiveBased">
+        <input #input type="text" class="form-control" size="10" maxlength="10" [(ngModel)]="inputValue" [ngClass]="control.touched ? 'ng-touched' : 'ng-untouched'"
+            [required]="isRequired" [disabled]="this['control']['disabled']" (change)="onUpdate($event.target.value, true)" (blur)="onTouched($event)"
+            (keyup)="onkeypress($event)">
+        <span class="input-group-addon pointer" [ngClass]="this['control']['disabled']?'disabled':''" (click)="openPicker()">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+    <datepicker #datepicker *ngIf="!isDirectiveBased" (selectionDone)="selectionDone($event);" class="datepicker-cont" [ngClass]="showDatepicker?'':'hidden'"
+        [(ngModel)]="datePickerValue" [showWeeks]="false"></datepicker>
+</div>

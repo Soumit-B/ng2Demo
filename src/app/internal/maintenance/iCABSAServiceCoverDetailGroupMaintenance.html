@@ -1,0 +1,103 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{this['pageParams'].currentContractTypeLabel | translate}} {{this['pageTitle'] | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="uiForm">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{this.labelContractNumber | translate}}<span class="mandatory">*</span>
+                </label>
+                <div class="col8 pr5">
+                    <input id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="9" readonly class="form-control" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input id="ContractName" formControlName="ContractName" size="40" maxlength="40" value="" readonly class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Premises Number' |translate}}<span class="mandatory">*</span>
+                </label>
+                <div class="col8 pr5">
+                    <input id="PremiseNumber" formControlName="PremiseNumber" size="9" maxlength="9" readonly class="form-control" eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" value="" readonly class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{'Product Code' |translate}}<span class="mandatory">*</span>
+                </label>
+                <div class="col8 pr5">
+                    <input id="ProductCode" formControlName="ProductCode" size="9" maxlength="9" readonly class="form-control" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input id="ProductDesc" formControlName="ProductDesc" size="40" maxlength="40" value="" readonly class="form-control">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="pos-relative">
+            <div class="row mt5" *ngFor="let row of rows">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Detail' | translate}} {{row.count}}<span class="mandatory" [ngClass]="{'hidden': (row.count !== 1)}">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input id="ProductDetailCode" [formControlName]="row.ProductDetailCode" size="9" maxlength="9" class="form-control" (blur)="getProductDescription(row.count)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDetailDesc" [formControlName]="row.ProductDetailDesc" size="40" maxlength="40" value="" readonly class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="productCoverSearchParams" [contentComponent]="productCoverSearch" [showHeader]="true"
+                            (ellipsisData)="onDataReceived($event, row.count)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-1" [hidden]="!this['pageParams'].SCEnableProductDetailQty">
+                    <label class="col24">{{'Qty' |translate}}</label>
+                    <div class="col24">
+                        <input id="DetailQty1" [formControlName]="row.DetailQty" size="9" maxlength="9" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Commence Date' |translate}}</label>
+                    <div class="col22">
+                        <input [formControlName]="row.DetailCommenceDate" size="9" maxlength="9" class="hidden form-control">
+                        <icabs-datepicker id="DetailCommenceDate1" [dt]='row.pDate' [clearDate]="true" (selectedValue)="dateSelectedValue($event, row.count)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="btnAddDetail">
+                <input type="button" class="form-control" value="+" id="btnAddDetail" (click)="addDetailLine()">
+            </div>
+        </div>
+        <div class="hidden">
+            <input formControlName="ProductDetailCode">
+            <input formControlName="ProductDetailDesc">
+            <input formControlName="ServiceCoverRowID">
+            <input formControlName="MaxCount">
+            <input formControlName="vLocationEnabled" type="checkbox">
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <input class="btn btn-primary" type="submit" value="{{ 'Save' | translate}}" (click)="submitDetailLine($event)">
+                <input class="btn btn-secondary" type="submit" value="{{ 'Cancel' | translate}}" (click)="cancelDetailLine($event)">
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showpromptHeader" [title]="promptTitle" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-modal #errorModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-spinner></icabs-spinner>
+<icabs-modal #messageModal [showHeader]="true">
+</icabs-modal>

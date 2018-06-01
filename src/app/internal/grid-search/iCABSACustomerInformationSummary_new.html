@@ -1,0 +1,78 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-xs-12 page-title mt10">
+            <h1>
+                Customer Information Summary
+            </h1>
+        </div>
+    </div>
+    <form novalidate>
+        <div class="row" *ngIf="(pageModel.parentMode === 'GroupAccount')">
+            <div class="col-xs-3">
+                <label class="col24" id="labelGroupAccountNumber">Group Account</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="GroupAccountNumber" size="9" maxlength="8" value="{{pageModel.GroupAccountNumber}}">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="GroupName" size="35" maxlength="40" value="{{pageModel.GroupName}}">
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="(pageModel.parentMode === 'Account')">
+            <div class="col-xs-3">
+                <label class="col24" id="labelAccountNumber">Account</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="AccountNumber" size="9" maxlength="9" value="{{pageModel.AccountNumber}}">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="AccountName" size="35" maxlength="40" value="{{pageModel.AccountName}}">
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="(pageModel.parentMode === 'Contract' || pageModel.parentMode === 'ServiceCover')">
+            <div class="col-xs-3">
+                <label class="col24" id="labelContractNumber">Contract</label>
+                <div class="col8 pr5">
+                    <input class="form-control" id="ContractNumber" size="9" maxlength="8" value="{{pageModel.contractNumber}}">
+                </div>
+                <div class="col16">
+                    <input class="form-control" id="ContractName" size="35" maxlength="40" value="{{pageModel.contractName}}">
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr>
+    <div class="row mt10">
+        <div class="col-xs-12">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #customerInfoPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+        <div class="col-xs-12 mt10">
+            <icabs-grid #customerInfoGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (selectedRowInfo)="onGridRowDBlClick($event)"
+                (click)="onCellSelection($event)" (gridInfo)="getGridInfo(info)"></icabs-grid>
+        </div>
+    </div>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-xs-12">
+            <button id="cmdAddNew" value="AddNew" class="btn btn-primary mr10" [disabled]="(pageModel.parentMode === 'ServiceCover' || !pageModel.hasWriteAccess)"
+                (click)="addNewRecord($event)">Add New</button>
+            <button id="cmdAddExisting" value="AddExisting" class="btn btn-primary mr10" [disabled]="(pageModel.parentMode === 'GroupAccount' || pageModel.parentMode === 'ServiceCover' || !pageModel.hasWriteAccess)"
+                (click)="addExistingRecord($event)">Add Existing</button>
+            <button id="cmdDeleteRecord" value="DeleteRecord" class="btn btn-primary mr10" [disabled]="(pageModel.parentMode === 'ServiceCover' || !pageModel.hasWriteAccess || (!pageModel.recordSelected && pageModel.hasWriteAccess))"
+                (click)="deleteRecord($event)">Delete</button>
+            <button id="cmdDetail" value="Detail" class="btn btn-primary" [disabled]="(!pageModel.recordSelected)" (click)="viewRecordDetail($event)">Detail</button>
+        </div>
+    </div>
+    <div class="row">
+        <input id="Mode" style="display:none">
+<input id="CustomerInfoNumber" style="display:none">
+<input id="CustomerPassNumber" style="display:none">
+<input id="CustomerPassLevel" style="display:none">
+<input id="CallingProg" style="display:none">
+<input id="InfoLevel" style="display:none">
+<input id="WriteAccess" style="display:none">
+
+</div>
+
+</div>

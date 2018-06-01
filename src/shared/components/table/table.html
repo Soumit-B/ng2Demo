@@ -1,0 +1,42 @@
+<div class="pagination-cont clearfix mb10">
+    <icabs-refresh (onRefresh)="refresh()"></icabs-refresh>
+    <ul class="pagination" *ngIf="pagination">
+        <li class="pagination-first">
+            <a href="" (click)="firstPage($event);"></a>
+        </li>
+        <li class="pagination-prev">
+            <a href="" (click)="prevPage($event);"></a>
+        </li>
+        <li class="pagination-next">
+            <a href="" (click)="nextPage($event);"></a>
+        </li>
+        <li class="pagination-last">
+            <a href="" (click)="lastPage($event);"></a>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="rows.length" class="icabs-table">
+    <!-- New Table Implementation Starts -->
+    <table class="table dataTable table-bordered" role="grid">
+        <thead>
+            <!-- <tr role="row" *ngIf="tableheader">
+                <th [attr.colspan]="columns.length">{{ tableheader | translate }}</th>
+            </tr> -->
+            <tr role="row">
+                <th *ngFor="let column of columns" [style.width.%]="getCellWidth(column.size)">{{ column.title | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of rows; let rowIndex = index;" [attr.data-index]="rowIndex" [tabindex]="tabbable ? 0 : -1" [ngClass]="rowIndex === selectedRow ? 'selected' : ''"
+                (keyup)="onKeyUp(rowIndex, $event)">
+                <td *ngFor="let column of columns" [innerHtml]="column.type ? formatData(row, column) : row[column.name]" (click)="onCellClick(rowIndex, $event)"
+                    [ngClass]="getAlignmentClass(column)">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- New Table Implementation Ends -->
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+</div>
+<icabs-modal #errorModal="child" (showHeader)="true"></icabs-modal>

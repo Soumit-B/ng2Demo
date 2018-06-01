@@ -1,0 +1,194 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-9 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanAccountNumber">{{ 'Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" size="11" maxlength="9" class="form-control" [icabsDirFocus]="setFocusOnAccount"
+                            type="text" (change)="accountNumberOnchange($event)" eTypeText>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AccountName" formControlName="AccountName" size="40" maxlength="40" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <div class="col2">
+                            <icabs-ellipsis #accountNumberEllipsis [autoOpen]="ellipsis.account.autoOpen" [showCloseButton]="ellipsis.account.showCloseButton"
+                                [childConfigParams]="ellipsis.account.childConfigParams" [modalConfig]="ellipsis.account.modalConfig"
+                                [contentComponent]="ellipsis.account.contentComponent" (ellipsisData)="accountNumberOnkeydown($event, true)"
+                                [showHeader]="ellipsis.account.showHeader" [disabled]='ellipsis.account.disabled'></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanGroupAccountNumber">{{ 'Group Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="GroupAccountNumber" formControlName="GroupAccountNumber" size="11" maxlength="5" class="form-control" type="text"
+                            (change)="groupAccountNumberOnchange($event)" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="GroupName" formControlName="GroupName" class="form-control" size="40" maxlength="40" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <div class="col2">
+                            <icabs-ellipsis #accountNumberEllipsis [autoOpen]="ellipsis.groupaccount.autoOpen" [showCloseButton]="ellipsis.groupaccount.showCloseButton"
+                                [childConfigParams]="ellipsis.groupaccount.childConfigParams" [modalConfig]="ellipsis.groupaccount.modalConfig"
+                                [contentComponent]="ellipsis.groupaccount.contentComponent" (ellipsisData)="groupAccountNumberOnkeydown($event, true)"
+                                [showHeader]="ellipsis.groupaccount.showHeader" [disabled]='ellipsis.groupaccount.disabled'></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanContractNumber">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" size="11" maxlength="8" type="text" (change)="contractNumberOnchange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" size="40" maxlength="40" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractNumberEllipsis [autoOpen]="ellipsis.contract.autoOpen" [showCloseButton]="ellipsis.contract.showCloseButton"
+                            [childConfigParams]="ellipsis.contract.childConfigParams" [modalConfig]="ellipsis.contract.modalConfig"
+                            [contentComponent]="ellipsis.contract.contentComponent" (ellipsisData)="contractNumberOnkeydown($event, true)"
+                            [showHeader]="ellipsis.contract.showHeader" [disabled]='ellipsis.contract.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanPremiseNumber">{{ 'Premise Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" size="11" maxlength="5" class="form-control" type="text" (change)="premiseNumberOnchange($event)"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <div class="col2">
+                            <icabs-ellipsis #PremiseSearchEllipsis [autoOpen]="ellipsis.premises.autoOpen" [showCloseButton]="ellipsis.premises.showCloseButton"
+                                [childConfigParams]="ellipsis.premises.childConfigParams" [modalConfig]="ellipsis.premises.modalConfig"
+                                [contentComponent]="ellipsis.premises.contentComponent" (ellipsisData)="premiseNumberOnkeydown($event, true)"
+                                [showHeader]="ellipsis.premises.showHeader" [disabled]='ellipsis.premises.disabled'></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" size="11" maxlength="6" class="form-control" type="text" (change)="productCodeOnchange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" size="40" maxlength="40" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <div class="col2">
+                            <icabs-ellipsis #productSearchEllipsis [autoOpen]="ellipsis.product.autoOpen" [showCloseButton]="ellipsis.product.showCloseButton"
+                                [childConfigParams]="ellipsis.product.childConfigParams" [modalConfig]="ellipsis.product.modalConfig"
+                                [contentComponent]="ellipsis.product.contentComponent" (ellipsisData)="productCodeOnkeydown($event, true)"
+                                (modalHidden)="productCode_onCloseModal($event)" [showHeader]="ellipsis.product.showHeader" [disabled]="ellipsis.product.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input class="form-control hidden" type="text" id="ServiceCoverNumber" size="2" maxlength="2" formControlName="ServiceCoverNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanTolTableType">{{ 'Tolerance Table Type' | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" id="SelTolTableType" formControlName="SelTolTableType" [(ngModel)]="selectedTolTableType">
+                            <option *ngFor="let item of SelTolTableTypeArray" value="{{item.value}}" ng-selected="selectedTolTableType">
+                                {{item.title | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanType">{{ 'Type' | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" id="SelType" formControlName="SelType" [(ngModel)]="selectedType">
+                            <option *ngFor="let item of SelTypeArry" [value]="item.value" ng-selected="selectedType">
+                                {{item.title | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanVisitFrequency">{{ 'Visit Frequency' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <input id="VisitFrequency" formControlName="VisitFrequency" size="11" maxlength="3" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanTolerance">{{ 'Tolerance' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <input id="Tolerance" formControlName="Tolerance" size="11" maxlength="3" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanClearVisit">{{ 'Clear Visit' | translate }}</label>
+                    <div class="col16">
+                        <input id="ClearVisit" formControlName="ClearVisit" size="11" maxlength="3" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SpanFinalFollowUp">{{ 'Final Follow Up' | translate }}</label>
+                    <div class="col16">
+                        <input id="FinalFollowUp" formControlName="FinalFollowUp" size="11" maxlength="3" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt10">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input class="btn btn-primary" formControlName="save" type="button" value="{{ 'Save' | translate}}" (click)="onSubmit()">
+                    <input class="btn btn-secondary" formControlName="cancel" type="button" value="{{ 'Cancel' | translate}} " (click)="onAbandon()">
+                    <input formControlName="delete" *ngIf="IsDeleteEnable" class="btn btn-additional" type="button" value="{{ 'Delete' | translate}} "
+                        (click)="btnDeleteOnClick()">
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (cancelEmit)="promptCancel($event)" (saveEmit)="promptSave($event)">
+</icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

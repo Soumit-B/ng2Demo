@@ -1,0 +1,160 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt10 hidden">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Reference Number' | translate }}</label>
+                <div class="co24">
+                    <input type="text" id="CustomerContactNumber" class="form-control" formControlName="CustomerContactNumber" placeholder=""
+                        size="50" maxlength="50" eTypeCodeNumeric>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Action Number' | translate }}</label>
+                <div class="col24">
+                    <input id="ContactActionNumber" formControlName="ContactActionNumber" class="form-control" placeholder="" size="3" maxlength="3"
+                        eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'ROWID' | translate }}</label>
+                <div class="col24">
+                    <input id="ROWID" formControlName="ROWID" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contact Name' | translate }}</label>
+                <div class="co24">
+                    <input type="text" id="ContactName" formControlName="ContactName" class="form-control" placeholder="" size="40" maxlength="40"
+                        eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contact Position' | translate }}</label>
+                <div class="col24">
+                    <input id="ContactPosition" formControlName="ContactPosition" class="form-control" placeholder="" size="40" maxlength="40"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contact Telephone' | translate }}</label>
+                <div class="co24">
+                    <input type="text" id="ContactTelephone" formControlName="ContactTelephone" class="form-control" placeholder="" size="24"
+                        maxlength="20" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contact Medium' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="ContactMediumCode" formControlName="ContactMediumCode" class="form-control" placeholder="" size="3"
+                        eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" id="ContactMediumDesc" formControlName="ContactMediumDesc" class="form-control" placeholder="" size="40"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contact Fax' | translate }}</label>
+                <div class="co24">
+                    <input type="text" id="ContactFax" class="form-control" formControlName="ContactFax" placeholder="" size="24" maxlength="20"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Created' | translate }}</label>
+                <div class="col12 pr5">
+                    <input type="text" id="ActionDate" class="form-control" formControlName="ActionDate" placeholder="" size="10" maxlength="10"
+                        eTypeDate>
+                </div>
+                <div class="col12">
+                    <input type="text" id="ActionTime" class="form-control" formControlName="ActionTime" placeholder="" size="5" maxlength="5"
+                        eTypeTime>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Created By' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="ActionEmployeeCode" formControlName="ActionEmployeeCode" class="form-control" placeholder="" size="6"
+                        maxlength="6" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" id="ActionEmployeeName" formControlName="ActionEmployeeName" class="form-control" placeholder="" size="27"
+                        maxlength="30" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Summary' | translate }}</label>
+                <div class="co24">
+                    <input type="text" id="ShortDescription" formControlName="ShortDescription" class="form-control" placeholder="" size="50"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Details' | translate }}</label>
+                <div class="co24">
+                    <textarea type="text" id="Comments" formControlName="Comments" class="form-control" rows="3" cols="79" eTypeTextFree></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Action by' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="NextActionByDate" formControlName="NextActionByDate" class="form-control" placeholder="" size="10"
+                        maxlength="10" eTypeDate>
+                </div>
+                <div class="col16">
+                    <input type="text" id="NextActionByTime" formControlName="NextActionByTime" class="form-control" placeholder="" size="5"
+                        maxlength="5" eTypeTime>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Assign To' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="NextActionEmployeeCode" formControlName="NextActionEmployeeCode" class="form-control" placeholder=""
+                        size="6" maxlength="6" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" id="NextActionEmployeeName" formControlName="NextActionEmployeeName" class="form-control" placeholder=""
+                        size="27" maxlength="30" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <input type="checkbox" id="chkKeepOwnership" formControlName="chkKeepOwnership" class="form-control" eTypeCheckBox>
+                <label for="chkKeepOwnership">{{ 'Keep Ownership' | translate }}</label>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <input type="checkbox" id="ContactPassedToActioner" formControlName="ContactPassedToActioner" class="form-control" eTypeCheckBox>
+                <label for="ContactPassedToActioner">{{ 'Passed' | translate }}</label>
+            </div>
+        </div>
+        <icabs-modal #messageModal [(showHeader)]="showMessageHeader"></icabs-modal>
+    </form>
+</section>

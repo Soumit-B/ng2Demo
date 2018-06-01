@@ -1,0 +1,92 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Sales Area Portfolio Rezoning' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Move From Area' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Show' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'To Area' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Show' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="10" maxlength="8" class="form-control" formControlName="ContractNumber">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" size="20" maxlength="30" class="form-control" formControlName="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PostcodeFilter">{{ 'Postcode' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="PostcodeFilter" size="10" maxlength="8" class="form-control" formControlName="PostcodeFilter">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Town">{{ 'Town' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="Town" size="20" maxlength="40" class="form-control" formControlName="Town">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="County">{{ 'County' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="County" size="20" maxlength="40" class="form-control" formControlName="County">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" id="cmdRezone" class="btn btn-additional mt20" value="{{ 'Rezone All' | translate }}">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

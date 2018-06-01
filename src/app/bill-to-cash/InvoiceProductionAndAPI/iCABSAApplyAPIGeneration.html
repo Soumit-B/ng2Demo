@@ -1,0 +1,67 @@
+<!-- Page Heading -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Apply API' | translate }}
+                <span class="font-sm inline-block pl20">
+
+                </span>
+            </h1>
+        </div>
+    </div>
+    <!-- Projects Row -->
+    <form class="col-sm-12 padding-zero" novalidate [formGroup]="applyAPIFormGroup" (ngSubmit)="onSubmit(applyAPIFormGroup.value, $event)">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="businessDesc">{{ 'Business' | translate }}</label>
+                <input type="text" id="businessDesc" class="form-control" placeholder="" #businessDesc formControlName="businessDesc" eTypeText>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="apiYear">{{ 'A.P.I. Year' | translate }}</label>
+                <input type="text" id="apiYear" class="form-control" placeholder="" #apiYear formControlName="apiYear" eTypeText>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="apiMonth">{{ 'Month' | translate }}</label>
+                <input type="text" id="apiMonth" class="form-control" placeholder="" #apiMonth formControlName="apiMonth" eTypeText>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="lessThan">{{ 'Only Include Contracts Less Than Value' | translate }}</label>
+                <input type="text" id="lessThan" class="form-control" placeholder="" #lessThan formControlName="lessThan" eTypeCurrency>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <input class="btn btn-sm btn-primary" type="button" value="Refresh API Values" (click)="getRefreshData()" [disabled]="!enableRefreshAPI">
+            </div>
+        </div>
+        <hr class="mb15 mt15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24" for="existingPortfolio">{{ 'Existing Annual Value' | translate }}</label>
+                <input type="text" id="existingPortfolio" class="form-control" placeholder="" #existingPortfolio formControlName="existingPortfolio"
+                    eTypeCurrency>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="newPortfolio">{{ 'New Annual Value' | translate }}</label>
+                <input id="newPortfolio" type="text" class="form-control" placeholder="" #newPortfolio formControlName="newPortfolio" eTypeCurrency>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <input class="btn btn-sm btn-primary" type="submit" value="Submit API Generation" [disabled]="!enableSubmitAPI">
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

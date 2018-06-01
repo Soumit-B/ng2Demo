@@ -1,0 +1,125 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="page-title">
+            <h1 class="title-label padding-top-s padding-bottom-s">{{ 'Invoice Charge Details' | translate }}</h1>
+        </div>
+    </div>
+    <!-- Projects Row -->
+    <div class="custom-top-container padding-zero">
+        <form novalidate [formGroup]="invoiceChargeFormGroup">
+            <div class="row">
+                <div class="form-group col-sm-12 padding-zero" *ngIf="(ContractTypeDescription=='Contract-Search' || ContractTypeDescription=='Contract') && ContractTypeCode=='C'">
+                    <label class="col-sm-12 col-sm-12">{{ 'Contract Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="(ContractTypeDescription=='Contract-Search' || ContractTypeDescription=='Contract') && ContractTypeCode=='J'">
+                    <label class="col-sm-12 col-sm-12">{{ 'Job Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="(ContractTypeDescription=='Contract-Search' || ContractTypeDescription=='Contract') && ContractTypeCode=='P'">
+                    <label class="col-sm-12 col-sm-12">{{ 'Product Sales Number' | translate }} : </label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="(ContractTypeDescription=='Premise' || ContractTypeDescription=='Premise-Search') && ContractTypeCode=='C' ">
+                    <label class="col-sm-12 col-sm-12">{{ 'Contract Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                    <label class="col-sm-12 col-sm-12">{{ 'Premise Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="(ContractTypeDescription=='Premise' || ContractTypeDescription=='Premise-Search') && ContractTypeCode=='P' ">
+                    <label class="col-sm-12 col-sm-12">{{ 'Product Sales Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                    <label class="col-sm-12 col-sm-12">{{ 'Premise Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseName">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12" *ngIf="(ContractTypeDescription=='Premise' || ContractTypeDescription=='Premise-Search') && ContractTypeCode=='J' ">
+                    <label class="col-sm-12 col-sm-12">{{ 'Job Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="ContractName">
+                        </div>
+                    </div>
+                    <label class="col-sm-12 col-sm-12">{{ 'Premise Number' | translate }} :</label>
+                    <div class="col-sm-8 col-sm-9 padding-left-zero">
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseNumber">
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" placeholder="" readonly="readonly" formControlName="PremiseName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <!-- Pagination -->
+        <div class="margin-zero">
+            <icabs-table #chargeSearchTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                [paginationTop]="false" [doTranslate]="true" (click)="refresh()"></icabs-table>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-sm-12">
+            <hr>
+        </div>
+        <div class="col-sm-3 form-item pull-right padding-top-x">
+            <select class="form-control" (change)="onChangeEvent($event.target.value)">
+                <option value="Select Option">{{'Options' | translate }}</option>
+                <option value="{{ExchangeMode}}">{{'Add' | translate }}</option>
+            </select>
+        </div>
+    </div>
+</div>

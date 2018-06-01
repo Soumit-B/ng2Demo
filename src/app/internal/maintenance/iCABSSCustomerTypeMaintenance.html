@@ -1,0 +1,116 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="CustomerTypeCode">{{ 'Customer Type Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input #formCustomerTypeCode id="CustomerTypeCode" class="form-control" formControlName="CustomerTypeCode" type="text" size="12"
+                            [attr.maxlength]="10" (change)="onChangeFetchData()" [ngClass]="{ 'ng-invalid' : isValidStatusCode ,'ng-touched' : isValidStatusCode }"
+                            required eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="CustomerTypeDesc" class="form-control" formControlName="CustomerTypeDesc" type="text" size="40" [attr.maxlength]="40"
+                            [ngClass]="{ 'ng-invalid' : isValidStatusSD , 'ng-touched' : isValidStatusSD }" required eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #customerTypeSearchEllipsis [showCloseButton]="ellipsis.customerTypeCodeEllipsis.showCloseButton" [childConfigParams]="ellipsis.customerTypeCodeEllipsis.childparams"
+                            [contentComponent]="ellipsis.customerTypeCodeEllipsis.component" (ellipsisData)="onCustomerTypeDataReceived($event)"
+                            [showHeader]="ellipsis.customerTypeCodeEllipsis.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SicCode">{{ 'SIC Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input #formSICCode id="SicCode" class="form-control" formControlName="SicCode" type="text" size="8" [attr.maxlength]="8"
+                            [ngClass]="{ 'ng-invalid' : isSICDescriptionErr ,'ng-touched' : isSICDescriptionErr }" (blur)="onBlurSIC()"
+                            [attr.required]="isReqdSICProperty" eTypeCode>
+                    </div>
+                    <div class="col16 pr5" [ngClass]="!isSICDescription ? 'hidden' : ''">
+                        <input id="SICDescription" class="form-control" formControlName="SICDescription" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2" [ngClass]="!isSICDescription ? 'hidden' : ''">
+                        <icabs-ellipsis [disabled]="ellipsis.sSICSearchEllipsis.isDisabled" [showCloseButton]="ellipsis.sSICSearchEllipsis.showCloseButton"
+                            [childConfigParams]="ellipsis.sSICSearchEllipsis.childparams" [contentComponent]="ellipsis.sSICSearchEllipsis.component"
+                            (ellipsisData)="onSicCodeDataReceived($event)" [showHeader]="ellipsis.sSICSearchEllipsis.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="MarketSegmentCode">{{ 'Market Segment' | translate}}</label>
+                    <div class="col6 pr5 hidden">
+                        <input id="MarketSegmentCode" class="form-control" formControlName="MarketSegmentCode" type="text" size="6" [attr.maxlength]="5"
+                            (blur)="onBlurMSC()" [ngClass]="{ 'ng-invalid' : isMarketSegmentDescErr ,'ng-touched' : isMarketSegmentDescErr }"
+                            required eTypeCode>
+                    </div>
+                    <div class="col16 pr5 hidden">
+                        <input id="MarketSegmentDesc" class="form-control" formControlName="MarketSegmentDesc" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col24">
+                        <icabs-common-dropdown #marketSegmentSearchDropDown [inputParams]="inputParamsMarketSegmentSearchDropdown" [isRequired]="true"
+                            [isDisabled]="isDisabledProp" [isActive]="dropdownConfig.marketSegmentDropdown.selected" [isTriggerValidate]="isTriggerValidateProp"
+                            [displayFields]="marketSegmentSearchColumns" (onDataReceived)="onDropdownDataRecieved($event)"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10" [ngClass]="!isAllowInvoiceLevyInd ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="AllowInvoiceLevyInd" formControlName="AllowInvoiceLevyInd" eTypeCheckBox>
+                        <label class="col24" for="AllowInvoiceLevyInd">{{'Allow Invoice Levy'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ActiveInd" formControlName="ActiveInd" eTypeCheckBox>
+                        <label class="col24" for="ActiveInd">{{'Active'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="InvoiceNarrative">{{ 'Invoice Narrative' | translate}}</label>
+                        <textarea id="InvoiceNarrative" class="form-control" formControlName="InvoiceNarrative" cols="60" eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional mr10" (click)="addMode()" [disabled]="!isBtnAdd" value="{{ 'Add' | translate }}">
+                <input type="button" class="btn btn-primary mr10" [disabled]="!isBtnSave" (click)="onSave()" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr10" (click)="onCancel()" [disabled]="!isBtnCancel" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" (click)="onDelete()" [disabled]="!isBtnDelete" value="{{'Delete' | translate}}">
+            </div>
+            <div class="col-sm-offset-4 col-sm-2">
+                <div class="col24">
+                    <input type="button" class="btn btn-additional" [disabled]="!isBtnTranslate" value="{{'Translation' | translate}}" (click)="onClickTranslation()">
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="isShowPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="confirmed()"></icabs-prompt-modal>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

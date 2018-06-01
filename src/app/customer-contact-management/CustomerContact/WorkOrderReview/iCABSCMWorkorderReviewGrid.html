@@ -1,0 +1,264 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{this['pageParams']['pageTitle'] | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <div class="col4 pr5">
+                        <label class="col24">{{'Type' | translate}}</label>
+                        <div class="col24 pr5">
+                            <select id="MyContactType" formControlName="MyContactType" class="form-control" (change)="myContactTypeOnChange($event)">
+                                <option *ngFor="let ttContactTypeDetail of this['pageParams']['vMyContactType']" [value]="ttContactTypeDetail.ContactTypeCode + '^' + ttContactTypeDetail.ContactTypeDetailCode">{{ttContactTypeDetail.ContactTypeDetailDesc | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24">{{'Filter By' | translate}}</label>
+                        <div class="col24 pr5">
+                            <select id="WOTypeSelect" formControlName="WOTypeSelect" class="form-control">
+                                <option value="">{{'All' | translate}}</option>
+                                <option *ngFor="let ttWOType of this['pageParams']['vWOTypeSelect']" [value]="ttWOType.WOTypeCode">{{ttWOType.WOTypeSystemDesc}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col4 pr5 mt20" [ngClass]="!this['pageParams']['MyFilterstyledisplay'] ? 'hidden' : ''">
+                        <div class="col24 pr5">
+                            <select id="MyFilter" formControlName="MyFilter" class="form-control" (change)="myFilterOnChange($event)">
+                                <option *ngFor="let MyFilter of this['pageParams']['vContactStatusList']" [value]="MyFilter.ContactStatusCode">{{MyFilter.ContactStatusDesc | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24">{{'Owner' | translate}}/{{'Actioner' | translate}}</label>
+                        <div class="col24">
+                            <select id="MyFilterLevel" formControlName="MyFilterLevel" class="form-control" (change)="myFilterLevelOnChange($event)">
+                                <option *ngFor="let MyFilter of this['pageParams']['vFilterLevelList']" [value]="MyFilter.value">{{MyFilter.text | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col4 pr5">
+                        <label class="col24">{{'Who' | translate}}</label>
+                        <div class="col24 ">
+                            <select id="MyFilterValue" formControlName="MyFilterValue" class="form-control" (change)="myFilterValueOnChange($event)">
+                                <option value="all">{{'All' | translate}}</option>
+                                <option *ngFor="let MyFilter of this['pageParams']['vFilterValueList']" [value]="MyFilter.value">{{MyFilter.text | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col4" [ngClass]="!this['pageParams']['MyFilterEmployeeCodestyledisplay'] ? 'hidden' : ''">
+                        <label class="col24">{{'Employee' | translate}}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <div class="col22 pr5 ">
+                            <input type="text" id="MyFilterEmployeeCode" formControlName="MyFilterEmployeeCode" size="6" maxlength="8" class="form-control"
+                                (change)="myFilterEmployeeCodeOnChange($event)" eTypeCode>
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis #employeeSearchEllipsis [autoOpen]="ellipsis.employeeSearch.autoOpen" [showCloseButton]="ellipsis.employeeSearch.showCloseButton"
+                                [childConfigParams]="ellipsis.employeeSearch.childConfigParams" [contentComponent]="ellipsis.employeeSearch.contentComponent"
+                                (ellipsisData)="myFilterEmployeeCodeOnKeydown($event, true)" [showHeader]="ellipsis.employeeSearch.showHeader"
+                                [disabled]="ellipsis.employeeSearch.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col4" [ngClass]="!this['pageParams']['TeamIDstyledisplay'] ? 'hidden' : ''">
+                        <div class="col2 pr5 mt20">
+                            <input type="text" id="TeamID" formControlName="TeamID" size="12" maxlength="12" class="form-control" (change)="teamIDOnChange($event)"
+                                eTypeTextFree>
+                        </div>
+                        <div class="col2 mt20">
+                            <icabs-ellipsis #teamIDSearchEllipsis [autoOpen]="ellipsis.teamID.autoOpen" [showCloseButton]="ellipsis.teamID.showCloseButton"
+                                [childConfigParams]="ellipsis.teamID.childConfigParams" [contentComponent]="ellipsis.teamID.contentComponent"
+                                (ellipsisData)="teamIDOnKeydown($event, true)" [showHeader]="ellipsis.teamID.showHeader" [disabled]="ellipsis.teamID.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2" [ngClass]="!this['pageParams']['Referencestyledisplay'] ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Log Reference' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" id="CallLogID" formControlName="CallLogID" size="40" maxlength="40" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Ticket Reference' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="CustomerContactNumber" formControlName="CustomerContactNumber" size="40" maxlength="40" class="form-control"
+                            (change)="customerContactNumberOnChange($event)" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Account Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="AccountNumber" formControlName="AccountNumber" size="11" maxlength="9" class="form-control" (change)="accountNumberOnChange($event)"
+                            eTypeText>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="AccountName" formControlName="AccountName" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #accountNumberEllipsis [autoOpen]="ellipsis.account.autoOpenSearch" [showCloseButton]="ellipsis.account.showCloseButton"
+                            [childConfigParams]="ellipsis.account.childConfigParams" [contentComponent]="ellipsis.account.contentComponent"
+                            (ellipsisData)="accountNumberOnKeydown($event, true)" [showHeader]="ellipsis.account.showHeader"
+                            [disabled]='ellipsis.account.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="SearchContactName" formControlName="SearchContactName" size="40" maxlength="40" class="form-control"
+                            (change)="searchContactNameOnChange($event)" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="ContractNumber" formControlName="ContractNumber" size="11" maxlength="8" class="form-control" (change)="contractNumberOnChange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="ContractName" formControlName="ContractName" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractNumberEllipsis [autoOpen]="ellipsis.contract.autoOpenSearch" [showCloseButton]="ellipsis.contract.showCloseButton"
+                            [childConfigParams]="ellipsis.contract.childConfigParams" [contentComponent]="ellipsis.contract.contentComponent"
+                            (ellipsisData)="contractNumberOnKeydown($event, true)" [showHeader]="ellipsis.contract.showHeader"
+                            [disabled]='ellipsis.contract.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Postcode' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="PostCode" formControlName="PostCode" size="10" maxlength="10" class="form-control" (change)="postCodeOnChange($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="PremiseNumber" formControlName="PremiseNumber" size="11" maxlength="8" class="form-control" (change)="premiseNumberOnChange($event)"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premisesNumberEllipsis [autoOpen]="ellipsis.premises.autoOpenSearch" [showCloseButton]="ellipsis.premises.showCloseButton"
+                            [childConfigParams]="ellipsis.premises.childConfigParams" [contentComponent]="ellipsis.premises.contentComponent"
+                            (ellipsisData)="premiseNumberOnKeydown($event, true)" [showHeader]="ellipsis.premises.showHeader"
+                            [disabled]='ellipsis.premises.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Prospect Number' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="ProspectNumber" formControlName="ProspectNumber" size="10" maxlength="8" class="form-control" (change)="prospectNumberOnChange($event)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="ProductCode" formControlName="ProductCode" size="11" maxlength="6" class="form-control" (change)="productCodeOnChange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="ProductDesc" formControlName="ProductDesc" size="40" maxlength="40" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productcodeEllipsis [autoOpen]="ellipsis.product.autoOpenSearch" [showCloseButton]="ellipsis.product.showCloseButton"
+                            [childConfigParams]="ellipsis.product.childConfigParams" [contentComponent]="ellipsis.product.contentComponent"
+                            (ellipsisData)="productCodeOnKeydown($event, true)" [showHeader]="ellipsis.product.showHeader" [disabled]='ellipsis.product.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div [ngClass]="!this['pageParams']['ReassignSelectstyledisplay'] ? 'hidden' : ''">
+                        <label class="col24">{{'Reassignment' | translate}}</label>
+                        <div class="col16 pr5">
+                            <select id="ReassignSelect" formControlName="ReassignSelect" class="form-control" (change)="reassignSelectOnChange($event)">
+                                <option *ngFor="let item of this['pageParams']['ReassignSelect']" [value]="item.value">{{item.text | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div [ngClass]="!this['pageParams']['EmployeeCodestyledisplay'] ? 'hidden' : ''">
+                        <div class="col6 pr5">
+                            <input type="text" id="EmployeeCode" formControlName="EmployeeCode" size="40" maxlength="40" class="form-control" EmployeeCode>
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis #employeeSearchEllipsis [autoOpen]="ellipsis.employeeSearch.autoOpen" [showCloseButton]="ellipsis.employeeSearch.showCloseButton"
+                                [childConfigParams]="ellipsis.employeeSearch.childConfigParams" [contentComponent]="ellipsis.employeeSearch.contentComponent"
+                                (ellipsisData)="employeeCodeOnKeydown($event, true)" [showHeader]="ellipsis.employeeSearch.showHeader"
+                                [disabled]="ellipsis.employeeSearch.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <icabs-refresh (click)="riGrid_OnRefresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="this['pageParams']['totalRecords'] > 0 ? '':'hidden'" [totalItems]="this['pageParams']['totalRecords']"
+                        [currentPage]="this['pageParams']['curPage']" [itemsPerPage]="this['pageParams']['pageSize']" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-6">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Action By Date' | translate}}</label>
+                        <div class="col24 pr5">
+                            <select id="DateFilter" formControlName="DateFilter" class="form-control">
+                                <option value="actionby">{{'Action By Date' | translate}}</option>
+                                <option value="created">{{'Created date' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Date From' | translate}}</label>
+                        <div class="col24 pr5">
+                            <icabs-datepicker id="DateFrom" [(dt)]="this['pageParams']['dtNewFromDate']" [isReadonly]="datePicker.dateReadOnly" [isDisabled]="datePicker.disabled"
+                                [isRequired]="datePicker.required" (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                            <input type="hidden" id="DateFrom" formControlName="DateFrom" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'Date To' | translate}}</label>
+                        <div class="col24 pr5">
+                            <icabs-datepicker id="DateFrom" [(dt)]="this['pageParams']['dtNewToDate']" [isReadonly]="datePicker.dateReadOnly" [isDisabled]="datePicker.disabled"
+                                [isRequired]="datePicker.required" (selectedValue)="dateToSelectedValue($event)"></icabs-datepicker>
+                            <input type="hidden" id="DateTo" formControlName="DateTo" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGrid_AfterExecute()" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                        (bodyKeyDown)="riGrid_BodyOnKeyDown($event)" (bodyClick)="riGrid_BodyOnClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+
+<icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent">
+</icabs-prompt-modal>

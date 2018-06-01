@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 19.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 64 63.936" style="enable-background:new 0 0 64 63.936;" xml:space="preserve">
+<symbol  id="Print" viewBox="-32 -31.968 64 63.936">
+	<path style="fill:#6D92A8;" d="M32,3.055c0,2.555-2.699,4.647-6,4.647h-1.333v4.625c0,1.913-1.364,3.523-3.167,3.909v2.539
+		L8.096,31.967H-21.5V16.237c-1.804-0.386-3.167-1.997-3.167-3.909V7.702H-26c-3.301,0-6-2.092-6-4.647c0-0.201,0-18.43,0-18.43
+		c0-3.302,2.699-6,6-6h4.5v-10.594h43v10.594H26c3.301,0,6,2.698,6,6C32-15.375,32,2.855,32,3.055z M16.758,19.236H8.046v8.573
+		L16.758,19.236z M5.046,27.967V16.236H17.5V7.702h-35v20.265H5.046z M17.5-27.969h-35v16.397h35V-27.969z M26-16.375h-4.5v8.803
+		h-43v-8.803H-26c-0.544,0-1,0.456-1,1v13.85h54v-13.85C27-15.919,26.544-16.375,26-16.375z"/>
+</symbol>
+<use xlink:href="#Print"  width="64" height="63.936" id="XMLID_2_" x="-32" y="-31.968" transform="matrix(1 0 0 -1 31.9998 31.9674)" style="overflow:visible;"/>
+</svg>

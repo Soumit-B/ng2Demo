@@ -1,0 +1,1093 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Business Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessCode">{{'Business Code'|translate}}</label>
+                    <div class="col12 pr5">
+                        <input type="text" class="form-control" id="BusinessCode" formControlName="BusinessCode" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mr15 mb15">
+            <!--Tab function-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item " id="grdAPI">
+                            <a class="nav-link ">
+                                <span>{{'API'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdNextNumbers">
+                            <a class="nav-link ">
+                                <span>{{'Next Numbers'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdCurrentPeriods">
+                            <a class="nav-link ">
+                                <span>{{'Current Periods'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdValueLimits">
+                            <a class="nav-link  ">
+                                <span>{{'Value limits'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  " id="grdInvoicing">
+                            <a class="nav-link  ">
+                                <span>{{'Invoicing'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="grdOpenAccounts">
+                            <a class="nav-link active  ">
+                                <span>{{'Open Accounts'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdInSight">
+                            <a class="nav-link  ">
+                                <span>{{'In-Sight'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdGeneral">
+                            <a class="nav-link  ">
+                                <span>{{'General'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdWorkingHours">
+                            <a class="nav-link  ">
+                                <span>{{'Working Hours'|translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- API Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane ">
+                            <div id="grdAPI">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="LastAPIMonth">{{'Last API Month'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="LastAPIMonth" formControlName="LastAPIMonth" size="2" [attr.maxlength]="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="LastAPIYear">{{'Last API Year'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="LastAPIYear" formControlName="LastAPIYear" size="4" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="APILessThanValue">{{'API Less Than Value'|translate}}</label>
+                                        <div class="col12">
+                                            <input type="text" class="form-control" id="APILessThanValue" formControlName="APILessThanValue" size="12" [attr.maxlength]="12">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Next Numbers Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane ">
+                            <div id="grdNextNumbers">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="NextAccountNumber">{{'Account'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="NextAccountNumber" formControlName="NextAccountNumber" size="9" [attr.maxlength]="9">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="NextContractJobNumber">{{'Contract/Job'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="NextContractJobNumber" formControlName="NextContractJobNumber" size="8" [attr.maxlength]="8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Current Periods Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane   ">
+                            <div id="grdCurrentPeriods">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="SalesTradingYear">{{'Trading Year'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="SalesTradingYear" formControlName="SalesTradingYear" size="8" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="SalesTradingMonth">{{'Trading Month'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="SalesTradingMonth" formControlName="SalesTradingMonth" size="8" [attr.maxlength]="2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="TurnoverTradingYear">{{'Turnover Year'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="TurnoverTradingYear" formControlName="TurnoverTradingYear" size="8" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="TurnoverTradingMonth">{{'Turnover Month'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="TurnoverTradingMonth" formControlName="TurnoverTradingMonth" size="8" [attr.maxlength]="2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Value Limits Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane  ">
+                            <div id="grdValueLimits">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ValidateLowerValue">{{'Validate Lower Value'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ValidateLowerValue" formControlName="ValidateLowerValue" size="10" [attr.maxlength]="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ValidateUpperValue">{{'Validate Upper Value'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ValidateUpperValue" formControlName="ValidateUpperValue" size="10" [attr.maxlength]="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ForwardDateMaxMonths">{{'Max Forward Dated Months'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ForwardDateMaxMonths" formControlName="ForwardDateMaxMonths" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="BackDateMaxMonths">{{'Max Back Dated Months'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="BackDateMaxMonths" formControlName="BackDateMaxMonths" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CreditWarningValue">{{'Credit Warning Value'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="CreditWarningValue" formControlName="CreditWarningValue" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="MinimumInvoiceLevyValue">{{'Minimum Invoice Levy Value'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="MinimumInvoiceLevyValue" formControlName="MinimumInvoiceLevyValue" size="10"
+                                                [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Invoicing Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane  ">
+                            <div id="grdInvoicing">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="MinimumInvoiceNumber">{{'Minimum Invoice Number'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="MinimumInvoiceNumber" formControlName="MinimumInvoiceNumber" size="10" [attr.maxlength]="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReferenceNumber1">{{'ReferenceNumber 1'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ReferenceNumber1" formControlName="ReferenceNumber1" size="10" [attr.maxlength]="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReferenceNumber2">{{'ReferenceNumber 2'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ReferenceNumber2" formControlName="ReferenceNumber2" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReferenceNumber3">{{'ReferenceNumber 3'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ReferenceNumber3" formControlName="ReferenceNumber3" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ReferenceNumber4">{{'ReferenceNumber 4'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="ReferenceNumber4" formControlName="ReferenceNumber4" size="10" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Open Account Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane active ">
+                            <div id="grdOpenAccounts">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OACompanyNumber">{{'Company Number'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OACompanyNumber" formControlName="OACompanyNumber" size="4" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OATurnoverDocumentID">{{'Turnover Document ID'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OATurnoverDocumentID" formControlName="OATurnoverDocumentID" size="4" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAInvoiceDocumentID">{{'Invoice Document ID'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OAInvoiceDocumentID" formControlName="OAInvoiceDocumentID" size="4" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAEMail">{{'Notify Email'|translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" class="form-control" id="OAEMail" formControlName="OAEMail" size="80" [attr.maxlength]="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAInvoiceDocumentID">{{'Invoice Document ID'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OAInvoiceDocumentID" formControlName="OAInvoiceDocumentID" size="4" [attr.maxlength]="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OASLControlAccount">{{'SL Control Account'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OASLControlAccount" formControlName="OASLControlAccount" size="8" [attr.maxlength]="8">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAVATAccount">{{'VAT Account'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OAVATAccount" formControlName="OAVATAccount" size="8" [attr.maxlength]="8">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAUCPAccount">{{'UCP Account'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="OAUCPAccount" formControlName="OAUCPAccount" size="8" [attr.maxlength]="8">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="OAUCPAccount">{{'Cost Centre'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="CostCentre" formControlName="CostCentre" size="15" [attr.maxlength]="18">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--In-Sight Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane ">
+                            <div id="grdInSight">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="InSightID">{{'ID'|translate}}</label>
+                                        <div class="col8">
+                                            <input type="text" class="form-control" id="InSightID" formControlName="InSightID" size="3" [attr.maxlength]="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="InSightLink">{{'Link'|translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" class="form-control" id="InSightLink" formControlName="InSightLink" size="80" [attr.maxlength]="150">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--General Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane  ">
+                            <div id="grdGeneral">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24"><strong>{{'Default Premise Opening Times'|translate}}</strong></label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-offset-1 col-sm-4">
+                                        <div class="col24">
+                                            <div class="col6 pr5 text-center">
+                                                <label>{{'Start' | translate }}</label>
+                                            </div>
+                                            <div class="col6 pr5 text-center">
+                                                <label>{{'End' | translate }}</label>
+                                            </div>
+                                            <div class="col6 pr5 text-center">
+                                                <label>{{'Start' | translate }}</label>
+                                            </div>
+                                            <div class="col6 pr5 text-center">
+                                                <label>{{'End' | translate }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Sunday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart01" formControlName="DefaultWindowStart01" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd01" formControlName="DefaultWindowEnd01" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart02" formControlName="DefaultWindowStart02" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd02" formControlName="DefaultWindowEnd02" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Monday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart03" formControlName="DefaultWindowStart03" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd03" formControlName="DefaultWindowEnd03" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart04" formControlName="DefaultWindowStart04" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd04" formControlName="DefaultWindowEnd04" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Tuesday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart05" formControlName="DefaultWindowStart05" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd05" formControlName="DefaultWindowEnd05" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart06" formControlName="DefaultWindowStart06" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd06" formControlName="DefaultWindowEnd06" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Wednesday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart07" formControlName="DefaultWindowStart07" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd07" formControlName="DefaultWindowEnd07" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart08" formControlName="DefaultWindowStart08" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd08" formControlName="DefaultWindowEnd08" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Thursday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart09" formControlName="DefaultWindowStart09" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd09" formControlName="DefaultWindowEnd09" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart10" formControlName="DefaultWindowStart10" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd10" formControlName="DefaultWindowEnd10" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Friday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart11" formControlName="DefaultWindowStart11" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd11" formControlName="DefaultWindowEnd11" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart12" formControlName="DefaultWindowStart12" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd12" formControlName="DefaultWindowEnd12" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col4 pr5 mt5">
+                                            <label>{{'Saturday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart13" formControlName="DefaultWindowStart13" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd13" formControlName="DefaultWindowEnd13" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 pr5">
+                                            <input type="text" class="form-control" id="DefaultWindowStart14" formControlName="DefaultWindowStart14" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col4 ">
+                                            <input type="text" class="form-control" id="DefaultWindowEnd14" formControlName="DefaultWindowEnd14" size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="FromEmailAddress">{{'From Email Address'|translate}}</label>
+                                        <div class="col20">
+                                            <input type="text" class="form-control" id="FromEmailAddress" formControlName="FromEmailAddress" size="30" [attr.maxlength]="75">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="WasteRegulatoryCarrierName">{{'Waste Regulatory Carrier Name'|translate}}</label>
+                                        <div class="col20">
+                                            <input type="text" class="form-control" id="WasteRegulatoryCarrierName" formControlName="WasteRegulatoryCarrierName" size="40"
+                                                [attr.maxlength]="50">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="WasteRegulatoryRegistrationNum">{{'Waste Regulatory Registration Number'|translate}}</label>
+                                        <div class="col20">
+                                            <input type="text" class="form-control" id="WasteRegulatoryRegistrationNum" formControlName="WasteRegulatoryRegistrationNum"
+                                                size="40" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Working Hours Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane active ">
+                            <div id="grdWorkingHours">
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24"><strong>{{'Standard Available Hours'|translate}}</strong></label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-offset-1 col-sm-9">
+                                        <div class="col3 pr5 text-center">
+                                            <label>{{'Start' | translate }}</label>
+                                        </div>
+                                        <div class="col3 pr5 mr10 text-center">
+                                            <label>{{'End' | translate }}</label>
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <label>{{'Day' | translate }}</label>
+                                        </div>
+                                        <div class="col3 text-center">
+                                            <label>{{'Start' | translate }}</label>
+                                        </div>
+                                        <div class="col3 pr5 pl25 mr30 text-center">
+                                            <label>{{'End' | translate }}</label>
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <label>{{'Day' | translate }}</label>
+                                        </div>
+                                        <div class="col3 pr5 text-center">
+                                            <label>{{'Start' | translate }}</label>
+                                        </div>
+                                        <div class="col3 pr5 pl25 mr30 text-center">
+                                            <label>{{'End' | translate }}</label>
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <label>{{'Day' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Sunday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart01" formControlName="1WindowStart01" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd01" formControlName="1WindowEnd01" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd01" formControlname="1WindowDayInd01">
+                                            <label for="1WindowDayInd01"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart01" formControlName="2WindowStart01" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd01" formControlName="2WindowEnd01" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd01" formControlname="2WindowDayInd01">
+                                            <label for="2WindowDayInd01"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart01" formControlName="3WindowStart01" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd01" formControlName="3WindowEnd01" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd01" formControlname="3WindowDayInd01">
+                                            <label for="3WindowDayInd01"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Monday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart02" formControlName="1WindowStart02" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd02" formControlName="1WindowEnd02" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd02" formControlname="1WindowDayInd02">
+                                            <label for="1WindowDayInd02"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart02" formControlName="2WindowStart02" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd02" formControlName="2WindowEnd02" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd02" formControlname="2WindowDayInd02">
+                                            <label for="2WindowDayInd02"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart02" formControlName="3WindowStart02" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd02" formControlName="3WindowEnd02" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd02" formControlname="3WindowDayInd02">
+                                            <label for="3WindowDayInd02"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Tuesday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart03" formControlName="1WindowStart03" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd03" formControlName="1WindowEnd03" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd03" formControlname="1WindowDayInd03">
+                                            <label for="1WindowDayInd03"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart03" formControlName="2WindowStart03" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd03" formControlName="2WindowEnd03" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd03" formControlname="2WindowDayInd03">
+                                            <label for="2WindowDayInd03"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart03" formControlName="3WindowStart03" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd03" formControlName="3WindowEnd03" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd03" formControlname="3WindowDayInd03">
+                                            <label for="3WindowDayInd03"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Wednesday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart04" formControlName="1WindowStart04" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd04" formControlName="1WindowEnd04" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd04" formControlname="1WindowDayInd04">
+                                            <label for="1WindowDayInd04"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart04" formControlName="2WindowStart04" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd04" formControlName="2WindowEnd04" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd04" formControlname="2WindowDayInd04">
+                                            <label for="2WindowDayInd04"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart04" formControlName="3WindowStart04" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd04" formControlName="3WindowEnd04" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd04" formControlname="3WindowDayInd04">
+                                            <label for="3WindowDayInd04"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Thursday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart05" formControlName="1WindowStart05" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd05" formControlName="1WindowEnd05" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd05" formControlname="1WindowDayInd05">
+                                            <label for="1WindowDayInd05"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart05" formControlName="2WindowStart05" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd05" formControlName="2WindowEnd05" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd05" formControlname="2WindowDayInd05">
+                                            <label for="2WindowDayInd05"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart05" formControlName="3WindowStart05" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd05" formControlName="3WindowEnd05" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd05" formControlname="3WindowDayInd05">
+                                            <label for="3WindowDayInd05"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Friday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart06" formControlName="1WindowStart06" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd06" formControlName="1WindowEnd06" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd06" formControlname="1WindowDayInd06">
+                                            <label for="1WindowDayInd06"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart06" formControlName="2WindowStart06" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd06" formControlName="2WindowEnd06" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd06" formControlname="2WindowDayInd06">
+                                            <label for="2WindowDayInd06"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart06" formControlName="3WindowStart06" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd06" formControlName="3WindowEnd06" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd06" formControlname="3WindowDayInd06">
+                                            <label for="3WindowDayInd06"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-10">
+                                        <div class="col2 pr5 mt5">
+                                            <label>{{'Saturday' | translate }}<span class="mandatory">*</span></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowStart07" formControlName="1WindowStart07" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="1WindowEnd07" formControlName="1WindowEnd07" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="1WindowDayInd07" formControlname="1WindowDayInd07">
+                                            <label for="1WindowDayInd07"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowStart07" formControlName="2WindowStart07" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="2WindowEnd07" formControlName="2WindowEnd07" size="5" [attr.maxlength]="5">
+                                        </div>
+                                        <div class="col1 pr5">
+                                            <input type="checkbox" class="form-control" id="2WindowDayInd07" formControlname="2WindowDayInd07">
+                                            <label for="2WindowDayInd07"></label>
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowStart07" formControlName="3WindowStart07" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col3 pr5">
+                                            <input type="text" class="form-control" id="3WindowEnd07" formControlName="3WindowEnd07" size="40" [attr.maxlength]="40">
+                                        </div>
+                                        <div class="col1">
+                                            <input type="checkbox" class="form-control" id="3WindowDayInd07" formControlname="3WindowDayInd07">
+                                            <label for="3WindowDayInd07"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Standard Hours per day' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StdHoursPerDay01" formControlName="StdHoursPerDay01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StdHoursPerDay02" formControlName="StdHoursPerDay02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StdHoursPerDay03" formControlName="StdHoursPerDay03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Maximum O/T per day' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxOTPerDay01" formControlName="MaxOTPerDay01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxOTPerDay02" formControlName="MaxOTPerDay02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxOTPerDay03" formControlName="MaxOTPerDay03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Maximum Hours per week' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxHoursPerWeek01" formControlName="MaxHoursPerWeek01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxHoursPerWeek02" formControlName="MaxHoursPerWeek02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="MaxHoursPerWeek03" formControlName="MaxHoursPerWeek03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Standard Break time' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StandardBreakTime01" formControlName="StandardBreakTime01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StandardBreakTime02" formControlName="StandardBreakTime02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="StandardBreakTime03" formControlName="StandardBreakTime03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Personal Driving time' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="PersonalDrivingTime01" formControlName="PersonalDrivingTime01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="PersonalDrivingTime02" formControlName="PersonalDrivingTime02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="PersonalDrivingTime03" formControlName="PersonalDrivingTime03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Avg Driving as'|translate}} <span>%</span> {{'of Work day' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AvgDrivingWorkDay01" formControlName="AvgDrivingWorkDay01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AvgDrivingWorkDay02" formControlName="AvgDrivingWorkDay02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AvgDrivingWorkDay03" formControlName="AverageSickness03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Average Sickness (Days per year)' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AverageSickness01" formControlName="AverageSickness01" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AverageSickness02" formControlName="AverageSickness02" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="AverageSickness03" formControlName="AverageSickness03" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="button" class="form-control" id="cmdSalesDefault" value="{{'Default'|translate}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                 <input type="button" class="form-control" id="cmdServiceDefault" value="{{'Default'|translate}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                 <input type="button" class="form-control" id="cmdAdmindDefault" value="{{'Default'|translate}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <div class="col-sm-3">
+                                            <div class="col24">
+                                                <label>{{'Service Cost' | translate }}</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                                <input type="text" class="form-control" id="ServiceCost" formControlName="ServiceCost" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="col16 pr5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional mr10" value="{{'Add' | translate}}">
+                <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+            <div class="col-sm-6">
+                <div class="col8 pull-right">
+                    <select class="form-control" id="menu" formControlName="menu">
+                           <option selected Value="None">{{'Options'|translate}}</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>

@@ -1,0 +1,198 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Branch' | translate}} </label>
+                    <div class="col16">
+                        <input type="text" eTypeCode formControlName="BranchNumber" id="BranchNumber" size="30" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'View By' | translate}} </label>
+                    <div class="col16">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Service Area' | translate}} </label>
+                    <div class="col6 pr5">
+                        <input type="text" eTypeCode formControlName="BranchServiceAreaCode" id="BranchServiceAreaCode" size="8" [attr.maxlength]="4"
+                            class="form-control">
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" eTypeText formControlName="EmployeeSurname" id="EmployeeSurname" size="30" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'By' | translate}} </label>
+                    <div class="col16">
+                        <select id="ViewTypeFilter" class="form-control" formControlName="ViewTypeFilter">
+                                    <option value="Visit">{{ 'Number of Visits' | translate }}</option>
+                                    <option value="Premise">{{ 'Number of Premises' | translate }}</option>
+                                    <option value="WED">{{ 'Number of W.E.D.s' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Supervisor/ Line Manager' | translate}} </label>
+                    <div class="col6 pr5">
+                        <input type="text" eTypeCode formControlName="SupervisorEmployeeCode" id="SupervisorEmployeeCode" size="8" [attr.maxlength]="8"
+                            class="form-control">
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" eTypeText formControlName="SupervisorSurname" id="SupervisorSurname" size="30" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contract Type' | translate}} </label>
+                    <div class="col16">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product service Groups' | translate}} </label>
+                    <div class="col16">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Visit Frequency' | translate}} </label>
+                    <div class="col16">
+                        <input type="text" eTypeInteger formControlName="VisitFrequencyFilter" id="VisitFrequencyFilter" size="3" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Year' | translate}} </label>
+                    <div class="col16">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Month' | translate}} </label>
+                    <div class="col16">
+                        <select id="SelectedMonth" class="form-control" formControlName="SelectedMonth">
+                                    <option value="1">{{ 'January' | translate}} </option>
+                                    <option value="2">{{ 'February' | translate}} </option>
+                                    <option value="3">{{ 'March' | translate}} </option>
+                                    <option value="4">{{ 'April' | translate}} </option>
+                                    <option value="5">{{ 'May' | translate}} </option>
+                                    <option value="6">{{ 'June' | translate}} </option>
+                                    <option value="7">{{ 'July' | translate}} </option>
+                                    <option value="8">{{ 'August' | translate}} </option>
+                                    <option value="9">{{ 'September' | translate}} </option>
+                                    <option value="10">{{ 'October' | translate}} </option>
+                                    <option value="11">{{ 'November' | translate}} </option>
+                                    <option value="12">{{ 'December' | translate}} </option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Selected Area' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeCode formControlName="SelectedArea" id="SelectedArea" size="10" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Total Visits' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeInteger formControlName="TotalVisits" id="TotalVisits" [attr.maxlength]="10" size="10" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Selected Date' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeDate formControlName="SelectedDate" id="SelectedDate" size="10" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Units' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeInteger formControlName="TotalUnits" id="TotalUnits" [attr.maxlength]="10" size="10" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Service Groups' | translate}} </label>
+                    <div class="col16">
+                        <input type="text" eTypeCode formControlName="ProdServGroupString" id="ProdServGroupString" size="30" [attr.maxlength]="30"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Time' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeText formControlName="TotalTime" id="TotalTime" [attr.maxlength]="10" size="10" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Postcodes' | translate}} </label>
+                    <div class="col16">
+                        <input type="text" eTypeCode formControlName="PostalBrickString" id="PostalBrickString" size="90" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Weight' | translate}} </label>
+                    <div class="col8">
+                        <input type="text" eTypeDecimal2 formControlName="AverageWeight" id="AverageWeight" [attr.maxlength]="10" size="10" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Visit Intervals' | translate}} </label>
+                    <div class="col16">
+                        <input type="text" eTypeCode formControlName="VisitIntervalString" id="VisitIntervalString" size="90" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

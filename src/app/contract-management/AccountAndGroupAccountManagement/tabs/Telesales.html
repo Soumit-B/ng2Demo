@@ -1,0 +1,36 @@
+<div id="grdTelesales">
+    <form novalidate [formGroup]="telesalesFormGroup" (ngSubmit)="$event.preventDefault();">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="Accountnumber">{{'Telesales Cross-Reference Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" formControlName="CrossReferenceAccountNumber" size="8" maxlength="9" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" formControlName="CrossReferenceAccountName" size="40" maxlength="40">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #crossReferenceAccountNumberEllipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams"
+                        [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountMaintenanceDataReceived($event, true)"
+                        [showHeader]="showHeader" (modalHidden)="modalHidden()" [searchModalRoute]="searchModalRoute" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <div class="col-sm-6">
+                <div class="col24">
+                    <input id="ValidationExemptInd" formControlName="ValidationExemptInd" size="2" maxlength="2" type="CheckBox" value="">
+                    <label for="ValidationExemptInd">{{'Telesales Exempt from Postcode Validation' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7">
+            <div class="col-sm-6">
+                <div class="col24">
+                    <input type="checkbox" size="2" maxlength="2" id="Telesalesgroup" formControlName="NewInvoiceGroupInd">
+                    <label for="Telesalesgroup">{{'Telesales always Create New Invoice Group' | translate }}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

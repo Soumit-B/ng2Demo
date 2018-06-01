@@ -1,0 +1,59 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" maxlength="11" class="form-control" formControlName="ContractNumber" id="ContractNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" formControlName="ContractName" id="ContractName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" maxlength="11" class="form-control" formControlName="PremiseNumber" id="PremiseNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" formControlName="PremiseName" id="PremiseName">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #PremiseAccessTimesPagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row  mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #PremiseAccessTimesGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [sortHeaders]="gridSortHeaders"
+                        [validateProperties]="validateProperties" (sortInfo)="sortGridInfo($event)" (gridInfo)="getGridInfo($event)"
+                        (getCellData)="gridOnClick($event)" [checkItemsPerPage]="false" [headerProperties]="headerProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+
+        <footer class="screen-footer">
+        </footer>
+        <!--hidden fields-->
+        <input type="hidden" id="ContractRowID" formControlName="ContractRowID" class="form-control">
+        <input type="hidden" id="PremiseRowID" formControlName="PremiseRowID" class="form-control">
+        <input type="hidden" id="ServiceCoverRowID" formControlName="ServiceCoverRowID" class="form-control">
+        <input type="hidden" id="ServiceCoverNumber" formControlName="ServiceCoverNumber" class="form-control">
+        <input type="hidden" id="RowID" formControlName="RowID" class="form-control">
+    </form>
+</section>

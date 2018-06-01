@@ -1,0 +1,111 @@
+// ----------------------------------------------------------------------
+// Layout Breakpoints
+// ----------------------------------------------------------------------
+$headerColorDev: #ffbfbf;
+$headerColorSit: #ffe8b2;
+$headerColorStage: #cfe6cc;
+$headerColorBkp: #dcb8dc;
+$maxWidth: 1800px;
+$pageMarginTop: 5.6em;
+// ----------------------------------------------------------------------
+// Font Sizes
+// ----------------------------------------------------------------------
+$regularSize: 14px;
+$domainSize: $regularSize+2px;
+$featureSize: $regularSize;
+$moduleSize: $regularSize+1px;
+$formLabelSize: 15px;
+$captionSize: 30px;
+// ----------------------------------------------------------------------
+// Font Families
+// ----------------------------------------------------------------------
+$helvetica: Helvetica,
+Arial,
+sans-serif;
+$openSans: 'Open Sans',
+sans-serif;
+$calibri: Calibri,
+"Segoe UI",
+Arial,
+sans-serif;
+// ----------------------------------------------------------------------
+// Header & Footer
+// ----------------------------------------------------------------------
+$login_btn_height: 55px;
+$headerHeight: 83px;
+$header_bg_color: #dce4eb;
+$body_bg_color: #F2F2F2;
+$header_border_color: #c6c6c6;
+$footer_height: 60px;
+$footer_color: #adc0c9;
+$footer_bg_color: #344a55;
+// ----------------------------------------------------------------------
+// Grid
+// ----------------------------------------------------------------------
+$gridPageDataColor: #333;
+$gridHeaderBorderColor: red;
+$gridTableLinkedTextColor: #007dc5;
+$gridTableNormalTextColor: #000000;
+// Page Header
+$pageHeaderColor: #121f2d;
+$pageHeaderBorderColor: red;
+// Navbar Header
+$navbarTextColor: #333;
+// Pagination
+$paginationTextColor: #007dc5;
+$paginationBackgroundColor: #ffffff;
+$paginationActiveBackgroundColor: #007dc5;
+$paginationActiveBorderColor: #007CC4;
+$paginationActiveTextColor: #ffffff;
+$paginationDisabledBackgroundColor:#fff;
+$paginationDisabledBorderColor: #acc0cf;
+$paginationDisabledTextColor: #bcbdc1;
+$paginationHeight:23px;
+// Input Box
+$inputBorderRadius:2px;
+$inputBorderColor: #999;
+$inputBorderColor2: #b7bfc7;
+$inputFontSize: 1em;
+$inputHeight: 27px;
+$labelFontSize: 15px;
+$labelheaderFontSize: 16px;
+$inputTextColor: #5a5d60;
+// Form
+$inputErrorBorderColor: red;
+//Button
+$buttonColor: #FFF;
+$buttonBackgroundColor: #007bc6;
+// Label 
+$labelColor: #121f2d;
+$labelheaderColor: #121f2d;
+//Table
+$tableHeaderTextColor: #fff;
+$tableHeadBackgroundColor: #878d95;
+$tableHeadBorderColor: #a5aeb3;
+$tableOutsideBorderColor: #d4dade;
+$tableBodyBoderColor: #888c8f;
+$tableBodyOddRowBackgroundColor: #e9eff3;
+$tableBodyEvenRowBackgroundColor: #f1f6f9;
+// Horizontal Line
+$horizontalLineColor: #b7bfc7;
+// Background Colors
+$bgGray: #F2F3F2;
+$bgBlue: #007dc6;
+$bgRed: red;
+$bgBlack: #121f2d;
+// Tabs
+$tabsHeaderColor: #007CC4;
+$tabsActiveHeaderColor: #333;
+$tabsErrorHeaderColor:#f4777c;
+//Left Navbar
+$leftNavHeight: 700px; //TODO ??
+$leftNavColor: #344a55;
+$leftNavBackgroundHoverColor: #c4e3f4; //TODO
+$leftNavBackgroundColor: #d2d9dd;
+$leftNavBorderColor: #ccc; //TODO
+$leftNavOpenBackgroundColor: #c4e3f4;
+$leftNavPanelOpenBackgroundColor: #ecf1f4;
+$leftNavFeatureColor: #607884;
+$leftNavModuleColor: #007dc6;
+$leftNavModuleActive: #121f2d;
+$leftNavModuleBorder: #007dc6;

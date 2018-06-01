@@ -1,0 +1,104 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Template Calendar' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="AnnualCalendarTemplateNumber">{{ 'Template' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AnnualCalendarTemplateNumber" size="9" maxlength="8" formControlName="AnnualCalendarTemplateNumber"
+                            class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" id="TemplateName" size="40" maxlength="40" formControlName="TemplateName" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <!--<icabs-ellipsis> </icabs-ellipsis>-->
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="SelectedYear">{{ 'Year' | translate }}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" formControlName="SelectedYear" id="SelectedYear" eTypeInteger>
+                            <option *ngFor="let yr of selectedYearList" [value]="yr.value">{{yr.text}}</option> 
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24" for="VisitFrequency">{{ 'Visit Frequency' | translate }}</label>
+                        <input type="text" id="VisitFrequency" size="9" maxlength="8" formControlName="VisitFrequency" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="TotalVisits">{{ 'Entered' | translate }}</label>
+                        <input type="text" id="TotalVisits" size="9" maxlength="8" formControlName="TotalVisits" class="form-control" [ngClass]="isVisitError? 'error-disbaled': ''"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="AnnualTolerance">{{ 'Tolerance' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="AnnualTolerance" size="9" maxlength="3" formControlName="AnnualTolerance" class="form-control" pattern="^[0-9]*$"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AnnualType">{{ 'Type' | translate }}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" formControlName="AnnualType" id="AnnualType" eTypeText>
+                            <option selected value="None">{{ 'None' | translate }}</option>
+                            <option value="Annually">{{ 'Annually' | translate }}</option>
+                            <option value="Bi-Annually">{{ 'Bi-Annually' | translate }}</option>
+                            <option value="Quarterly">{{ 'Quarterly' | translate }}</option>
+                            <option value="Monthly">{{ 'Monthly' | translate }}</option>
+                            <option value="4 Weekly">{{ '4 Weekly' | translate }}</option>
+                            <option value="Weekly">{{ 'Weekly' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #calendarTemplateDateGridPagination [totalItems]="totalRecords" *ngIf="totalRecords > 0" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-6 pull-right text-right">
+                    <div class="inline-block pr10" *ngFor="let l of legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                        <label>{{ l.label | translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGrid_AfterExecute()" (TRDblClick)="tbody_onDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input type="button" id="btnSave" class="btn btn-primary mr10" value="{{'Save' | translate}}" (click)="btnSave_OnClick()">
+                    <input type="button" id="btnAbandon" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="btnAbandon_OnClick()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirmSave()"></icabs-prompt-modal>
+<icabs-prompt-modal class="routeAway" #promptModal="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitle"
+    [content]="promptContent" [config]="promptModalConfig"></icabs-prompt-modal>

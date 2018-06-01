@@ -1,0 +1,60 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="CopyContactTypeCodeSelect">{{ 'Copy To Ticket Type' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #ticketTypeDropDown [inputData]="ticketType" (onSelect)="onTicketTypeSelect($event)" [disabled]="false"
+                            [doTranslate]="false"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="CopyContactTypeDetailCodeSelect">{{ 'Copy To Ticket Detail' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #ticketDetailDropDown [inputData]="ticketDetail" (onSelect)="onTicketDetailSelect($event)" [disabled]="false"
+                            [doTranslate]="false"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" formControlName="CopyDisputed" id="CopyDisputed" size="2" maxlength="2" value="">
+                        <label for="CopyDisputed">{{ 'Copy Disputed Invoice Details' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" formControlName="CopyRootCause" id="CopyRootCause" size="2" maxlength="2" value="">
+                        <label for="CopyRootCause">{{ 'Copy Root Cause Details' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="cmdCopy" (click)="confirmCopy()" class="btn btn-primary" value="{{ 'Copy Ticket' | translate }}">
+                        <input type="button" id="cmdCancel" (click)="confirmCancel()" class="btn btn-primary" value="{{ 'Cancel Copy' | translate }}">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

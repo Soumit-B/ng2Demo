@@ -1,0 +1,159 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <strong>{{ 'Old Account Address' | translate}}</strong>
+                </div>
+                <div class="col-sm-3">
+                    <strong>{{ 'New Account Address' | translate}}</strong>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountName" formControlName="OldAccountName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 1' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine1" formControlName="OldAccountAddressLine1" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 1' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountAddressLine1" formControlName="AccountAddressLine1" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine2" formControlName="OldAccountAddressLine2" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountAddressLine2" formControlName="AccountAddressLine2" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" class="hidden">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 3' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine3" formControlName="OldAccountAddressLine3" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Address Line 3' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountAddressLine3" formControlName="AccountAddressLine3" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Town' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine4" formControlName="OldAccountAddressLine4" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Town' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine4" formControlName="AccountAddressLine4" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ ' County' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountAddressLine5" formControlName="OldAccountAddressLine5" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ ' County' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountAddressLine5" formControlName="AccountAddressLine5" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Postcode' | translate }}</label>
+                    <div class="col24">
+                        <input id="OldAccountPostcode" formControlName="OldAccountPostcode" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 mt10">{{ 'Postcode' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountPostcode" formControlName="AccountPostcode" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-offset-3">
+                    <label class="col24 mt10">{{ 'Account Number' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-offset-3">
+                    <label class="col24">{{ 'Invoice Group Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input #invoiceGrpNo id="InvoiceGroupNumber" maxlength="9" size="9" formControlName="InvoiceGroupNumber" class="form-control"
+                            type="text" (change)="invoiceNumberOonChange($event.target)" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5 hidden">
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsis.invoiceGroupSearchEllipsis.childparams"
+                            [modalConfig]="modalConfig" [contentComponent]="ellipsis.invoiceGroupSearchEllipsis.component" (ellipsisData)="onInvoiceGroupDataReceived($event)"
+                            [showHeader]="showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #amendmentPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid #amendmentGrid [sortIndex]="gridSortHeaders" [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                        (sortInfo)="sortGrid($event)" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)"
+                        (getCellData)="InvoiceGroupFocus($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader"></icabs-modal>

@@ -1,0 +1,75 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{title | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="servicevaluegridFormGroup">
+        <div #topContainer>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="Contract">{{'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="GroupContractNumber" class="form-control" placeholder="" formControlName="ContractNumber" size="9"
+                            [attr.maxlength]="9" disabled="">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="GroupContractName" class="form-control" placeholder="" formControlName="ContractName" size="40" [attr.maxlength]="40"
+                            disabled="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" id="showsystem" (change)="updateCheckedOptions($event)">
+                        <label for="showsystem"> {{'Show System Adjustments' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="PageparentMode!='Contract' && PageparentMode!='ContractAll' && PageparentMode!='ContractHistory-All' && PageparentMode!='ProductAll'">
+                    <label class="col24" for="Premise">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremisesNumber" class="form-control" placeholder="" formControlName="PremiseNumber" size="9" [attr.maxlength]="9">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremisesName" class="form-control" placeholder="" formControlName="PremiseName" size="40" [attr.maxlength]="40"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="PageparentMode!='Contract' && PageparentMode!='ContractAll' && PageparentMode!='ContractHistory-All' && PageparentMode!='ProductAll' && PageparentMode!='Premise' && PageparentMode!='PremiseAll' && PageparentMode!='PremiseHistory-All'">
+                    <label class="col24" for="Product">{{'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="productCode" class=" form-control " placeholder=" " formControlName="ProductCode" size="9 " [attr.maxlength]="9 ">
+                    </div>
+                    <div class="col16">
+                        <input type="text " id="productName" class="form-control" placeholder="" formControlName="ProductDesc" size="40" [attr.maxlength]="40"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #serviceValuePagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #serviceValueGrid [validateProperties]="validateProperties" [maxColumns]="maxColumn" (sortInfo)="sortGrid($event)"
+                        [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowDblClick($event)"
+                        (getCellData)="onGridRowClick($event)"></icabs-grid>
+                </div>
+            </div>
+        </div>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+</div>

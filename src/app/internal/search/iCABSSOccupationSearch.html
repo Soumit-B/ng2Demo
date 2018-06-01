@@ -1,0 +1,28 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10" id="divMain">
+            <div class="col-sm-6">
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                    <icabs-table #occupationSearchTable  [itemsPerPage]="itemsPerPage" [columns]="columns"
+                    [paginationTop]="false" [tableheader]="tableheading" (selectedData)="selectedData($event)"
+                    [displayError]="false"></icabs-table>
+                    <icabs-modal #messageModal1="child" [(showHeader)]="showMessageHeader">
+                    </icabs-modal>
+            </div>
+        </div>
+    </section>
+    <footer class="screen-footer">
+    </footer>
+</section>

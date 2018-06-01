@@ -1,0 +1,51 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Advantage Quote History'| translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Reference'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="dlContractRef" size="30" [attr.maxlength]="30" formControlName="dlContractRef" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Name'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractName" formControlName="ContractName" size="30" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Type'| translate}}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractTypeCode" formControlName="ContractTypeCode" size="1" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <input id="dlBatchRef" style="display:none">
+            <input id="Misc" style="display:none">
+            <input id="SubSystem" style="display:none">
+        </form>
+    </section>
+    <icabs-modal #messageModal="child" [showHeader]="showMessageHeader"></icabs-modal>
+    <footer class="screen-footer">
+    </footer>
+</section>

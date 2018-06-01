@@ -1,0 +1,1290 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Employee Maintenance'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Employee Code' | translate}}
+                        <span class="mandatory" *ngIf="fieldRequired.EmployeeCode">*</span>
+                    </label>
+                    <div class="col16 pr5">
+                        <input type="text" #EmployeeCode id="EmployeeCode" formControlName="EmployeeCode" size="6" maxlength="6" class="form-control"
+                            placeholder="" (keydown.PageDown)="onKeyDown($event)" (change)="employeeCode_onChange($event)">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsisConfig.employeeSearch.autoOpen" #employeeSearchEllipsis [showCloseButton]="ellipsisConfig.employeeSearch.showCloseButton"
+                            [childConfigParams]="ellipsisConfig.employeeSearch.childConfigParams" [modalConfig]="ellipsisConfig.employeeSearch.modalConfig"
+                            [contentComponent]="ellipsisConfig.employeeSearch.contentComponent" (ellipsisData)="onEmployeeSearchDataReceived($event, true)"
+                            (addModeOn)="onAddMode($event)" [showHeader]="ellipsisConfig.employeeSearch.showHeader" (modalHidden)="modalHiddenEmployeeSearch()"
+                            [searchModalRoute]="ellipsisConfig.employeeSearch.searchModalRoute" [disabled]="ellipsisConfig.employeeSearch.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <!--Tab function-->
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active" id="grdDetails" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}" (click)="riTab.TabFocus(1)">
+                            <a class="nav-link " [ngClass]="{'active': tab.tab1.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab1.name}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdGeneral" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}" (click)="riTab.TabFocus(2)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab2.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab2.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdContact" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}" (click)="riTab.TabFocus(3)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab3.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab3.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdAddress" [ngClass]="{'active': tab.tab4.active, 'hidden': !tab.tab4.visible}" (click)="riTab.TabFocus(4)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab4.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab4.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdNoKAddress" [ngClass]="{'active': tab.tab5.active, 'hidden': !tab.tab5.visible}" (click)="riTab.TabFocus(5)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab5.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab5.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdVehicle" [ngClass]="{'active': tab.tab6.active, 'hidden': !tab.tab6.visible}" (click)="riTab.TabFocus(6)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab6.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab6.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdLeft" [ngClass]="{'active': tab.tab7.active, 'hidden': !tab.tab7.visible}" (click)="riTab.TabFocus(7)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab7.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab7.name }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdSDetails" [ngClass]="{'active': tab.tab8.active, 'hidden': !tab.tab8.visible}" (click)="riTab.TabFocus(8)">
+                            <a class="nav-link" [ngClass]="{'active': tab.tab8.active}" (click)="setFocusToTabElement()">
+                                <span>{{tab.tab8.name }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}">
+                            <div id="grdDetails" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Forename 1'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeForename1">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="EmployeeForename1" id="EmployeeForename1"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Forename 2'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="EmployeeForename2" id="EmployeeForename2"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Forename 3'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="EmployeeForename3" id="EmployeeForename3"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Surname'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeSurname">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="EmployeeSurname" id="EmployeeSurname"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <!--<label class="col24">{{'Service Centre Number'|translate }}<span class="mandatory">*</span></label>-->
+                                        <label class="col24">{{'Branch Number'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.BranchNumber">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input id="BranchNumber" size="3" formControlName="BranchNumber" hidden maxlength="5" value="">
+                                            <input id="BranchName" size="35" formControlName="BranchName" hidden maxlength="35" value="">
+                                            <icabs-branchsearch [inputParams]="dropdownConfig.branchSearch.inputParams" [isDisabled]="dropdownConfig.branchSearch.isDisabled"
+                                                (receivedbranchsearch)="onBranchSearchReceived($event)" [active]="dropdownConfig.branchSearch.selected"
+                                                [isRequired]='fieldRequired.BranchNumber'></icabs-branchsearch>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Occupation'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.OccupationCode">*</span>
+                                        </label>
+                                        <div class="col8 pr5">
+                                            <input type="text" size="2" maxlength="2" class="form-control" placeholder="" formControlName="OccupationCode" id="OccupationCode"
+                                                (change)="onChange($event)" (blur)="onBlur($event)" eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" size="35" maxlength="35" class="form-control" placeholder="" formControlName="OccupationDesc" id="OccupationDesc">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]="ellipsisConfig.occupationSearch.autoOpen" #occupationSearchEllipsis [showCloseButton]="ellipsisConfig.occupationSearch.showCloseButton"
+                                                [childConfigParams]="ellipsisConfig.occupationSearch.childConfigParams" [modalConfig]="ellipsisConfig.occupationSearch.modalConfig"
+                                                [contentComponent]="ellipsisConfig.occupationSearch.contentComponent" (ellipsisData)="onEllipsisSearchDataReceived($event, true, 'OccupationCode')"
+                                                [showHeader]="ellipsisConfig.occupationSearch.showHeader" (modalHidden)="modalHiddenEmployeeSearch()"
+                                                [searchModalRoute]="ellipsisConfig.occupationSearch.searchModalRoute" [disabled]="ellipsisConfig.occupationSearch.disabled"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="RealPerson" id="RealPerson" (change)="realPerson_onclick($event)">
+                                        <label for="RealPerson" class="custom-checkbox-label gray">{{'Real Person'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Supervisor/Line Manager'|translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" size="6" maxlength="6" class="form-control" placeholder="" formControlName="SupervisorEmployeeCode" id="SupervisorEmployeeCode"
+                                                (blur)="onBlur($event)" eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" size="31" maxlength="31" class="form-control" placeholder="" formControlName="SupervisorSurname" id="SupervisorSurname">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]="ellipsisConfig.supervisorEmp.autoOpen" #supervisorEmployeeEllipsis [showCloseButton]="ellipsisConfig.supervisorEmp.showCloseButton"
+                                                [childConfigParams]="ellipsisConfig.supervisorEmp.childConfigParams" [modalConfig]="ellipsisConfig.supervisorEmp.modalConfig"
+                                                [contentComponent]="ellipsisConfig.supervisorEmp.contentComponent" (ellipsisData)="onEllipsisSearchDataReceived($event, true, 'SupervisorEmployeeCode')"
+                                                [showHeader]="ellipsisConfig.supervisorEmp.showHeader" (modalHidden)="modalHiddenEmployeeSearch()"
+                                                [searchModalRoute]="ellipsisConfig.supervisorEmp.searchModalRoute" [disabled]="ellipsisConfig.supervisorEmp.disabled"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Marital Status'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="hidden" size="2" maxlength="1" class="form-control" formControlName="MaritalStatusCode" id="MaritalStatusCode">
+                                            <input type="hidden" size="35" maxlength="35" class="form-control" formControlName="MaritalStatusDesc" id="MaritalStatusDesc">
+                                            <icabs-marital-search [inputParams]="dropdownConfig.maritalSearch.inputParams" (receivedMaritalSearch)="onMaritalSearch($event)"
+                                                [isDisabled]="dropdownConfig.maritalSearch.isDisabled" [active]="dropdownConfig.maritalSearch.selected"></icabs-marital-search>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Gender'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.GenderCode">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="2" maxlength="1" class="form-control hidden" placeholder="" formControlName="GenderCode" id="GenderCode"
+                                                (blur)="onBlur($event)">
+                                            <input type="text" size="35" maxlength="35" class="form-control hidden" placeholder="" formControlName="GenderDesc" id="GenderDesc">
+                                            <icabs-gender-search [inputParams]="dropdownConfig.genderSearch.inputParams" (receivedgendersearch)="onGenderCodeSearch($event)"
+                                                [isDisabled]="dropdownConfig.genderSearch.isDisabled" [active]="dropdownConfig.genderSearch.selected"
+                                                [isRequired]='fieldRequired.GenderCode'></icabs-gender-search>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}">
+                            <div id="grdGeneral" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Grade'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="20" maxlength="20" class="form-control" placeholder="" formControlName="Grade" id="Grade" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{'User Code'|translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" size="10" maxlength="10" class="form-control" placeholder="" formControlName="UserCode" id="UserCode"
+                                                (keydown.PageDown)="onKeyDown($event)" (blur)="onBlur($event)">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="UserName" id="UserName">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #UserInformationSearch [autoOpen]="ellipsisConfig.riMUserInformationSearch.autoOpen" [showCloseButton]="ellipsisConfig.riMUserInformationSearch.showCloseButton"
+                                                [childConfigParams]="ellipsisConfig.riMUserInformationSearch.childConfigParams"
+                                                [modalConfig]="ellipsisConfig.riMUserInformationSearch.modalConfig" [contentComponent]="ellipsisConfig.riMUserInformationSearch.contentComponent"
+                                                (ellipsisData)="onEllipsisSearchDataReceived($event, true, 'UserCode')" [showHeader]="ellipsisConfig.riMUserInformationSearch.showHeader"
+                                                (modalHidden)="modalHiddenUserCode()" [searchModalRoute]="ellipsisConfig.riMUserInformationSearch.searchModalRoute"
+                                                [disabled]="ellipsisConfig.riMUserInformationSearch.disabled"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Date Of Birth'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.DateOfBirth">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input size="15" formControlName="DateOfBirth" maxlength="15" class="form-control hidden">
+                                            <icabs-datepicker id="DateOfBirth" [uiFormGroup]="this['uiForm']" [controlName]="'DateOfBirth'" [dt]='datepicker.DateOfBirth.value'
+                                                [clearDate]='datepicker.DateOfBirth.clearDate' [isDisabled]="datepicker.DateOfBirth.isDisabled"
+                                                (selectedValue)="onDateSelectedValue($event, 'DateOfBirth' )" [isRequired]="datepicker.DateOfBirth.isRequired"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Date Joined'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.DateJoined">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input size="15" formControlName="DateJoined" maxlength="15" class="form-control hidden">
+                                            <icabs-datepicker id="DateJoined" [uiFormGroup]="this['uiForm']" [controlName]="'DateJoined'" [dt]='datepicker.DateJoined.value'
+                                                [clearDate]='datepicker.DateJoined.clearDate' [isDisabled]="datepicker.DateJoined.isDisabled"
+                                                (selectedValue)="onDateSelectedValue($event, 'DateJoined' )" [isRequired]="datepicker.DateJoined.isRequired"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Previous Service'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="10" maxlength="10" class="form-control
+                                               " placeholder="" formControlName="PreviousService" id="PreviousService" (blur)="previousServiceBlur($event)"
+                                                [ngClass]="{ 'red-bdr': validatePreviousService}" eTypeInteger>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Leave Entitlement'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="10" maxlength="10" class="form-control
+                                               " placeholder="" formControlName="LeaveEntitlement" id="LeaveEntitlement"
+                                                (blur)="LeaveEntitlementBlur($event)" [ngClass]="{ 'red-bdr': validateLeaveEntitlement}"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="ContractReceived" id="ContractReceived">
+                                        <label for="ContractReceived" class="custom-checkbox-label gray">{{'Contract Received'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="CommissionValid" id="CommissionValid">
+                                        <label for="CommissionValid" class="custom-checkbox-label gray">{{'Commission Valid'|translate }}</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="PendingDeliveryValid" id="PendingDeliveryValid">
+                                        <label for="PendingDeliveryValid" class="custom-checkbox-label gray">{{'Pending Delivery Valid'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="FirstAider" id="FirstAider">
+                                        <label for="FirstAider" class="custom-checkbox-label gray">{{'First Aider'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Earliest Start Time'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" class="form-control
+                                               " placeholder="" formControlName="EarliestStartTime" id="EarliestStartTime"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'First Aid Review Date'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" formControlName="FirstAidReviewDate" class="form-control hidden">
+                                            <icabs-datepicker id="FirstAidReviewDate" [uiFormGroup]="this['uiForm']" [controlName]="'FirstAidReviewDate'" [dt]='datepicker.FirstAidReviewDate.value'
+                                                [clearDate]='datepicker.FirstAidReviewDate.clearDate' [isDisabled]="datepicker.FirstAidReviewDate.isDisabled"
+                                                (selectedValue)="onDateSelectedValue($event, 'FirstAidReviewDate' )" [isRequired]="datepicker.FirstAidReviewDate.isRequired"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3 mt20">
+                                        <input type="checkbox" class="" formControlName="RecordMileageInd" id="RecordMileageInd">
+                                        <label for="RecordMileageInd" class="custom-checkbox-label gray">{{'Record Mileage'|translate }}</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Fixed Break Time'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" class="form-control
+                                               " placeholder="" formControlName="FixedBreakTime" id="FixedBreakTime" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="GoogleCalendarEnabled" id="GoogleCalendarEnabled">
+                                        <label for="GoogleCalendarEnabled" class="custom-checkbox-label gray">{{'Calendar Enabled'|translate }}</label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="TabletUserInd" id="TabletUserInd">
+                                        <label for="TabletUserInd" class="custom-checkbox-label gray">{{'Tablet User'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'External ID'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="20" class="form-control" placeholder="" formControlName="ExternalID" id="ExternalID">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Default Line of Service'|translate }}</label>
+                                        <div class="col24">
+                                            <select id="LOSCodeSelect" class="form-control" formControlName="LOSCodeSelect">
+                                                <option *ngFor="let item of ttLineOfService" [value]="item.LOSCode">{{item.LOSName}} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Time Zone'|translate }}</label>
+                                        <div class="col24">
+                                            <select id="riTimezoneCodeSelect" class="form-control" formControlName="riTimezoneCodeSelect">
+                                                <option *ngFor="let item of ttriTimezone" [value]="item.riTimezoneCode">{{item.riTimezoneDesc}} </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- extra line -->
+                                <div class="row mt5" [ngClass]="{'hidden': (fieldVisibility['trTabletReload'] === false || (fieldVisibility['trTabletReload'] === true && this['uiForm'].dirty === true))  }">
+                                    <div class="col-sm-3">
+                                        <label for="TabletUserInd" class="col24 custom-checkbox-label gray">{{'From Date'|translate }}
+                                            <span class="mandatory" [ngClass]="{'hidden':!datepicker.TabletReloadFromDate.isRequired}">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <icabs-datepicker id="TabletReloadFromDate" [uiFormGroup]="this['uiForm']" [controlName]="'TabletReloadFromDate'"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input formControlName="cmdReload" id="cmdReload" type="button" class="btn btn-additional" value="this.translatedMessageList['cmdReload']"
+                                                (click)="cmdReload_onclick($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}">
+                            <div id="grdContact" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Work Email'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="50" maxlength="50" class="form-control
+                                               " placeholder="" formControlName="WorkEmail" id="WorkEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'SMS Message Number'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="50" maxlength="50" class="form-control
+                                               " placeholder="" formControlName="SMSMessageNumber" id="SMSMessageNumber"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Work Telephone Number'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="50" maxlength="50" class="form-control
+                                               " placeholder="" formControlName="TelephoneNumber" id="TelephoneNumber" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Secondary Contact Number'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="50" maxlength="50" class="form-control
+                                               " placeholder="" formControlName="SecondaryContactNumber" id="SecondaryContactNumber"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Notification Language'|translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" size="3" class="form-control" placeholder="
+                                               " formControlName="LanguageCode" id="LanguageCode" (blur)="onBlur($event)">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="LanguageDescription" id="LanguageDescription">
+                                        </div>
+                                        <div class="col2">
+                                            <!--<icabs-dropdown id="LanguageCode"></icabs-dropdown>-->
+                                            <icabs-ellipsis #languageCodeEllipsis [showCloseButton]="true" [contentComponent]="ellipsisConfig.languageCode.contentComponent"
+                                                [showHeader]="ellipsisConfig.languageCode.showHeader" [searchModalRoute]="ellipsisConfig.languageCode.searchModalRoute"
+                                                [disabled]="ellipsisConfig.languageCode.disabled"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab4.active, 'hidden': !tab.tab4.visible}">
+                            <div id="grdAddress" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <input formControlName="cmdGetAddress1" id="cmdGetAddress1" type="button" class="btn btn-additional" value="this.translatedMessageList['cmdGetAddress1']"
+                                            (click)="cmdGetAddress1_onclick($event)" [ngClass]="this.fieldVisibility['cmdGetAddress1']?'':'hidden'">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 1'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeAddressLine1">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="EmployeeAddressLine1" id="EmployeeAddressLine1"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 2'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="EmployeeAddressLine2" id="EmployeeAddressLine2"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 3'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeAddressLine3">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="EmployeeAddressLine3" id="EmployeeAddressLine3"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeAddressLine4">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="EmployeeAddressLine4" id="EmployeeAddressLine4"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Country'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeeAddressLine5">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="EmployeeAddressLine5" id="EmployeeAddressLine5"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.EmployeePostcode">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="15" maxlength="15" class="form-control
+                                               " placeholder="" formControlName="EmployeePostcode" id="EmployeePostcode"
+                                                (blur)="onBlur($event)" eTypeCode>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" class="" formControlName="StartWorkFromHomeInd" id="StartWorkFromHomeInd">
+                                        <label for="StartWorkFromHomeInd" class="custom-checkbox-label gray">{{'Start From Home'|translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col10 pr5">
+                                            <label class="col24">{{'GPS Home Coordinate X'|translate }}</label>
+                                            <div class="col24">
+                                                <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="HomeGPSCoordinateX" id="HomeGPSCoordinateX"
+                                                    (change)="homeGPSCoordinateX_onchange($event)" (blur)="onBlur($event)">
+                                            </div>
+                                        </div>
+                                        <div class="col10 pr5">
+                                            <label class="col24">{{'Coordinate Y'|translate }}</label>
+                                            <div class="col24">
+                                                <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="HomeGPSCoordinateY" id="HomeGPSCoordinateY"
+                                                    (change)="homeGPSCoordinateY_onchange($event)" (blur)="onBlur($event)">
+                                            </div>
+                                        </div>
+                                        <div class="col4 mt20" *ngIf="fieldVisibility['cmdGeocode']">
+                                            <input formControlName="cmdGeocode" id="cmdGeocode" type="button" class="btn btn-additional" (click)="cmdGeocode_onclick($event)"
+                                                value="this.translatedMessageList['cmdGeocode']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <div class="col10 pr5" *ngIf="fieldVisibility['RoutingGeonode']">
+                                            <label class="col24">{{'Geonode'|translate }}</label>
+                                            <div class="col24">
+                                                <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="RoutingGeonode" id="RoutingGeonode" eTypeInteger>
+                                            </div>
+                                        </div>
+                                        <div class="col10 pr5" *ngIf="fieldVisibility['RoutingScore']">
+                                            <label class="col24">{{'Score'|translate }}</label>
+                                            <div class="col24">
+                                                <input type="text" size="3" maxlength="3" class="form-control" placeholder="" formControlName="RoutingScore" id="RoutingScore"
+                                                    (change)="routingScore_onchange()" eTypeInteger>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Source'|translate }}</label>
+                                        <div class="col10">
+                                            <!--<icabs-dropdown id="SelRoutingSource"></icabs-dropdown>-->
+                                            <select id="SelRoutingSource" class="form-control" formControlName="SelRoutingSource">
+                                                <option value="">{{'None'|translate }}</option>
+                                                <option value="T">{{'Third Party'|translate }}</option>
+                                                <option value="M">{{'Manual'|translate }}</option>
+                                                <option value="P">{{'PDA'|translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Home Phone'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.HomeTelephone">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="HomeTelephone" id="HomeTelephone" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Mobile Phone'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="18" maxlength="18" class="form-control
+                                               " placeholder="" formControlName="MobileTelephone" id="MobileTelephone" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Home Email'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="50" maxlength="50" class="form-control
+                                               " placeholder="" formControlName="HomeEmail" id="HomeEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab5.active, 'hidden': !tab.tab5.visible}">
+                            <div id="grdNoKAddress" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <input type="button" class="btn btn-additional mr5" id="cmdCopyAddress" formControlName="cmdCopyAddress" (click)="cmdCopyAddress_onclick($event)"
+                                            value="this.translatedMessageList['cmdCopyAddress']">
+                                        <input type="button" class="btn btn-additional" id="cmdGetAddress2" [ngClass]="this.fieldVisibility['cmdGetAddress2']? '':'hidden'"
+                                            formControlName="cmdGetAddress2" (click)="cmdGetAddress2_onclick($event)" value="this.translatedMessageList['cmdGetAddress2']">
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Relationship'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKRelationship">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="20" maxlength="20" class="form-control" placeholder="" formControlName="NoKRelationship" id="NoKRelationship"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Name'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKName">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKName" id="NoKName" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 1'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKAddressLine1">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKAddressLine1" id="NoKAddressLine1" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 2'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKAddressLine2" id="NoKAddressLine2" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 3'|translate }}<span class="mandatory" *ngIf="fieldRequired.NoKAddressLine3">*</span></label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKAddressLine3" id="NoKAddressLine3" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKAddressLine4">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKAddressLine4" id="NoKAddressLine4" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Country'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKAddressLine5">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="NoKAddressLine5" id="NoKAddressLine5" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKPostcode">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="15" maxlength="15" class="form-control
+                                               " placeholder="" formControlName="NoKPostcode" id="NoKPostcode" (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Home Phone'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.NoKHomeTelephone">*</span>
+                                        </label>
+                                        <div class="col24">
+                                            <input type="text" size="20" maxlength="20" class="form-control
+                                               " placeholder="" formControlName="NoKHomeTelephone" id="NoKHomeTelephone"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Other Phone'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="20" maxlength="20" class="form-control" placeholder="" formControlName="NoKOtherTelephone" id="NoKOtherTelephone"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab6.active, 'hidden': !tab.tab6.visible}">
+                            <div id="grdVehicle" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Vehicle Class'|translate }}</label>
+                                        <div class="col16">
+                                            <!--<icabs-dropdown id="ClassType"></icabs-dropdown>-->
+                                            <input id="ClassType" type="text" formControlName="ClassType" size="15" maxlength="40" value="" (blur)="onBlur($event)">
+                                            <!-- <icabs-ellipsis #vehicleClassEllipsis [showCloseButton]="true" [contentComponent]="ellipsisConfig.vehicleClass.contentComponent"
+                                                [showHeader]="ellipsisConfig.vehicleClass.showHeader" [searchModalRoute]="ellipsisConfig.vehicleClass.searchModalRoute"
+                                                [disabled]="ellipsisConfig.vehicleClass.disabled"></icabs-ellipsis> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Vehicle Registration'|translate }}</label>
+                                        <div class="col16">
+                                            <!--<icabs-dropdown id="VehicleRegistration"></icabs-dropdown>-->
+                                            <input type="text" id="VehicleRegistration" formControlName="VehicleRegistration" size="15" maxlength="15" value="" (change)="onChange($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Petrol Card Number'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="10" maxlength="10" class="form-control
+                                               " placeholder="" formControlName="PetrolCardNumber" id="PetrolCardNumber"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Driving Licence Number'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control
+                                               " placeholder="" formControlName="DrivingLicenceNumber" id="DrivingLicenceNumber"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Driving Licence Expiry'|translate }}</label>
+                                        <div class="col16">
+                                            <input type="text" formControlName="DrivingLicenceExpiryDate" class="form-control hidden">
+                                            <icabs-datepicker id="DrivingLicenceExpiryDate" [uiFormGroup]="this['uiForm']" [controlName]="'DrivingLicenceExpiryDate'"
+                                                [dt]='datepicker.DrivingLicenceExpiryDate.value' [clearDate]='datepicker.DrivingLicenceExpiryDate.clearDate'
+                                                [isDisabled]="datepicker.DrivingLicenceExpiryDate.isDisabled" (selectedValue)="onDateSelectedValue($event, 'DrivingLicenceExpiryDate' )"
+                                                [isRequired]="datepicker.DrivingLicenceExpiryDate.isRequired"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab7.active, 'hidden': !tab.tab7.visible}">
+                            <div id="grdLeft" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Date Left'|translate }}</label>
+                                        <div class="col16">
+                                            <input type="hidden" formControlName="DateLeft" class="form-control">
+                                            <icabs-datepicker id="DateLeft" [uiFormGroup]="this['uiForm']" [controlName]="'DateLeft'" [dt]='datepicker.DateLeft.value'
+                                                [clearDate]='datepicker.DateLeft.clearDate' [isDisabled]="datepicker.DateLeft.isDisabled"
+                                                (selectedValue)="onDateSelectedValue($event, 'DateLeft' )" [isRequired]="datepicker.DateLeft.isRequired"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Leaving Reason'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="LeavingReason" id="LeavingReason"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab8.active, 'hidden': !tab.tab8.visible}">
+                            <div id="grdSDetails" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'PDA Work Loading'|translate }}</label>
+                                        <div class="col24">
+                                            <!--<icabs-dropdown id="PDAWorkLoadSel"></icabs-dropdown>-->
+                                            <select id="PDAWorkLoadSel" class="form-control" formControlName="PDAWorkLoadSel" (change)="pdaWorkLoading($event.value)">
+                                                <option value="Weekly">{{'Weekly'|translate }}</option>
+                                                <option value="Daily">{{'Daily'|translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="col12 pr5" *ngIf="this.fieldVisibility['tdSales'] === true">
+                                            <label>{{'Occupation Type'|translate }}</label>
+                                            <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="Occupation" id="Occupation"
+                                                (blur)="onBlur($event)">
+                                        </div>
+                                        <input formControlName="btnDefault" id="btnDefault" type="button" class="btn btn-additional mt20" value="this.translatedMessageList['btnDefault']"
+                                            (click)="btnDefault_onclick()" [hidden]="!this.fieldVisibility['btnDefault']">
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5 text-right">
+                                            <label>{{'Work Day'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <label>{{'Start'|translate }}</label>
+                                        </div>
+                                        <div class="col8">
+                                            <label>{{'End'|translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 text-right pr0 ml10" *ngIf="this.fieldVisibility['WorkDay'] === true">
+                                        <label>{{'Work Day'|translate }}</label>
+                                    </div>
+                                    <div class="col-sm-3 pl5" *ngIf="this.fieldVisibility['WorkDay'] === true">
+                                        <!--{{'Work Day'|translate }} -->
+                                        <div class="col8 pr5">
+                                            <label>{{'Start'|translate }}</label>
+                                        </div>
+                                        <div class="col8">
+                                            <label>{{'End'|translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Sunday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation7Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation7Sel" class="form-control" formControlName="EmployeeStartLocation7Sel" (change)="empSLocChange(7)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation7Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation7Sel" class="form-control" formControlName="EmployeeEndLocation7Sel" (change)="empSLocChange(7)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd01'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd01" id="WindowDayInd01">
+                                        <label for="WindowDayInd01" class="custom-checkbox-label gray">{{'Sunday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart01">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart01'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control" placeholder="" formControlName="WindowStart01" id="WindowStart01"
+                                                eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd01'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control" placeholder="" formControlName="WindowEnd01" id="WindowEnd01"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Monday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation1Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation1Sel" class="form-control" formControlName="EmployeeStartLocation1Sel" (change)="empSLocChange(1)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation1Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation1Sel" class="form-control" class="form-control" formControlName="EmployeeEndLocation1Sel"
+                                                (change)="empSLocChange(1)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd02'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd02" id="WindowDayInd02">
+                                        <label for="WindowDayInd02" class="custom-checkbox-label gray">{{'Monday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart02">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart02'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowStart02" id="WindowStart02" eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd02'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowEnd02" id="WindowEnd02" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Tuesday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation2Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation2Sel" class="form-control" formControlName="EmployeeStartLocation2Sel" (change)="empSLocChange(2)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation2Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation2Sel" class="form-control" formControlName="EmployeeEndLocation2Sel" (change)="empSLocChange(2)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd03'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd03" id="WindowDayInd03">
+                                        <label for="WindowDayInd03" class="custom-checkbox-label gray">{{'Tuesday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart03">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart03'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowStart03" id="WindowStart03" eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd03'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowEnd03" id="WindowEnd03" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Wednesday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation3Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation3Sel" class="form-control" formControlName="EmployeeStartLocation3Sel" (change)="empSLocChange(3)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation3Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation3Sel" class="form-control" formControlName="EmployeeEndLocation3Sel" (change)="empSLocChange(3)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd04'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd04" id="WindowDayInd04">
+                                        <label for="WindowDayInd04" class="custom-checkbox-label gray">{{'Wednesday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart04">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart04'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowStart04" id="WindowStart04" eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd04'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowEnd04" id="WindowEnd04" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Thursday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation4Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation4Sel" class="form-control" formControlName="EmployeeStartLocation4Sel" (change)="empSLocChange(4)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation4Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation4Sel" class="form-control" formControlName="EmployeeEndLocation4Sel" (change)="empSLocChange(4)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd05'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd05" id="WindowDayInd05">
+                                        <label for="WindowDayInd05" class="custom-checkbox-label gray">{{'Thursday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart05">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart05'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowStart05" id="WindowStart05" eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd05'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowEnd05" id="WindowEnd05" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Friday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation5Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation5Sel" class="form-control" formControlName="EmployeeStartLocation5Sel" (change)="empSLocChange(5)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{this.translatedMessageList['Branch'] }}</option>
+                                                <option value="Home">{{this.translatedMessageList['Home']}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation5Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation5Sel" class="form-control" formControlName="EmployeeEndLocation5Sel" (change)="empSLocChange(5)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{'Branch'|translate }}</option>
+                                                <option value="Home">{{'Home'|translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd06'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd06" id="WindowDayInd06">
+                                        <label for="WindowDayInd06" class="custom-checkbox-label gray">{{'Friday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart06">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart06'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowStart06" id="WindowStart06" eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd06'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="WindowEnd06" id="WindowEnd06" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5" *ngIf="this.fieldVisibility['trWindow07'] === true">
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5">
+                                            <label class="col24">{{'Saturday'|translate }}</label>
+                                        </div>
+                                        <div class="col8 pr5">
+                                            <!--<icabs-dropdown id="EmployeeStartLocation6Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeStartLocation6Sel" class="form-control" formControlName="EmployeeStartLocation6Sel" (change)="empSLocChange(6)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{'Branch'|translate }}</option>
+                                                <option value="Home">{{'Home'|translate }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col8">
+                                            <!--<icabs-dropdown id="EmployeeEndLocation6Sel"></icabs-dropdown>-->
+                                            <select id="EmployeeEndLocation6Sel" class="form-control" formControlName="EmployeeEndLocation6Sel" (change)="empSLocChange(6)">
+                                                <option value=""></option>
+                                                <option value="Branch">{{'Branch'|translate }}</option>
+                                                <option value="Home">{{'Home'|translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['WindowDayInd07'] === true">
+                                        <input type="checkbox" class="" formControlName="WindowDayInd07" id="WindowDayInd07">
+                                        <label for="WindowDayInd07" class="custom-checkbox-label gray">{{'Saturday'|translate }}
+                                            <span class="mandatory" *ngIf="fieldRequired.WindowStart07">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col8 pr5" *ngIf="this.fieldVisibility['WindowStart07'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control" placeholder="" formControlName="WindowStart07" id="WindowStart07"
+                                                eTypeTime>
+                                        </div>
+                                        <div class="col8" *ngIf="this.fieldVisibility['WindowEnd07'] === true">
+                                            <input type="text" size="5" maxlength="5" class="form-control" placeholder="" formControlName="WindowEnd07" id="WindowEnd07"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3 mt20" *ngIf="this.fieldVisibility['ManpowerPlanning'] === true">
+                                        <input type="checkbox" class="" formControlName="ManpowerPlanning" id="ManpowerPlanning">
+                                        <label for="ManpowerPlanning" class="custom-checkbox-label gray">{{'Include in Manpower Planning' |translate}}</label>
+                                    </div>
+                                    <div class="col-sm-2 col-sm-offset-1" *ngIf="this.fieldVisibility['StdHoursPerDay'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Standard Hours per day'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="StdHoursPerDay" id="StdHoursPerDay" eTypeTime>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" *ngIf="this.fieldVisibility['PersonalDrivingTime'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Personal Driving time'|translate }}</label>
+                                        <div class="col16">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="PersonalDrivingTime" id="PersonalDrivingTime"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-2 col-sm-offset-4" *ngIf="this.fieldVisibility['MaxOTPerDay'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Maximum O/T per day'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="MaxOTPerDay" id="MaxOTPerDay" eTypeTime>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" *ngIf="this.fieldVisibility['AvgDrivingWorkDay'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Avg Driving as' | translate}} % {{ 'of Work day' |translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="AvgDrivingWorkDay" id="AvgDrivingWorkDay">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="this.fieldVisibility['MaxHoursPerWeek'] === true">
+                                    <div class="col-sm-2 col-sm-offset-4">
+                                        <label class="custom-checkbox-label gray">{{'Maximum Hours per week'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="MaxHoursPerWeek" id="MaxHoursPerWeek" (change)="maxHoursPerWeek_OnChange()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-2 col-sm-offset-4" *ngIf="this.fieldVisibility['StandardBreakTime'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Standard Break time'|translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="StandardBreakTime" id="StandardBreakTime"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" *ngIf="this.fieldVisibility['AverageSickness'] === true">
+                                        <label class="custom-checkbox-label gray">{{'Average Sickness (Days per year)'|translate }}</label>
+                                        <div class="col16">
+                                            <input type="text" size="5" maxlength="5" class="form-control
+                                               " placeholder="" formControlName="AverageSickness" id="AverageSickness" eTypeDecimal2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6" *ngIf="(showControlBtn === true)">
+                    <input type="button" id="submit" class="btn btn-primary" value="{{'Save' | translate}}" (click)="onSubmit(uiForm.value, uiForm.valid, $event)"
+                        [disabled]="!saveBtn" (keyup)="onSaveFocus($event)">
+                    <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="onCancel($event)" [disabled]="!saveBtn">
+                    <input type="button" class="btn btn-primary" value="{{'Delete' | translate}}" (click)="onDelete($event)" [disabled]="!saveBtn"
+                        *ngIf="pageParams['updateMode'] === true">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select id="menu" formControlName="menu" class="form-control" (change)="menu_onchange($event.target.value)">
+                            <option selected value="">{{'Options'|translate }}</option>
+                            <!-- <option value="Courses">{{'Courses'|translate }}</option> -->
+                            <option value="Diary">{{'Diary'|translate }}</option>
+                            <!-- <option value="Availability">{{'Availability Template'|translate }}</option>
+                            <option value="AvailDayOverride">{{'Availability Day Overrides'|translate }}</option>
+                            <option value="Location">{{'Location Template'|translate }}</option>
+                            <option value="NonServAppointment">{{'Non-Service Appointments'|translate }}</option>
+                            <option *ngFor="let item of menuOptionList" value="item.value">{{item.text}} </option> -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div>
+            <input formControlName="EmployeeStartLocation1" id="EmployeeStartLocation1" style="display:none">
+            <input formControlName="EmployeeStartLocation2" id="EmployeeStartLocation2" style="display:none">
+            <input formControlName="EmployeeStartLocation3" id="EmployeeStartLocation3" style="display:none">
+            <input formControlName="EmployeeStartLocation4" id="EmployeeStartLocation4" style="display:none">
+            <input formControlName="EmployeeStartLocation5" id="EmployeeStartLocation5" style="display:none">
+            <input formControlName="EmployeeStartLocation6" id="EmployeeStartLocation6" style="display:none">
+            <input formControlName="EmployeeStartLocation7" id="EmployeeStartLocation7" style="display:none">
+            <input formControlName="EmployeeEndLocation1" id="EmployeeEndLocation1" style="display:none">
+            <input formControlName="EmployeeEndLocation2" id="EmployeeEndLocation2" style="display:none">
+            <input formControlName="EmployeeEndLocation3" id="EmployeeEndLocation3" style="display:none">
+            <input formControlName="EmployeeEndLocation4" id="EmployeeEndLocation4" style="display:none">
+            <input formControlName="EmployeeEndLocation5" id="EmployeeEndLocation5" style="display:none">
+            <input formControlName="EmployeeEndLocation6" id="EmployeeEndLocation6" style="display:none">
+            <input formControlName="EmployeeEndLocation7" id="EmployeeEndLocation7" style="display:none">
+            <input formControlName="RoutingSource" id="RoutingSource" style="display:none">
+            <input formControlName="riTimezoneCode" id="riTimezoneCode" value="" style="display:none">
+            <input formControlName="AddressError" id="AddressError" style="display:none">
+            <input formControlName="OccWarningMessage" id="OccWarningMessage" style="display:none">
+            <input formControlName="VRegWarningMessage" id="VRegWarningMessage" style="display:none">
+            <input formControlName="PDAWorkLoad" id="PDAWorkLoad" size="6" maxlength="6" value="" style="display:none">
+            <input formControlName="LOSCode" id="LOSCode" style="display:none">
+            <input formControlName="OccupationIsAllow" id="OccupationIsAllow" type="checkbox" style="display:none">
+        </div>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<!--<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>-->
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="promptConfig.forSave.showPromptMessageHeader" [title]="promptConfig.forSave.promptConfirmTitle"
+    [content]="promptConfig.forSave.promptConfirmContent" (saveEmit)="promptConfirm($event)" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-prompt-modal #promptOKCancelModal="child" [(showHeader)]="promptConfig.OKCancel.showPromptMessageHeader" [title]="promptConfig.OKCancel.promptConfirmTitle"
+    [content]="promptConfig.OKCancel.promptConfirmContent" (saveEmit)="confirmOKCancel($event)" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-ellipsis #postcodeSearchEllipsis [disabled]="ellipsisConfig.postcodeSearch.disabled" [autoOpen]="ellipsisConfig.postcodeSearch.autoOpen"
+    [modalConfig]="ellipsisConfig.postcodeSearch.modalConfig" [showCloseButton]="ellipsisConfig.postcodeSearch.showCloseButton"
+    [showHeader]="ellipsisConfig.postcodeSearch.showHeader" [childConfigParams]="ellipsisConfig.postcodeSearch.childConfigParams"
+    [contentComponent]="ellipsisConfig.postcodeSearch.component" [hideIcon]="true" (ellipsisData)="onPostcodeSearchDataReceived($event)"></icabs-ellipsis>
+
+<icabs-ellipsis #riPostcodeSearchEllipsis [disabled]="ellipsisConfig.riPostcodeSearch.disabled" [autoOpen]="ellipsisConfig.riPostcodeSearch.autoOpen"
+    [modalConfig]="ellipsisConfig.riPostcodeSearch.modalConfig" [showCloseButton]="ellipsisConfig.riPostcodeSearch.showCloseButton"
+    [showHeader]="ellipsisConfig.riPostcodeSearch.showHeader" [childConfigParams]="ellipsisConfig.riPostcodeSearch.childConfigParams"
+    [contentComponent]="ellipsisConfig.riPostcodeSearch.component" [hideIcon]="true" (ellipsisData)="onRiPostcodeSearchDataReceived($event)"></icabs-ellipsis>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

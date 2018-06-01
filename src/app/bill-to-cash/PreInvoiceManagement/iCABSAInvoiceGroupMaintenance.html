@@ -1,0 +1,71 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Invoice Group Maintenance' | translate }}
+                <span class="font-sm inline-block pl20">
+              
+                </span>
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="invoiceFormGroup">
+        <div class="right-container">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Account Number' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input type="text" size="9" maxlength="9" class="form-control" id="AccountNumber" formControlName="AccountNumber" (change)="onAccountNumberChange()">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" maxlength="40" value="" class="form-control" id="AccountName" formControlName="AccountName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsAccountNumber" [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent"
+                            (ellipsisData)="onAccountNumberReceived($event)" [showHeader]="showHeader" [disabled]="isAccountNumberDisable"
+                            [autoOpen]="ellipsisQueryParams.inputParamsAccountNumber.autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice Group Number' | translate}} <span class="mandatory" *ngIf="invoiceGroupNumberShowHide">*</span></label>
+                    <div class="col22 pr5">
+                        <input type="text" size="9" maxlength="8" class="form-control" id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber"
+                            (change)="onInvoiceGroupNumberChange()">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #invoiceGroupEllipsis [childConfigParams]="ellipsisQueryParams.inputParamsInvoiceGroupNumber" [modalConfig]="modalConfig"
+                            [contentComponent]="invoiceGroupGridComponent" (ellipsisData)="onInvoiceGroupNumberReceived($event)"
+                            [showHeader]="showHeader" [showCloseButton]="showCloseButton" [disabled]="isInvoiceGroupNumberDisabled"
+                            (modalHidden)="onInvoiceDataReturn()"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12 mt5">
+                    <icabs-tabs #invoiceTabs [tabs]="tabList" [componentList]="componentList"></icabs-tabs>
+                    <hr class="mt15 mb15">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type="button" class="btn btn-sm btn-primary mr10" value="{{ 'Save' | translate }}" (click)="saveInvoiceGroupData()"
+                                (keyup)="onSaveFocus($event)" [disabled]="disableForm">
+                            <input type="button" class="btn btn-sm btn-primary" value="{{ 'Cancel' | translate }}" (click)="resetForm()" [disabled]="disableForm">
+                        </div>
+                        <div class="col-sm-3 pull-right">
+                            <icabs-dropdown-static-grouped #menuDropDown [inputData]="optionsList" (onSelect)="onDropdownMenuChange($event)" [disabled]="disableForm || !invoiceFormGroup.controls['InvoiceGroupNumber'].value"></icabs-dropdown-static-grouped>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <icabs-ellipsis #premiseSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="ellipsisQueryParams.inputParamsPremiseSearch"
+            [modalConfig]="modalConfig" [contentComponent]="premiseSearchComponent" [showHeader]="showHeader" [hideIcon]="true"
+            (modalHidden)="onPremiseSearchClose()"></icabs-ellipsis>
+    </form>
+</div>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onMessageClose()">
+</icabs-modal>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent"
+    (saveEmit)="promptConfirm($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

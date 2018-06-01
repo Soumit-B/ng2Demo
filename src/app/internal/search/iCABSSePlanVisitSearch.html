@@ -1,0 +1,86 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Plan Visit Details' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="ContractNumber" size="8" maxlength="8" class="form-control" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input type="text" id="ContractName" size="40" maxlength="40" class="form-control" formControlName="ContractName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4 pull-right">
+                    <label class="col24">{{ 'Visits Due From' | translate}}</label>
+                    <div class="col9">
+                        <icabs-datepicker #visitFromDatepicker formControlName="VisitDueFromDate" id="VisitDueFromDate" (onchange)="visitDueDateSelectedValue($event)"
+                            [required]="true" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" id="PremiseNumber" size="8" maxlength="5" class="form-control" formControlName="PremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input type="text" id="PremiseName" size="40" maxlength="40" class="form-control" formControlName="PremiseName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4 pull-right">
+                    <label class="col24">{{ 'Status' | translate}}</label>
+                    <div class="col9">
+                        <icabs-dropdown-static #statusOptionSelectDropdown [inputData]="statusOptions" (change)="riGrid_onRefresh()">
+                        </icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col4 pr5">
+                        <input type="text" id="ProductCode" size="8" maxlength="6" class="form-control" formControlName="ProductCode" eTypeCode>
+                    </div>
+                    <div class="col12 pr5">
+                        <input type="text" id="ProductDesc" size="40" maxlength="40" class="form-control" formControlName="ProductDesc" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (onRefresh)="riGrid_onRefresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="gridConfig.totalRecords" [itemsPerPage]="gridConfig.pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <select id="menu" formControlName="menu" class="form-control" (change)="menuOptionsChange($event.target.value)">
+                       <option selected value="">{{'Options'| translate}}</option>
+                        <option value="AddPlanVisit">{{'Add Plan Visit'| translate}}</option>
+                   </select>
+                </div>
+                <div class="col-sm-12">
+                    <!--  <icabs-table></icabs-table> -->
+                    <icabs-grid-advanced #riGrid (TRClick)="riGrid_BodyOnClick($event)"></icabs-grid-advanced>
+                </div>
+                <!-- <div class="col-sm-2">
+                    <select id="menu" formControlName="menu" class="form-control">
+                       <option selected value="">{{'Options'| translate}}</option>
+                        <option value="AddPlanVisit">{{'Add Plan Visit'| translate}}</option>
+                   </select>
+                </div>-->
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

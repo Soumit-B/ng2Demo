@@ -1,0 +1,81 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Renewal Letter Generation' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Expiry Date From' | translate }}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="FromDate" [dt]='DateFrom' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true"
+                            (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Expiry Date To' | translate }}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="ToDate" [dt]='DateTo' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true" (selectedValue)="dateToSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch Number' | translate }}</label>
+                    <div class="col16">
+                        <icabs-branchsearch [inputParams]="inputParamsBranch" [active]="negBranchNumberSelected" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="8" maxlength="8" formControlName="ContractNumber" (keydown)="onContractNumberKeyDown($event)"
+                            (change)="onContractNumberChange()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ContractName" size="30" maxlength="30" formControlName="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ContractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.component"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHidden($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="ellipsis.contractSearch.modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <input type="checkbox" formControlName="TermiteRenewal" id="TermiteRenewal">
+                    <label class="gray" for="TermiteRenewal">{{ 'Termite Renewal' | translate }}</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="checkbox" formControlName="APIOnTermiteRenewal" id="APIOnTermiteRenewal">
+                    <label class="gray" for="APIOnTermiteRenewal">{{ 'API On Termite Renewal' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <input type="checkbox" formControlName="IncludeNationalAccounts" id="IncludeNationalAccounts">
+                    <label class="gray" for="IncludeNationalAccounts">{{ 'Include National Accounts' | translate }}</label>
+                </div>
+            </div>
+        </form>
+    </section>
+    <hr class="mt20 mb20">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary" value="{{ 'Submit Batch Process' | translate }}" (click)="onSubmit($event)">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

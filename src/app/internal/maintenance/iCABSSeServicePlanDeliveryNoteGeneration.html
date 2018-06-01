@@ -1,0 +1,115 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="hidden">
+                <input id="SelectAction" formControlName="SelectAction" style="Display:none">
+            </div>
+            <div class="row mt10" [ngClass]="isServiceAreaLabel ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Service Area' | translate }} </label>
+                    <div class="col6 pr5">
+                        <input type="text" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="10" maxlength="6" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" size="40" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="isServicePlanNumberLabel ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanNumberLabel">{{ 'Service Plan Number' | translate }}</label>
+                    <div class="col6">
+                        <input id="ServicePlanNumber" formControlName="ServicePlanNumber" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt7" [ngClass]="isStartDateLabel ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Start Date' | translate }}</label>
+                    <div class="col6">
+                        <input type="text" id="ServicePlanStartDate" formControlName="ServicePlanStartDate" size="10" class="form-control" required
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt7" [ngClass]="isEndDateLabel ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'End Date' | translate }}</label>
+                    <div class="col6">
+                        <input type="text" id="ServicePlanEndDate" formControlName="ServicePlanEndDate" size="10" class="form-control" required eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Generate' | translate }}</label>
+                    <div class="col14">
+                        <select id="GenerateOption" class="form-control" formControlName="GenerateOption">
+                            <option value="Listing">{{ 'Service Listing' | translate }}</option>
+                            <option value="ListingRem">{{ 'Service Listing - Removals Only' | translate }}</option>
+                            <option value="Receipts">{{ 'Service Receipts' | translate }}</option>
+                            <option value="Both">{{ 'Service Listing And Receipts' | translate }}</option>
+                            <option value="TimeSheet">{{ 'Service Worklist And Timesheet' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Report Destination' | translate }}</label>
+                    <div class="col14">
+                        <select id="RepDest" class="form-control" formControlName="RepDest" (change)="onRepDestChange($event);">
+                            <option value="Listing" selected>{{ 'Report Viewer' | translate }}</option>
+                            <option value="Email">{{ 'Email' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="locationsAndFormsDisplay">
+                <div class="col-sm-4 pt15">
+                    <div class="col12 pr5">
+                        <input id="IncludeLocations" type="checkbox" class="form-control" formControlName="IncludeLocations" checked>
+                        <label for="IncludeLocations">{{ 'Include Locations' | translate }}</label>
+                    </div>
+                    <div class="col2 pr5">
+                        <input id="NumberOfForms" formControlName="NumberOfForms" class="form-control" type="text" size="4" value="4" eTypeInteger>
+                    </div>
+                    <div class="col10 mt2">
+                        <label for="IncludeLocations">{{ 'Unplanned Visit Forms' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Printers' | translate }}</label>
+                    <div class="col12">
+                        <select id="Printers" class="form-control">
+                           <option></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary" value="{{ 'Submit Report Generation' | translate }}" (click)="SubmitReportGeneration()">
+                </div>
+            </div>
+        </footer>
+        <div id="trInformation" class="alert alert-info mt10" *ngIf="thInformationDisplayed">
+            <strong id="thInformation" colspan="6">{{thInformation}}</strong>
+        </div>
+        <div id="trInformation2" class="alert alert-success mt5" *ngIf="thInformation2Displayed">
+            <strong id="thInformation2" colspan="6">{{thInformation2}}</strong>
+        </div>
+    </form>
+</section>

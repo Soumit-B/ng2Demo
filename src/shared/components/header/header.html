@@ -1,0 +1,72 @@
+<header class="navbar-fixed-top bg-header parent-header">
+    <div class="top-menu-holder">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 top-menu-wrapper">
+                    <ul class="top-menu">
+                        <li *ngIf="displayBackLink">
+                            <a href="#" (click)="backLinkOnClick($event)"><img alt="Back" alt="" src="/assets/images/arrow-with-circle-left.svg"><span>Back</span></a>
+                        </li>
+                        <li>
+                            <a href="#/postlogin"><img alt="Home" alt="" src="/assets/images/home.svg"><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a href="https://sites.google.com/a/rentokil-initial.com/it-service-centre/" target="_blank"><img alt="Help" alt="" src="/assets/images/help.svg"><span>Help</span></a>
+                        </li>
+                        <li>
+                            <a href="https://sites.google.com/a/rentokil-initial.com/ri-intranet/" target="_blank"><img alt="RI-Intranet" alt="" src="/assets/images/ri-intranet.svg"><span>RI-Intranet</span></a>
+                        </li>
+                        <li>
+                            <a href="https://rentokilinitial.service-now.com/navpage.do/" target="_blank"><img alt="Home" alt="Service Now" src="/assets/images/service-now.svg"><span>Service Now</span></a>
+                        </li>
+                        <li>
+                            <a href="https://sites.google.com/a/rentokil-initial.com/pest-control-in-the-uk/" target="_blank"><img alt="Home" alt="Speed" src="/assets/images/speed.svg"><span>Speed</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 visible-xs navbar-header">
+                <button type="button" class="navbar-toggle" (click)="hamburger($event)">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="col-xs-4">
+                <a class="logo" href="#/postlogin">
+                    <img alt="Rentokil Initial plc - link to home page" src="/assets/images/logo.svg">
+                </a>
+            </div>
+            <div class="col-xs-4 col-sm-8 visible-xs visible-sm userMenuWrapper">
+                <a class="user pull-right" href="#/postlogin" (click)="UserMenu($event)">
+                    <img alt="Rentokil Initial plc - link to home page" src="/assets/images/user.svg">
+                </a>
+                <div class="modal-backdrop" (click)="closeUserMenu($event)" [ngClass]="{'hidden-xs hidden-sm': !displayUserMenu}"></div>
+            </div>
+            <div class="col-xs-12 col-sm-5 cbb-wrapper pull-right" [ngClass]="{'hidden-xs hidden-sm': !displayUserMenu}">
+                <a href="" class="closeUserMenu visible-xs visible-sm" (click)="closeUserMenu($event)"><img src="/assets/images/user-cross.svg" /></a>
+                <ul class="login-info" *ngIf="displayUser == true">
+                    <li>Hello, {{name}}</li>
+                    <li class="logout">
+                        <a href="" (click)="signOut($event); clearStore();">Sign out<img src="/assets/images/logout.png" title="Logout" /></a>
+                    </li>
+                </ul>
+                <icabs-cbb></icabs-cbb>
+            </div>
+        </div>
+    </div>
+    <div class="nav-container">
+        <div class="container-fluid">
+            <div class="row" [ngClass]="{'': displayNav, 'hidden-xs': !displayNav}">
+                <icabs-main-nav #mainnavref></icabs-main-nav>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop" (click)="closeNav($event)" [ngClass]="{'hidden-xs hidden-md hidden-sm hidden-lg': !displayNav}"></div>
+</header>
+<icabs-prompt-modal #promptModal [title]="promptConfirmTitle" [content]="promptConfirmContent" (saveEmit)="promptConfirm($event)"></icabs-prompt-modal>

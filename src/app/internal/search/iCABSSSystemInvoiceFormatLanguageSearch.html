@@ -1,0 +1,33 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" *ngIf="isVisibleInputs">
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Language Code' | translate}}</label>
+                        <input type="text" id="LanguageCode" size="3" maxlength="3" class="form-control" formControlName="LanguageCode">
+                    </div>
+                    <div class="col16">
+                        <label class="col24">{{'Language Description' | translate}}</label>
+                        <input type="text" id="LanguageDescription" size="20" maxlength="20" class="form-control" formControlName="LanguageDescription">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #SystemInvoiceFormatLanguageTable (selectedData)="selectedData($event)" [columns]="columns" [itemsPerPage]="itemsPerPage"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

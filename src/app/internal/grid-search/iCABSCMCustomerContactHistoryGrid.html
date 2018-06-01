@@ -1,0 +1,111 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+	<div class="row">
+		<div class="col-sm-12 page-title">
+			<h1>
+				{{'Customer Contact History' | translate }}
+			</h1>
+		</div>
+	</div>
+	<form novalidate [formGroup]="this['uiForm']">
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{'Account Number' | translate }}</label>
+				<div class="col8 pr5">
+					<input id="AccountNumber" formControlName="AccountNumber" maxlength="9" class="form-control" type="text">
+				</div>
+				<div class="col16 pr5">
+					<input id="AccountName" formControlName="AccountName" maxlength="40" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<label class="col24">{{'From' | translate }}</label>
+				<div class="col24 padding-left-zero">
+					<!-- <icabs-datepicker id="FromDate" [dt]="fromDate" [isDisabled]="!dateObjectsEnabled.fromDate" [isRequired]="dateObjectsRequired.fromDate"
+						(selectedValue)="fromDateSelectedValue($event)"></icabs-datepicker> -->
+					<icabs-datepicker id="FromDate" formControlName="FromDate" [isDirectiveBased]="false"></icabs-datepicker>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<label class="col24">{{'To' | translate }}</label>
+				<div class="col24 padding-left-zero">
+					<!-- <icabs-datepicker id="ToDate" [dt]="toDate" [isDisabled]="!dateObjectsEnabled.toDate" [isRequired]="dateObjectsRequired.toDate"
+						(selectedValue)="toDateSelectedValue($event)"></icabs-datepicker> -->
+					<icabs-datepicker id="ToDate" formControlName="ToDate" [isDirectiveBased]="false"></icabs-datepicker>
+				</div>
+			</div>
+			<div class="col-sm-2">
+				<label class="col24">{{'Filter' | translate }}</label>
+				<div class="col24 padding-left-zero">
+					<!--<icabs-dropdown id="HistoryFilter"></icabs-dropdown>-->
+					<!--<icabs-dropdown #historyFilterDropDown [itemsToDisplay]="displayFields" [disabled]="isDisabled" [isRequired]="isRequired" [active]="active" (selectedValue)="onHistoryFilterValue($event)"> </icabs-dropdown>-->
+					<select id="HistoryFilter" name="HistoryFilter" formControlName="HistoryFilter" class="form-control" (change)="onHistoryFilterValue($event.target.value)">
+                  <option value="all" selected>{{'All' | translate}}</option>
+                  <option value="visits">{{'visits' | translate}}</option>
+                  <option value="invoices">{{'Invoices' | translate}}</option>
+                  <option value="contacts">{{'Contacts' | translate}}</option>
+                  <option value="renewal" *ngIf="contractRenewalStatus === true"  >{{'Contract Renewal' | translate}}</option>
+				 </select>
+				</div>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{'Contract Number' | translate }}</label>
+				<div class="col8 pr5">
+					<input id="ContractNumber" formControlName="ContractNumber" maxlength="8" class="form-control" type="text">
+				</div>
+				<div class="col16 pr5">
+					<input id="ContractName" formControlName="ContractName" maxlength="40" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="col-sm-2 col-sm-offset-4">
+				<div class="col24 mt5" *ngIf="isShowDetailVisible === true">
+					<input id="ShowDetail" formControlName="ShowDetail" class="form-control" placeholder="" type="checkbox" (change)="onShowDetail()">
+					<label for="ShowDetail" class="col24">{{'Show Details' | translate }}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{'Premises Number' | translate }}</label>
+				<div class="col8 pr5">
+					<input id="PremiseNumber" formControlName="PremiseNumber" maxlength="8" class="form-control" type="text">
+				</div>
+				<div class="col16 pr5">
+					<input id="PremiseName" formControlName="PremiseName" maxlength="40" class="form-control" type="text">
+				</div>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{'Product Code' | translate }}</label>
+				<div class="col8 pr5">
+					<input id="ProductCode" formControlName="ProductCode" maxlength="8" class="form-control" type="text">
+				</div>
+				<div class="col16 pr5">
+					<input id="ProductDesc" formControlName="ProductDesc" maxlength="40" class="form-control" type="text">
+				</div>
+			</div>
+		</div>
+		<hr class="mt15 mb15">
+		<div class="row">
+			<div class="col-sm-12">
+				<icabs-refresh (click)="refresh()"></icabs-refresh>
+				<icabs-pagination #grdCustomerContactPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage"
+				 (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-12">
+				<icabs-grid #grdCustomerContactGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+				 (selectedRowInfo)="selectedDataOnDoubleClick($event)" (getCellData)="selectedDataOnCellFocus($event)" [validateProperties]="validateProperties"></icabs-grid>
+			</div>
+		</div>
+		<div class="row mt2">
+			<icabs-modal #errorModal="child"> </icabs-modal>
+			<icabs-modal #messageModal="child"> </icabs-modal>
+			<icabs-prompt-modal #promptModal="child"></icabs-prompt-modal>
+		</div>
+	</form>
+</div>

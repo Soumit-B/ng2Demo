@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-sm-12 page-title mt10">
+        <h1>
+            {{ 'PostcodeSearch' | translate }}
+        </h1>
+    </div>
+</div>
+<div class="row mt5">
+    <div class="col-sm-8">
+        <div class="col12 pr10">
+            <label class="col24" id="LabelSuburb">{{'Suburb' | translate }}</label>
+            <div class="col24">
+                <input type="text" id="ipTown" maxlength="30" class="Virtual form-control" [(ngModel)]="ipTown">
+            </div>
+        </div>
+        <div class="col6 pr10">
+            <label class="col24" id="LabelSuburb">{{'State' | translate }}</label>
+            <div class="col24">
+                <input type="text" id="ipState" maxlength="8" class="Key form-control" [(ngModel)]="ipState">
+            </div>
+        </div>
+        <div class="col6">
+            <label class="col24">{{'Postcode' | translate }}</label>
+            <div class="col24">
+                <input type="text" id="ipPostcode" maxlength="15" class="Key form-control" [(ngModel)]="ipPostCode">
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="mt15 mb15">
+<div class="row">
+    <div class="col-sm-12">
+        <icabs-refresh (onRefresh)="getRefreshData()"> </icabs-refresh>
+        <icabs-pagination #postCodeGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+    </div>
+</div>
+<div class="row mt10">
+    <div class="col-sm-12">
+        <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="riGridBodyOnClick($event)"></icabs-grid-advanced>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <input style="display:none" id="Businesscode" size="18" maxlength="15" class="Key form-control">
+        <input style="display:none" id="Mode" size="18" maxlength="15" class="Key form-control">
+    </div>
+</div>

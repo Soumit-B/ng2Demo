@@ -1,0 +1,101 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input eTypeCode (change)="onProductCodeChange()" id="ProductCode" class="form-control" formControlName="ProductCode" type="text"
+                            size="10" maxlength="6">
+                    </div>
+                    <div class="col16 pr5">
+                        <input eTypeText id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.productSearch.showCloseButton" [childConfigParams]="ellipsis.productSearch.childConfigParams"
+                            [modalConfig]="ellipsis.productSearch.modalConfig" [contentComponent]="ellipsis.productSearch.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived($event, 'Product')" [showHeader]="ellipsis.productSearch.showHeader"
+                            [disabled]='ellipsis.productSearch.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input eTypeCode (change)="onLanguageCodeChange()" id="LanguageCode" class="form-control" formControlName="LanguageCode"
+                            type="text" size="10" maxlength="3">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" type="text" size="40" maxlength="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipsis.languageSearch.showCloseButton" [childConfigParams]="ellipsis.languageSearch.childConfigParams"
+                            [modalConfig]="ellipsis.languageSearch.modalConfig" [contentComponent]="ellipsis.languageSearch.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived($event, 'Language')" [showHeader]="ellipsis.languageSearch.showHeader"
+                            [disabled]='ellipsis.languageSearch.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductLanguageDesc">{{ 'Translated Product Description' | translate}}<span class="mandatory" *ngIf="isProductLanguageDescRequired">*</span></label>
+                    <div class="col24">
+                        <input eTypeText id="ProductLanguageDesc" class="form-control" formControlName="ProductLanguageDesc" type="text" size="54"
+                            maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceTextMaterials">{{ 'Translated Invoice Text (Materials)' | translate}}</label>
+                    <div class="col24">
+                        <input eTypeText id="InvoiceTextMaterials" class="form-control" formControlName="InvoiceTextMaterials" type="text" size="54"
+                            maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceTextLabour">{{ 'Translated Invoice Text (Labour)' | translate}}</label>
+                    <div class="col24">
+                        <input eTypeText id="InvoiceTextLabour" class="form-control" formControlName="InvoiceTextLabour" type="text" size="54" maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceTextReplacement">{{ 'Translated Invoice Text (Replacement)' | translate}}</label>
+                    <div class="col24">
+                        <input eTypeText id="InvoiceTextReplacement" class="form-control" formControlName="InvoiceTextReplacement" type="text" size="54"
+                            maxlength="30">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" [disabled]="isBtnAddDisbled" (click)="selectAddMode()" class="btn btn-primary mr5" value="{{ 'Add' | translate }}">
+                <input type="button" [disabled]="isBtnSaveDisbled" (click)="confirmRecord('save')" class="btn btn-primary mr5" value="{{ 'Save' | translate }}">
+                <input type="button" [disabled]="isBtnCancelDisbled" (click)="resetPage()" class="btn btn-secondary mr5" value="{{ 'Cancel' | translate }}">
+                <input type="button" [disabled]="isBtnDeleteDisbled" (click)="confirmRecord('delete')" class="btn btn-additional" value="{{ 'Delete' | translate }}">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

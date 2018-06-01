@@ -1,0 +1,82 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Area Sequence By Postcode' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="9" maxlength="4">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="35" maxlength="35">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Show'|translate}}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" id="ContractTypeCode" formControlName="ContractTypeCode">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Show'|translate}}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" id="PortfolioStatusType" formControlName="PortfolioStatusType">
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="IncludeUnsequenced" formControlName="IncludeUnsequenced">
+                        <label for="IncludeUnsequenced">{{'Include 0 Sequence Numbers'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Sequence In Gaps Of'|translate}}</label>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="SequenceGap" formControlName="SequenceGap" size="3" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <input type="button" id="cmdResequenceNumbers" formControlname="cmdResequenceNumbers" class="btn btn-additional" value="{{'Resequence By Postcode'|translate}}">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

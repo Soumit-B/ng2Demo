@@ -1,0 +1,72 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="LostBusinessCode">{{ 'Lost Business' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="LostBusinessCode" size="2" maxlength="2" class="form-control" formControlName="LostBusinessCode" (change)="setLostBusinessCode()"
+                            eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LostBusinessDetailCode">{{ 'Lost Business Detail' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="LostBusinessDetailCode" size="2" maxlength="2" class="form-control" formControlName="LostBusinessDetailCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsLostBusinessDetailSearch" [contentComponent]="lostBusinessDetailSearch"
+                            [showHeader]="true" (ellipsisData)="setLostBusinessDetailCode($event)" [modalConfig]="modalConfig"
+                            [autoOpen]="isAutoOpen" [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LostBusinessDetailDesc">{{ 'Description' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input type="text" id="LostBusinessDetailDesc" size="40" maxlength="40" class="form-control" formControlName="LostBusinessDetailDesc"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <input type="checkbox" class="form-control" id="InvalidForNew" formControlName="InvalidForNew">
+                    <label for="InvalidForNew">{{ 'InActive' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <input type="checkbox" class="form-control" id="PassToTabletInd" formControlName="PassToTabletInd">
+                    <label for="PassToTabletInd">{{ 'Pass To Tablet' | translate }}</label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr10" value="{{ 'Save' | translate }}" (click)="saveLostBusinessDetail()" [disabled]="this['formMode']===this['c_s_MODE_SELECT']">
+                <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate }}" (click)="cancelLostBusinessDetail()"
+                    [disabled]="this['formMode']===this['c_s_MODE_SELECT']">
+                <input type="button" class="btn btn-additional" value="{{ 'Delete' | translate }}" (click)="promptModalForDeleteData()" *ngIf="this['formMode']===this['c_s_MODE_UPDATE']">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

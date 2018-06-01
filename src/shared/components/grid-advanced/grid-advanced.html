@@ -1,0 +1,44 @@
+<table class="gridtable table-bordered">
+    <thead *ngIf="headerArray.length > 0">
+        <tr>
+            <th colspan="100%" class="cursor-auto">
+                <span *ngIf="tableTitle" class="tabletitle text-center">{{tableTitle}} </span>
+                <span *ngIf="tableTitle && currentPage && totalPages > 0 && !bHidePageNumber"> - </span>
+                <span *ngIf="totalPages > 0 && !bHidePageNumber">Page ({{currentPage}} of {{totalPages}})</span>
+            </th>
+        </tr>
+        <tr *ngFor="let headerRows of headerArray; let rIndex = index">
+            <th *ngFor="let item of headerRows; let hIndex = index" class="text-center" [attr.name]="item.columnName" [attr.colspan]="item.colSpan"
+                [ngStyle]="
+                    (rIndex === headerArray.length - 1) ? (FixedWidth ? {'width': colArray[hIndex].columnWidth + '%'} : {'max-width': colArray[hIndex].columnWidth + '%'}) : null
+                    ">
+                <icabs-grid-cell [ParentHTML]="'Header'" [CellData]="headerRows[hIndex]" [ColumnInputID]="(rIndex === headerArray.length - 1) ? item.columnInputID: null"
+                    [ColumnName]="(rIndex === headerArray.length - 1) ?colArray[hIndex].columnName : null" [ColumnDescription]="(rIndex === headerArray.length - 1) ?colArray[hIndex].columnDescription: null "
+                    [ColumnOrderable]="(rIndex === headerArray.length - 1) ? colArray[hIndex].columnOrderable : null" [ColumnType]=" 'text' "></icabs-grid-cell>
+            </th>
+        </tr>
+    </thead>
+    <tbody *ngIf="bodyArray.length> 0">
+        <tr *ngFor="let bodyRows of bodyArray; let rIndex = index" (dblclick)="rowOnDoubleClick($event)" (click)="rowOnClick($event)">
+            <td *ngFor="let item of colArray; let cIndex = index" (mouseover)="rowOnHover($event)" (mouseout)="rowOnHoverLost($event)"
+                [id]="item.columnInputID" [attr.name]="item.columnName" [attr.nowrap]="item.noWrap ? 'nowrap' : null" [attr.rowID]="bodyRows[cIndex].rowID ? bodyRows[cIndex].rowID : null"
+                [attr.additionalProperty]="bodyRows[cIndex].additionalData ? bodyRows[cIndex].additionalData: null">
+
+                <icabs-grid-cell [ngClass]="FixedWidth ? 'no-wrap' : ''" #gridcell [id]="item.columnInputID" [attr.name]="item.columnName"
+                    [attr.rowID]="bodyRows[cIndex].rowID ? bodyRows[cIndex].rowID : null" [attr.additionalProperty]="bodyRows[cIndex].additionalData? bodyRows[cIndex].additionalData: null"
+                    [attr.driilDown]="bodyRows[cIndex].drillDown? bodyRows[cIndex].drillDown: null" [ParentHTML]="'Body'" [CellData]="bodyRows[cIndex]"
+                    [ColumnName]="item.columnName" [ColumnInputName]="item.columnInputName" [ColumnDescription]="item.columnDescription"
+                    [ColumnType]="item.columnType" [ColumnSize]="item.columnSize" [ColumnDrillDown]="item.columnDrillDown" [ColumnTabSupport]="item.columnTabSupport"
+                    [ColumnUpdateSupport]="item.columnUpdateSupport" [ColumnAlign]="item.columnAlign" [ColumnRequired]="item.columnRequired"
+                    [Dropdown]="item.dropdown ? item.dropdown :null" [RowIndex]="rIndex" [CellIndex]="cIndex" [Ellipsis]="item.ellipsis ? item.ellipsis :null"></icabs-grid-cell>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot *ngIf="footerArray.length > 0">
+        <tr *ngFor="let footerRows of footerArray; let rIndex = index">
+            <th colspan="100%" class="cursor-default">
+                <div class="text-center" [attr.title]="footerRows.toolTip" [innerHTML]="footerRows.text"></div>
+            </th>
+        </tr>
+    </tfoot>
+</table>

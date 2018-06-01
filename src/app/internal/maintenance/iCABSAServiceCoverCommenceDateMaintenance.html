@@ -1,0 +1,173 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Cover Commence Date Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <!-- Projects Row -->
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control padding-left-zero" type="text" [attr.maxlength]="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="contractDesc" formControlName="ContractName" class="form-control padding-zero" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams"
+                            [modalConfig]="modalConfig" [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="Status">{{ 'Status' | translate }}</label>
+                    <div class="col12">
+                        <input id="status" formControlName="Status" class="form-control padding-left-zero" type="text" [attr.maxlength]="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24 " for="PremiseNumber">{{ 'Premises Number' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control padding-left-zero" type="text" [attr.maxlength]="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control padding-zero" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="premisesSearchParams"
+                            [modalConfig]="modalConfig" [contentComponent]="premiseSearchComponent" (ellipsisData)="onPremiseDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isPremisesEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ProductCode">{{ 'Product Code' | translate }}<span class="mandatory">* </span>  </label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control padding-left-zero" type="text" [attr.maxlength]="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control padding-zero" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="isProductEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control padding-left-zero" type="text" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input id="AccountName" formControlName="AccountName" class="form-control padding-zero" type="text">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAddressLine1">{{ 'Account Address Line 1' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAddressLine1" class="form-control" formControlName="ContractAddressLine1" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAddressLine2">{{ 'Account Address Line 2' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAddressLine2" class="form-control" formControlName="ContractAddressLine2" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAddressLine3">{{ 'Account Address Line 3' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAddressLine3" class="form-control" formControlName="ContractAddressLine3" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAddressLine4" class="form-control" formControlName="ContractAddressLine4" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="ContractAddressLine5">{{ 'County' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAddressLine5" class="form-control" formControlName="ContractAddressLine5" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractPostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractPostcode" class="form-control" formControlName="ContractPostcode" [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractAnnualValue">{{ 'Value' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ContractAnnualValue" class="form-control" formControlName="ContractAnnualValue" [attr.maxlength]="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Commence Date' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col12">
+                        <icabs-datepicker #CommencePicker [dt]='commenceDate' [isRequired]="true" (selectedValue)="commenceDateSelectedValue($event)"
+                            id="ServiceCommenceDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Anniversary Date' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col12">
+                        <icabs-datepicker #annivDatePicker [dt]='anniversaryDate' [isRequired]="true" (selectedValue)="annivDateSelectedValue($event)"
+                            id="ServiceVisitAnnivDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr10" type="button" (click)="onSubmit( $event )" value="{{ 'Save' | translate }}">
+                    <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" (click)="oncancel($event)">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+    <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+        (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+        <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+        <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-sm-12 page-title mt10">
+        <h1>{{ 'Contact Type Search' | translate }}</h1>
+    </div>
+</div>
+<div class="row mt10">
+    <div class="col-sm-12">
+        <icabs-table #tierSearchTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+            [paginationTop]="false" [displayError]="false" (click)="refresh()"></icabs-table>
+    </div>
+</div>

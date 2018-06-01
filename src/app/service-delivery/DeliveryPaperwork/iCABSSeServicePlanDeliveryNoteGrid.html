@@ -1,0 +1,140 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Generate Service Listing/Receipts' | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input eTypeCode #BranchServiceAreaCode type="text" size="8" [attr.maxlength]="8" class="form-control" [icabsDirFocus]="setFocusOnBranchServiceAreaCode"
+                            formControlName="BranchServiceAreaCode" (change)="branchServiceAreaCode_onchange($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="35" [attr.maxlength]="35" class="form-control" formControlName="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.serviceArea.disabled" [autoOpen]="ellipsisConfig.serviceArea.autoOpen" [modalConfig]="ellipsisConfig.serviceArea.modalConfig"
+                            [showCloseButton]="ellipsisConfig.serviceArea.showCloseButton" [showHeader]="ellipsisConfig.serviceArea.showHeader"
+                            [childConfigParams]="ellipsisConfig.serviceArea.childConfigParams" [contentComponent]="ellipsisConfig.serviceArea.component"
+                            (ellipsisData)="serviceAreaSearch($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col11 pr5">
+                        <label class="col24">{{'Plan From' | translate}}</label>
+                        <icabs-datepicker id="ServicePStartDate" [dt]="this['pageParams']['startDate']" (selectedValue)="effectiveDate_onChange($event, 'ServicePStartDate')"></icabs-datepicker>
+                        <input type="hidden" size="10" [attr.maxlength]="10" class="form-control" formControlName="ServicePStartDate">
+                    </div>
+                    <div class="col11">
+                        <label class="col24">{{'Plan To' | translate}}</label>
+                        <icabs-datepicker id="ServicePEndDate" [dt]="this['pageParams']['endDate']" (selectedValue)="effectiveDate_onChange($event, 'ServicePEndDate')"></icabs-datepicker>
+                        <input type="hidden" size="10" [attr.maxlength]="10" class="form-control" formControlName="ServicePEndDate">
+                    </div>
+                    <!-- <div class="col2 pr5 mt15">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div> -->
+                </div>
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <label class="col24">{{'Week Number' | translate}}<span class="mandatory">*</span></label>
+                        <input type="text" size="2" [attr.maxlength]="2" class="form-control" formControlName="ServiceWeekNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Search' | translate}}</label>
+                    <div class="col16">
+                        <select class="form-control" formControlName="GeneratedTypeFilter">
+                            <option  value="0">{{'Show All' | translate}}</option>
+                            <option  value="1">{{'Show Generated' | translate}}</option>
+                            <option  value="2">{{'Show Ungenerated' | translate}}</option>
+                       </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Display' | translate}}</label>
+                    <div class="col12 pr5">
+                        <input eTypeInteger type="text" size="2" [attr.maxlength]="2" class="form-control" formControlName="GridPageSize">
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'Lines' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-9">
+                    <button [ngClass]="this['pageParams']['showGenerateSel']? '': 'hidden'" class="btn btn-additional" (click)="cmdGenerateSel_onclick()">{{'Generate Sel.' | translate}}</button>
+                    <button [ngClass]="this['pageParams']['showPrintSelected']? '': 'hidden'" class="btn btn-additional" (click)="cmdPrintSelected_onclick()">{{'Print Selected' | translate}}</button>
+                    <button [ngClass]="this['pageParams']['showRefreshGrid']? '': 'hidden'" class="btn btn-additional" (click)="cmdRefreshGrid_onclick()">{{'Refresh Grid' | translate}}</button>
+                    <button [ngClass]="this['pageParams']['showSelectAll']? '': 'hidden'" class="btn btn-additional" (click)="cmdSelectAll_onclick()">{{'Select All' | translate}}</button>
+                    <button [ngClass]="this['pageParams']['showSelectNone']? '': 'hidden'" class="btn btn-additional" (click)="cmdSelectNone_onclick()">{{'Select None' | translate}}</button>
+                </div>
+            </div>
+            <div class="row" [ngClass]="this['pageParams']['showDivGenerate']?'': 'hidden'">
+                <hr class="mt15 mb15">
+                <div class="hidden">
+                    <div class="col-sm-2">
+                        <input id="IncludeLocations" formControlName="IncludeLocations" type="checkbox">
+                        <label for="IncludeLocations">{{'Include Locations' | translate}}</label>
+                    </div>
+                    <div class="col-sm-1">
+                        <input id="NumberOfForms" class="form-control" formControlName="NumberOfForms" size="4" value="4">
+                    </div>
+                    <div class="col-sm-2 mt2">
+                        {{'Unplanned Visit Forms' | translate}}
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <button id="cmdReportGeneration" class="btn btn-primary" (click)="cmdReportGeneration_onclick()">{{'Submit Report Generation' | translate}}</button>
+                </div>
+            </div>
+            <div class="row hidden mt10">
+                <div id="showInformation" class="col-sm-6">
+                    <div class="message-box info-label"></div>
+                </div>
+            </div>
+            <div class="row mt10" [ngClass]="information2Display?'': 'hidden'">
+                <div id="showInformation2" class="col-sm-6">
+                    <div class="message-box info-label">{{ this.information2 }}</div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="riGrid_BodyOnDblClick($event)" (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"
+                        (bodyClick)="riGrid_BodyOnClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="hidden">
+                <input id="BranchServiceAreaCodeList" formControlName="BranchServiceAreaCodeList">
+                <input id="ServicePlanNumbersList" formControlName="ServicePlanNumbersList">
+                <input id="SelectAction" formControlName="SelectAction">
+                <input id="GridName" formControlName="GridName">
+                <input id="GridCacheTime" formControlName="GridCacheTime">
+                <input id="ReportJobNumber" formControlName="ReportJobNumber">
+                <input id="GenerateOption" formControlName="GenerateOption">
+                <input id="previousEndDate" formControlName="previousEndDate">
+                <input id="RunBatchProcess" formControlName="RunBatchProcess">
+            </div>
+        </form>
+    </section>
+    <footer class="screen-footer">
+    </footer>
+    <icabs-modal #errorModal [showHeader]=" 'true'"> </icabs-modal>
+    <icabs-prompt-modal #promptModal [showHeader]="true" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+    <icabs-spinner [isRunning]="this[ 'isRequesting']"></icabs-spinner>
+</section>

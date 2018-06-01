@@ -1,0 +1,884 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'WO Number' | translate }}</label>
+                    <div class="col8">
+                        <input id="WONumber" formControlName="WONumber" [attr.maxlength]="10" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="fieldVisibility['ContactTypeDetails']">
+                    <label class="col24">{{ 'Type' | translate }}</label>
+                    <div class="col24">
+                        <input id="ContactTypeDetailDesc" formControlName="ContactTypeDetailDesc" class="form-control" type="text" [attr.maxlength]="40"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div *ngIf="fieldVisibility['ContactTypeDetails']">
+                        <label class="col24" *ngIf="fieldVisibility['contactTypeDesc']">{{ 'Contact Type' | translate }}</label>
+                        <div class="col24" *ngIf="fieldVisibility['contactTypeDesc']">
+                            <input id="ContactTypeDesc" formControlName="ContactTypeDesc" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Assigned To' | translate }}
+                        <span *ngIf="fieldRequired['EmployeeCodeCreate'] === true" class="mandatory">* </span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCodeCreate" formControlName="EmployeeCodeCreate" class="form-control" type="text" (change)="employeeOnChange('EmployeeCodeCreate', 'EmployeeNameCreate')"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeNameCreate" formControlName="EmployeeNameCreate" class="form-control" type="text" [attr.maxlength]="6"
+                            eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCodeCreate']['inputParams']" [modalConfig]="modalConfig"
+                            [contentComponent]="ellipsis['employeeCodeCreate']['contentComponent']" (ellipsisData)="employeeCodeCreateOnDataRecieved($event)"
+                            [showHeader]="showHeader" [disabled]="ellipsis['employeeCodeCreate']['isEllipsisDisabled']"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'WO Type' | translate }}</label>
+                    <div class="col24">
+                        <select id="WOTypeCodeSelect" class="form-control" formControlName="WOTypeCodeSelect" (change)="woTypeCodeSelectOnChange()">
+                            <option *ngFor="let c of dropdownList['WOTypeCodeSelect']" [ngValue]="c.value">{{c.desc}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="fieldVisibility['EmployeeRedirect']">
+                    <label class="col24">{{ 'Redirect' | translate }}</label>
+                    <div class="col2 pr5">
+                        <input type="checkbox" id="RedirectInd" class="form-control" (change)="reDirectIndOnChange()">
+                        <label for="RedirectInd"></label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCodeRedirect" formControlName="EmployeeCodeRedirect" class="form-control" type="text" [attr.maxlength]="6"
+                            (change)="employeeOnChange('EmployeeCodeRedirect', 'EmployeeNameRedirect')" eTypeCode>
+                    </div>
+                    <div class="col12 pr5">
+                        <input id="EmployeeNameRedirect" formControlName="EmployeeNameRedirect" class="form-control" type="text" [attr.maxlength]="20"
+                            eTypeTextFree>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCodeRedirect']['inputParams']" [modalConfig]="modalConfig"
+                            [contentComponent]="ellipsis['employeeCodeRedirect']['contentComponent']" (ellipsisData)="employeeCodeRedirectOnDataRecieved($event)"
+                            [showHeader]="showHeader" [disabled]="ellipsis['employeeCodeRedirect']['isEllipsisDisabled']"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'Date' | translate }}
+                            <span *ngIf="fieldRequired['WODate'] === true" class="mandatory">* </span>
+                        </label>
+                        <div class="col24">
+                            <icabs-datepicker [isDirectiveBased]="false" id="WODate" formControlName="WODate" (onChange)="woDateOnChange($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'To' | translate }}
+                            <span *ngIf="fieldRequired['WOToDate'] === true" class="mandatory">* </span>
+                        </label>
+                        <div class="col24">
+                            <icabs-datepicker [isDirectiveBased]="false" id="WOToDate" formControlName="WOToDate" (onChange)="woToDateOnChange($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 pt20">
+                    <div class="col12">
+                        <input type="checkbox" id="AllDayInd" formControlName="AllDayInd" class="form-control" (change)="allDayIndOnChange()">
+                        <label for="AllDayInd">{{'All Day'|translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'Start Time' | translate }}
+                            <span *ngIf="fieldRequired['WOStartTime'] === true" class="mandatory">* </span>
+                        </label>
+                        <div class="col24">
+                            <input id="WOStartTime" formControlName="WOStartTime" class="form-control" [attr.maxlength]="5" type="text" (change)="woStartTimeOnChange()"
+                                eTypeTime>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'End Time' | translate }}
+                            <span *ngIf="fieldRequired['WOEndTime'] === true" class="mandatory">* </span>
+                        </label>
+                        <div class="col24">
+                            <input id="WOEndTime" formControlName="WOEndTime" class="form-control" [attr.maxlength]="5" type="text" eTypeTime>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30" id="tabCont">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs" #riTab>
+                        <li class="nav-item" id="grdAddress" *ngIf="uiDisplay.tab.tab1.visible" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab1.active}" (click)="renderTab(1, true)">
+                                <span>{{'Address / Contacts' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdInitial" *ngIf="uiDisplay.tab.tab2.visible" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active}" (click)="renderTab(2, true)">
+                                <span>{{'General Notes' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdHistory" *ngIf="uiDisplay.tab.tab3.visible" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active}" (click)="renderTab(3, true)">
+                                <span>{{'History' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdAttendees" *ngIf="uiDisplay.tab.tab4.visible" [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab4.active}" (click)="renderTab(4, true)">
+                                <span>{{'Additional Attendees' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="grdResult" *ngIf="uiDisplay.tab.tab5.visible" [ngClass]="{'active': uiDisplay.tab.tab5.active}">
+                            <a class="nav-link active" [ngClass]="{'active': uiDisplay.tab.tab5.active}" (click)="renderTab(5, true)">
+                                <span>{{'Result' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="grdAddressContent" *ngIf="uiDisplay.tab.tab1.visible" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                            <div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AccountNumber">{{ 'Account' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" [attr.maxlength]="8" eTypeCode>
+                                        </div>
+                                        <div class="col16">
+                                            <input id="AccountName" formControlName="AccountName" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContractNumber">{{ 'Contract' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" [attr.maxlength]="8" eTypeCode>
+                                        </div>
+                                        <div class="col16">
+                                            <input id="ContractName" formControlName="ContractName" class="form-control" type="text" [attr.maxlength]="35" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="PremiseNumber">{{ 'Premise' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" [attr.maxlength]="8" type="text" eTypeInteger>
+                                        </div>
+                                        <div class="col16">
+                                            <input id="PremiseName" formControlName="PremiseName" class="form-control" [attr.maxlength]="40" type="text" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProductCode">{{ 'Product' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="ProductCode" [attr.maxlength]="8" formControlName="ProductCode" class="form-control" type="text" eTypeCode>
+                                        </div>
+                                        <div class="col16">
+                                            <input id="ProductDesc" [attr.maxlength]="35" formControlName="ProductDesc" class="form-control" type="text" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProspectNumber">{{ 'Prospect' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input #ProspectNumber id="ProspectNumber" formControlName="ProspectNumber" class="form-control" [attr.maxlength]="8" type="text"
+                                                eTypeInteger (change)="prospectNumberOnChange($event)">
+                                        </div>
+                                        <div class="col16">
+                                            <input id="ProspectName" formControlName="ProspectName" class="form-control" [attr.maxlength]="40" type="text" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ProspectTypeDesc">{{ 'Prospect Type' | translate }}</label>
+                                        <div class="col24 pr5">
+                                            <input id="ProspectTypeDesc" formControlName="ProspectTypeDesc" class="form-control" [attr.maxlength]="40" type="text" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressCode">{{ 'Address Type' | translate }}</label>
+                                        <div class="col24">
+                                            <select id="AddressCodeSelect" class="form-control" formControlName="AddressCodeSelect" (change)="addressCodeSelectOnChange();">
+                                                <option *ngFor="let c of dropdownList['AddressCodeSelect']" [ngValue]="c.value">{{c.desc}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressName">{{ 'Name' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressName" formControlName="AddressName" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressContactName">{{ 'Contact Name' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressContactName" formControlName="AddressContactName" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressLine1">{{ 'Address Line 1' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressLine1" formControlName="AddressLine1" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressContactPosn">{{ 'Position' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressContactPosn" formControlName="AddressContactPosn" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressLine2">{{ 'Address Line 2' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressLine2" formControlName="AddressLine2" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['AddressLine3']">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressLine3">{{ 'Address Line 3' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressLine3" formControlName="AddressLine3" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressLine4">{{ 'Town' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressLine4" formControlName="AddressLine4" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressContactPhone">{{ 'Telephone' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressContactPhone" formControlName="AddressContactPhone" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressLine5">{{ 'County' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressLine5" formControlName="AddressLine5" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressContactMobile">{{ 'Mobile' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressContactMobile" formControlName="AddressContactMobile" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressPostcode">{{ 'Postcode' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressPostcode" formControlName="AddressPostcode" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="AddressContactEmail">{{ 'Email' | translate }}</label>
+                                        <div class="col24">
+                                            <input id="AddressContactEmail" formControlName="AddressContactEmail" class="form-control" type="text" [attr.maxlength]="40">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--General notes tab-->
+                        <div class="tab-pane" id="grdInitialContent" *ngIf="uiDisplay.tab.tab2.visible" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                            <div>
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{ 'Notes' | translate }}</label>
+                                        <div class="col24">
+                                            <textarea id="WOInitialNotes" formControlName="WOInitialNotes" class="form-control" eTypeTextFree></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['WOInitialLine1']">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="WOInitialEmployeeCode" formControlName="WOInitialEmployeeCode" [attr.maxlength]="8" class="form-control" type="text"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="WOInitialEmployeeName" formControlName="WOInitialEmployeeName" [attr.maxlength]="40" class="form-control" type="text"
+                                                eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['WOInitialLine2']">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Create Date/Time' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-datepicker [isDirectiveBased]="false" id="WOInitialCreateDate" formControlName="WOInitialCreateDate"></icabs-datepicker>
+                                        </div>
+                                        <div class="col12">
+                                            <input id="WOInitialCreateTime" formControlName="WOInitialCreateTime" class="form-control" type="text" [attr.maxlength]="5"
+                                                eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['WOInitialLine3']">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Initial WO Date' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-datepicker [isDirectiveBased]="false" id="WOInitialDate" formControlName="WOInitialDate"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['WOInitialLine4']">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Initial Start/End Time' | translate }}</label>
+                                        <div class="col12 pr5">
+                                            <input id="WOInitialStartTime" formControlName="WOInitialStartTime" class="form-control" [attr.maxlength]="5" type="text"
+                                                eTypeTime>
+                                        </div>
+                                        <div class="col12">
+                                            <input id="WOInitialEndTime" formControlName="WOInitialEndTime" class="form-control" type="text" [attr.maxlength]="5" eTypeTime>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--History tab-->
+                        <div class="tab-pane" id="grdHistoryContent" [ngClass]="{'active': uiDisplay.tab.tab3.active, 'hidden': !uiDisplay.tab.tab3.visible}">
+                            <div>
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <icabs-refresh (click)="gridRefresh()"></icabs-refresh>
+                                        <icabs-pagination #gridPagination [ngClass]="isPaginationHidden ? 'hidden' : ''" [totalItems]="gridProperties['totalRecords']"
+                                            [itemsPerPage]="gridProperties['itemsPerPage']" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="gridBodyOnClick($event)" (bodyDblClick)="gridBodyOnDblClick($event)"
+                                            (onSuccess)="getGridInfo()"></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Additional Attendees tab-->
+                        <div class="tab-pane" id="grdAttendeesContent" *ngIf="uiDisplay.tab.tab4.visible" [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                            <div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 1' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode01" formControlName="EmployeeCode01" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode01', 'EmployeeName01')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName01" formControlName="EmployeeName01" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode01']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode01']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode01', 'EmployeeName01')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode01']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail01" formControlName="CmdCheckAvail01" formControlName="CmdCheckAvail01" type="button" class="btn btn-primary"
+                                            value="{{'Availability'|translate}}" (click)="cmdCheckAvail01OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 2' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode02" formControlName="EmployeeCode02" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode02', 'EmployeeName02')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName02" formControlName="EmployeeName02" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode02']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode02']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode02', 'EmployeeName02')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode02']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail02" formControlName="CmdCheckAvail02" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail02OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 3' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode03" formControlName="EmployeeCode03" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode03', 'EmployeeName03')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName03" formControlName="EmployeeName03" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode03']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode03']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode03', 'EmployeeName03')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode03']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail03" formControlName="CmdCheckAvail03" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail03OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 4' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode04" formControlName="EmployeeCode04" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode04', 'EmployeeName04')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName04" formControlName="EmployeeName04" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode04']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode04']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode04', 'EmployeeName04')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode04']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail04" formControlName="CmdCheckAvail04" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail04OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 5' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode05" formControlName="EmployeeCode05" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode05', 'EmployeeName05')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName05" formControlName="EmployeeName05" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode05']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode05']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode05', 'EmployeeName05')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode05']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail05" formControlName="CmdCheckAvail05" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail05OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 6' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode06" formControlName="EmployeeCode06" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode06', 'EmployeeName06')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName06" formControlName="EmployeeName06" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode06']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode06']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode06', 'EmployeeName06')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode06']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail06" formControlName="CmdCheckAvail06" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail06OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 7' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode07" formControlName="EmployeeCode07" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode07', 'EmployeeName07')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName07" formControlName="EmployeeName07" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode07']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode07']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode07', 'EmployeeName07')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode07']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail07" formControlName="CmdCheckAvail07" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail07OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 8' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode08" formControlName="EmployeeCode08" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode08', 'EmployeeName08')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName08" formControlName="EmployeeName08" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode08']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode08']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode08', 'EmployeeName08')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode08']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail08" formControlName="CmdCheckAvail08" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail08OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 9' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode09" formControlName="EmployeeCode09" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode09', 'EmployeeName09')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName09" formControlName="EmployeeName09" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode09']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode09']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode09', 'EmployeeName09')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode09']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail09" formControlName="CmdCheckAvail09" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail09OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee 10' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode10" formControlName="EmployeeCode10" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode10', 'EmployeeName10')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName10" formControlName="EmployeeName10" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode10']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode10']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode10', 'EmployeeName10')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode10']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20">
+                                        <input id="CmdCheckAvail10" formControlName="CmdCheckAvail10" type="button" class="btn btn-primary" value="{{'Availability'|translate}}"
+                                            (click)="cmdCheckAvail10OnClick()">
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <input id="CmdClearAttend" formControlName="CmdClearAttend" type="button" class="btn btn-primary" value="{{'Clear All Attendees'|translate}}"
+                                            (click)="cmdClearAttendOnClick()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Result tab-->
+                        <div class="tab-pane" id="grdResultContent" *ngIf="uiDisplay.tab.tab5.visible" [ngClass]="{'active': uiDisplay.tab.tab5.active}">
+                            <div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactName">{{ 'Contact Name' | translate }}
+                                            <span *ngIf="fieldRequired['ContactName'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24">
+                                            <input #ContactName id="ContactName" formControlName="ContactName" class="form-control" type="text" [attr.maxlength]="40"
+                                                eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactPosition">{{ 'Contact Position' | translate }}
+                                            <span *ngIf="fieldRequired['ContactPosition'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24">
+                                            <input id="ContactPosition" formControlName="ContactPosition" class="form-control" type="text" [attr.maxlength]="40" eTypeTextFree>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactTelephone">{{ 'Contact Telephone' | translate }}
+                                            <span *ngIf="fieldRequired['ContactTelephone'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24">
+                                            <input id="ContactTelephone" formControlName="ContactTelephone" class="form-control" type="text" [attr.maxlength]="20" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactMobile">{{ 'Contact Mobile' | translate }}
+                                            <span *ngIf="fieldRequired['ContactMobile'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24">
+                                            <input id="ContactMobile" formControlName="ContactMobile" class="form-control" type="text" [attr.maxlength]="20" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactEmail">{{ 'Contact Email' | translate }}
+                                            <span *ngIf="fieldRequired['ContactEmail'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24">
+                                            <input id="ContactEmail" formControlName="ContactEmail" class="form-control" [attr.maxlength]="40" type="text" eTypeTextFree>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 pt20" *ngIf="fieldVisibility['QuotedInd']">
+                                        <input type="checkbox" id="QuotedInd" class="form-control" (change)="quotedIndOnChange()">
+                                        <label for="QuotedInd">{{ 'Quoted' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="WOStatusCodeSelect">{{ 'Result' | translate }}</label>
+                                        <div class="col24">
+                                            <select id="WOStatusCodeSelect" class="form-control" formControlName="WOStatusCodeSelect" (change)="woStatusCodeSelectOnChange()">
+                                                <option *ngFor="let c of dropdownList['WOStatusCodeSelect']" [ngValue]="c.value">{{c.desc}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-4" *ngIf="fieldVisibility['spanSurveyComplete']">
+                                        <input type="checkbox" id="SurveyCompleteInd" formControlName="SurveyCompleteInd" class="form-control">
+                                        <label for="SurveyCompleteInd">{{ 'Survey Complete' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4" *ngIf="fieldVisibility['ToWOTypeCodeSelect']">
+                                        <label class="col24" for="ToWOTypeCodeSelect">{{ 'To WO Type Code' | translate }}</label>
+                                        <div class="col24">
+                                            <select id="ToWOTypeCodeSelect" class="form-control" formControlName="ToWOTypeCodeSelect">
+                                                <option *ngFor="let c of dropdownList['ToWOTypeCodeSelect']" [ngValue]="c.value">{{c.desc}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactMediumCodeSelect">{{ 'Contact Medium' | translate }}</label>
+                                        <div class="col24">
+                                            <select id="ContactMediumCodeSelect" class="form-control" formControlName="ContactMediumCodeSelect">
+                                                <option *ngFor="let c of dropdownList['ContactMediumCodeSelect']" [ngValue]="c.value">{{c.desc}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{ 'Notes' | translate }}</label>
+                                        <div class="col24">
+                                            <textarea id="WOResultNotes" formControlName="WOResultNotes" class="form-control" eTypeTextFree></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['ResultEmployeeDetails']">
+                                    <div class="col-sm-4">
+                                        <label class="col24">{{ 'Employee' | translate }}
+                                            <span *ngIf="fieldRequired['EmployeeCode'] === true" class="mandatory">* </span>
+                                        </label>
+                                        <div class="col8 pr5">
+                                            <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" [attr.maxlength]="6" (change)="employeeOnChange('EmployeeCode', 'EmployeeName')"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="EmployeeName" formControlName="EmployeeName" class="form-control" type="text" [attr.maxlength]="30" eTypeTextFree>
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['employeeCode']['inputParams']" [modalConfig]="modalConfig"
+                                                [contentComponent]="ellipsis['employeeCode']['contentComponent']" (ellipsisData)="employeeOnDataRecieved($event, 'EmployeeCode', 'EmployeeName')"
+                                                [showHeader]="showHeader" [disabled]="ellipsis['employeeCode']['isEllipsisDisabled']"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="fieldVisibility['ReassignEmployee']">
+                                        <div class="col-sm-2 pt20">
+                                            <input id="CmdReassignTo" formControlName="CmdReassignTo" type="button" class="btn btn-primary" value="{{'Reassign To'|translate}}"
+                                                (click)="cmdReassignToOnClick()">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label class="col24">{{ 'Reassign To' | translate }}</label>
+                                            <div class="col8 pr5">
+                                                <input id="ReassignEmployeeCode" formControlName="ReassignEmployeeCode" class="form-control" [attr.maxlength]="6" type="text"
+                                                    (change)="employeeOnChange('ReassignEmployeeCode', 'ReassignEmployeeName')"
+                                                    eTypeTextFree>
+                                            </div>
+                                            <div class="col14 pr5">
+                                                <input id="ReassignEmployeeName" formControlName="ReassignEmployeeName" class="form-control" [attr.maxlength]="30" type="text"
+                                                    eTypeTextFree>
+                                            </div>
+                                            <div class="col2">
+                                                <icabs-ellipsis [autoOpen]='false' [childConfigParams]="ellipsis['reassignEmployeeCode']['inputParams']" [modalConfig]="modalConfig"
+                                                    [contentComponent]="ellipsis['reassignEmployeeCode']['contentComponent']"
+                                                    (ellipsisData)="reassignEmployeeOnDataRecieved($event)" [showHeader]="showHeader"
+                                                    [disabled]="ellipsis['reassignEmployeeCode']['isEllipsisDisabled']"></icabs-ellipsis>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="fieldVisibility['ResultAppointmentDetails']">
+                                    <div class="col-sm-5">
+                                        <div class="col2 pr5">
+                                            <label class="col24"></label>
+                                            <input type="checkbox" id="WOResultCreateAppt" formControlName="WOResultCreateAppt" class="form-control" (change)="woResultCreateApptOnChange()">
+                                            <label for="WOResultCreateAppt"></label>
+                                        </div>
+                                        <div class="col12 pr10">
+                                            <label for="WOResultDate" class="col24">{{ pageParams['spanWOResultDate'] }}</label>
+                                            <icabs-datepicker [isDirectiveBased]="false" id="WOResultDate" formControlName="WOResultDate"></icabs-datepicker>
+                                        </div>
+                                        <div class="col10">
+                                            <label class="col24"></label>
+                                            <input type="checkbox" id="WOResultAllDayInd" formControlName="WOResultAllDayInd" class="form-control">
+                                            <label for="WOResultAllDayInd">{{ 'All Day' | translate }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="col12 pr5">
+                                            <label class="col24">{{ 'Start Time' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="WOResultStartTime" formControlName="WOResultStartTime" class="form-control" [attr.maxlength]="5" type="text" eTypeTime>
+                                            </div>
+                                        </div>
+                                        <div class="col12">
+                                            <label class="col24">{{ 'End Time' | translate }}</label>
+                                            <div class="col24">
+                                                <input id="WOResultEndTime" formControlName="WOResultEndTime" class="form-control" [attr.maxlength]="5" type="text" eTypeTime>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 pt20">
+                                        <input id="CmdCheckResultAvail" formControlName="CmdCheckResultAvail" type="button" class="btn btn-primary" (click)="cmdCheckResultAvailOnClick()"
+                                            value="{{'Availability'|translate}}">
+                                    </div>
+                                </div>
+                                <div class="row mt10" *ngIf="fieldVisibility['QuoteNumberHeadings']">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col24">{{ 'Contract Quotes' | translate }}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col24">{{ 'Job Quotes' | translate }}</label>
+                                    </div>
+                                    <div class="col-sm-2" *ngIf="fieldVisibility['ProductSaleHeading']">
+                                        <label class="col24">{{ 'Product Sale Quotes' | translate }}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label class="col24">{{ 'Total Quotes' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt10" *ngIf="fieldVisibility['QuoteNumberDetails']">
+                                    <div class="col-sm-2">
+                                        <label class="col24">{{ 'Number Of Quotes' | translate }}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input #EstimatedContractQuotes id="EstimatedContractQuotes" formControlName="EstimatedContractQuotes" class="form-control"
+                                            type="text" eTypeInteger (change)="estimatedContractQuotesOnChange()">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EstimatedJobQuotes" formControlName="EstimatedJobQuotes" class="form-control" type="text" eTypeInteger (change)="estimatedJobQuotesOnChange()">
+                                    </div>
+                                    <div class="col-sm-2" *ngIf="fieldVisibility['EstimatedProductSaleQuotes']">
+                                        <input id="EstimatedProductSaleQuotes" formControlName="EstimatedProductSaleQuotes" class="form-control" type="text" eTypeInteger
+                                            (change)="estimatedProductSaleQuotesOnChange()">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EstimatedTotalQuotes" formControlName="EstimatedTotalQuotes" class="form-control" type="text" eTypeInteger>
+                                    </div>
+                                </div>
+                                <div class="row mt10" *ngIf="fieldVisibility['QuoteValueDetails']">
+                                    <div class="col-sm-2">
+                                        <label class="col24">{{ 'Quote Value' | translate }}</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EstimatedContractValue" formControlName="EstimatedContractValue" class="form-control" type="text" eTypeDecimal2
+                                            (change)="estimatedContractValueOnChange()">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EstimatedJobValue" formControlName="EstimatedJobValue" class="form-control" type="text" eTypeDecimal2 (change)="estimatedJobValueOnChange()">
+                                    </div>
+                                    <div class="col-sm-2" *ngIf="fieldVisibility['EstimatedProductSaleValue']">
+                                        <input id="EstimatedProductSaleValue" formControlName="EstimatedProductSaleValue" class="form-control" type="text" eTypeDecimal2
+                                            (change)="estimatedProductSaleValueOnChange()">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input id="EstimatedTotalValue" formControlName="EstimatedTotalValue" class="form-control" type="text" eTypeDecimal2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" *ngIf="fieldVisibility['save']" class="btn btn-primary mr10" value="{{'Save'|translate}}" (click)="saveOnClick()"
+                        (keyup)="saveOnKeyUp($event)">
+                    <input type="button" *ngIf="fieldVisibility['cancel']" class="btn btn-secondary mr10" value="{{'Cancel'|translate}}" (click)="cancelOnClick()">
+                    <input type="button" *ngIf="fieldVisibility['delete']" class="btn btn-secondary mr10" value="{{'Delete'|translate}}" (click)="deleteOnClick()">
+                    <input type="button" *ngIf="fieldVisibility['BtnProceedTask']" class="btn btn-primary" value="{{'Perform Required Action'|translate}}"
+                        (click)="btnProceedTaskOnClick()">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select class="form-control" formControlName="Menu" (change)="menuOnChange($event.target.value)">
+                            <optgroup *ngFor="let item of menuList" label="{{item.title | translate}}">
+                                <option *ngFor="let child of item.list" [ngValue]="child.value" [selected]="child.value == 'options'">
+                                    {{ child.text | translate }}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

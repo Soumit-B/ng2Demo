@@ -1,0 +1,277 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{contractTypeTexts.title | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{contractTypeTexts.label | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="9" [attr.maxlength]="8" formControlName="ContractNumber" class="form-control" (change)="onContractNumberChange($event);"
+                            icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" size="40" [attr.maxlength]="40" formControlName="ContractName" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpen" [showCloseButton]="true" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig"
+                            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Status' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="Status" size="20" [attr.maxlength]="20" formControlName="Status" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" size="9" formControlName="AccountNumber" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="AccountName" size="40" [attr.maxlength]="40" formControlName="AccountName" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" id="grdContractMaintenance" [ngClass]="{'active': tabs['tab0'].active }">
+                            <a class="nav-link" (click)="onTabClick(0)">
+                                <span>{{'General' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdServiceCovers" [ngClass]="{'active': tabs['tab1'].active }">
+                            <a class="nav-link" (click)="onTabClick(1)">
+                                <span>{{'Service Covers' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!--TODO: Add tab-content class-->
+                        <div class="tab-pane" [ngClass]="{'active': tabs['tab0'].active }">
+                            <div id="grdContractMaintenance">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Account Address Line 1' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAddressLine1" size="37" [attr.maxlength]="40" formControlName="ContractAddressLine1" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Negotiating Branch' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="NegBranchNumber" size="3" [attr.maxlength]="5" formControlName="NegBranchNumber" class="form-control" eTypeInteger>
+                                        </div>
+                                        <div class="col16">
+                                            <input type="text" id="BranchName" size="15" [attr.maxlength]="40" formControlName="BranchName" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Account Address Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAddressLine2" size="37" [attr.maxlength]="40" formControlName="ContractAddressLine2" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Invoice Frequency' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="InvoiceFrequencyCode" [attr.maxlength]="2" size="2" formControlName="InvoiceFrequencyCode" class="form-control"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Account Address Line 3' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAddressLine3" size="37" [attr.maxlength]="40" formControlName="ContractAddressLine3" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Invoice Anniversary Date' | translate}}</label>
+                                        <div class="col12">
+                                            <input type="text" id="InvoiceAnnivDate" [attr.maxlength]="10" size="10" formControlName="InvoiceAnnivDate" class="form-control"
+                                                eTypeDate>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAddressLine4" size="37" [attr.maxlength]="40" formControlName="ContractAddressLine4" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'County' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAddressLine5" size="37" [attr.maxlength]="40" formControlName="ContractAddressLine5" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="showValueControl ? '': 'hidden'">
+                                        <label class="col24">{{'Value' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractAnnualValue" size="13" [attr.maxlength]="13" formControlName="ContractAnnualValue" class="form-control"
+                                                eTypeCurrency>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractPostcode" size="15" [attr.maxlength]="15" formControlName="ContractPostcode" class="form-control"
+                                                eTypeText>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Commence Date' | translate}}</label>
+                                        <div class="col12">
+                                            <input type="text" id="ContractCommenceDate" size="10" [attr.maxlength]="10" formControlName="ContractCommenceDate" class="form-control"
+                                                eTypeDate>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" [ngClass]="contractDurationCode ? '': 'hidden'">
+                                        <label class="col24">{{'Old Duration' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ContractDurationCode" size="2" [attr.maxlength]="2" formControlName="ContractDurationCode" class="form-control"
+                                                eTypeInteger>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" [ngClass]="contractDurationCode ? '': 'hidden'">
+                                        <label class="col24">{{'Old Expiry Date' | translate}}</label>
+                                        <div class="col12">
+                                            <input type="text" id="ContractExpiryDate" size="10" [attr.maxlength]="10" formControlName="ContractExpiryDate" class="form-control"
+                                                eTypeDate>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <input type="checkbox" id="ContinuousInd" size="2" [attr.maxlength]="2" formControlName="ContinuousInd" class="form-control" (change)="onContinuousContractChange()">
+                                        <label for="ContinuousInd">{{'Continuous Contract' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2" [ngClass]="isContinuousContract ? '': 'hidden'">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'New Duration' | translate}}</label>
+                                        <div class="col12">
+                                            <icabs-contractduration #contractDurationDropDown [inputParams]="inputParamsContractDuration" (receivedcontractDuration)="onReceivedContractDuration($event)"
+                                                [active]="contractDurationDefault"></icabs-contractduration>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" [ngClass]="isContinuousContract ? '': 'hidden'">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Effective Date' | translate}}</label>
+                                        <div class="col12">
+                                            <icabs-datepicker #effectiveDatePicker [(dt)]="effectiveDate" (selectedValue)="onServiceDateSelect($event)"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" [ngClass]="isContinuousContract ? '': 'hidden'">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'New Expiry Date' | translate}}</label>
+                                        <div class="col12">
+                                            <input type="text" id="NewContractExpiryDate" size="30" [attr.maxlength]="30" formControlName="NewContractExpiryDate" class="form-control"
+                                                eTypeDate>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" [ngClass]="isContinuousContract && this.recordRenewalSalesStats ? '': 'hidden'">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Commission Employee' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="ContractSalesEmployee" size="6" [attr.maxlength]="10" formControlName="ContractSalesEmployee" class="form-control"
+                                                eTypeCode>
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="SalesEmployeeSurname" size="30" [attr.maxlength]="30" formControlName="SalesEmployeeSurname" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="employeeSearchParams" [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent"
+                                                (ellipsisData)="onEmployeeDataReceived($event)" [showHeader]="true"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" [ngClass]="{'active': tabs['tab1'].active }">
+                            <div id="grdContractMaintenance">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <icabs-refresh (click)="refresh()"></icabs-refresh>
+                                        <icabs-pagination #invoicePrintLinePagination [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                                            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid #contractRenewalGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                                            (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridDoubleClick($event)" (sortInfo)="sortGrid($event)"
+                                            [sortIndex]="gridSortHeaders" (getCellDataonBlur)="onCellClickBlur($event)" [validateProperties]="validateProperties"></icabs-grid>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3 pull-right text-right">
+                                        <input type="button" id="cmdGenerate" class="btn btn-primary" value="{{'Generate Contract Renewal Letter' | translate}}"
+                                            [disabled]="!gridParams.totalRecords" (click)="onGenerateLetterClick()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="{{'Save' | translate}}" (keyup)="onSaveFocus($event)" (click)="validateSave()"
+                    [disabled]="!dataSelected">
+                <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}" (click)="clearUpdates()" [disabled]="!dataSelected">
+            </div>
+            <div class="col-sm-3 pull-right">
+                <select id="menu" class="form-control" (change)="onMenuChange($event)" [disabled]="menuDisabled">
+                        <option [selected]="menuValue === ''" value="">{{'Options' | translate}}</option>
+                        <option value="Contract">{{'Contract' | translate}}</option>
+                        <option value="Premises">{{'Premises' | translate}}</option>
+                        <option value="ServiceCover">{{'Service Cover' | translate}}</option>
+                </select>
+            </div>
+        </div>
+    </footer>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onMessageClose()"></icabs-modal>
+    <icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showMessageHeader" [optValueYesorNo]="promptOptionYesNo"
+        [title]="promptConfirmTitle" [content]="promptConfirmContent" (saveEmit)="promptModalClose($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent (cancelRouting)="onRouteCancel()"></icabs-routeaway>
+</section>

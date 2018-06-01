@@ -1,0 +1,151 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Area Detail' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="BranchServiceAreaCode" id="BranchServiceAreaCode" size="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" formControlName="EmployeeSurname" id="EmployeeSurname" size="25">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractTypeCode">{{ 'Show' | translate}}</label>
+                    <div class="col16">
+                        <select id="ContractTypeCode" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremisePostcode">{{ 'Post Code' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="PremisePostcode" id="PremisePostcode" size="8">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="PortfolioStatusType">{{ 'Show' | translate}}</label>
+                    <div class="col16">
+                        <select id="PortfolioStatusType" class="form-control" formControlName="PortfolioStatusType">
+                           <option value="All">{{ 'All' | translate}}</option>
+                           <option value="Current" selected>{{ 'Current Portfolio' | translate}}</option>
+                           <option value="NonCurrent">{{ 'Non Current Portfolio' | translate}}</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseTown">{{ 'Town' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="PremiseTown" id="PremiseTown" size="10">
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col24" for="EntitlementProd">{{ 'Entitlement Product' | translate}}</label>
+                    <div class="col16">
+                        <select id="EntitlementProd" class="form-control" formControlName="EntitlementProd">
+                           <option value="Include">{{ 'Include' | translate}}</option>
+                           <option value="Exclude" selected>{{ 'Exclude' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="SeqNumberFrom">{{ 'Position On Sequence Number' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="SeqNumberFrom" id="SeqNumberFrom" size="10">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24 mt20">
+                        <input type="checkbox" class="form-control" formControlName="DisplayErrors" id="DisplayErrors">
+                        <label class="col24" for="DisplayErrors">{{ 'Display Errors Only' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-5 mt20">
+                    <input type="button" class="btn btn-primary mr10" value="Export Changes">
+                    <input type="button" class="btn btn-primary mr10" value="Import Changes">
+                    <input type="button" class="btn btn-primary mr10" value="Apply Changes">
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24 ">{{ 'Effective Date' | translate}}</label>
+                    <div class="col24">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-5 mt20">
+                    <label class="message-box info-label hidden" id="tdSaveRequired">{{ 'Changes Require Confirming' | translate}}</label>
+                    <label class="message-box warning hidden" id="tdErrors">{{ 'Errors Require Resolving' | translate}}</label>
+                    <label class="message-box info-success" id="tdNoChanges">{{ 'No Changes Found' | translate}}</label>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15 ">
+        <div class="row mt10 ">
+            <div class="col-sm-6 ">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10 ">
+            <div class="col-sm-12 ">
+                <icabs-grid></icabs-grid>
+            </div>
+        </div>
+        <footer class="screen-footer ">
+            <div class="row mt5 ">
+                <div class="col-sm-9 ">
+                    <div class="col3 pr5 ">
+                        <label class="col24" for="TotalPremises">{{ 'Total Premises' | translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " id="TotalPremises " size="10 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <label class="col24" for="TotalExchanges">{{ 'Annual Units' | translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " id="TotalExchanges " size="10 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <label class="col24" for="TotalHours">{{ 'Annual Hours' | translate}}</label>
+                        <div class="col24 ">
+                            <input type="text " class="form-control " id="TotalHours " size="10 ">
+                        </div>
+                    </div>
+                    <div class="col3 pr5 ">
+                        <label class="col24 ">{{ 'W.E.D.' | translate}}</label>
+                        <div class="col24" for="TotalWEDs">
+                            <input type="text " class="form-control " id="TotalWEDs " size="10 ">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20 pull-right ">
+                    <div class="col24 ">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

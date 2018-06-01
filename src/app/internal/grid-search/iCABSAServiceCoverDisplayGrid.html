@@ -1,0 +1,119 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>{{'Service Cover Display Maintenance' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-4">
+                <label class="col24">{{'Contract' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="ContractNumber" size="9" [attr.maxlength]="8" class="form-control" formControlName="ContractNumber" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" id="ContractName" size="30" [attr.maxlength]="40" class="form-control" formControlName="ContractName" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <select id="menu" class="col24 form-control mt20" (change)="selectedStatusDefault($event.target.value)">
+                    <option value="All">{{'All' | translate}}</option>
+                    <option selected value="Current">{{'Current' | translate}}</option>
+                    <option value="PendingInstalls">{{'Pending Installs ' | translate}}</option>
+                    <option value="PendingRemovals">{{'Pending Removals ' | translate}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2" *ngIf="trExpectedTotals===true">
+                <label class="col24">{{'Expected Total Displays' |translate}}</label>
+                <div class="col24">
+                    <input type="text" id="ExpectedTotalQty" size="4" class="form-control" formControlName="ExpectedTotalQty" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-2" *ngIf="trExpectedTotals===true">
+                <label class="col24">{{'Value' | translate}}</label>
+                <div class="col24">
+                    <input type="text" id="ExpectedTotalValue" size="10" class="form-control" formControlName="ExpectedTotalValue" eTypeCurrency>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Premises' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="PremiseNumber" size="9" [attr.maxlength]="7" class="form-control" formControlName="PremiseNumber" eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input type="text" id="PremiseName" size="30" [attr.maxlength]="40" class="form-control" formControlName="PremiseName" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="col24 mt20">
+                    <input type="button" class="btn btn-primary" id="btnMassValue" value="{{'Value Mass Maintenance' | translate}}" *ngIf="btnMassValue===true"
+                        (click)="btnMassValue_onClick()">
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="col24">{{'Total Displays' | translate}}</label>
+                <div class="col24">
+                    <input type="text" id="TotalQty" size="4" class="form-control" formControlName="TotalQty" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="col24">{{'Value' | translate}}</label>
+                <div class="col24">
+                    <input type="text" id="TotalValue" size="10" class="form-control" formControlName="TotalValue" eTypeCurrency>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <label class="col24">{{'W.E.D' | translate}}</label>
+                <div class="col24">
+                    <input type="text" id="TotalWEDValue" size="4" class="form-control" formControlName="TotalWEDValue" eTypeDecimal1>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24">{{'Product' | translate}}</label>
+                <div class="col8 pr5">
+                    <input type="text" id="ProductCode" size="9" [attr.maxlength]="6" class="form-control" formControlName="ProductCode" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input type="text" id="ProductDesc" size="30" [attr.maxlength]="40" class="form-control" formControlName="ProductDesc" eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="col24 mt20 pull-right text-right">
+                    <input type="button" class="btn btn-primary mr10" id="btnAddDisplay" value="{{ 'Add Display' | translate}}" *ngIf="trAddDisplay===true"
+                        (click)="btnAddDisplay_onClick()">
+                        <input type="button" class="btn btn-primary mr10" id="btnMatchDisplayValues" value="{{ 'Match Display Values' | translate}}"
+                            *ngIf="trMatchDisplayValues===true" (click)="btnMatchDisplayValues_onClick()">
+                            <input type="button" class="btn btn-primary mr10" id="btnFutureChanges" value="{{'Future Change' | translate}}" *ngIf="showFutureChanges===true">
+                            <input type="button" class="btn btn-primary mr10" id="btnPrintDisp" value="{{'Print' | translate}}" (click)="btnPrintDisp_onClick()">
+                            <input type="button" class="btn btn-primary" id="btnSTBInterfaceDtls" value="{{'Details for STB Interface' | translate}}"
+                                (click)="btnSTBInterfaceDtls_onClick()">
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh #refreshBtn (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #serviceCoverDisplayPagination [currentPage]="pageCurrent" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12 mt10">
+                <icabs-grid-advanced #riGrid (bodyDblClick)="onGridRowClick($event)" (bodyClick)="onCellClick($event)" (bodyColumnBlur)="onCellBlur($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+                </icabs-modal>
+            </div>
+        </div>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+    <icabs-prompt-modal class="routeAway" #promptModal="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitle"
+        [content]="promptContent" [config]="promptModalConfig"></icabs-prompt-modal>
+</div>

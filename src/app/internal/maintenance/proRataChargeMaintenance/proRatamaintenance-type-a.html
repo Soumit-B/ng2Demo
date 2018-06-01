@@ -1,0 +1,268 @@
+<!-- Tab 2 - Contact Detail Update -->
+<form [formGroup]="contractGeneralFormGroup">
+    <div id="grdContactDetails">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24">{{'Invoice Group Number' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" id="InvoiceGroupNumber" class="form-control" placeholder="" size="4" maxlength="4" formControlName="InvoiceGroupNumber"
+                        (blur)="fetchInvoiceGroupData()">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="InvoiceGroupDesc" class="form-control" placeholder="" size="40" maxlength="40" formControlName="InvoiceGroupDesc">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="invoiceGroupSearchParams" [contentComponent]="invoiceGrp" [showHeader]="true" [disabled]="false"
+                        (ellipsisData)="setInvoiceGroupSearch($event)"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Invoice/Credit' | translate }} <span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" id="InvoiceCreditCode" class="form-control" placeholder="" size="5" maxlength="1" formControlName="InvoiceCreditCode">
+                </div>
+                <div class="col16" [ngClass]="isInvoiceCreditDesc ? '': 'hidden'">
+                    <input type="text" id="InvoiceCreditDesc" class="form-control" placeholder="" size="30" maxlength="30" formControlName="InvoiceCreditDesc">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanStartDate">{{'Start Date' | translate }} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <icabs-datepicker #proRataStartDatePicker [dt]="startDate" (selectedValue)="startDateSelectedValue($event)" [isRequired]="true"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{'Status' | translate }} <span class="mandatory">*</span> </label>
+                <div class="col8 pr5 hidden">
+                    <input type="text" id="ProRataChargeStatusCode" class="form-control" placeholder="" size="5" maxlength="1" formControlName="ProRataChargeStatusCode">
+                </div>
+                <div class="col14 pr5 hidden">
+                    <input type="text" id="ProRataChargeStatusDesc" class="form-control" placeholder="" size="30" maxlength="30" formControlName="ProRataChargeStatusDesc">
+                </div>
+                <div class="col24 pr5">
+                    <icabs-languagesearch [active]="statusSelected" (LangSearchReceived)="onStatusChange($event)" [inputParams]="languageSearchInputParams"></icabs-languagesearch>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [ngClass]="showEndDate ? '': 'hidden'">
+                <label class="col24" id="spanEndDate">{{'End Date' | translate }}</label>
+                <div class="col16">
+                    <icabs-datepicker [dt]="endDate" (selectedValue)="endDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label id="spanServiceQuantity" class="col24">{{'Service Quantity' | translate }} </label>
+                <div class="col16">
+                    <input type="text" id="ServiceQuantity" class="form-control" placeholder="" size="20" maxlength="20" formControlName="ServiceQuantity">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" id="trContactPersonDepartment">
+            <div class="col-sm-3">
+                <label class="col24" id="spanToBeReleasedDate">{{'Extract Date' | translate }} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <icabs-datepicker #proRataExtractDatePicker [(dt)]="extractDate" (selectedValue)="extractDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label id="spanProRataChargeValue" class="col24">{{'Value' | translate }} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <input type="text" id="ProRataChargeValue" class="form-control" placeholder="" size="20" maxlength="23" formControlName="ProRataChargeValue">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="!vSCEnableCompanyCode">
+                <label class="col24" id="spanProducedCompanyCode">{{'Produced Invoice Company' | translate }}  </label>
+                <div class="col8 pr5">
+                    <input type="text" id="ProducedCompanyCode" class="form-control" placeholder="" size="4" maxlength="2" formControlName="ProducedCompanyCode">
+                </div>
+                <div class="col16">
+                    <input type="text" id="ProducedCompanyDesc" class="form-control" placeholder="" size="30" maxlength="30" formControlName="ProducedCompanyDesc">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label id="spanCostValue" class="col24">{{'Cost Value' | translate }} </label>
+                <div class="col16">
+                    <input type="text" id="CostValue" class="form-control" placeholder="" size="20" maxlength="23" formControlName="CostValue">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanOriginalInvoiceNumber">{{'Produced Invoice Number' | translate }}  </label>
+                <div class="col14 pr5">
+                    <input type="text" id="ProducedCompanyInvoiceNumber" class="form-control" placeholder="" size="10" maxlength="10" formControlName="ProducedCompanyInvoiceNumber">
+                </div>
+                <div class="col10" [ngClass]="isProducedInvoiceNumber ? '': 'hidden'">
+                    <input type="text" id="ProducedInvoiceNumber" class="form-control" placeholder="" size="10" maxlength="8" formControlName="ProducedInvoiceNumber">
+                </div>
+            </div>
+            <div class="col-sm-3" [ngClass]="isServiceSalesEmployee ? '': 'hidden'">
+                <label id="spanServiceSalesEmployee" class="col24">{{'Commission Employee' | translate }} </label>
+                <div class="col8 pr5">
+                    <input type="text" id="ServiceSalesEmployee" class="form-control" placeholder="" size="10" maxlength="6" formControlName="ServiceSalesEmployee">
+                </div>
+                <div class="col16">
+                    <input type="text" id="EmployeeSurname" class="form-control" placeholder="" size="25" maxlength="25" formControlName="EmployeeSurname">
+                </div>
+                <!--<div class="col2">
+                    <icabs-ellipsis [childConfigParams]="childConfigParamsCommissionEmployee" [showCloseButton]="showCloseButton" [contentComponent]="employeeSearchComponent"
+                        (ellipsisData)="onReceivingEmployeeResult($event)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanProducedInvoiceRun">{{'Produced Invoice Run' | translate }}  </label>
+                <div class="col16">
+                    <input type="text" id="ProducedInvoiceRun" class="form-control" placeholder="" size="10" maxlength="10" formControlName="ProducedInvoiceRun">
+                </div>
+            </div>
+            <!--<div class="col-sm-3" [ngClass]="isTaxPointDate ? '': 'hidden'">-->
+            <div class="col-sm-3" [hidden]="!isTaxPointDate">
+                <label class="col24" id="spanTaxPointDate">{{'Tax Point Date' | translate }} </label>
+                <div class="col16">
+                    <icabs-datepicker [isDisabled]="isDisableTaxPointDate" [dt]="taxPointDate" (selectedValue)="taxPointDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="!vSCEnableCompanyCode">
+                <label class="col24" id="spanProducedInvoiceRun">{{'Original Invoice Company' | translate }}  </label>
+                <div class="col16">
+                    <!--[itemsToDisplay]="bCompanySearchComponent" [inputArray]="bCompanySearchComponent"-->
+                    <!--<icabs-dropdown (selectedValue)="companySearch_OnChange($event)"></icabs-dropdown>-->
+                    <icabs-business-company-search [isRequired]="isRequiredOriginalCompanyCode" [inputParams]="bcompanyInputParams" (receivedCompanyCode)="onBCompanySearchReceived($event)"
+                        [active]="negCompanyNumberSelected"></icabs-business-company-search>
+                    <!--<icabs-business-company-search [inputParams]="companySearchinputParams" (receivedCompanyCode)="onCompanySelected($event)" [active]="companySelected"></icabs-business-company-search>-->
+                </div>
+            </div>
+            <div class="col-sm-3" [ngClass]="isShownInContractMode ? '': 'hidden'">
+                <label class="col24" id="tdPaidDateLabel">{{'Paid Date' | translate }} </label>
+                <div class="col16" id="tdPaidDate">
+                    <icabs-datepicker [dt]="paidDate" (selectedValue)="paidDateSelectedValue($event)"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanOriginalInvoiceNumber">{{'Original Invoice Number' | translate }}  </label>
+                <div class="col16">
+                    <input id="OriginalInvoiceNumber" formControlName="OriginalInvoiceNumber" class="form-control" type="text" size="12" maxlength="10"
+                        (change)="lookupSearch('CompanyInvoiceNumber')">
+                    <!--<input type="text" id="OriginalInvoiceNumber" class="form-control" placeholder="" size="12" maxlength="10" formControlName="OriginalInvoiceNumber">-->
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" id="spanTaxCode">{{'Tax Code' | translate }} <span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" id="TaxCode" class="form-control" placeholder="" size="5" maxlength="5" formControlName="TaxCode" (blur)="fetchVatData()">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="TaxCodeDesc" class="form-control" placeholder="" size="30" maxlength="30" formControlName="TaxCodeDesc">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanOriginalInvoiceItemNumber">{{'Original Item Number' | translate }}  </label>
+                <div class="col16">
+                    <input type="text" id="OriginalInvoiceItemNumber" class="form-control" placeholder="" size="12" maxlength="10" formControlName="OriginalInvoiceItemNumber">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" id="spanTaxCode">{{'Reason Code' | translate }} <span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" id="InvoiceCreditReasonCode" class="form-control" placeholder="" size="5" maxlength="2" formControlName="InvoiceCreditReasonCode"
+                        (blur)="fetchReasonData()">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="InvoiceCreditReasonDesc" class="form-control" placeholder="" size="30" maxlength="30" formControlName="InvoiceCreditReasonDesc">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="spanPurchaseOrderNo">{{'Purchase Order Number' | translate }}  </label>
+                <div class="col16">
+                    <input type="text" id="PurchaseOrderNo" class="form-control" placeholder="" size="30" maxlength="30" formControlName="PurchaseOrderNo">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24" id="spanServiceBranchNumber">{{'Service Branch' | translate }} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <icabs-branchsearch [inputParams]="inputParamsBranch" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="negBranchNumberSelected"></icabs-branchsearch>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <!--<div class="col-sm-3" [ngClass]="isShownInContractMode ? '': 'hidden'">-->
+            <div class="col-sm-3" [hidden]="!vSCEnableTaxInvoiceRanges">
+                <label class="col24" id="spanTaxInvoiceNumber">{{'Original Tax Invoice Number' | translate }}  </label>
+                <div class="col16">
+                    <input type="text" id="TaxInvoiceNumber" class="form-control" placeholder="" size="9" maxlength="9" formControlName="TaxInvoiceNumber">
+                </div>
+            </div>
+            <div class="col-sm-3" [ngClass]="isDiscountCode ? '': 'hidden'">
+                <label class="col24" id="spanDiscountCode">{{'Discount Code' | translate }} </label>
+                <div class="col8 pr5">
+                    <input type="text" id="DiscountCode" class="form-control" placeholder="" size="5" maxlength="2" formControlName="DiscountCode"
+                        (blur)="fetchDiscountData()">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" id="DiscountDesc" class="form-control" placeholder="" size="30" maxlength="40" formControlName="DiscountDesc">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [ngClass]="isCreditMissedServiceInd ? '': 'hidden'">
+            <div class="col-sm-3 col-sm-offset-3">
+                <div class="col24">
+                    <input type="checkbox" id="CreditMissedServiceInd" formControlName="CreditMissedServiceInd" (change)="setFormGroupToStore()">
+                    <label id="spanCreditMissedServiceInd" for="CreditMissedServiceInd">{{'Credit for Missed service' | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3 col-sm-offset-3">
+                <div class="col24">
+                    <input type="checkbox" id="OutsortInvoice" formControlName="OutsortInvoice" (change)="setFormGroupToStore()">
+                    <label id="spanOutsortInvoice" for="OutsortInvoice">{{'Outsort Invoice' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2" [ngClass]="isCreditNumberOfVisits ? '': 'hidden'">
+            <div class="col-sm-3 col-sm-offset-3">
+                <label class="col24" id="SpanCreditNumberOfVisits">{{'Number Of Missed Visits' | translate }} </label>
+                <div class="col16">
+                    <input type="text" id="CreditNumberOfVisits" size="2" maxlength="2" class="form-control" formControlName="CreditNumberOfVisits">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<icabs-modal #messageModal="child" [(showHeader)]="messageModalConfig.showMessageHeader" [config]="messageModalConfig.config"
+    [title]="messageModalConfig.title" [content]="messageModalConfig.content" [showCloseButton]="messageModalConfig.showCloseButton"></icabs-modal>
+<icabs-ellipsis #InvoiceSearchEllipsis [showCloseButton]="ellipseConfig.invoiceSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.invoiceSearchComponent.inputParams"
+    [modalConfig]="ellipseConfig.invoiceSearchComponent.config" [contentComponent]="invoiceSearchComponent" (ellipsisData)="invoiceSearchComponentDataReceived($event)"
+    [showHeader]="ellipseConfig.invoiceSearchComponent.showHeader" [disabled]="ellipseConfig.invoiceSearchComponent.disabled"
+    [hideIcon]="true"></icabs-ellipsis>

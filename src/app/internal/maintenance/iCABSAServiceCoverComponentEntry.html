@@ -1,0 +1,215 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-9 page-title mt10">
+            <h1>
+                {{ 'Component Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div #topContainer id="divMain">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" id="labelContractNumber" for="formContractNumber">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" type="text" class="form-control" size="10" maxlength="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" type="text" class="form-control" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" type="text" class="form-control" size="10" maxlength="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" type="text" class="form-control" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" type="text" class="form-control" size="10" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" type="text" class="form-control" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col22">{{ 'Item Description' | translate }}</label>
+                    <div class="col22">
+                        <input id="ItemDescription" formControlName="ItemDescription" type="text" class="form-control" size="55" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Location' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseLocationNumber" formControlName="PremiseLocationNumber" type="text" class="form-control" size="10">
+                    </div>
+                    <div class="col14">
+                        <input id="PremiseLocationDesc" formControlName="PremiseLocationDesc" type="text" class="form-control" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt20 mb20">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Component Type' | translate }} <span id="SpanComponentTypeCode" class="mandatory">* </span></label>
+                    <div class="col20">
+                        <icabs-component-type-lang-dd #cddCompTypeLangSearch [isDisabled]="dropdown.compTypeLangSearch.isDisabled" [isRequired]="dropdown.compTypeLangSearch.isRequired"
+                            [triggerValidate]="dropdown.compTypeLangSearch.triggerValidate" [inputParams]="dropdown.compTypeLangSearch.inputParams"
+                            [itemsToDisplay]="dropdown.compTypeLangSearch.itemsToDisplay" [active]="dropdown.compTypeLangSearch.active"
+                            (selectedValue)="onSelectCompTypeLangSearchDD($event)"></icabs-component-type-lang-dd>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Attribute 1' | translate }}<span id="SpanAttributeLabel1" class="mandatory" [ngClass]="attr1Mandatory?'':'hidden'">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="AttributeLabel1" formControlName="AttributeLabel1" type="text" class="form-control" size="7" maxlength="20">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AttributeValue1" formControlName="AttributeValue1" type="text" class="form-control" size="15" maxlength="40" (blur)="capitalizeFirstLetter('AttributeValue1');">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.attribute1.disabled" [showCloseButton]="ellipsisConfig.attribute1.showCloseButton"
+                            [showHeader]="ellipsisConfig.attribute1.showHeader" [childConfigParams]="ellipsisConfig.attribute1.childConfigParams"
+                            [contentComponent]="ellipsisConfig.attribute1.component" (ellipsisData)="attributeValue1_onkeydown($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product' | translate }}<span id="SpanProductComponentCode" class="mandatory">* </span></label>
+                    <div class="col20 pr5">
+                        <input id="ProductComponentCode" formControlName="ProductComponentCode" type="text" class="form-control" size="5" maxlength="6"
+                            (blur)="onCapitalize('ProductComponentCode');productComponentCode_onChange()">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.product.disabled" [showCloseButton]="ellipsisConfig.product.showCloseButton" [showHeader]="ellipsisConfig.product.showHeader"
+                            [childConfigParams]="ellipsisConfig.product" [contentComponent]="ellipsisConfig.product.component"
+                            (ellipsisData)="productCode_OnChange($event, 'Product')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Attribute 2' | translate }}<span id="SpanAttributeLabel2" class="mandatory" [ngClass]="attr2Mandatory?'':'hidden'">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="AttributeLabel2" formControlName="AttributeLabel2" type="text" class="form-control" size="7" maxlength="20">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AttributeValue2" formControlName="AttributeValue2" type="text" class="form-control" size="15" maxlength="40" (blur)="capitalizeFirstLetter('AttributeValue2');">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.attribute2.disabled" [showCloseButton]="ellipsisConfig.attribute2.showCloseButton"
+                            [showHeader]="ellipsisConfig.attribute2.showHeader" [childConfigParams]="ellipsisConfig.attribute2.childConfigParams"
+                            [contentComponent]="ellipsisConfig.attribute2.component" (ellipsisData)="attributeValue2_onkeydown($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Alternate Code' | translate }}</label>
+                    <div class="col20 pr5">
+                        <input id="AlternateProductCode" formControlName="AlternateProductCode" type="text" class="form-control" size="15" maxlength="20"
+                            (blur)="onCapitalize('AlternateProductCode');alternateProductCode_onChange()">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.alternateProduct.disabled" [showCloseButton]="ellipsisConfig.alternateProduct.showCloseButton"
+                            [showHeader]="ellipsisConfig.alternateProduct.showHeader" [childConfigParams]="ellipsisConfig.alternateProduct"
+                            [contentComponent]="ellipsisConfig.alternateProduct.component" (ellipsisData)="productCode_OnChange($event, 'AlternateProduct')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Qty' | translate }}<span id="SpanComponentQuantity" class="mandatory">* </span></label>
+                    <div class="col16 pr25">
+                        <input id="ComponentQuantity" formControlName="ComponentQuantity" type="text" class="form-control" size="2" maxlength="4">
+                    </div>
+                    <div class="col8">
+                        <input id="btnCompReplace" formControlName="btnCompReplace" class="btn btn-sm btn-secondary" type="button" value="{{ 'Replace' | translate }}"
+                            (click)="btnCompReplace_onClick()" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Description' | translate }}</label>
+                    <div class="col20">
+                        <input id="ProductComponentDesc" [icabsDirFocus]="setFocusProductComponentDesc" formControlName="ProductComponentDesc" type="text"
+                            class="form-control" size="35" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div id="trComponentRange" [ngClass]="showComponentRange?'':'hidden'">
+                <hr class="mt20 mb20">
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Range' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input id="ProductRange" formControlName="ProductRange" type="text" class="form-control" size="30" maxlength="20">
+                        </div>
+                        <div class="col14 pr5">
+                            <input id="ProductRangeDesc" formControlName="ProductRangeDesc" type="text" class="form-control" size="35" maxlength="100">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [disabled]="ellipsisConfig.productRange.disabled" [showCloseButton]="ellipsisConfig.productRange.showCloseButton"
+                                [showHeader]="ellipsisConfig.productRange.showHeader" [childConfigParams]="ellipsisConfig.productRange"
+                                [contentComponent]="ellipsisConfig.productRange.component" (ellipsisData)="productRange_onkeydown($event)"></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Sequence No' | translate }}</label>
+                        <div class="col16">
+                            <input id="SequenceNumber" formControlName="SequenceNumber" type="text" class="form-control" size="10" maxlength="7">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Rotation Rule' | translate }}</label>
+                        <div class="col16">
+                            <input id="RotationalRule" formControlName="RotationalRule" type="text" class="form-control" size="10" maxlength="1" (blur)="rotationalRule_onChange()">
+                        </div>
+                    </div>
+                    <div class="col-sm-4" [ngClass]="showRotationalInterval?'':'hidden'">
+                        <label class="col24" id="">{{ 'Rotation Period' | translate }}</label>
+                        <div class="col16">
+                            <input id="RotationalInterval" formControlName="RotationalInterval" type="text" class="form-control" size="10" maxlength="7">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2" id="tdRotationPeriodLabel" [ngClass]="showCustomUpdateBtn?'':'hidden'">
+                    <div class="col-sm-4">
+                        <input id="btnCustomUpdate" formControlName="btnCustomUpdate" class="btn btn-sm btn-secondary" type="button" value="{{ 'Update' | translate }}"
+                            (click)="btnCustomUpdate_onClick()" />
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt20 mb20">
+            <div class="row mb20">
+                <div class="col-sm-6" [ngClass]="mode==='N'?'hidden':''">
+                    <input class="btn btn-sm btn-primary mr10" type="submit" [value]="'Save' | translate" (click)="riMaintenance_BeforeSave()">
+                    <input class="btn btn-sm btn-secondary" type="button" [value]="'Cancel' | translate" (click)="riMaintenance_AfterAbandon()">
+                </div>
+                <div class="col-sm-6" [ngClass]="mode!=='N'?'hidden':''">
+                    <input class="btn btn-sm btn-primary mr10" type="button" [value]="'Add' | translate" (click)="riMaintenance_BeforeAdd()">
+                    <input class="btn btn-sm btn-primary mr10" type="button" [value]="'Update' | translate" (click)="riMaintenance_BeforeUpdate()">
+                    <input class="btn btn-sm btn-primary mr10" type="button" [value]="'Delete' | translate" (click)="btnDelete_Click()">
+                </div>
+            </div>
+        </div>
+    </form>
+    <icabs-modal #errorModal [(showHeader)]="showHeader"> </icabs-modal>
+    <icabs-prompt-modal #promptModal [(showHeader)]="showHeader" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</div>

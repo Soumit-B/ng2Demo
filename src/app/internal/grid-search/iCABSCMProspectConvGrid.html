@@ -1,0 +1,51 @@
+<!-- Page Heading -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                <!--Page Heading-->
+                {{"Prospect Conversion" | translate}}
+            </h1>
+        </div>
+    </div>
+    <!-- Projects Row -->
+    <!-- <form>-->
+    <div class="row mt5">
+        <div class="col-sm-3" *ngIf="displayContract">
+            <label class="col24">{{labelContractNumber | translate}}</label>
+            <div class="col8 pr5">
+                <input id="contractNumber" size="9" [attr.maxlength]="9" [(ngModel)]="contractNumber" class="form-control">
+            </div>
+            <div class="col16 pr5">
+                <input id="contractName" size="40" [attr.maxlength]="40" [(ngModel)]="contractName" value="" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="col12" *ngIf="displayProspect">
+                <label class="col24">{{labelProspectNumber | translate}}</label>
+                <div class="col24">
+                    <input id="prospectNumber" size="9" [attr.maxlength]="9" [(ngModel)]="prospectNumber" class="form-control">
+                </div>
+            </div>
+            <div class="col12">
+                <div class="col8 mt20">
+                    <button type="button" class="btn btn-primary" (click)="addData()">{{'Add'| translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mt15 mb15">
+    <!-- Pagination -->
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (onRefresh)="getRefreshData()"> </icabs-refresh>
+            <icabs-pagination #apiProspectPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [currentPage]="page" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid #apiProspectGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+</div>

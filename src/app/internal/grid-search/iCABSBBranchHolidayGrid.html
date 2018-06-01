@@ -1,0 +1,54 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessDesc">{{ 'Business' | translate }}</label>
+                    <input type="text" id="BusinessDesc" size="30" maxlength="40" formControlName="BusinessDesc" class="form-control" eTypeText>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchName">{{ 'Branch' | translate }}</label>
+                    <input type="text" id="BranchName" size="30" maxlength="40" formControlName="BranchName" class="form-control" eTypeText>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col14 pr5">
+                        <label class="col24" for="YearNumber">{{ 'Year' | translate }}</label>
+                        <input type="text" id="YearNumber" size="5" maxlength="4" formControlName="YearNumber" class="form-control" (change)="yearNumber_OnChange($event)">
+                    </div>
+                    <div class="col1 mt15">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <input type="button" class="btn btn-sm btn-primary" value="{{'Add' | translate}}" (click)="btnAdd_OnClick($event)">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (onRefresh)="riGrid_onRefresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="gridConfig.totalRecords" [itemsPerPage]="gridConfig.pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [currentPage]="gridConfig.currentPage"></icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (TRDblClick)="tGridBody_OnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

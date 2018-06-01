@@ -1,0 +1,42 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-xs-12 page-title mt10">
+            <h1>
+                <strong>{{'Service Verification' | translate}}</strong>
+                <!-- fixed bold for IUI-5045 -->
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt10">
+            <div class="col-xs-3">
+                <label class="col24">{{'Servicing Branch' | translate}}</label>
+
+                <div class="col8 pr5">
+                    <input class="form-control" formControlName="ServiceBranchNumber" id="ServiceBranchNumber" size="3" [attr.maxlength]="5" (change)="refreshGridData()"
+                        eTypeInteger>
+                </div>
+                <div class="col16">
+                    <input id="BranchName" formControlName="BranchName" size="40" [attr.maxlength]="40" class="form-control" eTypeText>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" formControlName="ServiceCoverRowID" eTypeText/>
+        <input type="hidden" formControlName="ContractNumber" eTypeCode/>
+        <input type="hidden" formControlName="PremiseNumber" eTypeInteger/>
+
+    </form>
+    <hr>
+    <div class="row mt5">
+        <div class="col-xs-12">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #postCodePagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-xs-12">
+            <icabs-grid #postCodeGrid (gridInfo)="getGridInfo($event)" [maxColumns]="maxColumn" [itemsPerPage]="pageSize" [currentPage]="currentPage"
+                (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="getCellData($event)" [validateProperties]="validateProperties"></icabs-grid>
+        </div>
+    </div>
+</div>

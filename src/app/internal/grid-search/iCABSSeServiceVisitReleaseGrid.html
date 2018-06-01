@@ -1,0 +1,83 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Shared Visit Release' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Job/Contract Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" formControlName="ContractNumber" class="form-control" size="8" maxlength="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" formControlName="ContractName" class="form-control" size="30" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Visit Freq'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" size="3" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" formControlName="PremiseNumber" class="form-control" size="8" maxlength="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="PremiseName" formControlName="PremiseName" class="form-control" size="30" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Service Date From'|translate}}</label>
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                    <div class="col8 pr5">
+                        <label class="col24">{{'To'|translate}}</label>
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" formControlName="ProductCode" class="form-control" size="8" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ProductDesc" formControlName="ProductDesc" class="form-control" size="30" maxlength="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,71 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <hr class="mt15 mb15">
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong>{{ 'API Details' |translate}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="APICode">{{ 'API Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="APICode" formControlName="APICode" class="form-control" type="text" size="4" [attr.maxlength]="4" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="APICodeDesc" class="form-control" formControlName="APICodeDesc">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <strong>{{ 'API Rate Maintenance' |translate}}</strong>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="APIRateEffectDate" class="col24">{{'Effective Date'|translate}}</label>
+                        <input size="15" formControlName="APIRateEffectDate" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                        <icabs-datepicker [isRequired]="true" [isDisabled]="dateDisable" #APIRateEffectDatePicker [clearDate]="false" [dt]='effectDate'
+                            (selectedValue)="dateSelectedValue($event)" id="APIRateEffectDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col16">
+                        <label for="APIRate" class="col24">{{'API Rate'|translate}}</label>
+                        <input id="APIRate" formControlName="APIRate" class="form-control" type="text" size="5" [attr.maxlength]="5" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="button" [disabled]="this['pageParams'].isAddDisabled" (click)="addApiRateForm($event)" class="btn btn-additional"
+                        value="{{ 'Add' | translate }}">
+                    <input type="button" (click)="saveData($event)" class="btn btn-primary" value="{{ 'Save' | translate }}">
+                    <input type="button" (click)="resetData($event)" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+                    <input type="button" [disabled]="this['pageParams'].isDeleteDisabled" (click)="deleteData($event)" class="btn btn-additional"
+                        value="{{ 'Delete' | translate }}">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showHeader">

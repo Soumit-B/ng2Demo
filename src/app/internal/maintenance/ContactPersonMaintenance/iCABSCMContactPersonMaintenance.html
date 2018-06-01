@@ -1,0 +1,129 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-9 page-title mt10">
+            <h1>
+                {{ 'Contact Person Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="contactPersonFormGroup">
+        <div #topContainer>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="GroupAccountNumber">{{ 'Group Account Number' | translate }}<span class="mandatory" [hidden]="!groupNumberRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="GroupAccountNumber" formControlName="GroupAccountNumber" size="9" maxlength="9" class="form-control" (change)="inputField_OnChange($event, 'GroupAccount')"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="GroupName" formControlName="GroupName" size="40" maxlength="40" value="" readonly="" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.groupAccount.disabled" [showCloseButton]="ellipsis.groupAccount.showCloseButton" [showHeader]="ellipsis.groupAccount.showHeader"
+                            [childConfigParams]="ellipsis.groupAccount" [contentComponent]="ellipsis.groupAccount.component"
+                            (ellipsisData)="inputField_OnChange($event, 'GroupAccount')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account' | translate }}<span class="mandatory" [hidden]="!accountNumberRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" size="9" maxlength="9" class="form-control" (change)="inputField_OnChange($event, 'Account')"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AccountName" formControlName="AccountName" size="40" maxlength="40" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.account.disabled" [showCloseButton]="ellipsis.account.showCloseButton" [showHeader]="ellipsis.account.showHeader"
+                            [childConfigParams]="ellipsis.account" [contentComponent]="ellipsis.account.component" (ellipsisData)="inputField_OnChange($event, 'Account')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract/Job' | translate }}<span class="mandatory" [hidden]="!contractNumberRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="8" class="form-control" (change)="inputField_OnChange($event, 'Contract')"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" size="40" maxlength="40" value="" readonly="" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.contract.disabled" [showCloseButton]="ellipsis.contract.showCloseButton" [showHeader]="ellipsis.contract.showHeader"
+                            [childConfigParams]="ellipsis.contract" [contentComponent]="ellipsis.contract.component" (ellipsisData)="inputField_OnChange($event, 'Contract')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate }}<span class="mandatory" [hidden]="!premiseNumberRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" size="9" maxlength="8" class="form-control" (change)="inputField_OnChange($event, 'Premise')"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.premise.disabled" [showCloseButton]="ellipsis.premise.showCloseButton" [showHeader]="ellipsis.premise.showHeader"
+                            [childConfigParams]="ellipsis.premise" [contentComponent]="ellipsis.premise.component" (ellipsisData)="inputField_OnChange($event, 'Premise')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InvoiceGroupNumber">{{ 'Invoice Group' | translate }}<span class="mandatory" [hidden]="!invoiceGroupNumberRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber" size="9" maxlength="9" class="form-control" (change)="inputField_OnChange($event, 'InvoiceGroupInv')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="InvoiceGroupDesc" formControlName="InvoiceGroupDesc" size="40" maxlength="40" value="" readonly="" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsis.invoice.disabled" [showCloseButton]="ellipsis.invoice.showCloseButton" [showHeader]="ellipsis.invoice.showHeader"
+                            [childConfigParams]="ellipsis.invoice" [contentComponent]="ellipsis.invoice.component" (ellipsisData)="inputField_OnChange($event, 'Invoice')"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col10 pr5">
+                        <label class="col24">{{ 'Roles' | translate }}</label>
+                        <icabs-dropdown-static #ContactPersonRoleSelect [inputData]="contactPersonRoles" (onSelect)="contactPersonRoles_OnChange($event)"></icabs-dropdown-static>
+                    </div>
+                    <div class="col14">
+                        <label class="col24">{{ 'View' | translate }}</label>
+                        <icabs-dropdown-static #ViewLevelSelect [inputData]="viewLevels" (onSelect)="viewLevelSelect_OnChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <icabs-tabs #ContactPersonTabs [tabs]="tabs" [componentList]="tabComponentList" (onTabSelect)="onSelectTab($event)">
+                    </icabs-tabs>
+                </div>
+            </div>
+            <hr class="mt20 mb20">
+            <div class="row mb20" id="grdMaintenanceControl">
+                <div class="col-sm-6">
+                    <div [hidden]="cUpdateMode === 'NEUTRAL'">
+                        <input type="button" class="btn btn-sm btn-primary" [value]="'Save' | translate" (click)="btnSave_OnClick()">
+                        <input type="button" class="btn btn-sm btn-primary" [value]="'Cancel' | translate" (click)="btnAbandon_OnClick()">
+                    </div>
+                    <div [hidden]="cUpdateMode !== 'NEUTRAL'">
+                        <input type="button" class="btn btn-sm btn-primary" [value]="'Add' | translate" (click)="btnAdd_OnClick()">
+                        <input type="button" class="btn btn-sm btn-primary" [value]="'Update' | translate" (click)="btnUpdate_OnClick()">
+                        <input type="button" *ngIf="tabContactDetailSelected" class="btn btn-sm btn-primary" [value]="'Delete' | translate" (click)="btnDelete_OnClick()">
+                        <input type="button" *ngIf="lAllowChooseContact" class="btn btn-sm btn-primary" value="Choose" (click)="btnChoose_OnClick()">
+                    </div>
+                </div>
+                <!-- <div class="col-sm-3 pull-right" [hidden]="cUpdateMode !== 'NEUTRAL'">
+                    <icabs-dropdown-static #Menu [inputData]="menuItems" (onSelect)="menu_OnChange($event)"></icabs-dropdown-static>
+                </div> -->
+            </div>
+        </div>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

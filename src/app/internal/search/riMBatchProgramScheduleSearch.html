@@ -1,0 +1,24 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title">
+            <h1>
+                {{'Batch Program Schedule' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form>
+        <hr class="mt15 mb15">
+
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <div class="col2" style="float:right">
+                    <input type="button" name="" value="{{ 'Add New' | translate }}" class="form-control btn btn-lg btn-secondary" [disabled]="isAddNewDisabled"
+                        [hidden]="isAddNewHidden" [attr.data-hidden]="isAddNewHidden" (click)="onAddNew()">
+                </div>
+                <icabs-table #programScheduleGrid (selectedData)="selectedData($event)" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                    [paginationTop]="true" [displayError]="false" (refresh)="refresh()"></icabs-table>
+            </div>
+        </div>
+    </form>
+</div>

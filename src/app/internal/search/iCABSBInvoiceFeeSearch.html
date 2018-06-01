@@ -1,0 +1,12 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Invoice Fee Search' | translate}}
+            </h1>
+        </div>
+    </div>
+    <div class="row mt10">
+        <icabs-table #invoiceFee (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [rowmetadata]="rowmetadata" [doTranslate]="true" (onRefresh)="refresh()"></icabs-table>
+    </div>
+</div>

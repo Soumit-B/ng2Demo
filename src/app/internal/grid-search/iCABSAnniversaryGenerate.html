@@ -1,0 +1,91 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{pageTitle | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form [formGroup]="uiForm">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Anniversary Date From' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="ANDateFrom" [dt]='dateObjects.fromDateDisplay' name="ANDateFrom" (selectedValue)="dateFromSelectedValue($event)"
+                            required></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Anniversary Date To' | translate}}</label>
+                    <div class="col16">
+                        <icabs-datepicker id="ANDateTo" [dt]='dateObjects.toDateDisplay' name="ANDateTo" (selectedValue)="dateToSelectedValue($event)"
+                            required></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Branch Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchNumber" size="9" maxlength="9" placeholder="" formControlName="BranchNumber"
+                            readonly eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BranchName" size="40" maxlength="40" placeholder="" formControlName="BranchName"
+                            readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="AnniversaryLetterInd" formControlName="AnniversaryLetterInd" [checked]='true'>
+                        <label for="AnniversaryLetterInd">{{ 'Contract Anniversary Letters' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24" [ngClass]=" this.uiDisplay.showWasteTransferNotes ? '': 'hidden'">
+                        <input type="checkbox" class="form-control" id="WasteTransferNoteInd" formControlName="WasteTransferNoteInd">
+                        <label for="WasteTransferNoteInd">{{ 'Waste Transfer Notes' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24" [ngClass]=" this.uiDisplay.showPreAcceptanceLetters ? '': 'hidden'">
+                        <input type="checkbox" class="form-control" id="PreAcceptanceLetterInd" formControlName="PreAcceptanceLetterInd">
+                        <label for="PreAcceptanceLetterInd">{{ 'Pre Acceptance Letters' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10 hidden">
+                <div class="col-sm-3">
+                    <div class="col24" [ngClass]=" this.uiDisplay.showCustomerQuarterlyReturns ? '': 'hidden'">
+                        <input type="checkbox" class="form-control" id="CustomerQuarterlyReturnInd" formControlName="CustomerQuarterlyReturnInd">
+                        <label for="CustomerQuarterlyReturnInd">{{ 'Customer Quarterly Returns' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row mt10">
+            <div class="col-sm-12" id="trInformation" *ngIf="trInformation">
+                <div class="alert alert-info" id="thInformation">
+                    <strong>{{information}}</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="screen-footer">
+        <div class="col-sm-3">
+            <input type="button" id="cmdSubmitAll" class="btn btn-additional" value="{{ 'Submit Batch Process' | translate }}" (click)="submitBatchProcess($event)"
+                [disabled]=!uiForm.valid>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

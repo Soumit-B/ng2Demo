@@ -1,0 +1,54 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="FilterSelect">{{'Search By'|translate}}</label>
+                        <select class="form-control" formControlName="FilterSelect" id="FilterSelect">
+                            <option value="UserCode" selected>{{'User Code'|translate}}</option>
+                            <option value="UserName" >{{'User Name'|translate}}</option>
+                            <option value="TypeCode" >{{'Type Code'|translate}}</option>
+                            <option value="Employee" >{{'Employee'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="InactiveUsers" formControlName="InactiveUsers">
+                        <label class="col24" for="InactiveUsers">{{'Hide Inactive Users'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="Begins">{{ 'Begins' | translate}}</label>
+                    <div class="col24">
+                        <input id="Begins" class="form-control" formControlName="Begins" type="text" size="15">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="NonRelatedEmployee" formControlName="NonRelatedEmployee">
+                        <label class="col24" for="NonRelatedEmployee">{{'Show Non Related Employees'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,61 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact Type Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContactTypeCode" formControlName="ContactTypeCode" size="12" maxlength="12" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContactTypeSystemDesc" formControlName="ContactTypeSystemDesc" size="50" maxlength="50"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contact Type Detail Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContactTypeDetailCode" formControlName="ContactTypeDetailCode" size="12" maxlength="12"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContactTypeDetailSystemDesc" formControlName="ContactTypeDetailSystemDesc" size="50"
+                            maxlength="50" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="button" class="btn btn-primary" id="btnAdd" (click)="btnAddOnClick()" value="{{'Add'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #contactTypeDetailAssigneeGridPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyClick)="riGridBodyOnClick($event)" (bodyDblClick)="riGridBodyOnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="showErrorHeader">

@@ -1,0 +1,281 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-header-row pl0 margin-top-m">
+            <div class="col-sm-12">
+                <h1 class="page-header margin-zero">
+                    <!--Page Heading-->
+                    <small>{{inputParams.pageHeader}}</small>
+                </h1>
+            </div>
+        </div>
+        <form novalidate [formGroup]="contactSearchFormGroup" class="col-sm-12">
+            <div class="row section-container" #topContainer>
+                <div class="row margin-zero">
+                    <div class="row margin-zero">
+                        <div class="col-sm-3 padding-zero">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="customerContactType">{{ 'Reference Number' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="col-sm-4 padding-left-zero">
+                                            <input class="form-control padding-left-zero" id="customerContactType" formControlName="ReferenceNumber" type="text" maxlength="50" eTypeInteger>
+                                        </div>
+                                        <div class="col-sm-8 padding-zero">
+                                            <select formControlName="CustomerContactType" class="form-control" (change)="customerContactTypeChange($event.target.value)"
+                                                name="customerContactType">
+                                            <option *ngFor="let item of customerContactTypeList" [value]="item.code" [selected]="item.code == 'all'">{{item.value | translate}}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9 padding-zero">
+                            <div class="form-item col-sm-4 form-item-cont padding-top-lx">
+                                <div class="form-group row">
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="col-sm-6 padding-left-zero">
+                                            <select formControlName="Filter" class="form-control" (change)="filterChange($event.target.value)" name="filter">
+                                            <option *ngFor="let item of filterList" [value]="item.code">{{ item.value | translate }}</option>
+                                        </select>
+                                        </div>
+                                        <div class="col-sm-6 padding-zero">
+                                            <select formControlName="FilterPassed" class="form-control" (change)="passedChange($event.target.value)" name="filterPassed">
+                                            <option *ngFor="let item of filterPassedList" [value]="item.code">{{ item.value | translate }}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-item form-item-cont col-sm-5 padding-top-lx">
+                                <div class="form-group row">
+                                    <div class="col-sm-12 col-lg-12">
+                                        <div class="col-sm-6 padding-left-zero">
+                                            <select formControlName="FilterLevel" class="form-control" (change)="levelChange($event.target.value)" name="filterLevel">
+                                            <option *ngFor="let item of filterLevelList" [value]="item.code">{{ item.value | translate }}</option>
+                                        </select>
+                                        </div>
+                                        <div class="col-sm-6 padding-zero">
+                                            <select formControlName="FilterValue" class="form-control" (change)="valueChange($event.target.value)" name="filterValue">
+                                            <option *ngFor="let item of filterValueList" [value]="item.code">{{ item.value | translate }}</option>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-item form-item-cont col-sm-3" [ngClass]="{hidden: !showEmployeeCode}">
+                                <div class="form-group row ">
+                                    <!-- <label class="col-sm-12" for="EmployeeCode">Employee Code</label> -->
+                                    <div class="col-sm-12 col-lg-12 padding-top-lx">
+                                        <div class="col-sm-8 pr5">
+                                            <input type="text" id="EmployeeCode" class="form-control" placeholder="" formControlName="EmployeeCode" maxlength="8" eTypeCode>
+                                        </div>
+                                        <div class="pull-left margin-zero ">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="employeeSearchParams" [modalConfig]="modalConfig"
+                                                [contentComponent]="employeeComponent" (ellipsisData)="onEmployeeDataReceived($event, true)"
+                                                [showHeader]="showHeader" [disabled]='false'></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 padding-left-zero">
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-9">
+                                        <div class="col-sm-4 padding-zero">
+                                            <input class="form-control padding-left-zero" id="AccountNumber" type="text" formControlName="AccountNumber" (change)="onAccountBlur($event);" eTypeText>
+                                        </div>
+                                        <div class="col-sm-6 pr5">
+                                            <input class="form-control" type="text" formControlName="AccountName" eTypeText>
+                                        </div>
+                                        <div class="pull-left margin-zero ">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="accountComponent"
+                                                (ellipsisData)="onAccountDataReceived($event, true)" [showHeader]="showHeader"
+                                                [searchModalRoute]="searchModalRoute"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="ContractNumber">{{ 'Contract Number' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-9">
+                                        <div class="col-sm-4 padding-zero">
+                                            <input class="form-control padding-left-zero" id="ContractNumber" type="text" formControlName="ContractNumber" maxlength="8"
+                                                (change)="onContractBlur($event);" eTypeCode>
+                                        </div>
+                                        <div class="col-sm-6 pr5">
+                                            <input class="form-control padding-left-zero" type="text" formControlName="ContractName" eTypeText>
+                                        </div>
+                                        <div class="pull-left margin-zero ">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="contractComponent"
+                                                (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12 " for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-9">
+                                        <div class="col-sm-4 padding-zero">
+                                            <input class="form-control padding-left-zero" id="PremiseNumber" type="text" formControlName="PremiseNumber" maxlength="8"
+                                                (change)="onPremiseBlur($event);" eTypeInteger>
+                                        </div>
+                                        <div class="col-sm-6 pr5">
+                                            <input class="form-control" type="text" formControlName="PremiseName" PremiseName>
+                                        </div>
+                                        <div class="pull-left margin-zero">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsPremise" [modalConfig]="modalConfig" [contentComponent]="premiseComponent"
+                                                (ellipsisData)="onPremiseDataReceived($event, true)" [showHeader]="showHeader"
+                                                [disabled]='false'></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12">
+                                <div class="form-group row">
+                                    <label class="col-sm-12" for="ProductCode">{{ 'Product Code' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-9">
+                                        <div class="col-sm-4 padding-zero">
+                                            <input class="form-control padding-left-zero" id="ProductCode" maxlength="6" type="text" formControlName="ProductCode" (change)="onProductBlur($event)" eTypeCode>
+                                        </div>
+                                        <div class="col-sm-6 pr5">
+                                            <input class="form-control" type="text" maxlength="40" formControlName="ProductDesc" eTypeText>
+                                        </div>
+                                        <div class="pull-left margin-zero ">
+                                            <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceCoverSearch" [modalConfig]="modalConfig" [contentComponent]="productComponent"
+                                                (ellipsisData)="onProductDataReceived($event, true)" [showHeader]="showHeader"
+                                                [disabled]='false'></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 padding-left-zero">
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12 ">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="ContactName">{{ 'Contact Name' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-9">
+                                        <input type="text" id="ContactName" class="form-control" placeholder="" formControlName="ContactName" maxlength="40" eTypeText>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-12 ">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="ZipCode">{{ 'Postcode' | translate }}</label>
+                                    <div class="col-sm-4 col-lg-4">
+                                        <input id="ZipCode" type="text" class="form-control" placeholder="" formControlName="ZipCode" maxlength="10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row margin-zero max-row-width">
+                            <div class="form-item form-item-cont col-sm-4 ">
+                                <div class="form-group row ">
+                                    <label class="col-sm-12" for="ProspectNumber">{{ 'Prospect Number' | translate }}</label>
+                                    <div class="col-sm-12 col-lg-12">
+                                        <input type="text" id="ProspectNumber" class="form-control" placeholder="" formControlName="ProspectNumber" maxlength="8">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-item form-item-cont col-sm-6 padding-top-lxx" *ngIf="showOSCallOuts === true">
+                                <div class="form-group row ">
+                                    <select class="form-control" formControlName="OSCallOuts" name="OSCallOuts" (change)="osCallOutOnChange()">
+                                    <option selected value="all">{{ 'All' | translate }}</option>
+                                    <option value="yes">{{ 'Outstanding Callouts' | translate }}</option>
+                                    <option value="no">{{ 'No Outstanding Callouts' | translate }}</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 padding-zero">
+                <hr class="">
+            </div>
+            <div class="col-sm-12 padding-zero">
+                <div class="form-item col-sm-4">
+                    <div class="form-group row ">
+                        <label class="col-sm-12">{{ 'From Date' | translate }}</label>
+                        <div class="col-sm-12 col-lg-9">
+                            <icabs-datepicker [dt]="fromDate" (selectedValue)="fromDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-item col-sm-4">
+                    <div class="form-group row ">
+                        <label class="col-sm-12">{{ 'To Date' | translate }}</label>
+                        <div class="col-sm-12 col-lg-9">
+                            <icabs-datepicker [dt]="toDate" (selectedValue)="toDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-item col-sm-4 padding-top-lx">
+                    <div class="form-group row ">
+                        <div class="col-sm-12 col-lg-9">
+                            <select class="form-control" (change)="optionsChange($event.target.value)" formControlName="Options" name="options">
+                            <option *ngFor="let item of optionsList" [value]="item.code">{{ item.value | translate }}</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="col-sm-12">
+            <hr class="">
+        </div>
+        <div class="col-sm-12 padding-zero">
+            <div class="col-sm-12">
+                <icabs-refresh (onRefresh)="onRefresh()"></icabs-refresh>
+                <icabs-pagination [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" [totalItems]="gridTotalItems" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <hr class="">
+        </div>
+        <div class="section-container">
+            <div class="col-sm-12">
+                <icabs-grid #contactSearchGrid [url]="url" [maxColumns]="maxColumn" [gridData]="gridData" [currentPage]="currentPage" [infoDataColumnReference]="infoDataColumnReference"
+                    (gridInfo)='gridInfo($event)' (infoData)="infoData($event)" (selectedRowInfo)="onGridRowDblClick($event)" [showTick]="true" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div class="section-container indicator-list col-sm-12 margin-auto center">
+            <ul>
+                <li>
+                    <div class="outside-service-branch"></div>
+                    <p>{{ 'Created Outside Service Branch' | translate }}</p>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<div style="display: none">
+    <input type="text" id="BranchNumber">
+    <input type="text" id="BranchServiceAreaCode">
+    <input type="text" id="CallOutRowID">
+    <input type="text" id="ServiceCoverNumber">
+    <input type="text" id="ServiceCoverRowID">
+</div>

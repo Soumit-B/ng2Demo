@@ -1,0 +1,30 @@
+
+.indicator-list {
+	margin-top: 2em;
+	margin-bottom: 1em;
+	ul {
+		padding-left: 1em;
+		padding-right: 1em;
+		margin: 0;
+		li {
+			list-style: none;
+			display: inline-block;
+
+			div {
+				float: left;
+				height: 1.2em;
+				width: 1.2em;				
+			}
+
+			div.outside-service-branch {
+				background-color: #FFCCCC;
+			}
+
+			p {
+				float: left;
+				padding: 0 0.5em;
+			}
+		}
+	}
+}
+

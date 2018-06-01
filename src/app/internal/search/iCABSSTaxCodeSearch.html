@@ -1,0 +1,17 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-table #riTable [columns]="tableParams.columns" (selectedData)="tableRowClick($event)" [itemsPerPage]="tableParams.itemsPerPage"
+                    [page]="tableParams.page" [paginationTop]="true" [displayError]="false"></icabs-table>
+            </div>
+        </div>
+    </section>
+</section>

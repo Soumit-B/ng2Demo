@@ -1,0 +1,83 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="labelTemplate">{{ 'Template' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ClosedCalendarTemplateNumber" formControlName="AnnualCalendarTemplateNumber" class="form-control" type="text"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input id="TemplateName" formControlName="TemplateName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Year' | translate }}</label>
+                    <div class="col8">
+                        <select [(ngModel)]="selectedYear" id="SelectedYear" class="form-control" formControlName="SelectedYear">
+                            <option  *ngFor="let year of selectedYears" 
+                            value="{{year.value}}"  [selected]="year.value === selectedYear" >{{year.value | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-2">
+                    <icabs-refresh (click)="initGrid()"></icabs-refresh>
+                    <icabs-pagination #closedTemplateDateGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-10 text-right" style="float:right;width:430px">
+                    <label class="pr5" style="float:left">{{ 'Legend' | translate }} :</label>
+                    <div class="inline-block pr10">
+                        <div [innerHTML]="legendStr"></div>
+                    </div>
+                    <!--  <div class="inline-block pr10" *ngFor="let l of legend">
+                        <div class="legend inline-block mr5" [style.background-color]="l.color">{{legendStr}}</div>
+                        <label>{{ l.label | translate }}</label>
+                    </div> -->
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <!--  <icabs-grid #closedTemplateDateGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)"></icabs-grid> -->
+                    <icabs-grid-advanced #riGrid (TRDblClick)="tbody_onDblClick($event)" (onSuccess)="onGridSuccess()"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" (click)="onSave()" value="{{'Save'|translate}}">
+                    <input type="button" class="btn btn-secondary" (click)="onCancel()" value="{{'Cancel'|translate}}">
+                </div>
+            </div>
+            <!--Legends-->
+            <!--assign the colors dynamically-->
+            <!--   <div class="row mt10">
+                <div class="col-sm-8 text-left">
+                    <label class="pr5">{{ 'Legend' | translate }} :</label>
+                    <div class="inline-block pr10">
+                        <div [innerHTML]="legendStr"></div>
+                    </div>
+                </div>
+            </div> -->
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onMessageClose()">
+</icabs-modal>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="showPromptMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent"
+    (saveEmit)="promptConfirm($event)" (cancelEmit)="promptCancel($event)"></icabs-prompt-modal>

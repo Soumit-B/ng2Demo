@@ -1,0 +1,206 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Area Allocation' | translate }} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="6" [attr.maxlength]="4">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Frequency'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" size="10" [attr.maxlength]="6">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Visit Gap'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="VisitCycleInWeeks" formControlName="VisitCycleInWeeks" size="10" [attr.maxlength]="6">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Type'|translate}}</label>
+                    <div class="col24">
+                      <icabs-dropdown-static></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Next Visit From'|translate}}</label>
+                    <div class="col8">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'To'|translate}}</label>
+                    <div class="col8">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Service Group'|translate}}</label>
+                    <div class="col24">
+                      <icabs-dropdown-static></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Postcode Begins'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="PostcodeFilter" formControlName="PostcodeFilter" size="10" [attr.maxlength]="8">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Town'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="TownFilter" formControlName="TownFilter" size="20" [attr.maxlength]="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Show'|translate}}</label>
+                    <div class="col24">
+                      <select class="form-control" id="PortfolioStatusType" formControlName="PortfolioStatusType">
+                          <option value="All">{{'All'|translate}}</option>
+                          <option value="Current" selected>{{'Current Portfolio'|translate}}</option>
+                          <option value="NonCurrent">{{'Non Current Portfolio'|translate}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20">
+                    <label class="col16 message-box info-label ">{{'Click FIRST PAGE to refresh'|translate}}</label>
+                </div>
+            </div>
+           <hr class="mt15 mb15">
+           <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Selected Service Cover' |translate}}</strong></label>
+                </div>
+           </div>
+           <div class="row mt2">
+               <div class="col-sm-4">
+                   <div class="col24">
+                        <label class="col24">{{'Premises'|translate}}</label>
+                        <div class="col8 pr5">
+                                <input type="text" class="form-control" id="SelectedPremiseNumber" formControlName="SelectedPremiseNumber" size="20" [attr.maxlength]="20">
+                        </div>
+                        <div class="col16">
+                                <input type="text" class="form-control" id="SelectedPremiseName" formControlName="SelectedPremiseName" size="30" [attr.maxlength]="30">
+                        </div>
+                    </div>
+                    <div class="col24">
+                            <div class="col8 pr5">
+                                <label class="col24">{{'Product'|translate}}</label>
+                                <input type="text" class="form-control" id="SelectedProductCode" formControlName="SelectedProductCode" size="10" [attr.maxlength]="10">
+                            </div>
+                           <div class="col6 pr5">
+                                <label class="col24">{{'W.E.D.'|translate}}</label>
+                                <input type="text" class="form-control" id="SelectedWED" formControlName="SelectedWED" size="10" [attr.maxlength]="10">
+                          </div>
+                          <div class="col6">
+                                <label class="col24">{{'Service Type'|translate}}</label>
+                                <input type="text" class="form-control" id="SelectedServiceType" formControlName="SelectedServiceType" size="5" [attr.maxlength]="5">
+                          </div>
+                   </div>
+                   <div class="col24">
+                        <div class="col8 pr5">
+                            <label class="col24">{{'Frequency'|translate}}</label>
+                            <input type="text" class="form-control" id="SelectedFrequency" formControlName="SelectedFrequency" size="8" [attr.maxlength]="10">
+                        </div>
+                        <div class="col6 pr5">
+                            <label class="col24">{{'Gap'|translate}}</label>
+                            <input type="text" class="form-control" id="SelectedVisitCycle" formControlName="SelectedVisitCycle" size="5" [attr.maxlength]="5">
+                        </div>
+                        <div class="col8">
+                            <label class="col24">{{'Quantity'|translate}}</label>
+                            <input type="text" class="form-control" id="SelectedQuantity" formControlName="SelectedQuantity" size="5" [attr.maxlength]="5">
+                        </div>
+                   </div>
+               </div>
+               <div class="col-sm-2 verticalLine">
+                   <div class="col24">
+                        <label class="col24">{{'Product Service Group'|translate}}</label>
+                        <div class="col24">
+                                <input type="text" class="form-control" id="SelectedProductService" formControlName="SelectedProductService" size="10" [attr.maxlength]="10">
+                        </div>
+                   </div>
+                   <div class="col24">
+                        <label class="col24">{{'Postcode'|translate}}</label>
+                        <div class="col24">
+                                <input type="text" class="form-control" id="SelectedPostcode" formControlName="SelectedPostcode" size="10" [attr.maxlength]="10">
+                        </div>
+                   </div>
+                   <div class="col24">
+                        <label class="col24">{{'Next Visit'|translate}}</label>
+                        <div class="col24">
+                                <icabs-datepicker></icabs-datepicker>
+                        </div>
+                   </div>
+               </div>
+               <div class="col-sm-4">
+                   <div class="col24">
+                        <label class="col24">{{'Service Area'|translate}}</label>
+                        <div class="col12 pr5">
+                            <input type="text" class="form-control" id="SelectedServiceAreaCode" formControlName="SelectedServiceAreaCode" size="10" [attr.maxlength]="10">
+                        </div>
+                        <div class="col2 pr5">
+                            <input type="checkbox" id="ExcludeSelectedArea" formControlName="ExcludeSelectedArea">
+                            <label for="ExcludeSelectedArea"></label>
+                        </div>
+                        <div class="col8">
+                            <input type="button" class="btn btn-additional" id="cmdView" value="{{'View'|translate}}">
+                        </div>
+                   </div>
+                   <div class="col24">
+                        <label class="col24">{{'Sequence'|translate}}</label>
+                        <div class="col12 pr10">
+                            <input type="text" class="form-control" id="SelectedServiceAreaSeq" formControlName="SelectedServiceAreaSeq" size="10" [attr.maxlength]="10">
+                        </div>
+                        <div class="col8 col-sm-offset-1">
+                            <input type="button" class="btn btn-additional" id="cmdClear" value="{{'Clear'|translate}}">
+                        </div>
+                   </div>
+                   <div class="col24">
+                        <label class="col24">{{'Anniversary'|translate}}</label>
+                        <div class="col12 pr10">
+                            <input type="text" class="form-control" id="SelectedAnniversary" formControlName="SelectedAnniversary" size="10" [attr.maxlength]="10">
+                        </div>
+                        <div class="col8 col-sm-offset-1">
+                            <input type="button" class="btn btn-additional" id="cmdSave" value="{{'Save'|translate}}">
+                        </div>
+                   </div>
+               </div>
+           </div>
+           <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,120 @@
+{
+	"tableHeader" : [
+		{
+			"name": "Zip Code",
+			"sortable": false
+		},
+		{
+			"name": "Service Branch",
+			"sortable": true
+		},
+		{
+			"name": "State",
+			"sortable": false
+		},
+		{
+			"name": "Country",
+			"sortable": false
+		}
+	],
+	"tableBody" :
+	[
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+			
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 36,
+			"state": "Yorkshire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 37,
+			"state": "Surrey",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		},
+		{
+			"zipcode": 123,
+			"servicebranch": 35,
+			"state": "Lancashire",
+			"country": "UK"
+		}
+	]
+}

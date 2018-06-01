@@ -1,0 +1,32 @@
+/* Tabs */
+
+.nav-tabs {
+    li>a {
+        border-radius: 0;
+        color: $tabsHeaderColor;
+    }
+    li.active>a {
+        color: $tabsActiveHeaderColor;
+    }
+    li.active.error>a {
+        color: $tabsErrorHeaderColor;
+    }
+}
+
+.nav-tabs>li>a {
+    &:hover {
+        background-color: transparent;
+        border-color: transparent;
+        cursor: pointer;
+    }
+}
+
+.nav-tabs>li.active>a.active,
+.nav-tabs>li.active>a.active:focus,
+.nav-tabs>li.active>a.active:hover {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 4px solid #337ab7;
+    font-weight: bold;
+}

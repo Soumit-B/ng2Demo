@@ -1,0 +1,98 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Visit Planning Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ContractNumber" id="ContractNumber" size="9" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ContractName" id="ContractName" size="35" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premise Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="PremiseNumber" id="PremiseNumber" size="9" [attr.maxlength]="5">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="PremiseName" id="PremiseName" size="35" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ProductCode" id="ProductCode" size="9" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ProductDesc" id="ProductDesc" size="35" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="CalendarDate">{{ 'Planned Date' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" formControlName="CalendarDate" id="CalendarDate" size="10" [attr.maxlength]="10">
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="PlannedQuantity">{{ 'Planned Quantity' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" formControlName="PlannedQuantity" id="PlannedQuantity" size="10" [attr.maxlength]="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="PlannedValue">{{ 'Planned Value' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" formControlName="PlannedValue" id="PlannedValue" size="10">
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="VisitDuration">{{ 'Planned Duration' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" formControlName="VisitDuration" id="VisitDuration" size="10" [attr.maxlength]="8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24" for="ServiceVisitText">{{ 'Service Visit Text' | translate}}</label>
+                    <div class="col24">
+                        <textarea class="form-control" formControlName="ServiceVisitText" id="ServiceVisitText" [attr.maxlength]="100" rows="10" cols="50"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="Save">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+                <input type="button" class="btn btn-additional" value="Delete">
+            </div>
+        </div>
+    </footer>
+</section>

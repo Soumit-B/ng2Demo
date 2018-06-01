@@ -1,0 +1,50 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{'API Code Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <div class="col8 pr5">
+                    <label class="col24" for="APICode">{{ 'API Code' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col24">
+                        <input class="form-control" formControlName="APICode" size="4" maxlength="4" value="">
+                    </div>
+                </div>
+                <div class="col16">
+                    <label class="col24" for="APICode">{{ 'Description' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input class="form-control" formControlName="APICodeDesc" size="40" maxlength="40" value="">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="APICodeSearchParams"
+                            [modalConfig]="modalConfig" [contentComponent]="apiSearchComponent" (ellipsisData)="onAPICodeDataReceived($event, true)"
+                            [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]="isDisabledEllipsis"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row mt5">
+            <div class="col-sm-12"></div>
+        </div>
+        <hr>
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary" value="{{'Save' | translate }}" (click)="saveData($event)" [disabled]="this['pageParams'].isSaveDisabled">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate }}" (click)="resetData()" [disabled]="this['pageParams'].isCancelDisabled">
+                <input type="submit" class="btn btn-additional" value="{{'Delete' | translate }}" (click)="deleteData($event)" [disabled]="this['pageParams'].isDeleteDisabled">
+                <input type="button" [disabled]="isDisabledDetailButton" class="btn btn-additional" value="{{'Details' | translate }}" (click)="goDetails($event)">
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner></icabs-spinner>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showHeader">

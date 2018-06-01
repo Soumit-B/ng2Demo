@@ -1,0 +1,102 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Customer Signature Summary'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Business' |translate}} </label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="BusinessCode" id="BusinessCode">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Employee' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" [attr.maxlength]="11" class="form-control" formControlName="EmployeeCode" id="EmployeeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="EmployeeSurname" id="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Region' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" [attr.maxlength]="11" class="form-control" formControlName="RegionCode" id="RegionCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="RegionDesc" id="RegionDesc">
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Supervisor Employee' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="11" [attr.maxlength]="11" class="form-control" formControlName="SupervisorEmployeeCode" id="SupervisorEmployeeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" formControlName="SupervisorSurname" id="SupervisorSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Branch' |translate}} </label>
+                    <div class="col24">
+                        <icabs-dropdown-static id="BranchNumber"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'From' |translate}} </label>
+                        <icabs-datepicker id="DateFrom"></icabs-datepicker>
+
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'To' |translate}} </label>
+                        <icabs-datepicker id="DateTo"></icabs-datepicker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'View By' |translate}} </label>
+                    <div class="col24">
+                        <icabs-dropdown-static id="ViewBy"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

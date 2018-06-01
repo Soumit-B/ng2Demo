@@ -1,0 +1,32 @@
+<div class="grdEDI">
+    <form novalidate [formGroup]="ediInvoicingFormGroup" (ngSubmit)="$event.preventDefault();">
+        <div class="row">
+            <div class="col-sm-3 mt5">
+                <label class="col24" for="Partner Account Code">{{'Partner Account Code' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="EDIPartnerAccountCode" class="form-control" formControlName="EDIPartnerAccountCode" size="20" maxlength="20">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3 mt2">
+                <label class="col24" for="Partner ANA Number">{{'Partner ANA Number' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="EDIPartnerANANumber" class="form-control" formControlName="EDIPartnerANANumber" size="13" maxlength="13">
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <input type="button" class="btn btn-primary" value="{{'Apply to all Invoice Groups' | translate }}" formControlName="cmdSetInvoiceGroupEDI"
+                    (click)="onCmdSetInvoiceGroupEDIClick($event)">
+            </div>
+            <div class="col-sm-3">
+                <div class="message-box info" role="alert" id="trInformationEDI" *ngIf="fieldVisibility.trInformationEDI === true">
+                    {{ thInformationEDI }}
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

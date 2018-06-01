@@ -1,0 +1,146 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24"> {{'User Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input size="10" maxlength="10" class="form-control" type="text" id="UserCode" formControlName="UserCode" (blur)="onUserCodeBlur($event)"
+                            [ngClass]="{ 'red-bdr': validateUserValue}" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input size="40" maxlength="40" class="form-control" type="text" id="UserName" formControlName="UserName" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [contentComponent]="screenNotReadyComponent" [showCloseButton]="true" [showHeader]="true" [autoOpen]="autoOpenUser"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Business Code' | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" formControlName="BusinessCode" (change)="selectedBusimessDefault($event.target.value)">
+                           <option *ngFor="let business of businessOption" value="{{business.value}}" >{{business.text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="DefaultBusinessInd" formControlName="DefaultBusinessInd">
+                        <label for="DefaultBusinessInd"> {{'Current Default for User' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="FullAccessInd" formControlName="FullAccessInd">
+                        <label for="FullAccessInd"> {{'Show Contract Values For All Branches' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24 h4">{{ 'External Users - Security Settings' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="AllowViewOfSensitiveInfoInd" formControlName="AllowViewOfSensitiveInfoInd">
+                        <label for="AllowViewOfSensitiveInfoInd"> {{'Show Contract Values' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="AllowUpdateOfContractInfoInd" formControlName="AllowUpdateOfContractInfoInd">
+                        <label for="AllowUpdateOfContractInfoInd"> {{'Allow Update Of Contract Details' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="AllowExportOfInformationInd" formControlName="AllowExportOfInformationInd">
+                        <label for="AllowExportOfInformationInd"> {{'Allow Export Of Information In Contact Centre' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24 h4">{{ 'Contact Management Settings' | translate}}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label for="ContactCreateSecurityLevel" class="col24">{{ 'Ticket Creation Security Level' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="ContactCreateSecurityLevel" size="10" maxlength="3" formControlName="ContactCreateSecurityLevel"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="ClosureProcessInd" formControlName="ClosureProcessInd">
+                        <label for="ClosureProcessInd"> {{'Allow Ticket Closure Process' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="ContactTypeDetailAmendInd" formControlName="ContactTypeDetailAmendInd">
+                        <label for="ContactTypeDetailAmendInd"> {{'Allow Change Of ContactTypeDetail Code' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <div class="mt5">
+                        <input type="checkbox" class="form-control" id="CreateCallLogInCCMInd" formControlName="CreateCallLogInCCMInd">
+                        <label for="CreateCallLogInCCMInd"> {{'Create Call Log In Contact Centre Search' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-9">
+                    <input class="btn btn-primary mr10" type="button" value="{{'Save' | translate}}" (click)="onSaveClick($event)" [disabled]="disabledButton">
+                    <input class="btn btn-secondary mr10" type="button" value="{{'Cancel'| translate}}" (click)="onCancelClick($event)" [disabled]="disabledButton">
+                    <input class="btn btn-additional mr10" type="button" value="{{'Delete'|translate}}" (click)="onDeleteClick($event)" [disabled]="disabledButton">
+                    <input class="btn btn-additional mr10" type="button" value="{{'Branch Detail' | translate}}" (click)="onBranchDetailsClick($event)">
+                    <!--<input class="btn btn-additional mr10" type="button" value="Add" (click)="onAddClick($event)">-->
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [showCloseButton]="true">
+    </icabs-modal>
+    <div class="col-sm-12">
+        <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+    </div>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

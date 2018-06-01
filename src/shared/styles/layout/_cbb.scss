@@ -1,0 +1,124 @@
+.userMenuWrapper{
+    .user{
+        display: inline-block;
+        padding: 8px 0;
+        height: 100%;
+    img{
+            height: 29px;
+            border-radius: 50%;
+            background: #fff;
+        } 
+    }
+}
+.cbb-wrapper{
+    position: absolute;
+    z-index: 9999;
+    right: 0;
+    background: #344a55;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    label{
+    font-size: 16px;
+    line-height: 12px;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    }
+    select.form-control{
+        height: 35px;
+    }
+}
+.closeUserMenu{
+    text-align: right;
+    width: 100%;
+    display: block;
+    line-height: 0;
+    margin-bottom: 13px;
+    img{
+        height: 15px;
+    }
+}
+.login-info { 
+    list-style: none;
+    margin: 0 -15px;
+    font-size: 16px;
+    padding: 0 15px;
+    border-bottom: 1px solid #495c66;
+    li {
+        color: #fff;
+        display: inline-block;
+        margin: 7px 0;
+        line-height: 14px;
+        width: 68%;
+        padding:0 5px 0 0;
+        img{
+            width: 14px;
+        }
+    }
+    li:last-child{
+        border: none;
+        padding:0;
+        text-align: right;
+        width: 30%;
+        a{
+          color: #4dbdff; 
+          text-decoration: underline; 
+          img{
+              margin-left: 5px;
+          }
+        }
+    }
+
+}
+
+@media (min-width: 768px) {//sm
+
+}
+@media (min-width: 992px) {//md
+    .cbb-wrapper{
+        position: relative;
+        margin-top: 4px;
+        background: transparent;
+        padding-bottom: 0px;
+        padding-top: 0px;
+        label{
+            font-size: 12px;
+            color: #344a55;
+            margin: 0;
+            line-height: 16px;
+        }
+        select.form-control{
+            height: 19px;
+            font-size: 12px;
+        }
+    }
+    .login-info {
+        position: absolute;
+        right: 15px;
+        top: -32px;
+        font-size: 12px;
+        border-bottom:none;
+    li {
+        color: $navbarTextColor;
+        display: inline-block;
+        margin: 7px 0;
+        border-right: 1px solid $navbarTextColor; 
+        line-height: 14px;
+        padding:0 5px 0 0; 
+        width:auto;
+        img{
+            width: 14px;
+        }
+    }
+    li:last-child{
+        padding:0 0 0 5px;
+        a{
+          color: $navbarTextColor;  
+        }
+        width:auto;
+    }
+    }
+}
+@media (min-width: 1200px) {//lg
+
+}

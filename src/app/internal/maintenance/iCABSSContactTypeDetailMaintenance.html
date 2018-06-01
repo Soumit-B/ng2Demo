@@ -1,0 +1,295 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-contact-type-search #contactTypeDropDown [inputParams]="inputParams" [isRequired]="true" [isFirstItemSelected]="true"
+                            (receivedContactType)="onreceivedContactType($event)" (getDefaultInfo)="onFirstreceivedContactType($event)"></icabs-contact-type-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetailCode">{{ 'Contact Type Detail Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5" [hidden]="!isVisibleAddInputs">
+                        <input id="ContactTypeDetailCode" class="form-control" formControlName="ContactTypeDetailCode" type="text" size="10" maxlength="10"
+                            (change)="onChangeContactTypeDetail()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5" [hidden]="!isVisibleAddInputs">
+                        <input id="ContactTypeDetailSystemDesc" class="form-control" formControlName="ContactTypeDetailSystemDesc" type="text" size="50"
+                            maxlength="50" eTypeText>
+                    </div>
+                    <div class="col24" [hidden]="isVisibleAddInputs">
+                        <icabs-contacttype-detailsearch #ddContactTypeDetailSearch [inputParams]="dropdown.contactTypeDetailSearch" [active]="dropdown.contactTypeDetailSearch.active"
+                            [isDisabled]="dropdown.contactTypeDetailSearch.isDisabled" [isRequired]="dropdown.contactTypeDetailSearch.isRequired"
+                            [isFirstItemSelected]="true" (receivedContactTypeDetailSearch)="onContactTypeDetailCodeDropdownDataReceived($event)"
+                            (getDefaultInfo)="onFirstreceivedContactDetailType($event)"></icabs-contacttype-detailsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Required Fields' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="AccountRequiredInd" formControlName="AccountRequiredInd">
+                        <label class="" for="AccountRequiredInd">{{'Account'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ContractRequiredInd" formControlName="ContractRequiredInd">
+                        <label class="" for="ContractRequiredInd">{{'Contract'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ServiceCoverRequiredInd" formControlName="ServiceCoverRequiredInd">
+                        <label class="" for="ServiceCoverRequiredInd">{{'Service Cover'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PremiseRequiredInd" formControlName="PremiseRequiredInd">
+                        <label class="" for="PremiseRequiredInd">{{'Premises'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PostcodeRequiredInd" formControlName="PostcodeRequiredInd">
+                        <label class="" for="PostcodeRequiredInd">{{'Postcode'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'General Settings' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ValidForNewInd" formControlName="ValidForNewInd">
+                        <label class="" for="ValidForNewInd">{{'Valid For New'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassToPDAInd" formControlName="PassToPDAInd">
+                        <label class="" for="PassToPDAInd">{{'Pass To PDA'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="24" for="">{{'Window To Run'|translate}}</label>
+                        <icabs-dropdown-static #urlSelect class="" [inputData]="windowToRunOptions" [disabled]="" (onSelect)="onWindowToRunChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt5">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="CloseOnCreateInd" formControlName="CloseOnCreateInd">
+                        <label class="" for="CloseOnCreateInd">{{'Close on Create'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="24" for="">{{'Work Order Type'|translate}}</label>
+                        <icabs-dropdown-static #workOrderTypeDropdown class="" [inputData]="workOrderType" [disabled]="" (onSelect)="onWorkOrderTypeChange($event)"
+                            [doTranslate]="false"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="24" for="">{{'Assign To'|translate}}</label>
+                        <icabs-dropdown-static #assignToEmployeeTypeSelect class="" [inputData]="assignToEmployeeType" [disabled]="" (onSelect)="onAssignToEmployeeTypeSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24" *ngIf="isVisibleOccupationDropdown">
+                        <label class="24" for="OccupationCodeSelect">{{'Occupation Code'|translate}}</label>
+                        <icabs-dropdown-static #occupationCodeDropdown class="" [inputData]="occupationTypeDropdown" [disabled]="" (onSelect)="onWorkOrderTypeChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="isVisibleSupervisorInput">
+                    <label class="col24" for="SupervisorLevel">{{ 'Supervisor Level' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col10">
+                        <input id="SupervisorLevel" class="form-control" formControlName="SupervisorLevel" type="text" size="2" [attr.maxlength]="2"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassedToActionerDefaultInd" formControlName="PassedToActionerDefaultInd">
+                        <label class="" for="PassedToActionerDefaultInd">{{'Set Passed Employee To'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ContactManagementWarningInd" formControlName="ContactManagementWarningInd">
+                        <label class="" for="ContactManagementWarningInd">{{'Contact Management Warning'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24" *ngIf="isVisibleClientRetention">
+                        <input type="checkbox" class="form-control" id="ClientRetentionCreateProspectInd" formControlName="ClientRetentionCreateProspectInd">
+                        <label class="" for="ClientRetentionCreateProspectInd">{{'Set Create Prospect To'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="PassToTabletInd" formControlName="PassToTabletInd">
+                        <label class="" for="PassToTabletInd">{{'Valid For Advantage'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Show This Ticket In' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="CallCentreInd" formControlName="CallCentreInd">
+                        <label class="" for="CallCentreInd">{{'Contact Centre Search'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="CallCentreReviewInd" formControlName="CallCentreReviewInd">
+                        <label class="" for="CallCentreReviewInd">{{'Contact Centre Review'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Security Settings' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ForceRootCauseInd" formControlName="ForceRootCauseInd">
+                        <label class="" for="ForceRootCauseInd">{{'Force Root Cause'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ClosureProcessInd" formControlName="ClosureProcessInd">
+                        <label class="" for="ClosureProcessInd">{{'Closure Process Required'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="ScheduledResolutionInd" formControlName="ScheduledResolutionInd">
+                        <label class="" for="ScheduledResolutionInd">{{'Allow Scheduled Resolution'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactCreateSecurityLevel">{{ 'Ticket Creation Security Level' | translate}}</label>
+                    <div class="col24">
+                        <input id="ContactCreateSecurityLevel" class="form-control" formControlName="ContactCreateSecurityLevel" type="text" size="10"
+                            maxlength="3" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'Account Review Settings' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="AccountReviewInd" formControlName="AccountReviewInd">
+                        <label class="" for="AccountReviewInd">{{'Account Review'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="RiskInd" formControlName="RiskInd">
+                        <label class="" for="RiskInd">{{'Risk To Business'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-offset-4 col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="OpportunityInd" formControlName="OpportunityInd">
+                        <label class="" for="OpportunityInd">{{'Sales Opportunity'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24"><strong>{{ 'OnGuard Settings' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="OnGuardCode">{{ 'OnGuard Code' | translate}}</label>
+                    <div class="col24">
+                        <input id="OnGuardCode" class="form-control" formControlName="OnGuardCode" type="text" size="20" maxlength="20" eTypeCode>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input *ngIf="isVisibleAdd" type="submit" class="btn btn-primary mr5" value="{{'Add' | translate}}" (click)="changeMode()">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="saveData()" [disabled]="isDisableButtons">
+                <input type="button" class="btn btn-secondary mr5 " value="{{ 'Cancel' | translate}}" [disabled]="isDisableButtons" (click)="cancelData()">
+                <input *ngIf="isVisibleDelete" type="button" class="btn btn-additional " value="{{ 'Delete' | translate}}" (click)="deleteData()"
+                    [disabled]="isDisableDeleteButton">
+            </div>
+            <div class="col-sm-offset-3 col-sm-3">
+                <div class="col24 ">
+                    <icabs-dropdown-static #optionDropdown class="" [inputData]="optionDropdownInput" [disabled]="" (onSelect)="onOptionChange($event)"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-modal #messageModal [showCloseButton]="true" [showHeader]="true "></icabs-modal>
+<icabs-prompt-modal #promptModalSave="child" [content]="promptContentConfirm" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptModalDelete="child" [content]="promptContentDelete" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>

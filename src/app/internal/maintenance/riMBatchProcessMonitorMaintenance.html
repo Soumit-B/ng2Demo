@@ -1,0 +1,185 @@
+<style>
+    .mandatoryBatch {
+        border: 1px solid red;
+    }
+</style>
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{'Batch Process Monitor Maintenance' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{'Unique Number' | translate}}</label>
+                <div class="col20">
+                    <input class="form-control" formControlName="BatchProcessUniqueNumber" size=10 maxlength=10 value="" eTypeInteger>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt30">
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item" id="grdAttendanceTypeLanguageMaintenance1" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab1.active}" (click)="renderTab(1)">
+                            <span>Batch Process</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="grdParameter" [ngClass]="{'active': uiDisplay.tab.tab2.active, 'hidden': isAccess}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active}" (click)="renderTab(2)">
+                            <span>Parameter</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" id="grdLogfile" [ngClass]="{'active': uiDisplay.tab.tab3.active, 'hidden': isAccess}">
+                        <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active}" (click)="renderTab(3)">
+                            <span>Log File</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                        <div id="grdAttendanceTypeLanguageMaintenance1">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'UserCode' | translate}}</label>
+                                    <div class="col24">
+                                        <input formControlName="BatchProcessUserCode" size=10 maxlength=10 value="" class="form-control" eTypeCode>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Sumitted Date & Time' | translate}}</label>
+                                    <div class="col14 pr5">
+                                        <input class="form-control" formControlName="BatchProcessSubmittedDate" size=10 maxlength=10 value="" eTypeDate>
+                                    </div>
+                                    <div class="col10">
+                                        <input class="form-control" formControlName="BatchProcessSubmittedTime" size=5 maxlength=5 value="" eTypeTime>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Description' | translate}}</label>
+                                    <div class="col24">
+                                        <input class="form-control" formControlName="BatchProcessDescription" size=20 maxlength=20 value="">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Program' | translate}}</label>
+                                    <div class="col24">
+                                        <input class="form-control" formControlName="BatchProcessProgramName" size=35 maxlength=35 value="">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Type' | translate}}</label>
+                                    <div class="col10 pr5">
+                                        <input class="form-control" [ngClass]="warn" #BatchProcessTypeCode formControlName="BatchProcessTypeCode" size=10 maxlength=10
+                                            value="" eTypeInteger>
+                                    </div>
+                                    <div class="col14">
+                                        <input class="form-control" formControlName="BatchProcessTypeDisplayDesc" size=20 maxlength=20 value="">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-5">
+                                    <label class="col24">{{'Failure Reason' | translate}}</label>
+                                    <div class="col24">
+                                        <textarea class="form-control" formControlName="BatchProcessFailureReason" size="250" maxlength="250" cols=50 rows=5></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Scheduled Start Date & Time' | translate}}</label>
+                                    <div class="col14 pr5">
+                                        <input class="form-control" formControlName="BatchProcessScheduleStartDate" size=10 maxlength=10 value="" eTypeDate>
+                                    </div>
+                                    <div class="col10">
+                                        <input class="form-control" formControlName="BatchProcessScheduleStartTime" size=5 maxlength=5 value="" eTypeTime>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Actual Start Date & Time' | translate}}</label>
+                                    <div class="col14 pr5">
+                                        <input class="form-control" formControlName="BatchProcessActualStartDate" size=10 maxlength=10 value="" eTypeDate>
+                                    </div>
+                                    <div class="col10">
+                                        <input class="form-control" formControlName="BatchProcessActualStartTime" size=5 maxlength=5 value="" eTypeTime>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{'Actual End Date & Time' | translate}}</label>
+                                    <div class="col14 pr5">
+                                        <input class="form-control" formControlName="BatchProcessActualEndDate" size=10 maxlength=10 value="" eTypeDate>
+                                    </div>
+                                    <div class="col10">
+                                        <input class="form-control" formControlName="BatchProcessActualEndTime" size=5 maxlength=5 value="" eTypeTime>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row mt5">
+                                <div class="col-sm-12">
+                                    <input type="submit" class="btn btn-primary" value="Save" (click)="updateChanges()">
+                                    <input type="button" class="btn btn-secondary" value="Cancel" (click)="cancelChanges()">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                        <div id="grdParameter">
+                            <div class="row mt10">
+                                <div class="col-sm-12">
+                                </div>
+
+                            </div>
+                            <div class="row mt5">
+                                <div class="col-sm-12">
+                                    <icabs-table #monitorTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"></icabs-table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                        <div id="grdLogfile">
+                            <div class="row mt10">
+                                <div class="col-sm-10">
+                                    <label class="col24">{{'Batch Process Log' | translate}}</label>
+                                    <div class="col24">
+                                        <textarea class="form-control" formControlName="BatchProcessLog" size="250" maxlength="250" cols=100 rows=15></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>

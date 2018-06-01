@@ -1,0 +1,103 @@
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-control,
+.btn {
+    height: 27px;
+    padding: 2px 12px;
+    border-radius: 2px;
+}
+
+.btn {
+    padding: 0px 24px;
+}
+
+.ui-select-container {
+    .btn {
+        padding: 3px 10px;
+    }
+}
+
+.pagination {
+    margin: 0;
+}
+
+.glyphicon {
+    top: 3px;
+}
+
+.sectionHeading .glyphicon {
+    top: 10px;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    margin: 0px;
+}
+
+hr {
+    margin: 10px 0;
+}
+
+label {
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
+.modal-header {
+    padding: 5px;
+}
+
+.btn-secondary {
+    background: #fff;
+    border-radius: 0px;
+    border: 1px solid #007dc5;
+    color: #007dc5;
+}
+
+.modal-backdrop{
+transition-duration: 0.4s;
+background: rgba(55, 58, 71, 0.9);
+transition: opacity 0.3s;
+}
+.modal-backdrop.in{
+opacity: 1;
+}
+.modal .modal-content{
+-webkit-animation-duration: 0.4s;
+animation-duration: 0.4s;
+-webkit-animation-fill-mode: forwards;
+animation-fill-mode: forwards;
+border-radius: 0;
+}
+.modal.fade.in .modal-content{
+-webkit-animation-name: anim-open;
+animation-name: anim-open;
+-webkit-animation-timing-function: cubic-bezier(0.6,0,0.4,1);
+animation-timing-function: cubic-bezier(0.6,0,0.4,1);
+}
+
+.modal.fade .modal-content{
+-webkit-animation-name: anim-close;
+animation-name: anim-close;
+}
+@-webkit-keyframes anim-open {
+0% { opacity: 0; -webkit-transform: scale3d(0, 0, 1); }
+100% { opacity: 1; -webkit-transform: scale3d(1, 1, 1); }
+}
+
+@Keyframes anim-open {
+0% { opacity: 0; -webkit-transform: scale3d(0, 0, 1); transform: scale3d(0, 0, 1); }
+100% { opacity: 1; -webkit-transform: scale3d(1, 1, 1); transform: scale3d(1, 1, 1); }
+}
+
+@-webkit-keyframes anim-close {
+0% { opacity: 1; }
+100% { opacity: 0; -webkit-transform: scale3d(0.5, 0.5, 1); }
+}
+
+@Keyframes anim-close {
+0% { opacity: 1; }
+100% { opacity: 0; -webkit-transform: scale3d(0.5, 0.5, 1); transform: scale3d(0.5, 0.5, 1); }
+}

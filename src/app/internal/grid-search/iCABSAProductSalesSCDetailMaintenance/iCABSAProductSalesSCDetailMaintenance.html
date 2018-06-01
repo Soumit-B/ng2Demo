@@ -1,0 +1,492 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ ContractObject.label | translate}} {{'Service Cover Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="uiForm">
+        <div #topContainer id="grdServiceCoverMaintenance">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" id="labelContractNumber">{{ ContractObject.label | translate}} {{'Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" eTypeCode formControlName="ContractNumber" [readonly]="uiForm.controls.ContractNumber?.readonly" class="form-control" size="7" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" eTypeText formControlName="ContractName" [readonly]="uiForm.controls.ContractName?.readonly" class="form-control" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" id="spanContractCommenceDate">{{'Commence Date' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="ContractCommenceDate" eTypeDate formControlName="ContractCommenceDate" [readonly]="uiForm.controls.ContractCommenceDate?.readonly" class="form-control" size="9" [attr.maxlength]="10">
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="flag-fixed">
+                        <ul>
+                            <li>
+                                <img src="/assets/images/cross-icon.png" title="" id="BadDebtAccountText" /><strong class='line-of-service'>{{ this.uiDisplay.label.tdLineOfService }}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="labelPremiseNumber">{{'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" eTypeInteger formControlName="PremiseNumber" [readonly]="uiForm.controls.PremiseNumber?.readonly" size="7" [attr.maxlength]="8" class="form-control" />
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" eTypeText formControlName="PremiseName" [readonly]="uiForm.controls.PremiseName?.readonly" size="30" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" id="spanContractCommenceDate">{{'Status' | translate }} </label>
+                    <div class="col16">
+                        <input type="text" name="Status" eTypeCode formControlName="Status" [readonly]="uiForm.controls.Status?.readonly" size="18" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanProductCode">{{'Product Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" eTypeCode formControlName="ProductCode" (change)="ProductCode_onChange($event)" [readonly]="uiForm.controls.ProductCode?.readonly" class="form-control" size="7" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" eTypeText formControlName="ProductDesc" [readonly]="uiForm.controls.ProductDesc?.readonly" class="form-control" size="30" [attr.maxlength]="30">
+                    </div>
+                    <div class="col-sm-3" *ngIf="uiDisplay.InactiveEffectDate">
+                        <label class="col24" id="labelInactiveEffectdate" *ngIf="uiDisplay.labelInactiveEffectdate">{{ 'From' | translate }}</label>
+                        <div class="col16" *ngIf="uiDisplay.InactiveEffectDate">
+                            <icabs-datepicker [dt]="InactiveEffectDate" [clearDate]="true" (selectedValue)="selectedInactiveEffectDate($event)"></icabs-datepicker>
+                            <input type="text" id="InactiveEffectDate" eTypeDate formControlName="InactiveEffectDate" [value]="InactiveEffectDate" [readonly]="true" class="hidden">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanServiceBranchNumber">{{'Servicing Branch' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceBranchNumber" eTypeInteger formControlName="ServiceBranchNumber" [readonly]="uiForm.controls.ServiceBranchNumber?.readonly" size="2" [attr.maxlength]="5" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BranchName" eTypeText formControlName="BranchName" [readonly]="uiForm.controls.BranchName?.readonly" size="30" [attr.maxlength]="30" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" id="grdGeneral" *ngIf="uiDisplay.tab.tab1.visible" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab1.active}" (click)="renderTab(1)">
+                                <span>{{'General' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdDepositDtls" *ngIf="uiDisplay.tab.tab2.visible" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active}" (click)="renderTab(2)">
+                                <span>{{'Deposit Details' | translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdSplInstr" *ngIf="uiDisplay.tab.tab3.visible" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active}" (click)="renderTab(3)">
+                                <span>{{'Special Instructions' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" *ngIf="uiDisplay.tab.tab1.visible" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                            <div id="grdGeneral">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanServiceQuantity">{{'Service Quantity' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col24">
+                                            <input type="text" id="ServiceQuantity" #ServiceQuantity eTypeInteger formControlName="ServiceQuantity" [readonly]="uiForm.controls.ServiceQuantity?.readonly" size="10" [attr.maxlength]="10" class="form-control" (change)="ServiceQuantity_onChange($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7" id="trInstallByBranch" *ngIf="uiDisplay.trInstallByBranch">
+                                    <div class="col-sm-3" *ngIf="uiDisplay.InstallByBranchInd">
+                                        <div class="col24">
+                                            <input id="InstallByBranchInd" *ngIf="uiDisplay.InstallByBranchInd" eTypeCheckBox formControlName="InstallByBranchInd" [readonly]="uiForm.controls.InstallByBranchInd?.readonly" type="checkbox" class="form-control" (click)="InstallByBranchInd_onclick()">
+                                            <label class="col24" id="tdInstallByBranchIndLabel" for="InstallByBranchInd" *ngIf="uiDisplay.tdInstallByBranchIndLabel">{{'Install By Branch' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" *ngIf="uiDisplay.InstallationValue">
+                                        <label class="col24" id="tdInstallationValuelabel" *ngIf="uiDisplay.tdInstallationValuelabel">{{'Installation Value' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col24" id="InstallationValue" *ngIf="uiDisplay.InstallationValue">
+                                            <input type="text" eTypeCurrency formControlName="InstallationValue" [readonly]="uiForm.controls.InstallationValue?.readonly" size="20" [attr.maxlength]="23"  class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" *ngIf="uiDisplay.OutstandingInstallations">
+                                        <label class="col24" id="tdOutstandingInstallationslabel" *ngIf="uiDisplay.tdOutstandingInstallationslabel">{{'Outstanding Installations' | translate }}</label>
+                                        <div class="col16" id="OutstandingInstallations" *ngIf="uiDisplay.OutstandingInstallations">
+                                            <input type="text" id="OutstandingInstallations" eTypeInteger formControlName="OutstandingInstallations" [readonly]="uiForm.controls.OutstandingInstallations?.readonly" size="10" [attr.maxlength]="10" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanServiceAnnualValue">{{'Value' | translate }}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <input type="text" id="ServiceAnnualValue" formControlName="ServiceAnnualValue" [readonly]="uiForm.controls.ServiceAnnualValue?.readonly" size="20" [attr.maxlength]="23" class="form-control" eTypeCurrency>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7">
+                                    <div class="col-sm-3">
+                                        <input id="DeliverByBranchInd" eTypeCheckBox formControlName="DeliverByBranchInd" [readonly]="uiForm.controls.DeliverByBranchInd?.readonly" type="checkbox" class="form-control" (click)="DeliverByBranchInd_onclick()">
+                                        <label class="col24" id="spanDeliverByBranchInd" for="DeliverByBranchInd">{{'Deliver By Branch' | translate }}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanDeliveryChargeValue">{{'Delivery Charge' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="DeliveryChargeValue" eTypeCurrency formControlName="DeliveryChargeValue" [readonly]="uiForm.controls.DeliveryChargeValue?.readonly" size="15" [attr.maxlength]="15" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" *ngIf="uiDisplay.OutstandingDeliveries">
+                                        <label class="col24" id="tdOutstandingDeliveries" *ngIf="uiDisplay.tdOutstandingDeliveries">{{'Outstanding Deliveries' | translate }}</label>
+                                        <div class="col16" id="OutstandingDeliveries" *ngIf="uiDisplay.OutstandingDeliveries">
+                                            <input type="text" eTypeInteger formControlName="OutstandingDeliveries" [readonly]="uiForm.controls.OutstandingDeliveries?.readonly" size="10" [attr.maxlength]="5" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trDiscountUnitPrice" *ngIf="uiDisplay.trDiscountUnitPrice">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Dicount Rate' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="DiscountInclRate" eTypeDecimal2 formControlName="DiscountInclRate" [readonly]="uiForm.controls.DiscountInclRate?.readonly" size="20" [attr.maxlength]="23" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Single Unit Price' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="SingleUnitPriceIT" eTypeDecimal2 formControlName="SingleUnitPriceIT" [readonly]="uiForm.controls.SingleUnitPriceIT?.readonly" size="20" [attr.maxlength]="23" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trMonthlyUnitPrice" *ngIf="uiDisplay.trMonthlyUnitPrice">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Monthly Unit Price' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="MonthlyUnitPrice" eTypeCurrency formControlName="MonthlyUnitPrice" [readonly]="uiForm.controls.MonthlyUnitPrice?.readonly" size="20" [attr.maxlength]="23" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trWorkLoadIndex" *ngIf="uiDisplay.trWorkLoadIndex">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Workload Index' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="WorkLoadIndex" eTypeDecimal2 formControlName="WorkLoadIndex" [readonly]="uiForm.controls.WorkLoadIndex?.readonly" size="15" [attr.maxlength]="5" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Workload Index Total' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="WorkLoadIndexTotal" eTypeDecimal2 formControlName="WorkLoadIndexTotal" [readonly]="uiForm.controls.WorkLoadIndexTotal?.readonly" size="15" [attr.maxlength]="10" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7" id="trPartInvoicing" *ngIf="uiDisplay.trPartInvoicing">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input id="DeliveryPartInvoiceInd" eTypeCheckBox formControlName="DeliveryPartInvoiceInd" [readonly]="uiForm.controls.DeliveryPartInvoiceInd?.readonly" type="checkbox" class="form-control" (click)="DeliveryPartInvoiceInd_OnClick()">
+                                            <label class="col24" for="DeliveryPartInvoiceInd">{{'Invoice per Delivery' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Suspend Invoice' | translate }}</label>
+                                        <div class="col3 pr5">
+                                            <input id="InvoiceSuspendInd" eTypeCheckBox formControlName="InvoiceSuspendInd" [readonly]="uiForm.controls.InvoiceSuspendInd?.readonly" size="2" [attr.maxlength]="2" type="checkbox" value="" class="form-control">
+                                            <label for="InvoiceSuspendInd"></label>
+                                        </div>
+                                        <div class="col21">
+                                            <input type="text" id="InvoiceSuspendText" for="InvoiceSuspendInd" eTypeText formControlName="InvoiceSuspendText" [readonly]="uiForm.controls.InvoiceSuspendText?.readonly" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanServiceSalesEmployee">{{'Commission Employee' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="ServiceSalesEmployee" #ServiceSalesEmployee eTypeCode formControlName="ServiceSalesEmployee" [readonly]="uiForm.controls.ServiceSalesEmployee?.readonly" (change)="doLookupUiParams(1)" (keydown)="ServiceSalesEmployee_onkeydown($event)" size="6" [attr.maxlength]="6"
+                                                class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="EmployeeSurname" eTypeText formControlName="EmployeeSurname" [readonly]="true" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #commissionEmp [disabled]="uiForm.controls.ServiceSalesEmployee?.disabled" [showCloseButton]="ellipsis.commissionEmp.showCloseButton" [showHeader]="ellipsis.commissionEmp.showHeader" [childConfigParams]="ellipsis.commissionEmp" [contentComponent]="ellipsis.commissionEmp.component"
+                                                (ellipsisData)="commissionEmpSelection($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanTaxCode">{{'VAT Code' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="TaxCode" #TaxCode eTypeCode formControlName="TaxCode" (change)="doLookupUiParams(2)" (keydown)="TaxCode_onkeydown($event)" [readonly]="uiForm.controls.TaxCode?.readonly" size="6" [attr.maxlength]="5" class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="TaxCodeDesc" eTypeText formControlName="TaxCodeDesc" [readonly]="true" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #taxcodeLP [disabled]="uiForm.controls.TaxCode?.disabled" [showCloseButton]="ellipsis.taxcode.showCloseButton" [showHeader]="ellipsis.taxcode.showHeader" [childConfigParams]="ellipsis.taxcode" [contentComponent]="ellipsis.taxcode.component" (ellipsisData)="taxcodeSelection($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="uiDisplay.TaxExemptionNumber">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="TaxExemptionNumberLabel" *ngIf="uiDisplay.TaxExemptionNumberLabel">{{'Tax Exemption Number' | translate }}</label>
+                                        <div class="col24" id="TaxExemptionNumber" *ngIf="uiDisplay.TaxExemptionNumber">
+                                            <input type="text" #TaxExemptionNumber eTypeText formControlName="TaxExemptionNumber" [readonly]="uiForm.controls.TaxExemptionNumber?.readonly" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanBusinessOriginCode">{{'Business Origin' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col24">
+                                            <icabs-business-origin-language-search #businessOriginDropdown [inputParams]="dropdown.businessOriginLang.inputParams" [isRequired]="dropdown.businessOriginLang.isRequired" [isDisabled]="uiForm.controls.BusinessOriginCode?.readonly" [triggerValidate]="dropdown.businessOriginLang.triggerValidate"
+                                            [active]="dropdown.businessOriginLang.active" (receivedLostBusinessLangSearch)="businessOriginSelection($event)"></icabs-business-origin-language-search>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trBusinessOriginDetailCode" *ngIf="uiDisplay.trBusinessOriginDetailCode">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanBusinessOriginDetailCode">{{'Business Origin Detail' | translate }}</label>
+                                        <div class="col24">
+                                            <select class="form-control" eTypeCode formControlName="BusinessOriginDetailCode">
+                                                <option *ngFor="let busCode of busOriDtlLangOptions" [value]="busCode.BusinessOriginDetailCode">
+                                                    {{busCode.BusinessOriginDetailCode + ' - ' + busCode.BusinessOriginDetailDesc}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanServiceTypeCode">{{'Service Type' | translate }}
+                                            <span class="mandatory">* </span>
+                                        </label>
+                                        <div class="col24 hidden">
+                                            <select class="form-control" eTypeCode formControlName="ServiceTypeCode">
+                                                <option *ngFor="let svcCode of svcTypesOptions" [value]="svcCode.ServiceTypeCode">
+                                                    {{svcCode.ServiceTypeCode + ' - ' + svcCode.ServiceTypeDesc}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col24">
+                                            <icabs-servicetype-search #serviceTypeDropdown
+                                                [inputParams]="dropdown.serviceTypeSearch.inputParams"
+                                                [isRequired]="dropdown.serviceTypeSearch.isRequired"
+                                                [isDisabled]="dropdown.serviceTypeSearch.isDisabled"
+                                                [isTriggerValidate]="dropdown.serviceTypeSearch.triggerValidate"
+                                                [active]="dropdown.serviceTypeSearch.active"
+                                                (receivedServiceTypeData)="serviceTypeSelection($event)">
+                                            </icabs-servicetype-search>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanBranchServiceAreaCode">{{'Service Area' | translate }}<span class="mandatory">* </span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="BranchServiceAreaCode" eTypeCode formControlName="BranchServiceAreaCode" (keydown)="BranchServiceAreaCode_onkeydown($event)" (change)="doLookupUiParams(4)" [readonly]="uiForm.controls.BranchServiceAreaCode?.readonly" size="6" [attr.maxlength]="4" class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="BranchServiceAreaDesc" eTypeText formControlName="BranchServiceAreaDesc" [readonly]="true" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #svcArea [disabled]="uiForm.controls.BranchServiceAreaCode?.disabled" [showCloseButton]="ellipsis.svcArea.showCloseButton" [showHeader]="ellipsis.svcArea.showHeader" [childConfigParams]="ellipsis.svcArea" [contentComponent]="ellipsis.svcArea.component" (ellipsisData)="svcAreaSelection($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanServiceEmployeeCode">{{'Service Employee' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="ServiceEmployeeCode" eTypeCode formControlName="ServiceEmployeeCode" (change)="doLookupUiParams(5)" [readonly]="uiForm.controls.ServiceEmployeeCode?.readonly" size="6" [attr.maxlength]="6" class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col16">
+                                            <input type="text" id="ServiceEmployeeDesc" eTypeText formControlName="ServiceEmployeeDesc" [readonly]="uiForm.controls.ServiceEmployeeDesc?.readonly" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trInstallationEmployee" *ngIf="uiDisplay.trInstallationEmployee">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanInstallationEmployeeCode">{{'Installation Employee' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="InstallationEmployeeCode" eTypeCode formControlName="InstallationEmployeeCode" [readonly]="uiForm.controls.InstallationEmployeeCode?.readonly" (keydown)="InstallationEmployeeCode_onkeydown()" size="6" [attr.maxlength]="6" class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="InstallationEmployeeName" eTypeText formControlName="InstallationEmployeeName" [readonly]="true" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #installationEmp [disabled]="uiForm.controls.InstallationEmployeeCode?.disabled" [showCloseButton]="ellipsis.installationEmp.showCloseButton" [showHeader]="ellipsis.installationEmp.showHeader" [childConfigParams]="ellipsis.installationEmp" [contentComponent]="ellipsis.installationEmp.component"
+                                                (ellipsisData)="installationEmpSelection($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Date' | translate }}</label>
+                                        <div class="col16">
+                                            <icabs-datepicker [dt]="InstallationDate" [clearDate]="true" (selectedValue)="selectedInstallationDate($event)"></icabs-datepicker>
+                                            <input type="text" id="InstallationDate" eTypeDate formControlName="InstallationDate" [value]="InstallationDate" [readonly]="true" class="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trDeliveryEmployee" *ngIf="uiDisplay.trDeliveryEmployee">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanDeliveryEmployeeCode">{{'Delivery Employee' | translate }}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="DeliveryEmployeeCode" eTypeCode formControlName="DeliveryEmployeeCode" [readonly]="uiForm.controls.DeliveryEmployeeCode?.readonly" size="6" [attr.maxlength]="6" class="form-control text-uppercase">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="DeliveryEmployeeName" eTypeText formControlName="DeliveryEmployeeName" [readonly]="true" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #deliveryEmp [disabled]="uiForm.controls.DeliveryEmployeeCode?.disabled" [showCloseButton]="ellipsis.deliveryEmp.showCloseButton" [showHeader]="ellipsis.deliveryEmp.showHeader" [childConfigParams]="ellipsis.deliveryEmp" [contentComponent]="ellipsis.deliveryEmp.component"
+                                                (ellipsisData)="deliveryEmpSelection($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Date Delivered' | translate }}</label>
+                                        <div class="col16">
+                                            <icabs-datepicker [dt]="DeliveryDate" [clearDate]="true" (selectedValue)="selectedDeliveryDate($event)"></icabs-datepicker>
+                                            <input type="text" id="DeliveryDate" eTypeDate formControlName="DeliveryDate" [value]="DeliveryDate" [readonly]="true" class="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id=trPurchaseOrderDetails *ngIf="uiDisplay.trPurchaseOrderDetails" class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="spanPurchaseOrderNo">{{'Purchase Order Number' | translate }}</label>
+                                        <div class="col24">
+                                            <input type="text" id="PurchaseOrderNo" eTypeTextFree formControlName="PurchaseOrderNo" [readonly]="uiForm.controls.PurchaseOrderNo?.readonly" size="30" [attr.maxlength]="30" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Expiry Date' | translate }}</label>
+                                        <div class="col16">
+                                            <icabs-datepicker [dt]="PurchaseOrderExpiryDate" [clearDate]="true" (selectedValue)="selectedPurchaseOrderExpiryDate($event)"></icabs-datepicker>
+                                            <input type="text" id="PurchaseOrderExpiryDate" eTypeDate formControlName="PurchaseOrderExpiryDate" [value]="PurchaseOrderExpiryDate" [readonly]="true" class="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7" id="trZeroValueIncInvoice" *ngIf="uiDisplay.trZeroValueIncInvoice">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input id="ZeroValueIncInvoice" eTypeCheckBox formControlName="ZeroValueIncInvoice" [readonly]="uiForm.controls.ZeroValueIncInvoice?.readonly" type="checkbox" size="10" class="form-control">
+                                            <label class="col24" id="spanZeroValueIncInvoice" for="ZeroValueIncInvoice">{{'Allow Zero Value Invoice' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" *ngIf="uiDisplay.tab.tab2.visible" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                            <div id="grdDepositdetails">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Deposit Amount' | translate }}</label>
+                                        <div class="col16">
+                                            <input type="text" id="DepositAmount" eTypeCurrency formControlName="DepositAmount" [readonly]="uiForm.controls.DepositAmount?.readonly" size="14" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Deposit Date' | translate }}</label>
+                                        <div class="col12">
+                                            <icabs-datepicker [dt]="DepositDate" [clearDate]="true" (selectedValue)="selectedDepositDate($event)"></icabs-datepicker>
+                                            <input type="text" id="DepositDate" eTypeDate formControlName="DepositDate" [value]="DepositDate" [readonly]="true" class="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Deposit Amount Applied' | translate }}</label>
+                                        <div class="col16">
+                                            <input type="text" id="DepositAmountApplied" eTypeCurrency formControlName="DepositAmountApplied" [readonly]="uiForm.controls.DepositAmountApplied?.readonly" size="14" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" id="">{{'Posted To Finance' | translate }}</label>
+                                        <div class="col12">
+                                            <input type="text" id="DepositPostedDate" eTypeDate formControlName="DepositPostedDate" [readonly]="uiForm.controls.DepositPostedDate?.readonly" size="10" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" *ngIf="uiDisplay.tab.tab3.visible" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                            <div id="grdSpecialInstructions">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <label class="col24" id="spanServiceSpecialInstructions">{{'Special Instructions' | translate }}</label>
+                                        <div class="col24">
+                                            <textarea id="ServiceSpecialInstructions" eTypeTextFree formControlName="ServiceSpecialInstructions" [readonly]="uiForm.controls.ServiceSpecialInstructions?.readonly" [attr.maxlength]="500" cols="50" rows="20" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt20">
+            <div class="row mt20 mb20" id="grdServiceCoverMaintenanceControl">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-sm btn-primary" value="{{'Add' | translate}}" (click)="add()" *ngIf="uiDisplay.func.add">
+                    <input type="button" class="btn btn-sm btn-primary" value="{{'Update' | translate}}" (click)="update()" *ngIf="uiDisplay.func.update">
+                    <input type="button" class="btn btn-sm btn-primary" value="{{'Save' | translate}}" (click)="save()" *ngIf="uiDisplay.func.save">
+                    <input type="button" class="btn btn-sm btn-default" value="{{'Cancel' | translate}}" (click)="cancel()">
+                </div>
+                <div class="col-sm-3 pull-right" id="MenuControl">
+                    <select id="menu" formControlName="menu" class="form-control" (change)="menu_onchange($event.target.value)">
+                        <option value="Options">{{'Options' | translate}}</option>
+                        <optgroup *ngFor="let item of menuOptions" label="{{item.OptionGrp | translate}}">
+                            <option *ngFor="let child of item.Options" [value]="child.value">
+                                {{child.label | translate}}
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div id="divControl" valign="top" class="newstyle" class="hidden">
+                <input type="text" id="FieldHideList" eTypeText formControlName="FieldHideList" [readonly]="uiForm.controls.FieldHideList?.readonly" />
+                <input type="text" id="NewPremise" eTypeText formControlName="NewPremise" [readonly]="uiForm.controls.NewPremise?.readonly" />
+                <input type="text" id="JobSaleDeliveredQuantity" eTypeInteger formControlName="JobSaleDeliveredQuantity" [readonly]="uiForm.controls.JobSaleDeliveredQuantity?.readonly" />
+                <input id="DetailRequired" eTypeCheckBox formControlName="DetailRequired" type="checkbox" [readonly]="uiForm.controls.DetailRequired?.readonly" />
+                <input type="text" id="LostBusinessRequestNumber" formControlName="LostBusinessRequestNumber" [readonly]="uiForm.controls.LostBusinessRequestNumber?.readonly" />
+                <input type="text" id="CancelledInd" eTypeText formControlName="CancelledInd" [readonly]="uiForm.controls.CancelledInd?.readonly" />
+                <input type="text" id="ErrorMessageDesc" eTypeText formControlName="ErrorMessageDesc" [readonly]="uiForm.controls.ErrorMessageDesc?.readonly" />
+                <input type="text" id="ContractTypeCode" eTypeCode formControlName="ContractTypeCode" [readonly]="uiForm.controls.ContractTypeCode?.readonly" />
+                <input id="EnableValueUpdate" eTypeCheckBox formControlName="EnableValueUpdate" type="checkbox" [readonly]="uiForm.controls.EnableValueUpdate?.readonly" />
+                <input id="EnableQuantityUpdate" eTypeCheckBox formControlName="EnableQuantityUpdate" type="checkbox" [readonly]="uiForm.controls.EnableQuantityUpdate?.readonly" />
+                <input id="DetailRequiredInd" eTypeCheckBox formControlName="DetailRequiredInd" type="checkbox" [readonly]="uiForm.controls.DetailRequiredInd?.readonly" />
+                <input id="RequireExemptNumberInd" formControlName="RequireExemptNumberInd" type="checkbox" [readonly]="uiForm.controls.RequireExemptNumberInd?.readonly" />
+                <input type="text" id="SCNOtdelByBrnchInvPerDelDesc" formControlName="SCNOtdelByBrnchInvPerDelDesc" [readonly]="uiForm.controls.SCNOtdelByBrnchInvPerDelDesc?.readonly" />
+                <input id="LocationsEnabled" eTypeCheckBox formControlName="LocationsEnabled" type="checkbox" [readonly]="uiForm.controls.LocationsEnabled?.readonly" />
+                <input id="ValueRequiredInd" eTypeCheckBox formControlName="ValueRequiredInd" type="checkbox" [readonly]="uiForm.controls.ValueRequiredInd?.readonly" />
+                <input type="text" id="LOSName" eTypeText formControlName="LOSName" size="40" [readonly]="uiForm.controls.LOSName?.readonly" />
+                <input type="text" id="DepositCanAmend" eTypeTextFree formControlName="DepositCanAmend" [readonly]="uiForm.controls.DepositCanAmend?.readonly" />
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-modal #messageModal [showCloseButton]="true" (modalClose)="save(true)" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [showHeader]="false" [showCloseButton]="false" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

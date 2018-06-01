@@ -1,0 +1,252 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Customer Information Maintenance' | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Group Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control"  id="GroupAccountNumber" formControlName="GroupAccountNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="30" maxlength="30" class="form-control"  id="GroupName" formControlName="GroupName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" formControlName="AccountNumber" id="AccountNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="30" maxlength="30" class="form-control" formControlName="AccountName" id="AccountName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" formControlName="ContractNumber"  id="ContractNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="30" maxlength="30" class="form-control" formControlName="ContractName"  id="ContractName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Customer Information Number' | translate}}<span *ngIf="fieldRequired.CustomerInfoNumber === true" class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" maxlength="8" class="form-control" formControlName="CustomerInfoNumber"  id="CustomerInfoNumber" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Owning Branch' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="5" maxlength="5" class="form-control" formControlName="BranchNumber"  id="BranchNumber" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Customer Name' | translate}}</label>
+                    <div class="col22">
+                        <input type="text" size="30" maxlength="30" class="form-control" formControlName="CustomerInfoName"  id="CustomerInfoName" eTypeText>
+                    </div>
+                </div>
+            </div>
+
+            <!--Tab function-->
+            <div class="row mt15">
+                <div class="col-sm-12" id="tabCont">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item " id="grdContract" [ngClass]="{'active': uiDisplay.tab.tab1.active, 'error': uiDisplay.tab.tab1.error, 'hidden': !uiDisplay.tab.tab1.visible}">
+                            <a class="nav-link " [ngClass]="{'active': uiDisplay.tab.tab1.active, 'highlight': uiDisplay.tab.tab1.highlight}" (click)="renderTab(1)">
+                                <span>{{'Contract'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdJob" [ngClass]="{'active': uiDisplay.tab.tab2.active, 'error': uiDisplay.tab.tab2.error, 'hidden': !uiDisplay.tab.tab2.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active, 'highlight': uiDisplay.tab.tab2.highlight}" (click)="renderTab(2)">
+                                <span>{{'Job'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdProductSales" [ngClass]="{'active': uiDisplay.tab.tab3.active, 'error': uiDisplay.tab.tab3.error, 'hidden': !uiDisplay.tab.tab3.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active, 'highlight': uiDisplay.tab.tab3.highlight}" (click)="renderTab(3)">
+                                <span>{{'Product Sales'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item active" id="grdEntitlement" [ngClass]="{'active': uiDisplay.tab.tab4.active, 'error': uiDisplay.tab.tab4.error, 'hidden': !uiDisplay.tab.tab4.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab4.active, 'highlight': uiDisplay.tab.tab4.highlight}" (click)="renderTab(4)">
+                                <span>{{'Entitlement'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdService" [ngClass]="{'active': uiDisplay.tab.tab5.active, 'error': uiDisplay.tab.tab5.error, 'hidden': !uiDisplay.tab.tab5.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab5.active, 'highlight': uiDisplay.tab.tab5.highlight}" (click)="renderTab(5)">
+                                <span>{{'Service'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdOther" [ngClass]="{'active': uiDisplay.tab.tab6.active, 'error': uiDisplay.tab.tab6.error, 'hidden': !uiDisplay.tab.tab6.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab6.active, 'highlight': uiDisplay.tab.tab6.highlight}" (click)="renderTab(6)">
+                                <span>{{'Other'|translate}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdConf" [ngClass]="{'active': uiDisplay.tab.tab7.active, 'error': uiDisplay.tab.tab7.error, 'hidden': !uiDisplay.tab.tab7.visible}">
+                            <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab7.active, 'highlight': uiDisplay.tab.tab7.highlight}" (click)="renderTab(7)">
+                                <span>{{'Confidential'|translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab1.active, 'hidden': !uiDisplay.tab.tab1.visible}">
+                            <div id="grdContract">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" formControlName="ContractInfo" id="ContractInfo" (change)="toTitleCase('ContractInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Prices' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="ContractPrices" formControlName="ContractPrices" (change)="toTitleCase('ContractPrices')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Contract-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab2.active, 'hidden': !uiDisplay.tab.tab2.visible}">
+                            <div id="grdJob">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="JobInfo" formControlName="JobInfo" (change)="toTitleCase('JobInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Prices' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="JobPrices" formControlName="JobPrices" (change)="toTitleCase('JobPrices')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Job-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane " [ngClass]="{'active': uiDisplay.tab.tab3.active, 'hidden': !uiDisplay.tab.tab3.visible}">
+                            <div id="grdProductSales">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="ProductSalesInfo" formControlName="ProductSalesInfo" (change)="toTitleCase('ProductSalesInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Prices' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="ProductSalesPrices" formControlName="ProductSalesPrices" (change)="toTitleCase('ProductSalesPrices')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of ProductSales-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane active" [ngClass]="{'active': uiDisplay.tab.tab4.active, 'hidden': !uiDisplay.tab.tab4.visible}">
+                            <div id="grdEntitlement">
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="EntitlementInfo" formControlName="EntitlementInfo" (change)="toTitleCase('EntitlementInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Prices' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="EntitlementPrice" formControlName="EntitlementPrice" (change)="toTitleCase('EntitlementPrice')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Entitlement-->
+                        </div>
+                        <!--end of tabpane-->
+
+                        <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab5.active, 'hidden': !uiDisplay.tab.tab5.visible}">
+                            <div id="grdService">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <label class="col24">{{'Information (max 500 characters)' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" formControlName="ServiceInfo" id="ServiceInfo" maxlength="500" (change)="toTitleCase('ServiceInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Service-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab6.active, 'hidden': !uiDisplay.tab.tab6.visible}">
+                            <div id="grdOther">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" formControlName="OtherInfo" id="OtherInfo" (change)="toTitleCase('OtherInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Other-->
+                        </div>
+                        <!--end of tabpane-->
+                        <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab7.active, 'hidden': !uiDisplay.tab.tab7.visible}">
+                            <div id="grdConf">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <label class="col24">{{'Information' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea class="form-control" rows="5" cols="" id="ConfidentialInfo" formControlName="ConfidentialInfo" (change)="toTitleCase('ConfidentialInfo')" eTypeText></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end of Confidential-->
+                        </div>
+                        <!--end of tabpane-->
+                    </div>
+                    <!--end of tabcontent-->
+                </div>
+            </div>
+            <!--end ofTab-->
+        </section>
+
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3" *ngIf="otherVariables['FunctionUpdate'] === true">
+                    <input class="btn btn-primary mr10" type="button" value="{{ 'Save' | translate }}" formControlName="Save" (click)="onSave($event);" (keyup)="onSaveKey($event)">
+                    <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" formControlName="Cancel" (click)="onCancel($event);">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>

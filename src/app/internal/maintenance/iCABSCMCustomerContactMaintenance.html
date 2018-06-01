@@ -1,0 +1,750 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Ticket Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Ticket Number' | translate}}<span class="mandatory">*</span></label>
+                        <input type="text" id="CustomerContactNumber" size="10" maxlength="11" class="form-control" formControlName="CustomerContactNumber">
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'Team Code' | translate}}</label>
+                        <input type="text" id="CurrentTeamID" size="12" maxlength="12" class="form-control" formControlName="CurrentTeamID">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Actions' | translate}}</label>
+                        <input type="text" id="ActionCount" size="3" maxlength="3" class="form-control" formControlName="ActionCount">
+                    </div>
+                    <div class="col16">
+                        <label class="col24">{{'Closed' | translate}}</label>
+                        <input type="text" id="ClosedDateTime" size="22" class="form-control" formControlName="ClosedDateTime">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Ticket Type' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <select id="ContactTypeCodeSelect" class="form-control">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Ticket Detail' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <select id="ContactTypeDetailCodeSelect" class="form-control">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" size="10" maxlength="9" class="form-control" formControlName="AccountNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="AccountName" size="38" maxlength="40" class="form-control" formControlName="AccountName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Group Account' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="GroupAccountNumber" size="10" class="form-control" formControlName="GroupAccountNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="GroupName" size="34" maxlength="40" class="form-control" formControlName="GroupName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="10" maxlength="8" class="form-control" formControlName="ContractNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" size="38" maxlength="40" class="form-control" formControlName="ContractName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Current Owner' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="CurrentOwnerEmployeeCode" size="10" maxlength="10" class="form-control" formControlName="CurrentOwnerEmployeeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="CurrentOwnerEmployeeName" size="34" maxlength="40" class="form-control" formControlName="CurrentOwnerEmployeeName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="10" maxlength="8" class="form-control" formControlName="PremiseNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" size="38" maxlength="40" class="form-control" formControlName="PremiseName">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Type' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceTypeCode" size="10" maxlength="2" class="form-control" formControlName="ServiceTypeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ServiceTypeDesc" size="34" maxlength="40" class="form-control" formControlName="ServiceTypeDesc">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="10" maxlength="6" class="form-control" formControlName="ProductCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" size="38" maxlength="40" class="form-control" formControlName="ProductDesc">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'Postcode' | translate}}</label>
+                        <input type="text" id="ContactPostcode" size="10" maxlength="10" class="form-control" formControlName="ContactPostcode">
+                    </div>
+                    <div class="col16">
+                        <label class="col24">{{'Prospect' | translate}}</label>
+                        <input type="text" id="DispProspectNumber" size="6" maxlength="6" class="form-control" formControlName="DispProspectNumber">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" id="btnProspect" class="btn btn-additional mt20" value="{{ 'Prospect Details' | translate}}">
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" id="grdAddress"><a class="nav-link"><span>{{'Address' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdDisputedInvoices"><a class="nav-link"><span>{{'Disputed Invoices' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdNotify"><a class="nav-link"><span>{{'Notifications' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdLogs"><a class="nav-link"><span>{{'Related Logs' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdTickets"><a class="nav-link"><span>{{'Related Ticket Details' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdRootCause"><a class="nav-link"><span>{{'Root Cause Details' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdWorkOrder"><a class="nav-link"><span>{{'Work Orders' | translate}}</span></a></li>
+                        <li class="nav-item" id="grdOriginal"><a class="nav-link"><span>{{'Original' | translate}}</span></a></li>
+                        <li class="nav-item active" id="grdLatest"><a class="nav-link active"><span>{{'Latest' | translate}}</span><span class="hidden">{{'New Entry' | translate}}</span></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdAddress">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <strong class="col24">{{'Address Details' | translate}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Type' | translate}}</label>
+                                        <div class="col16">
+                                            <select id="AddressCodeSelect" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Name' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressName" size="40" maxlength="40" class="form-control" formControlName="AddressName">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Name' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressContactName" size="40" maxlength="40" class="form-control" formControlName="AddressContactName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 1' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressLine1" size="40" maxlength="40" class="form-control" formControlName="AddressLine1">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Position' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressContactPosn" size="40" maxlength="40" class="form-control" formControlName="AddressContactPosn">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 2' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressLine2" size="40" maxlength="40" class="form-control" formControlName="AddressLine2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 3' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressLine3" size="40" maxlength="40" class="form-control" formControlName="AddressLine3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressLine4" size="40" maxlength="40" class="form-control" formControlName="AddressLine4">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Telephone' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressContactPhone" size="40" maxlength="40" class="form-control" formControlName="AddressContactPhone">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'County' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressLine5" size="40" maxlength="40" class="form-control" formControlName="AddressLine5">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Mobile' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressContactMobile" size="40" maxlength="40" class="form-control" formControlName="AddressContactMobile">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressPostcode" size="40" maxlength="40" class="form-control" formControlName="AddressPostcode">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Email' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="AddressContactEmail" size="40" maxlength="40" class="form-control" formControlName="AddressContactEmail">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdDisputedInvoices">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" id="btnProspect" class="btn btn-additional" value="{{ 'Add / Delete Invoices' | translate}}">
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <icabs-grid></icabs-grid>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdNotify">
+                                <div class="row mt10">
+                                    <div class="col-sm-2">
+                                        <select id="NotifyStyle" class="form-control"> 
+                                            <option value="email">{{'Sent via Email' | translate}}</option>
+                                            <option selected value="sms">{{'Sent via SMS' | translate}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <select id="NotifyStyle" class="form-control"> 
+                                            <option value="email">{{'Internal Notifications' | translate}}</option>
+                                            <option selected value="sms">{{'External Notifications' | translate}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid></icabs-grid>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Recipients' | translate}}</label>
+                                        <textarea id="NotifyRecipients" rows="15" cols="80" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Message' | translate}}</label>
+                                        <textarea id="NotifyMessage" rows="15" cols="80" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdLogs">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid></icabs-grid>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Summary' | translate}}</label>
+                                        <textarea id="CallLogSummary" rows="15" cols="80" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Details' | translate}}</label>
+                                        <textarea id="CallLogDetails" rows="15" cols="80" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdTickets">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid></icabs-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdRootCause">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" id="cmdAddRootCause" class="btn btn-additional" value="{{ 'Add Root Cause' | translate}}">
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid></icabs-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdWorkOrder">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <icabs-refresh></icabs-refresh>
+                                        <icabs-pagination></icabs-pagination>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid></icabs-grid>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane">
+                            <div id="grdOriginal">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <strong class="col24">{{ 'Original Details' | translate}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Number' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="" size="6" maxlength="6" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Position' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactPosition" size="40" maxlength="40" class="form-control" formControlName="CustomerContactPosition">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Telephone' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactTelephone" size="24" maxlength="20" class="form-control" formControlName="CustomerContactTelephone">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Mobile' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactMobileNumber" size="24" maxlength="20" class="form-control" formControlName="CustomerContactMobileNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Email' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactEmailAddress" size="40" maxlength="75" class="form-control" formControlName="CustomerContactEmailAddress">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Fax' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactFax" size="24" maxlength="20" class="form-control" formControlName="CustomerContactFax">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Medium' | translate}}</label>
+                                        <div class="col16">
+                                            <select id="OriginalContactMediumCodeSelect" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Customer Ref' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="CustomerContactTicketReference" size="20" maxlength="40" class="form-control" formControlName="CustomerContactTicketReference">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Created' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="CreatedDate" size="10" maxlength="10" class="form-control" formControlName="CreatedDate">
+                                        </div>
+                                        <div class="col8">
+                                            <input type="text" id="CreatedTime" size="5" maxlength="5" class="form-control" formControlName="CreatedTime">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Created by' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="CreatedByEmployeeCode" size="6" maxlength="6" class="form-control" formControlName="CreatedByEmployeeCode">
+                                        </div>
+                                        <div class="col16">
+                                            <input type="text" id="CreatedByEmployeeName" size="27" maxlength="30" class="form-control" formControlName="CreatedByEmployeeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Summary' | translate}}</label>
+                                        <div class="col24">
+                                            <input type="text" id="ShortNarrative" size="50" maxlength="120" class="form-control" formControlName="ShortNarrative">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Details' | translate}}</label>
+                                        <div class="col24">
+                                            <textarea id="ContactNarrative" rows="3" cols="" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane active">
+                            <div id="grdLatest">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <strong>{{'Latest Details' | translate}}</strong>
+                                        <strong class="hidden">{{'New Entry' | translate}}</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Number' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="" size="6" maxlength="6" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Position' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="ContactPosition" size="40" maxlength="40" class="form-control" formControlName="ContactPosition">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Telephone' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="ContactTelephone" size="24" maxlength="20" class="form-control" formControlName="ContactTelephone">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Mobile' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="ContactMobileNumber" size="24" maxlength="20" class="form-control" formControlName="ContactMobileNumber">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Email' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="ContactEmailAddress" size="40" maxlength="75" class="form-control" formControlName="ContactEmailAddress">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Fax' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="ContactFax" size="24" maxlength="20" class="form-control" formControlName="ContactFax">
+                                        </div>
+                                        <div class="col8 pl10">
+                                            <input type="button" id="BtnAmendContact" class="btn btn-additional" value="{{ 'Contact Details' | translate}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Medium' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col16">
+                                            <select id="ContactMediumCodeSelect" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Customer Ref' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="TicketReference" size="20" maxlength="40" class="form-control" formControlName="TicketReference">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Created' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="LatestCreatedDate" size="10" maxlength="10" class="form-control" formControlName="LatestCreatedDate">
+                                        </div>
+                                        <div class="col8">
+                                            <input type="text" id="LatestCreatedTime" size="5" maxlength="5" class="form-control" formControlName="LatestCreatedTime">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Created by' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="LatestCreatedByEmployeeCode" size="6" maxlength="6" class="form-control" formControlName="LatestCreatedByEmployeeCode">
+                                        </div>
+                                        <div class="col16">
+                                            <input type="text" id="LatestCreatedByEmployeeName" size="27" maxlength="30" class="form-control" formControlName="LatestCreatedByEmployeeName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Summary' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="ShortDescription" size="50" maxlength="120" class="form-control" formControlName="ShortDescription">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-6">
+                                        <label class="col24">{{'Details' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <textarea id="Comments" rows="3" cols="" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <div class="col12 pr5">
+                                            <label class="col24">{{'Earliest Effect Date' | translate}}</label>
+                                            <input type="text" id="EarliestEffectDate" size="9" maxlength="10" class="form-control" formControlName="EarliestEffectDate">
+                                        </div>
+                                        <div class="col12 mt20">
+                                            <input type="checkbox" id="chkCreateProspect" size="5" maxlength="5" class="form-control" formControlName="chkCreateProspect">
+                                            <label for="chkCreateProspect">{{'Create Prospect' | translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="col12 pr5">
+                                            <label class="col24">{{'Commence Date' | translate}}</label>
+                                            <input type="text" id="CRCommenceDate" size="9" maxlength="10" class="form-control" formControlName="CRCommenceDate">
+                                        </div>
+                                        <div class="col12">
+                                            <label class="col24">{{'Notice Period (Months)' | translate}}</label>
+                                            <input type="text" id="CRNoticePeriod" size="3" class="form-control" formControlName="CRNoticePeriod">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <div class="col12 pr5">
+                                            <label class="col24">{{'Action by' | translate}}<span class="mandatory">*</span></label>
+                                            <icabs-datepicker></icabs-datepicker>
+                                        </div>
+                                        <div class="col12 mt20">
+                                            <input type="text" id="NextActionByTime" size="5" maxlength="5" class="form-control" formControlName="NextActionByTime">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Usual Employee' | translate}}</label>
+                                        <div class="col16">
+                                            <input type="text" id="DefaultAssigneeEmployeeDetails" size="52" class="form-control" formControlName="DefaultAssigneeEmployeeDetails">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Regarding Employee' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="OriginatingEmployeeCode" size="7" maxlength="7" class="form-control" formControlName="OriginatingEmployeeCode">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="OriginatingEmployeeName" size="22" maxlength="24" class="form-control" formControlName="OriginatingEmployeeName">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Assign To' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="NextActionEmployeeCode" size="7" maxlength="7" class="form-control" formControlName="NextActionEmployeeCode">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="NextActionEmployeeName" size="22" maxlength="24" class="form-control" formControlName="NextActionEmployeeName">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mt20">
+                                        <input type="button" id="cmdIntNotifications" class="btn btn-additional" value="{{'Notifications' | translate }}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 mt20">
+                                        <div class="col12 pr5">
+                                            <input type="checkbox" id="chkKeepOwnership" size="5" maxlength="5" class="form-control" formControlName="chkKeepOwnership">
+                                            <label for="chkCreateProspect">{{'Keep Ownership' | translate}}</label>
+                                        </div>
+                                        <div class="col12">
+                                            <input type="checkbox" id="chkContactPassedToActioner" size="5" maxlength="5" class="form-control" formControlName="chkContactPassedToActioner">
+                                            <label for="chkCreateProspect">{{'Passed' | translate}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 mt2">
+                                        <label class="col24">{{'SMS Send On' | translate}}</label>
+                                        <div class="col12 pr5">
+                                            <icabs-datepicker></icabs-datepicker>
+                                        </div>
+                                        <div class="col12">
+                                            <input type="text" id="SMSSendOnTime" size="4" maxlength="5" class="form-control" formControlName="SMSSendOnTime">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" id="chkCreateCallOut" size="5" maxlength="5" class="form-control" formControlName="chkCreateCallOut">
+                                            <label for="chkCreateCallOut">{{'Create a callout' | translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Notify Customer' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <select id="ContactNotifyWhenSelect" class="form-control"> 
+                                                <option selected value="0">{{'Never' | translate}}</option>
+                                                <option value="1">{{'On Create' | translate}}</option>
+                                                <option value="2">{{'On Close' | translate}}</option>
+                                                <option value="3">{{'On Create & Close' | translate}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col16">
+                                            <select id="ContactNotifyTypeSelect" class="form-control"> 
+                                                <option value="1">{{'Using Email' | translate}}</option>
+                                                <option value="2">{{'Using SMS' | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Status' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <select id="ContactStatusCodeSelect" class="form-control"> 
+                                            </select>
+                                        </div>
+                                        <div class="col16">
+                                            <input type="text" id="ScheduledCloseDate" size="8" class="form-control" formControlName="ScheduledCloseDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" value="{{ 'Save' | translate}}">
+                    <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate}}">
+                    <input type="button" class="btn btn-additional mr10" value="{{ 'Copy' | translate}}">
+                    <input type="button" class="btn btn-additional mr10" value="{{ 'Export Contact' | translate}}">
+                    <input type="button" class="btn btn-additional" value="{{ 'Contact Employee' | translate}}">
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <select id="menu" class="form-control">
+                        <option selected value="">{{'Options' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

@@ -1,0 +1,107 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ProspectNumber">{{'Prospect Number' | translate}}  <span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ProspectNumber" size="8" maxlength="8" formControlName="ProspectNumber">
+                        </div>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="ProspectName" size="40" maxlength="40" formControlName="ProspectName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class=" mb15 mt15">
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ConvertedToNumber">{{'Contract/Job Number' | translate}} <span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ConvertedToNumber" size="10" maxlength="10" formControlName="ConvertedToNumber"
+                                (change)="convertedToNumberOnChange($event)">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="ConvertedToName" size="40" maxlength="40" formControlName="ConvertedToName">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [showCloseButton]="ellipsConf.convertedToNumber.showCloseButton" [childConfigParams]="ellipsConf.convertedToNumber.childConfigParams"
+                                [modalConfig]="ellipsConf.convertedToNumber.modalConfig" [contentComponent]="ellipsConf.convertedToNumber.contentComponent"
+                                (ellipsisData)="onConvertedToNumberEllipsisDataReceived($event, true)" [showHeader]="ellipsConf.convertedToNumber.showHeader"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ContractTypeCode">{{'Contract Type Code' | translate}} <span class="mandatory">*</span></label>
+                        <div class="col8">
+                            <select id="ContractTypeCode" class="form-control" formControlName="ContractTypeCode">
+                                <option *ngFor="let item of ttContractTypeLang" [ngValue]="item.contractTypeCode">{{item.contractTypeDesc | translate}}</option> 
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ConvertedDate">{{'Converted Date' | translate}} <span class="mandatory">*</span></label>
+                        <div class="col8">
+                            <icabs-custom-datepicker id="ConvertedDate" formControlName="ConvertedDate" [required]="datePickerConfig.isRequired"></icabs-custom-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ConvertedSalesEmployeeCode">{{'Sales Employee' | translate}}  <span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" id="ConvertedSalesEmployeeCode" size="10" maxlength="10" formControlName="ConvertedSalesEmployeeCode"
+                                (change)="convertedSalesEmployeeCodeOnChange($event)">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" class="form-control" id="ConvertedSalesEmployeeCodeName" size="40" maxlength="40" formControlName="ConvertedSalesEmployeeCodeName">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [showCloseButton]="ellipsConf.salesEmployee.showCloseButton" [childConfigParams]="ellipsConf.salesEmployee.childConfigParams"
+                                [modalConfig]="ellipsConf.salesEmployee.modalConfig" [contentComponent]="ellipsConf.salesEmployee.contentComponent"
+                                (ellipsisData)="onSalesEmployeeEllipsisDataReceived($event, true)" [showHeader]="ellipsConf.salesEmployee.showHeader"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ConvertedValue">{{'Converted Value' | translate}} <span class="mandatory">*</span></label>
+                        <div class="col8">
+                            <input type="text" class="form-control" id="ConvertedValue" size="10" maxlength="15" formControlName="ConvertedValue">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <input class="btn btn-primary mr10" type="submit" value="{{'Save' | translate}}" (click)="onClickSaveBtn()">
+                    <input class="btn btn-secondary" type="button" value="{{'Cancel' | translate}}" (click)="onClickCancelBtn()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

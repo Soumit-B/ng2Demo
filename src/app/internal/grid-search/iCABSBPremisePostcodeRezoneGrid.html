@@ -1,0 +1,211 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] |translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']" novalidate>
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Move From Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" class="form-control" type="text" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['BranchServiceAreaCode']}"
+                            (change)="PopulateDescriptions('BranchServiceAreaCode')" (blur)="onCapitalize('BranchServiceAreaCode');"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.branchServiceAreaSearc.showCloseButton" [childConfigParams]="ellipseConfig.branchServiceAreaSearc.inputParams"
+                            [modalConfig]="ellipseConfig.branchServiceAreaSearc.config" [contentComponent]="branchServiceAreaSearcComponent"
+                            (ellipsisData)="branchServiceAreaSearcDataReceived($event)" [showHeader]="ellipseConfig.branchServiceAreaSearc.showHeader"
+                            [disabled]="ellipseConfig.branchServiceAreaSearc.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'From Seq No.' | translate }}</label>
+                        <div class="col24">
+                            <input id="SeqNumberFrom" formControlName="SeqNumberFrom" class="form-control" type="text" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['SeqNumberFrom']}"
+                                (change)="formValidation('SeqNumberFrom')" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'To' | translate }}</label>
+                        <div class="col24">
+                            <input id="SeqNumberTo" formControlName="SeqNumberTo" class="form-control" type="text" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['SeqNumberTo']}"
+                                (change)="formValidation('SeqNumberTo')" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'To Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCodeTo" formControlName="BranchServiceAreaCodeTo" class="form-control" type="text" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsObj['BranchServiceAreaCodeTo']}"
+                            (change)="PopulateDescriptions( 'BranchServiceAreaCodeTo')" (blur)="onCapitalize('BranchServiceAreaCodeTo');"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="BranchServiceAreaDescTo" formControlName="BranchServiceAreaDescTo" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.branchServiceAreaSearc.showCloseButton" [childConfigParams]="ellipseConfig.branchServiceAreaSearc.inputParams"
+                            [modalConfig]="ellipseConfig.branchServiceAreaSearc.config" [contentComponent]="branchServiceAreaSearcComponent"
+                            (ellipsisData)="branchServiceDataReceived($event)" [showHeader]="ellipseConfig.branchServiceAreaSearc.showHeader"
+                            [disabled]="ellipseConfig.branchServiceAreaSearc.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Target Seq No.' | translate }}</label>
+                    <div class="col12 pr5">
+                        <input id="TargetSeqNumber" formControlName="TargetSeqNumber" class="form-control" type="text" size="6" [attr.maxlength]="6"
+                            maxlength="6" [ngClass]="{ 'red-bdr': pageVariables.nonRequiredFormControlsObj['TargetSeqNumber']}"
+                            (change)="formValidationNot( 'TargetSeqNumber')" eTypeInteger>
+                    </div>
+                    <div class="col12">
+                        <input type="button" id="cmdProduct" (click)="cmdProduct_onclick()" class="btn btn-primary" value="{{ 'Product Filters' | translate }}">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Type' | translate}}</label>
+                    <div class="col16">
+                        <icabs-servicetype-search #serviceTypeSearchDropDown [inputParams]="dropdown.serviceTypeSearch" [isRequired]="dropdown.serviceTypeSearch.isRequired"
+                        [isDisabled]="dropdown.serviceTypeSearch.isDisabled" (receivedServiceTypeData)="serviceTypeCodeOnKeyDown($event)">
+                    </icabs-servicetype-search>
+                        <input type="hidden" formControlName="ServiceTypeCode">
+                        <input type="hidden" formControlName="ServiceTypeDesc">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{ 'Seq In Gaps Of' | translate }}</label>
+                    <div class="col24">
+                        <input id="SequenceGap" formControlName="SequenceGap" class="form-control" type="text" size="3" [attr.maxlength]="3" maxlength="3"
+                            [ngClass]="{ 'red-bdr': pageVariables.nonRequiredFormControlsObj['SequenceGap']}" (change)="formValidationNot( 'SequenceGap')"
+                            eTypeInteger>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Group' | translate}}</label>
+                    <div class="col16">
+                        <icabs-sbproductservice-groupsearch id="ProductServiceGroupDesc" #productServiceGroupDropdown [inputParams]="searchConfigs.productServiceGroupSearch"
+                        [active]="searchConfigs.productServiceGroupSearch.active" [isDisabled]="searchConfigs.productServiceGroupSearch.isDisabled"
+                        (receivedProductServiceGroupSearch)="setProductServiceGroup($event)"></icabs-sbproductservice-groupsearch>
+
+                        <input type="hidden" formControlName="ProductServiceGroupCode">
+                        <input type="hidden" formControlName="ProductServiceGroupDesc">
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <label class="col24">{{'Show' | translate}}</label>
+                    <div class="col10 pr5">
+                        <select class="form-control" id="PortfolioStatusType" formControlName="PortfolioStatusType">
+<option value="All" [ngValue] ="pageVariables.PortfolioStatusType[0]" [selected]="true">{{'All' | translate}}</option>
+<option value="Current" [ngValue] ="pageVariables.PortfolioStatusType[1]">{{'Current Portfolio' | translate}}</option>
+<option value="NonCurrent" [ngValue] ="pageVariables.PortfolioStatusType[2]">{{'Non Current Portfolio' | translate}}</option>
+                        </select>
+                    </div>
+
+                    <div class="col14">
+                        <input type="button" id="cmdRezone" class="btn btn-primary mr5" (click)="cmdUndo_onclick()" value="{{ 'Undo Rezone' | translate }}"
+                            *ngIf="this.pageVariables.rezoneAllClick">
+                        <input type="button" id="cmdRezone" class="btn btn-primary" (click)="cmdRezone_onclick()" value="{{ 'Rezone All' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Visit Frequency' | translate }}</label>
+                    <div class="col12">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" class="form-control" type="text" [ngClass]="{ 'red-bdr': pageVariables.requiredFormControlsOptional['ServiceVisitFrequency']}"
+                            (change)="formValidation('ServiceVisitFrequency')" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Show' | translate}}</label>
+                    <div class="col24">
+                        <select class="form-control" id="ContractTypeCode" formControlName="ContractTypeCode">
+                            <option *ngFor="let item of dropDownConfig.ContractTypeCode.ContractTypeCodeList" [value]="item.value">
+                                {{item.text | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Postcode' | translate }}</label>
+                    <div class="col12">
+                        <input id="PostcodeFilter" formControlName="PostcodeFilter" class="form-control" type="text" [attr.maxlength]="8" (blur)="onCapitalize('PostcodeFilter');"
+                            eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'State' | translate }}</label>
+                    <div class="col12">
+                        <input id="StateFilter" formControlName="StateFilter" class="form-control" type="text" [attr.maxlength]="20" (blur)="onCapitalize('StateFilter');"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Suburb' | translate }}</label>
+                    <div class="col12">
+                        <input id="" formControlName="TownFilter" class="form-control" type="text" [attr.maxlength]="20" (change)="buildGrid()" (blur)="onCapitalize('TownFilter');"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #premisePostCodeRezoneGridPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="gridConfig.premisePost.pageSize"
+                        (getCurrentPage)="getCurrentPage($event)" [currentPage]="gridConfig.premisePost.currentPage"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #premisePostCodeRezoneGrid [maxColumns]="gridConfig.premisePost.maxColumn" [currentPage]="gridConfig.premisePost.gridCurPage"
+                        [sortIndex]="gridConfig.premisePost.gridSortHeaders" (selectedRowInfo)="getSelectedRowInfo($event)" (gridInfo)="getGridInfo($event)"
+                        (sortInfo)="sortGrid($event)" [showTick]="true" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <input type="hidden" formControlName="ErrorMessageDesc">
+        <input type="hidden" formControlName="FrequencyRequiredInd">
+        <input type="hidden" formControlName="PassToPDAInd">
+        <input type="hidden" formControlName="InstallationRequired">
+        <input type="hidden" formControlName="EngineerRequiredInd">
+        <input type="hidden" formControlName="BusinessContractTypes">
+        <input type="hidden" formControlName="ServiceCoverRowID">
+        <input type="hidden" formControlName="ThirdPartyServiceInd">
+        <input type="hidden" formControlName="CustomerSpecificInd">
+        <input type="hidden" formControlName="AllowUndo">
+        <input type="hidden" formControlName="UndoRowids">
+        <input type="hidden" formControlName="BranchNumber">
+        <input type="hidden" formControlName="BusinessCode">
+    </form>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="promptConfig.forSave.showPromptMessageHeader" [title]="promptConfig.forSave.promptConfirmTitle"
+    [content]="promptConfig.forSave.promptConfirmContent" (saveEmit)="promptConfirm($event)" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="pageVariables.isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="messageModalConfig.showMessageHeader" [config]="messageModalConfig.config"
+    [title]="messageModalConfig.title" [content]="messageModalConfig.content" [showCloseButton]="messageModalConfig.showCloseButton"
+    (modalClose)="messageModalClose()"></icabs-modal>

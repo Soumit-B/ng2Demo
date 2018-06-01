@@ -1,0 +1,30 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Pro Rata Charge Status Language Search' | translate }}</h1>
+            </div>
+        </div>
+
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">Language Code</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="LanguageCode" size="9" maxlength="8" value="" class="form-control" formControlName="LanguageCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="LanguageDescription" size="40" maxlength="40" value="" class="form-control" formControlName="LanguageDescription">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row mt5">
+                <icabs-table #proRataChargeStatusLanguageSearchTable (selectedData)="onSelect($event)" [columns]="columns" [paginationTop]="true"
+                    [displayError]="false" [tableheader]="tableheading" (dataLoaded)="tableDataLoaded($event)" (onRefresh)="refresh()"></icabs-table>
+            </div>
+        </section>
+    </form>
+</section>

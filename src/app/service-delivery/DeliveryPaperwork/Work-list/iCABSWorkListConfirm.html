@@ -1,0 +1,52 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Generate Service Listing' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchNumber">{{ 'Branch Number' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="BranchNumber" size="2" [attr.maxlength]="5" formControlName="BranchNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col11 pr5">
+                        <label class="col24" for="DateFrom">{{ 'Date From' | translate }}</label>
+                        <input type="text" id="DateFrom" size="10" [attr.maxlength]="10" formControlName="DateFrom" class="form-control" (blur)="DateFrom_onchange"
+                            eTypeDate>
+                    </div>
+                    <div class="col11 pr5">
+                        <label class="col24" for="DateTo">{{ 'To' | translate }}</label>
+                        <input type="text" id="DateTo" size="10" [attr.maxlength]="10" formControlName="DateTo" class="form-control" (blur)="DateTo_onchange"
+                            eTypeDate>
+                    </div>
+                    <div class="col2 pr5 mt15">
+                        <span class="glyphicon glyphicon-plus plusmin"></span>
+                        <span class="glyphicon glyphicon-minus plusmin"></span>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="gridConfig.totalRecords" [itemsPerPage]="gridConfig.pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (TRClick)="riGrid_BodyOnClick($event)" (TRDblClick)="riGrid_BodyOnDblClick($event)" (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

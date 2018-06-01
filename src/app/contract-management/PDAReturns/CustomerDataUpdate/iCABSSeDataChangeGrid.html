@@ -1,0 +1,79 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Customer Data Update' | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="grdDataChange">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchNumber" readonly formControlName="BranchNumber" class="form-control" type="text" [attr.maxlength]="3">
+                    </div>
+                    <div class="col16">
+                        <input id="BranchName" readonly formControlName="BranchName" class="form-control padding-zero" type="text" [attr.maxlength]="30">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <label class="col24">{{'Show' | translate}}</label>
+                        <div class="col17">
+                            <select class="form-control" formControlName="ActionedStatus" (change)="onShowchange($event.target.value)">
+                            <option value="">{{'Unprocessed' | translate}}</option>
+                            <option value="z" >{{'All' | translate}}</option>
+                            <option value="a">{{'Approved' | translate}}</option>
+                            <option value="r">{{'Rejected' | translate}}</option>
+					</select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" [attr.maxlength]="6" (change)="onEmployeeCodeChange($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" readonly formControlName="EmployeeSurname" class="form-control padding-zero" type="text" [attr.maxlength]="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsEmployeeCode" [contentComponent]="employeeSearchComponent"
+                            [modalConfig]="modalConfig" [showHeader]="showHeader" (ellipsisData)="onEmployeeCodeReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #dataChangeGridPagination [currentPage]="pageCurrent" [totalItems]="gridTotalItems" [itemsPerPage]="itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #dataChangeGrid [maxColumns]="maxColumn" [sortHeaders]="gridSortHeaders" (sortInfo)="sortGridInfo($event)" [itemsPerPage]="itemsPerPage"
+                        [currentPage]="pageCurrent" (gridInfo)="getGridInfo($event)" (getCellData)="onGridRowClick($event)" (selectedRowInfo)="getGridOnDblClick($event)"
+                        [infoDataColumnReference]="1" (infoData)="onClickGridInfoIcon($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGrid_BodyOnClick($event)" (TRDblClick)="tbodyDataChange_OnDblClick($event)" (headerClick)="riGrid_Sort($event)"
+                        (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="hidden">
+                <input id="ContractNumber" formControlName="ContractNumber" style="display:none">
+                <input id="PremiseNumber" formControlName="PremiseNumber" style="display:none">
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [showHeader]="showHeader"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

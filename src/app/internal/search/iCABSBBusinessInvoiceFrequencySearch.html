@@ -1,0 +1,18 @@
+<div class="container-fluid custom-container row">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Invoice Frequency Search' | translate }}
+            </h1>
+        </div>
+    </div>
+
+    <!-- Projects Row -->
+    <div class="row padding-top-m">
+        <div class="col-sm-12">
+            <icabs-table #invoiceTable (selectedData)="selectedData($event)" [page]="page" [tableheader]="tableheader" [itemsPerPage]="itemsPerPage"
+                [columns]="columns" [rowmetadata]="rowmetadata" [doTranslate]="true" [paginationTop]="true" [displayError]="false"
+                (onRefresh)="refresh()"></icabs-table>
+        </div>
+    </div>
+</div>

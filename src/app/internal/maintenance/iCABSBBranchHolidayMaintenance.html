@@ -1,0 +1,74 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Branch Holiday Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessCode">{{ 'Business' | translate}}</label>
+                    <div class="col6">
+                        <input type="text" id="BusinessCode" class="form-control" size="2" maxlength="2" formControlName="BusinessCode" readonly>
+                    </div>
+                    <div class="col14 pl5">
+                        <input type="text" id="BusinessDesc" class="form-control" size="30" maxlength="40" formControlName="BusinessDesc" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate}}</label>
+                    <div class="col6">
+                        <input type="text" id="BranchNumber" size="5" maxlength="5" class="form-control" formControlName="BranchNumber" readonly>
+                    </div>
+                    <div class="col14 pl5">
+                        <input type="text" id="BranchName" size="30" maxlength="40" class="form-control" formControlName="BranchName" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="YearNumber">{{ 'Year' | translate}}</label>
+                    <div class="col6">
+                        <input type="text" id="YearNumber" size="5" maxlength="4" class="form-control" formControlName="YearNumber" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="HolidayDate">{{ 'Holiday Date' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col11">
+                        <icabs-datepicker formControlName="HolidayDate" (onchange)="holidayDateSelectedValue($event)" [required]="true" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="HolidayDesc">{{ 'Holiday Description' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col20">
+                        <input type="text" id="HolidayDesc" size="40" maxlength="40" class="form-control" formControlName="HolidayDesc" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input class="btn btn-primary mr10" type="button" (click)="saveData($event)" value="{{ 'Save' | translate }}">
+                <input class="btn btn-secondary mr10" (click)="resetForm($event)" type="button" value="{{ 'Cancel' |translate }}">
+                <input type="button" class="btn btn-additional" (click)="deleteData($event)" [disabled]="this['pageParams'].isDeleteDisabled"
+                    value="{{ 'Delete' | translate }}">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

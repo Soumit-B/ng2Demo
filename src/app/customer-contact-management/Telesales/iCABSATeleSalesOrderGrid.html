@@ -1,0 +1,154 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Telesales Order Details'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4" [ngClass]="this['pageParams'].tdProspectNumber?'':'hidden'">
+                    <label class="col24" [ngClass]="this['pageParams'].tdProspectNumberLabel?'':'hidden'">{{'Prospect Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProspectNumber" size="9" [attr.maxlength]="9" class="form-control" formControlName="ProspectNumber">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ProspectName" size="40" [attr.maxlength]="40" class="form-control" formControlName="ProspectName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4" [ngClass]="this['pageParams'].tdTelesalesOrder?'':'hidden'">
+                    <label class="col24" [ngClass]="this['pageParams'].tdTelesalesOrderLabel?'':'hidden'">{{'Telesales Order' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="TelesalesOrderNumber" size="9" [attr.maxlength]="9" class="form-control" formControlName="TelesalesOrderNumber"
+                            pattern="^[0-9]*$" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="TelesalesOrderName" size="40" [attr.maxlength]="40" class="form-control" formControlName="TelesalesOrderName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4" [ngClass]="this['pageParams'].trAccountNumber?'':'hidden'">
+                    <label class="col24">{{'Account Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" size="9" [attr.maxlength]="9" class="form-control" formControlName="AccountNumber" (change)="accountNumber_onchange($event.target)"
+                            (blur)="accountNumber_ondeactivate($event.target)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="AccountName" size="40" [attr.maxlength]="40" class="form-control" formControlName="AccountName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #accountSearchEllipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams"
+                            [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountDataReceived($event)"
+                            [showHeader]="showHeader" (modalHidden)="modalHidden()" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="8" [attr.maxlength]="8" class="form-control" formControlName="ContractNumber" (change)="contractNumber_onchange($event.target)"
+                            (blur)="contractNumber_ondeactivate($event.target)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractSearchComponent [autoOpen]="ellipsis.contractSearch.autoOpenSearch" [showCloseButton]="ellipsis.contractSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.contractSearch.childConfigParams" [contentComponent]="ellipsis.contractSearch.contentComponent"
+                            (ellipsisData)="onContractDataReceived($event)" [showHeader]="ellipsis.contractSearch.showHeader"
+                            (modalHidden)="modalHidden($event)" [disabled]="ellipsis.contractSearch.disabled" [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4" [ngClass]="this['pageParams'].trPremiseNumber?'':'hidden'">
+                    <label class="col24">{{'Premises Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="9" [attr.maxlength]="9" class="form-control" formControlName="PremiseNumber" (change)="premiseNumber_onchange($event.target)"
+                            (blur)="premiseNumber_ondeactivate($event.target)" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control" formControlName="PremiseName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premisesNumberEllipsis [autoOpen]="ellipsis.premiseSearch.autoOpenSearch" [showCloseButton]="ellipsis.premiseSearch.showCloseButton"
+                            [childConfigParams]="ellipsis.premiseSearch.childConfigParams" [modalConfig]="ellipsis.premiseSearch.modalConfig"
+                            [contentComponent]="ellipsis.premiseSearch.contentComponent" (ellipsisData)="onPremiseDataReceived($event, true)"
+                            [showHeader]="ellipsis.premiseSearch.showHeader" [disabled]='ellipsis.premiseSearch.disabled'></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="5" [attr.maxlength]="5" class="form-control" formControlName="ProductCode" (change)="productCode_onChange()"
+                            eTypeCode>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control" formControlName="ProductDesc">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Order Status' |translate}} </label>
+                    <div class="col16">
+                        <icabs-dropdown-static #telesalesOrderDropDown class="" [inputData]="teleSalesOrderArray" (onSelect)="teleSalesOrderOnChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col10 pr5">
+                        <label class="col24">{{'Ordered From' |translate}} </label>
+                        <div class="col24">
+                            <input type="text" id="OrderFromDate" class="form-control" formControlName="OrderFromDate" style="display:none">
+                            <icabs-datepicker [dt]='orderFromDateDisp' [isDisabled]="false" (selectedValue)="dateRecieved($event, 'FromDate')" [isRequired]="true"
+                                [validate]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col10">
+                        <label class="col24">{{'Ordered To' |translate}} </label>
+                        <div class="col24">
+                            <input type="text" id="OrderToDate" class="form-control" formControlName="OrderToDate" style="display:none">
+                            <icabs-datepicker [dt]='orderToDateDisp' [isDisabled]="false" (selectedValue)="dateRecieved($event, 'ToDate')" [isRequired]="true"
+                                [validate]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #teleSalesOrderGridPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-3 pull-right text-right">
+                    <input type="button" class="btn btn-additional" id="cmdGenerateReport" value="{{'Generate Report' | translate}}" (click)="cmdGenerateReport_onclick()">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (onSuccess)="riGrid_AfterExecute()" (TRDblClick)="tbody_onDblclick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [showCloseButton]="true" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

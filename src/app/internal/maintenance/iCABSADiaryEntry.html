@@ -1,0 +1,152 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" id="grdDataChange">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <label class="col24">{{'Entry Type' | translate}}</label>
+                        <div class="co24">
+                            <icabs-dropdown-static #SelEntryType [inputData]="diaryEventTypes" [disabled]="fieldsDisabled" [defaultOption]="diaryEventDefaultOption"></icabs-dropdown-static>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{ 'Employee' | translate }}<span class="mandatory" [hidden]="!employeeRequired">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" maxlength="8" size="8" (blur)="employeeCode_OnChange('EmployeeFrom')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control " type="text" maxlength="30" size="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label for="DiaryEventDateFrom" class="col24">{{'Date'|translate}}</label>
+                        <input size="15" formControlName="DiaryEventDateFrom" maxlength="15" class="form-control hidden">
+                        <icabs-datepicker id="DiaryEventDateFrom" [dt]='DateFrom' [isRequired]="true" (selectedValue)="updateDateValue($event, 'From')"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label for="DiaryEventDateTo" class="col24">{{'To'|translate}}</label>
+                        <input size="15" formControlName="DiaryEventDateTo" [ngModel]="DateTo" maxlength="15" class="form-control hidden">
+                        <icabs-datepicker id="DiaryEventDateTo" [dt]='DateTo' [isRequired]="true" (selectedValue)="updateDateValue($event, 'To')"></icabs-datepicker>
+                    </div>
+                </div>
+
+                <div class="col-sm-3 mt20">
+                    <input class="custom-checkbox" type="checkbox" id="DiaryEventAllDayInd" formControlName="DiaryEventAllDayInd" class="form-control"
+                        (change)="diaryEventAllDayInd_ondeactivate($event.target)">
+                    <label class="custom-checkbox-label gray" for="DiaryEventAllDayInd">
+                              {{ 'All Day' | translate }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label for="TimeFrom" class="col24">{{'Time'|translate}}<span class="mandatory" [hidden]="!timeRequired">*</span></label>
+                        <input id="TimeFrom" #TimeFrom formControlName="TimeFrom" class="form-control" type="text" maxlength="12" size="12" (blur)="timeValidation($event.target.value,'TimeFrom')">
+                    </div>
+                    <div class="col12">
+                        <label for="TimeTo" class="col24">{{'To'|translate}}<span class="mandatory" [hidden]="!timeRequired">*</span></label>
+                        <input id="TimeTo" #TimeTo formControlName="TimeTo" class="form-control" type="text" maxlength="12" size="12" (blur)="timeValidation($event.target.value,'TimeTo')">
+                    </div>
+                </div>
+
+                <div class="col-sm-3 mt20">
+                    <input class="custom-checkbox" type="checkbox" id="DiaryOwner" formControlName="DiaryOwner" class="form-control">
+                    <label class="custom-checkbox-label gray" for="DiaryOwner">
+                              {{ 'Owner' | translate }}
+                    </label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="DiaryEventText" id="tdNotes">{{'Notes'| translate}}</label>
+                    <div class="col24">
+                        <textarea type="text" class="form-control" id="DiaryEventText" formControlName="DiaryEventText"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="LinkedEmployees" id="tdLinked">{{'Linked Employees'| translate}}</label>
+                    <div class="col24">
+                        <textarea type="text" class="form-control" id="LinkedEmployees" formControlName="LinkedEmployees"></textarea>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt30">
+                    <input type="button" class="btn btn-additional" formControlName="btnSelect" [value]="'Select' | translate" (click)="onEmployeeGridOpen()">
+                    <icabs-ellipsis #employeeSelectEllipsis [disabled]="ellipsisConfig.employeeSelect.disabled" [hideIcon]="true" [showCloseButton]="ellipsisConfig.employeeSelect.showCloseButton"
+                        [showHeader]="ellipsisConfig.employeeSelect.showHeader" [childConfigParams]="ellipsisConfig.employeeSelect"
+                        [contentComponent]="ellipsisConfig.employeeSelect.component" (ellipsisData)="ellipsisData_Select($event,'employeeGrid')" (modalHidden)="modalHidden()" [refreshComponent]="triggerRefreshComponent"></icabs-ellipsis>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h3 class="page-sub-title">{{ 'Contact Redirection' |translate}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCodeTo">{{ 'To Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCodeTo" formControlName="EmployeeCodeTo" class="form-control" type="text" maxlength="8" size="8" (blur)="employeeCode_OnChange('EmployeeTo')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurnameTo" formControlName="EmployeeSurnameTo" class="form-control" type="text" maxlength="30" size="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.employeeTo.disabled" [showCloseButton]="ellipsisConfig.employeeTo.showCloseButton"
+                            [showHeader]="ellipsisConfig.employeeTo.showHeader" [childConfigParams]="ellipsisConfig.employeeTo"
+                            [contentComponent]="ellipsisConfig.employeeTo.component" (ellipsisData)="ellipsisData_Select($event, 'employeeTo')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="custom-checkbox" type="checkbox" id="RedirectMessagingInd" formControlName="RedirectMessagingInd" class="form-control">
+                    <label class="custom-checkbox-label gray" for="RedirectMessagingInd">
+                              {{ 'Redirect Messaging' | translate }}
+                    </label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="custom-checkbox" type="checkbox" id="RedirectEmployeeInd" formControlName="RedirectEmployeeInd" class="form-control">
+                    <label class="custom-checkbox-label gray" for="RedirectEmployeeInd">
+                              {{ 'Redirect Tickets' | translate }}
+                    </label>
+                </div>
+            </div>
+        </section>
+    </form>
+
+    <footer>
+        <div class="row mt20">
+            <div class="col-sm-12">
+                <input type="button" class="btn btn-primary" [value]=" 'Save' | translate " (click)="riMaintenance_BeforeSave()">
+                <input type="button" class="btn btn-additional" [value]=" 'Cancel' | translate " (click)="onAbandonClick()">
+                <input type="button" class="btn btn-additional" [value]=" 'Delete' | translate " (click)="btnDelete_onClick()" [ngClass]="currentMode==='A'?'hidden':''">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-modal #errorModal [showHeader]="'true'"> </icabs-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [showHeader]="true" [title]="promptTitle" (saveEmit)="riMaintenance_DeleteRecord($event)"></icabs-prompt-modal>

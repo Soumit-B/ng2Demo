@@ -1,0 +1,135 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Planned Visits'| translate }}
+            </h1>
+        </div>
+    </div>
+    <div #topContainer>
+        <form novalidate [formGroup]="planvisitFormGroup">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ContractNumber">{{  CurrentContractTypeLabel | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" id="ContractNumber" size="9" [attr.maxlength]="8" formControlName="ContractNumber"
+                            disabled="disabled" type="text" eTypeCode>
+                    </div>
+                    <div class="col16 pr10">
+                        <input class="form-control padding-zero" id="ContractName" size="30" [attr.maxlength]="40" formControlName="ContractName" type="text"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" id="PremiseNumber" disabled="disabled" size="9" [attr.maxlength]="7" formControlName="PremiseNumber"
+                            type="text" eTypeInteger>
+                    </div>
+                    <div class="col16 pr10">
+                        <input class="form-control padding-zero" id="PremiseName" size="30" [attr.maxlength]="40" formControlName="PremiseName" type="text"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="View">{{'Options' | translate}}</label>
+                        <div class="col24">
+                            <icabs-dropdown-static #BuildMenuOptions [inputData]="MenuOptionList" [defaultOption]="defaultOpt" (onSelect)="onbuildmenyOptionChange($event)"></icabs-dropdown-static>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ProductCode">{{ 'Product' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" disabled="disabled" id="ProductCode" size="9" [attr.maxlength]="6" formControlName="ProductCode"
+                            type="text" eTypeCode>
+                    </div>
+                    <div class="col16 pr10">
+                        <input class="form-control padding-zero" id="ProductDesc" size="30" [attr.maxlength]="40" formControlName="ProductDesc" type="text"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'From' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker [dt]="dtfrom" [isRequired]="true" [isReadonly]="false" (selectedValue)="fromDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12 ">
+                        <label class="col24">{{ 'To' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker [dt]="dtto" [isReadonly]="false" (selectedValue)="toDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" [ngClass]="!trLocation ? 'hidden' : ''">
+                    <label class="col24 " for="PremiseLocationNumber">{{ 'Location' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control padding-left-zero" id="PremiseLocationNumber" (change)="PremiseLocationNumber_onchange()" size="9"
+                            [attr.maxlength]="7" formControlName="PremiseLocationNumber" type="text" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control padding-zero" id="PremiseLocationDesc" size="30" [attr.maxlength]="40" formControlName="PremiseLocationDesc"
+                            type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #LocationEllipsis [modalConfig]="modalConfig" [disabled]="ellipsisConfig.premiseLocation.disabled" [showCloseButton]="ellipsisConfig.premiseLocation.showCloseButton"
+                            [showHeader]="ellipsisConfig.premiseLocation.showHeader" [childConfigParams]="ellipsisConfig.premiseLocation"
+                            [contentComponent]="ellipsisConfig.premiseLocation.component" (ellipsisData)="premiseLocationOnKeyDown($event, true)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 mt20">
+                        <button class="btn btn-primary mr5" id="cmdPlanVisitCancel" value="PlanVisitCancel" (click)="cmdPlanVisitCancel_onClick()">{{ 'Cancel' | translate }}</button>
+                        <button class="btn btn-primary" *ngIf="DisplayLabelsIcons==='Yes'" id="cmdPlanVisitGenLabels" value="PlanVisitGenLabels"
+                            (click)="cmdPlanVisitGenLabels_onClick()">{{ 'Generate Labels' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col2">
+                        <button class="btn btn-primary" id="cmdGridView_onclick" value="GridView_onclick" (click)="cmd_GridView_onclick()">{{ 'Grid View' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"
+                    [currentPage]="gridCurPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <icabs-grid #planVisitGrid [maxColumns]="maxColumn" (sortInfo)="sortGrid($event)" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                    (gridInfo)="getGridInfo($event)" (getchangedCheckBox)="onChangeCheckBox($event)" (selectedRowInfo)="onGridRowClick($event)"
+                    (getCellDataonBlur)="onCellClickBlur($event)" (getCellData)="onCellClick($event)" (getCellKeyDownData)="onCellKeyDown($event)"
+                    [showCheckboxInsteadOfTick]="true" [validateProperties]="validateProperties" [headerProperties]="headerProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="VisitNarrativeCode" style="display:none">
+<input id="CancelRowid" style="display:none">
+<input id="GenLabelsRowid" style="display:none">
+<input id="QtyMessage" style="display:none">
+<input id="DisplayLabelsIcons" style="display:none">
+<input id="BusinessCode" style="display:none">
+<input id="ServiceCoverNumber" style="display:none">
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

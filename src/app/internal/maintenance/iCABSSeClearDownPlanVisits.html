@@ -1,0 +1,116 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessCode">{{ 'Business' | translate}}</label>
+                    <div class="col24">
+                        <icabs-dropdown id="BusinessCode">
+                        </icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchNumber">{{ 'Servicing Branch (blank for all)' | translate}}</label>
+                    <div class="col24">
+                        <icabs-dropdown id="BranchNumber"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="VisitTypeCode">{{ 'Visit Type' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <icabs-dropdown id="VisitTypeCode"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="CancelCode">{{ 'Cancellation Reason' | translate}}</label>
+                    <div class="col24">
+                        <select id="CancelCode" class="form-control" formControlName="CancelCode"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Condition">{{ 'Visit Frequency (greater than or equal to zero for all)' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col20 pr5">
+                        <select id="Condition" class="form-control" formControlName="Condition">
+                            <option value="EQ">{{ 'Equal' | translate}}</option>
+                            <option value="NE">{{ 'Not equal' | translate}}</option>
+                            <option value="LT">{{ 'Less than' | translate}}</option>
+                            <option value="LE">{{ 'CLess than or equal' | translate}}</option>
+                            <option value="GT">{{ 'Greater than' | translate}}</option>
+                            <option value="GE" selected>{{ 'Greater than or equal' | translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col4">
+                        <input id="ServiceVisitFrequency" class="form-control" formControlName="ServiceVisitFrequency" type="text" size="6" maxlength="3">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ClearDateTo">{{ 'Clear up to and including' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col12">
+                        <icabs-datepicker id="ClearDateTo"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ClearContracts" formControlName="ClearContracts">
+                    <label class="col24" for="ClearContracts">{{'Clear Contracts'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ClearJobs" formControlName="ClearJobs">
+                    <label class="col24" for="ClearJobs">{{'Clear Jobs'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ClearProductSales" formControlName="ClearProductSales">
+                    <label class="col24" for="ClearProductSales">{{'Clear Product Sales'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <input type="radio" id="CompleteClearDown1" value="P" class="form-control" formControlName="CompleteClearDown">
+                        <label for="CompleteClearDown1">{{ 'Preview' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col12">
+                        <input type="radio" value="c" id="CompleteClearDown2" class="form-control" formControlName="CompleteClearDown">
+                        <label for="CompleteClearDown2">{{ 'Clear Down' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-additional" value="{{'Submit Cleardown' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

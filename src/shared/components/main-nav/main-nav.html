@@ -1,0 +1,40 @@
+<div class="col-xs-12" [ngClass]="{'openFeature': displayFeatureNav}">
+    <div class="menu-control visible-xs">
+        <a href="javascript:;" class="menu-back" (click)="backToMain($event)"> &#8592; Back to Main</a>
+        <a href="javascript:;" class="menu-close pull-right" (click)="closeNav($event)"><img src="/assets/images/user-cross.svg"></a>
+    </div>
+    <div class="pos-relative">
+        <div class="search-container">
+            <icabs-autocomplete [minlength]="1" [datasource]="autocompleteMenuData" [displaySearching]="false" [focusFirst]="true" [placeholder]="'Search Menu'" [titleField]="'modulename'" [searchField]="'modulename'" (selected)="onModuleSelect($event)"></icabs-autocomplete>
+        </div>
+        <div class="main-nav-wrapper">
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <!--[ngClass]="(domain.domainname == 'CUSTOMER CONTACT MANAGEMENT')?'active':''"-->
+                    <li *ngFor="let domain of MainMenu" class="domain" [id]="domain.id" (click)="openFeature(domain.id, $event)" [ngClass]="{'show': showMenu[domain.id]}">
+                        <a href="javascript:;" class="domain-title">
+                            <span class="domain-text">{{domain.domainname | capitalize}}</span>
+                            <span class="glyphicon glyphicon-menu-down"></span>
+                        </a>
+                        <div class="feature-wrapper" (click)="$event.stopPropagation();">
+                            <ul>
+                                <li class="feature" *ngFor="let feature of domain.feature; let i = index;" [id]="domain.id + i" (click)="openModule(domain.id + i)">
+                                    <div class="feature-title">
+                                        {{feature.featurename}}
+                                    </div>
+                                    <ul class="modulename">
+                                        <li class="module-title" *ngFor="let module of feature.module">
+                                            <a *ngIf="!domain.alwaysdisplay && !module.external" [routerLink]=[module.routeURL] [queryParams]="genQueryParam(module)" (click)="menuClick(); onDocumentClick($event);">{{module.modulename}}</a>
+                                            <a *ngIf="domain.alwaysdisplay && !module.external" [routerLink]="[module.routeURL]" [queryParams]="genQueryParam(module)" (click)="menuClick(); onDocumentClick($event);">{{module.modulename}}</a>
+                                            <a *ngIf="domain.alwaysdisplay && module.external" [href]="[module.routeURL]" target="_blank">{{module.modulename}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>

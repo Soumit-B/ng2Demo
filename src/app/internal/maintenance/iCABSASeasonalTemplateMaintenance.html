@@ -1,0 +1,98 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="spanTemplateNumber">{{ 'Template Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input (change)="onSeasonalTemplateNumberChange()" id="SeasonalTemplateNumber" formControlName="SeasonalTemplateNumber" class="form-control"
+                            type="text">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="TemplateName" [attr.maxlength]="40" formControlName="TemplateName" class="form-control" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #seasonaltemplatedetailEllipsis [childConfigParams]="this.ellipsis.inputParamsSeasonalTemplateNumber.childConfigParams"
+                            (addModeOn)="this.onSeasonalTemplateAddMode($event)" [modalConfig]="this.ellipsis.inputParamsSeasonalTemplateNumber.modalConfig"
+                            [contentComponent]="this.ellipsis.inputParamsSeasonalTemplateNumber.component" (ellipsisData)="this.onSeasonalTemplateNumberReceived($event)"
+                            [showHeader]="ellipsis.inputParamsSeasonalTemplateNumber.showHeader" [showCloseButton]="ellipsis.inputParamsSeasonalTemplateNumber.showCloseButton"
+                            [disabled]="ellipsis.inputParamsSeasonalTemplateNumber.disabled" [autoOpen]="ellipsis.inputParamsSeasonalTemplateNumber.isAutoOpen">
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb10">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanOwnerBranchNumber">{{ 'Owning Branch' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <icabs-branchsearch #branchSearchDropDown id="spanOwnerBranchNumber" [inputParams]="serviceBranchdDropdown.servicebranch.params"
+                            (receivedbranchsearch)="onOwnerBranchNumberChange($event)" [active]="serviceBranchdDropdown.servicebranch.active"
+                            [isDisabled]="serviceBranchdDropdown.servicebranch.disabled" [isTriggerValidate]="serviceBranchdDropdown.servicebranch.isTriggerValidate"
+                            [isRequired]="serviceBranchdDropdown.servicebranch.required"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanCustomerTypeCode">{{ 'Customer Type' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="CustomerTypeCode" formControlName="CustomerTypeCode" class="form-control" type="text" size="12" maxlength="10">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="CustomerTypeDesc" formControlName="CustomerTypeDesc" class="form-control" size="40" maxlength="40" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #customerTypeSearchEllipsis [showCloseButton]="ellipsis.customerTypeCodeEllipsis.showCloseButton" [childConfigParams]="ellipsis.customerTypeCodeEllipsis.childparams"
+                            [contentComponent]="ellipsis.customerTypeCodeEllipsis.component" (ellipsisData)="onCustomerTypeDataReceived($event)"
+                            [showHeader]="ellipsis.customerTypeCodeEllipsis.showHeader" [disabled]="ellipsis.customerTypeCodeEllipsis.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanNoOfSeasons">{{ 'Number Of Seasons' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+                        <input id="NoOfSeasons" formControlName="NoOfSeasons" class="form-control" type="text" size="1" maxlength="1" pattern="[0-9]+">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input [disabled]="isFieldDisable.saveButton" (click)="saveSeasonalTemplate()" type="button" class="btn btn-primary mr10"
+                        value="{{'Save'|translate}}">
+                    <input [disabled]="isFieldDisable.cancelButton" (click)="cancelSeasonalTemplate()" type="button" class="btn btn-secondary mr10"
+                        value="{{'Cancel'|translate}}">
+                    <input *ngIf="this.isFieldHidden.deleteButton" [disabled]="isFieldDisable.deleteButton" (click)="deleteSeasonalTemplate()"
+                        class="btn btn-secondary" type="button" value="{{'Delete'|translate}}">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select (change)="onMenuOptionChange()" id="menu" class="form-control" formControlName="menu">
+                            <option selected value="Options">{{'Options'|translate}}</option>
+                            <option value="seasons">{{'Template Seasons'|translate}}</option>
+                            <option value="access">{{'Branch Access'|translate}}</option>
+                            <option value="templateuse">{{'Template Use'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

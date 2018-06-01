@@ -1,0 +1,922 @@
+import { Injector } from '@angular/core';
+import { MntConst } from './../../../../shared/services/riMaintenancehelper';
+import { ServiceCoverMaintenanceComponent } from './iCABSAServiceCoverMaintenance.component';
+
+export class ServiceCoverMaintenance2 {
+
+    private context: ServiceCoverMaintenanceComponent;
+    private injector: Injector;
+
+    constructor(private parent: ServiceCoverMaintenanceComponent, injector: Injector) {
+        this.context = parent;
+    }
+
+    public riMaintenanceAfterEvent(): void {
+        if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd
+            || this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate) {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'chkStockOrder', false);
+        }
+        if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd) {
+            //this.context.pageParams.uiDisplay.trRefreshDisplayVal = true;
+        }
+    }
+
+    public riMaintenanceBeforeUpdateMode(): void {
+        this.context.iCABSAServiceCoverMaintenance4.ShowFields();
+        //this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'cmdValue');
+        this.context.iCABSAServiceCoverMaintenance5.AutoRouteProductInd_onClick();
+        if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'RequireAnnualTimeInd')) {
+            this.context.pageParams.uiDisplay.tdAnnualTimeChange = true;
+            this.context.pageParams.uiDisplay.tdAnnualTimeChangeLab = true;
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualTimeChange', '');
+        }
+        if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+            (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd'))) {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'origTotalValue', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'NewTotalValue', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'riGridHandle', '');
+        }
+        this.context.pageParams.SavedReductionQuantity = 0;
+        this.context.pageParams.SavedIncreaseQuantity = 0;
+        this.context.pageParams.blnQuantityChange = false;
+        this.context.pageParams.blnValueChange = false;
+        this.context.pageParams.blnServiceVisitAnnivDateChange = false;
+        this.context.pageParams.uiDisplay.trInstallationValue = false;
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'InstallationValue', 0);
+        switch (this.context.pageParams.currentContractType) {
+            case 'C':
+                if (this.context.pageParams.blnValueRequired) {
+                    if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+                        (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd') ||
+                            this.context.riExchange.riInputElement.checked(this.context.uiForm, 'InvoiceUnitValueRequired')) &&
+                        this.context.riExchange.riInputElement.checked(this.context.uiForm, 'VisitTriggered')) {
+                        this.context.pageParams.uiDisplay.tdUnitValueChangeLab = true;
+                        this.context.pageParams.uiDisplay.UnitValueChange = true;
+                        this.context.riMaintenance.DisableInput('UnitValue');
+                    }
+                    this.context.pageParams.uiDisplay.tdAnnualValueChangeLab = true;
+                    this.context.pageParams.uiDisplay.AnnualValueChange = true;
+                    this.context.riMaintenance.DisableInput('ServiceAnnualValue');
+                }
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'InitialValue', '');
+                break;
+            case 'J':
+                //Default LastChangeEffectDt;
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'LastChangeEffectDate', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceCommenceDate'));
+                break;
+        }
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualTimeChange', '');
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualValueChange', 0);
+        //this.context.riExchange.riInputElement.isCorrect('AnnualValueChange');
+        if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+            (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd') ||
+                this.context.riExchange.riInputElement.checked(this.context.uiForm, 'InvoiceUnitValueRequired')) &&
+            this.context.riExchange.riInputElement.checked(this.context.uiForm, 'VisitTriggered')) {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'UnitValueChange', 0);
+            this.context.riExchange.riInputElement.isCorrect(this.context.uiForm, 'UnitValueChange');
+        }
+        //When coming from Client Retention, get LostBusinessRequestNumber from Parent (needed in trigger);
+        if (this.context.parentMode === 'ContactUpdate') {
+            this.context.setControlValue('LostBusinessRequestNumber', this.context.riExchange.getParentHTMLValue('LostBusinessRequestNumber'));
+        }
+        if (this.context.utils.getBranchCode().toString() !== this.context.getControlValueAsString('ServiceBranchNumber')
+            && this.context.utils.getBranchCode().toString() !== this.context.getControlValueAsString('NegBranchNumber')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceSalesEmployee');
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'SalesEmployeeText');
+        }
+        if (this.context.utils.getBranchCode().toString() !== this.context.getControlValueAsString('ServiceBranchNumber')) {
+            // this.context.riExchange.riInputElement.Disable( this.context.uiForm, 'BranchServiceAreaCode') - #52629;
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'BranchServiceAreaSeqNo');
+        }
+        this.context.riMaintenance.DisableInput('TrialPeriodInd');
+        this.context.iCABSAServiceCoverMaintenance7.ToggleTrialPeriodStatus();
+        if (this.context.pageParams.vbEnableInstallsRemovals === true) {
+            this.context.riMaintenance.DisableInput('RemovalValue');
+        }
+        if (this.context.pageParams.currentContractType !== 'P') {
+            this.context.iCABSAServiceCoverMaintenance7.DOWSentriconToggle();
+        }
+        this.context.riMaintenance.clear();
+        this.context.riMaintenance.BusinessObject = this.context.pageParams.strRequestProcedure;
+        this.context.riMaintenance.PostDataAdd('Function', 'GetWindowsType', MntConst.eModeUpdate);
+        this.context.riMaintenance.PostDataAdd('BusinessCode', this.context.utils.getBusinessCode(), MntConst.eTypeCode);
+        this.context.riMaintenance.PostDataAdd('ServiceCoverRowID', this.context.pageParams.ServiceCoverRowID, MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType01', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType02', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType03', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType04', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType05', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType06', MntConst.eModeUpdate);
+        this.context.riMaintenance.ReturnDataAdd('WindowType07', MntConst.eModeUpdate);
+        this.context.riMaintenance.Execute(this.context, function (data: any): any {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet1', data['WindowType01']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet2', data['WindowType02']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet3', data['WindowType03']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet4', data['WindowType04']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet5', data['WindowType05']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet6', data['WindowType06']);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet7', data['WindowType07']);
+            for (let iLoop = 1; iLoop <= 7; iLoop++) {
+                if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'selQuickWindowSet' + iLoop) === 'C') {
+                    this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop, 2));
+                    this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop, 2));
+                    this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop + 7, 2));
+                    this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop + 7, 2));
+                } else {
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop, 2));
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop, 2));
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop + 7, 2));
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop + 7, 2));
+                }
+            }
+            this.context.iCABSAServiceCoverMaintenance2.WindowPreferredIndChanged();
+            this.context.renderTab(1);
+            //this.context.riExchange.riInputElement.FocusEx('LastChangeEffectDate', true);
+            this.context.pageParams.dtLastChangeEffectDate.required = true;
+            this.context.riExchange.riInputElement.SetErrorStatus(this.context.uiForm, 'LastChangeEffectDate', false);
+            if (this.context.LastChangeEffectDatePicker) {
+                this.context.LastChangeEffectDatePicker.validateDateField();
+            }
+            this.context.pageParams.initialForm = this.context.createControlObjectFromForm();
+            this.context.storePageParams();
+            this.context.statusChangeSubscription = this.context.uiForm.statusChanges.subscribe(data => {
+                if (this.context.uiForm.dirty) {
+                    for (let key in this.context.uiForm.controls) {
+                        if (key && (key !== 'menu') && this.context.uiForm.controls.hasOwnProperty(key) &&
+                            this.context.uiForm.controls[key].dirty) {
+                            this.context.formIsDirty = true;
+                            if (this.context.statusChangeSubscription) {
+                                this.context.statusChangeSubscription.unsubscribe();
+                            }
+                        }
+                    }
+                }
+            });
+            this.context.utils.getFirstFocusableFieldForTab(1);
+        }, 'POST');
+    }
+
+    // BEFORE UPDT (Hide flds)
+    public riMaintenanceBeforeUpdate(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DepositCanAmend') !== 'Y') {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'DepositDate');
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'DepositAmount');
+        }
+        if (this.context.pageParams.vbEnableDepositProcessing &&
+            this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DepositExists') === 'Y') {
+            this.context.pageParams.uiDisplay.trDepositLineAdd = true;
+        }
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'DepositAmountApplied');
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'DepositPostedDate');
+        if (this.context.pageParams.currentContractType === 'J') {
+            this.context.pageParams.uiDisplay.trEffectiveDate = false;
+        } else {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'LastChangeEffectDate', '');
+            this.context.setDateToFields('LastChangeEffectDate', '');
+            this.context.pageParams.uiDisplay.trEffectiveDate = true;
+            this.context.iCABSAServiceCoverMaintenance2.SelServiceBasis_OnChange();
+            this.context.iCABSAServiceCoverMaintenance8.SelSubjectToUplift_onChange();
+            this.context.iCABSAServiceCoverMaintenance7.SelUpliftVisitPosition_onChange();
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'SelServiceBasis');
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'selHardSlotType');
+            //this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'cmdHardSlotCalendar');
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'cmdDiaryView');
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'SelSubjectToUplift');
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'SelUpliftVisitPosition');
+            if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SelAutoPattern') === '') {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SelAutoPattern', 'D');
+            }
+            this.context.iCABSAServiceCoverMaintenance5.SelAutoPattern_Onchange();
+        }
+        if (this.context.pageParams.blnAccess) {
+            this.context.iCABSAServiceCoverMaintenance7.HideQuickWindowSet(false);
+        } else {
+            this.context.iCABSAServiceCoverMaintenance7.HideQuickWindowSet(true);
+        }
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks') === '1') {
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'VisitsPerCycle');
+        }
+        this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'SelectCompositeProductcode');
+        this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'selTaxCode');
+        if (this.context.pageParams.vbDefaultTaxCodeProductExpenseReq === true
+            && this.context.pageParams.vbDefaultTaxCodeProductExpenseReq === true) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'selTaxCode');
+        }
+        if (this.context.pageParams.vbDefaultTaxCodeOnServiceCoverMaintReq === true &&
+            this.context.pageParams.vbDefaultTaxCodeOnServiceCoverMaintLog === true) {
+            ;
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'selTaxCode');
+        }
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceAnnualTime');
+        this.context.pageParams.uiDisplay.trOutstandingRemovals = false;
+        this.context.pageParams.uiDisplay.trRemovalEmployee = false;
+        this.context.pageParams.uiDisplay.trOutstandingInstallations = false;
+        this.context.pageParams.uiDisplay.trInstallationEmployee = false;
+        this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'InstallationEmployeeCode', false);
+        this.context.iCABSAServiceCoverMaintenance7.ToggleSeasonalDates();
+        this.context.iCABSAServiceCoverMaintenance7.EnableSeasonalChanges(false);
+        if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'SeasonalServiceInd')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceVisitAnnivDate');
+        }
+        if (this.context.pageParams.vbEnableEntitlement && this.context.pageParams.currentContractType === 'C') {
+            this.context.iCABSAServiceCoverMaintenance3.ToggleEntitlementRequired();
+        }
+        if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+            this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ExpiryDate');
+            if (this.context.riExchange.URLParameterContains('PendingReduction')) {
+                if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+                    (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd') ||
+                        this.context.riExchange.riInputElement.checked(this.context.uiForm, 'InvoiceUnitValueRequired')) &&
+                    this.context.riExchange.riInputElement.checked(this.context.uiForm, 'VisitTriggered')) {
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'UnitValue');
+                }
+                this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceAnnualValue');
+                this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceQuantity');
+            }
+        }
+        if (!this.context.pageParams.vbEnableServiceCoverDepreciation) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'DepreciationPeriod');
+        }
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'chkFOC');
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'FOCInvoiceStartDate');
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'FOCProposedAnnualValue');
+        this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'ServiceCommenceDate');
+        this.context.renderTab(1);
+        if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'CapableOfUplift')
+            && this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SubjectToUplift')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'UpliftTemplateNumber');
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'SelUpliftVisitPosition');
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'SelSubjectToUplift');
+        }
+        this.context.iCABSAServiceCoverMaintenance2.riMaintenanceBeforeUpdateMode();
+    }
+
+    public BranchServiceAreaSeqNoOnChange(): void {
+        //if ( Seq No < 4 add leading 0s to disp as time format;
+        //if ( Seq No > 4 add leading 0s to make the Seq No 6 long;
+        if (!isNaN(parseInt(this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo'), 10))) {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'BranchServiceAreaSeqNo',
+                parseInt(this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo'), 10));
+            this.context.riExchange.riInputElement.SetErrorStatus(this.context.uiForm, 'BranchServiceAreaSeqNo', false);
+            if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo').length < 4) {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'BranchServiceAreaSeqNo',
+                    this.context.utils.Format(this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo'), '0000'));
+            } else {
+                if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo').length > 4) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'BranchServiceAreaSeqNo',
+                        this.context.utils.Format(this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'BranchServiceAreaSeqNo'), '000000'));
+                }
+            }
+        } else {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'BranchServiceAreaSeqNo', '');
+        }
+    }
+
+    public CustomerAvailTemplateIDOnChange(): void {
+        this.UpdateTemplate();
+    }
+
+    public UpdateTemplate(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'CustomerAvailTemplateID') !== null) {
+            this.context.riMaintenance.clear();
+            this.context.riMaintenance.BusinessObject = 'iCABSServiceCoverEntryRequests.p';
+            this.context.riMaintenance.PostDataAdd('Function', 'CustomerAvailTemplate', MntConst.eModeUpdate);
+            this.context.riMaintenance.PostDataAdd('BusinessCode', this.context.utils.getBusinessCode(), MntConst.eTypeCode);
+            this.context.riMaintenance.PostDataAdd('CustomerAvailTemplateID', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'CustomerAvailTemplateID'), MntConst.eTypeInteger);
+            this.context.riMaintenance.ReturnDataAdd('CustomerAvailTemplateDesc', MntConst.eModeUpdate);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart01', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd01', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart02', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd02', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart03', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd03', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart04', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd04', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart05', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd05', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart06', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd06', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart07', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd07', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart08', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd08', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart09', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd09', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart10', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd10', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart11', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd11', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart12', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd12', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart13', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd13', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowStart14', MntConst.eTypeTime);
+            this.context.riMaintenance.ReturnDataAdd('WindowEnd14', MntConst.eTypeTime);
+            this.context.riMaintenance.Execute(this.context, function (data: any): any {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CustomerAvailTemplateDesc', data['CustomerAvailTemplateDesc']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart01', data['WindowStart01']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd01', data['WindowEnd01']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart01', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd01', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart02', data['WindowStart02']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd02', data['WindowEnd02']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart02', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd02', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart03', data['WindowStart03']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd03', data['WindowEnd03']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart03', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd03', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart04', data['WindowStart04']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd04', data['WindowEnd04']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart04', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd04', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart05', data['WindowStart05']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd05', data['WindowEnd05']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart05', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd05', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart06', data['WindowStart06']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd06', data['WindowEnd06']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart06', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd06', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart07', data['WindowStart07']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd07', data['WindowEnd07']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart07', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd07', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart08', data['WindowStart08']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd08', data['WindowEnd08']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart08', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd08', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart09', data['WindowStart09']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd09', data['WindowEnd09']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart09', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd09', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart10', data['WindowStart10']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd10', data['WindowEnd10']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart10', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd10', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart11', data['WindowStart11']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd11', data['WindowEnd11']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart11', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd11', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart12', data['WindowStart12']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd12', data['WindowEnd12']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart12', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd12', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart13', data['WindowStart13']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd13', data['WindowEnd13']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart13', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd13', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart14', data['WindowStart14']);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd14', data['WindowEnd14']);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowStart14', true);
+                this.context.riExchange.riInputElement.ReadOnly(this.context.uiForm, 'WindowEnd14', true);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet1', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet2', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet3', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet4', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet5', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet6', 'C');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selQuickWindowSet7', 'C');
+            }, 'POST');
+        }
+    }
+
+    public ServiceBasis_OnChange(): void {
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SelServiceBasis', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceBasis'));
+    }
+
+    public FollowTemplateIndOnClick(): void {
+        if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'FollowTemplateInd')) {
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', true);
+        } else {
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', false);
+        }
+    }
+
+    public SelServiceBasis_OnChange(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SelServiceBasis') === 'T') {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarInd', true);
+            if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd ||
+                (this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate &&
+                    !this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'SelServiceBasis'))) {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'FollowTemplateInd', true);
+                if (this.context.pageParams.vbEnableWeeklyVisitPattern) {
+                    this.context.pageParams.blnUseVisitCycleValues = false;
+                    this.context.iCABSAServiceCoverMaintenance4.ShowFields();
+                }
+            }
+            if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'FollowTemplateInd')) {
+                this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', true);
+            }
+            //Blnk Values;
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SeasonalServiceInd', false);
+            this.context.pageParams.uiDisplay.trFollowTemplate = true;
+            this.context.pageParams.uiDisplay.trAnnualCalendarTemplateFields = true;
+            this.context.pageParams.uiDisplay.trHardSlotType = false;
+            this.context.pageParams.uiDisplay.cmdHardSlotCalendar = false;
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'HardSlotInd', false);
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotType', false);
+            this.context.iCABSAServiceCoverMaintenance7.SeasonalServiceInd_onclick();
+        } else if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SelServiceBasis') === 'S') { //Seasonal Template
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SeasonalServiceInd', true);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'FollowTemplateInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'HardSlotInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarTemplateNumber', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalendarTemplateName', '');
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', false);
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotType', false);
+            this.context.pageParams.uiDisplay.trFollowTemplate = false;
+            this.context.pageParams.uiDisplay.trAnnualCalendarTemplateFields = false;
+            this.context.pageParams.uiDisplay.trHardSlotType = false;
+            this.context.pageParams.uiDisplay.cmdHardSlotCalendar = false;
+            if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd ||
+                (this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate &&
+                    !this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'SelServiceBasis'))) {
+                if (this.context.pageParams.vbEnableWeeklyVisitPattern) {
+                    this.context.pageParams.blnUseVisitCycleValues = false;
+                    this.context.iCABSAServiceCoverMaintenance4.ShowFields();
+                }
+            }
+            this.context.iCABSAServiceCoverMaintenance7.SeasonalServiceInd_onclick();
+        } else if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SelServiceBasis') === 'H') {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SeasonalServiceInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'FollowTemplateInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'HardSlotInd', true);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarTemplateNumber', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalendarTemplateName', '');
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', false);
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotType', true);
+            this.context.pageParams.uiDisplay.trFollowTemplate = false;
+            this.context.pageParams.uiDisplay.trAnnualCalendarTemplateFields = false;
+            this.context.pageParams.uiDisplay.cmdHardSlotCalendar = true;
+            this.context.pageParams.uiDisplay.trHardSlotType = true;
+            this.context.iCABSAServiceCoverMaintenance7.SeasonalServiceInd_onclick();
+            if ((this.context.riMaintenance.CurrentMode === MntConst.eModeAdd && this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'HardSlotType') === '')
+                || (this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate && this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'HardSlotType') === '')) {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selHardSlotType', 'D');
+                this.context.iCABSAServiceCoverMaintenance2.selHardSlotType_OnChange();
+            };
+        } else {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SeasonalServiceInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'FollowTemplateInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'HardSlotInd', false);
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'AnnualCalendarTemplateNumber', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalendarTemplateName', '');
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'AnnualCalendarTemplateNumber', false);
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotType', false);
+            this.context.pageParams.uiDisplay.trFollowTemplate = false;
+            this.context.pageParams.uiDisplay.trAnnualCalendarTemplateFields = false;
+            this.context.pageParams.uiDisplay.trHardSlotType = false;
+            this.context.pageParams.uiDisplay.cmdHardSlotCalendar = false;
+            if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd ||
+                (this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate &&
+                    !this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'SelServiceBasis'))) {
+                if (this.context.pageParams.vbEnableWeeklyVisitPattern) {
+                    this.context.pageParams.blnUseVisitCycleValues = true;
+                    this.context.iCABSAServiceCoverMaintenance4.ShowFields();
+                }
+            }
+            this.context.iCABSAServiceCoverMaintenance7.SeasonalServiceInd_onclick();
+        }
+        if (this.context.pageParams.vbActiveElement === 'SelServiceBasis') {
+            this.context.renderTab(5);
+        }
+    }
+
+    public selHardSlotType_OnChange(): void {
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'HardSlotType', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'selHardSlotType'));
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'selHardSlotType') === 'S') {
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotVisitTime', true);
+        } else {
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'HardSlotVisitTime', false);
+        }
+        this.context.iCABSAServiceCoverMaintenance2.cmdHardSlotCalendarSet();
+    }
+
+    public HardSlotType_OnChange(): void {
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'selHardSlotType', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'HardSlotType'));
+        this.context.iCABSAServiceCoverMaintenance2.selHardSlotType_OnChange();
+    }
+
+    public cmdHardSlotCalendarSet(): void {
+        if ((this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'selHardSlotType') !== 'S')
+            && this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'cmdHardSlotCalendar')) {
+            //this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'cmdHardSlotCalendar');
+        } else if ((this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'selHardSlotType') === 'S')
+            && !this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'cmdHardSlotCalendar')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'cmdHardSlotCalendar');
+        }
+    }
+
+    public HardSlotVisitTimeOnChange(): void {
+        if ((this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'hardSlotVisitTime') !== '')
+            && this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'cmdHardSlotCalendar')) {
+            //this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'cmdHardSlotCalendar');
+        } else if ((this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'hardSlotVisitTime') !== 'S')
+            && !this.context.riExchange.riInputElement.isDisabled(this.context.uiForm, 'cmdHardSlotCalendar')) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'cmdHardSlotCalendar');
+        }
+    }
+
+    public GetVisitCycleValues(): void {
+
+        this.context.riMaintenance.clear();
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceVisitFrequency')) {
+            this.context.riMaintenance.BusinessObject = this.context.pageParams.strRequestProcedure;
+            this.context.riMaintenance.PostDataAdd('Function', 'GetVisitCycleValues', MntConst.eModeUpdate);
+            this.context.riMaintenance.PostDataAdd('BusinessCode', this.context.utils.getBusinessCode(), MntConst.eTypeCode);
+            this.context.riMaintenance.PostDataAdd('ServiceVisitFrequency', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceVisitFrequency'), MntConst.eTypeInteger);
+            this.context.riMaintenance.ReturnDataAdd('VisitCycleInWeeks', MntConst.eTypeInteger);
+            this.context.riMaintenance.ReturnDataAdd('VisitsPerCycle', MntConst.eTypeInteger);
+            this.context.riMaintenance.ReturnDataAdd('ErrorMessage', MntConst.eModeUpdate);
+            this.context.riMaintenance.Execute(this.context, function (data: any): any {
+                if (!data['ErrorMessage']) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeks', data['VisitCycleInWeeks']);
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitsPerCycle', data['VisitsPerCycle']);
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VFPNumberOfWeeks', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks'));
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VFPNumberOfVisitsPerWeek', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitsPerCycle'));
+                    //this.context.riExchange.riInputElement.markAsError(this.context.uiForm, 'ServiceVisitFrequency');
+                    this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'VisitCycleInWeeksOverrideNote');
+                    this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', false);
+                } else {
+                    //this.context.riExchange.riInputElement.markAsError(this.context.uiForm, 'ServiceVisitFrequency');
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'ServiceVisitFrequencyCopy', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceVisitFrequency'));
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeks', '');
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitsPerCycle', '');
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalculatedVisits', '');
+                }
+            }, 'POST');
+        } else {
+            this.context.riExchange.riInputElement.markAsError(this.context.uiForm, 'ServiceVisitFrequency');
+        }
+    }
+
+    public VisitCycleInWeeks_OnChange(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks') === '0') {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeks', '');
+        }
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks') === '1') {
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'VisitsPerCycle');
+        } else {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'VisitsPerCycle');
+            if (!this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks')) {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitsPerCycle', '');
+            } else {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitsPerCycle', '1');
+            }
+        };
+        this.VisitCycleValueChanges();
+    }
+
+    public VisitsPerCycle_OnChange(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitsPerCycle') === '0') {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitsPerCycle', '');
+        };
+        this.context.iCABSAServiceCoverMaintenance4.riExchange_CBORequest();
+        this.VisitCycleValueChanges();
+    }
+
+    public VisitCycleValueChanges(): void {
+        this.context.pageParams.uiDisplay.tdNumberOfVisitsWarning = false;
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalculatedVisits', '');
+        //if ( !the values in the VFP table;
+        if ((this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks') !==
+            this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VFPNumberOfWeeks')) ||
+            (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitsPerCycle') !==
+                this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VFPNumberOfVisitsPerWeek'))) {
+            //..but the same as the already save values;
+            if ((this.context.pageParams.SavedVisitCycleInWeeks === this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitCycleInWeeks')) &&
+                (this.context.pageParams.SavedVisitsPerCycle === this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitsPerCycle'))
+                && this.context.riMaintenance.CurrentMode !== MntConst.eModeAdd) {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', this.context.pageParams.SavedVisitCycleInWeeksOverrideNote);
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'CalculatedVisits', this.context.pageParams.SavedCalculatedVisits);
+                this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'VisitCycleInWeeksOverrideNote');
+                this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', false);
+                if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitFrequencyWarningMessage') !== '') {
+                    this.context.pageParams.uiDisplay.tdNumberOfVisitsWarning = true;
+                    this.context.pageParams.uiDisplay.VisitFrequencyWarningColour = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitFrequencyWarningColour');
+                    this.context.pageParams.uiDisplay.tdNumberOfVisitsWarning_innerText = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'VisitFrequencyWarningMessage');
+                } else {
+                    this.context.pageParams.uiDisplay.tdNumberOfVisitsWarning = false;
+                }
+                //...and !the already saved values;
+            } else {
+                this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'VisitCycleInWeeksOverrideNote');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', '');
+                this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', true);
+                //this.context.riExchange.riInputElement.Focus('VisitCycleInWeeksOverrideNote');
+            }
+            //if ( the values are the same as in the VPF table for this frequency;
+        } else {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', '');
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'VisitCycleInWeeksOverrideNote');
+            this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'VisitCycleInWeeksOverrideNote', false);
+        }
+    }
+
+    public selQuickWindowSet_onchange(id: string): void {
+        let srcValue = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, id);
+        let srcRow = parseInt(this.context.utils.Right(window.event.srcElement.id, 1), 10);
+        if (srcValue === 'C') {
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2));
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2));
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2));
+            this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2));
+        } else {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2));
+        }
+
+        switch (srcValue) {
+            case 'P':
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PremiseWindowStart' + this.context.ZeroPadInt(srcRow, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PremiseWindowEnd' + this.context.ZeroPadInt(srcRow, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PremiseWindowStart' + this.context.ZeroPadInt(srcRow + 7, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PremiseWindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2)));
+                break;
+            case 'D':
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DefaultWindowStart' + this.context.ZeroPadInt(srcRow + srcRow - 1, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DefaultWindowEnd' + this.context.ZeroPadInt(srcRow + srcRow - 1, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DefaultWindowStart' + this.context.ZeroPadInt(srcRow + srcRow, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DefaultWindowEnd' + this.context.ZeroPadInt(srcRow + srcRow, 2)));
+                break;
+            case 'U':
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2), '00:00');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2), '00:00');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2), '00:00');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2), '00:00');
+                break;
+            case 'A':
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow, 2), '00:00');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow, 2), '11:59');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(srcRow + 7, 2), '12:00');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(srcRow + 7, 2), '23:59');
+                break;
+        }
+    }
+
+    public UpdateDefaultTimes(vbDefaultName: string): void {
+
+        for (let iLoop = 1; iLoop <= 7; iLoop++) {
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop + 7, 2));
+            this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop + 7, 2));
+            if (vbDefaultName === 'Default') {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, vbDefaultName + 'WindowStart' + this.context.ZeroPadInt(iLoop + iLoop - 1, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, vbDefaultName + 'WindowEnd' + this.context.ZeroPadInt(iLoop + iLoop - 1, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowStart' + this.context.ZeroPadInt(iLoop + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, vbDefaultName + 'WindowStart' + this.context.ZeroPadInt(iLoop + iLoop, 2)));
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'WindowEnd' + this.context.ZeroPadInt(iLoop + 7, 2),
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, vbDefaultName + 'WindowEnd' + this.context.ZeroPadInt(iLoop + iLoop, 2)));
+            }
+        }
+    }
+
+    public WindowPreferredIndChanged(): void {
+        this.context.pageParams.blnAnyPreferred = false;
+        if (this.context.riMaintenance.CurrentMode === MntConst.eModeAdd ||
+            this.context.riMaintenance.CurrentMode === MntConst.eModeUpdate) {
+            for (let iLoop = 1; iLoop <= 7; iLoop++) {
+                if (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'WindowPreferredInd0' + iLoop)) {
+                    this.context.pageParams.blnAnyPreferred = true;
+                }
+            }
+            if (this.context.pageParams.blnAnyPreferred) {
+                this.context.riExchange.riInputElement.Enable(this.context.uiForm, 'PreferredDayOfWeekReasonCode');
+                this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'PreferredDayOfWeekReasonCode', true);
+            } else {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PreferredDayOfWeekReasonCode', '');
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PreferredDayOfWeekReasonLangDesc', '');
+                this.context.setDropDownComponentValue('PreferredDayOfWeekReasonCode', 'PreferredDayOfWeekReasonLangDesc');
+                this.context.riExchange.riInputElement.Disable(this.context.uiForm, 'PreferredDayOfWeekReasonCode');
+                this.context.riExchange.riInputElement.SetRequiredStatus(this.context.uiForm, 'PreferredDayOfWeekReasonCode', false);
+            }
+        }
+    }
+
+    public PreferredDayOfWeekReasonCodeonchange(): void {
+        if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PreferredDayOfWeekReasonCode') !== '0' &&
+            this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PreferredDayOfWeekReasonCode') !== '') {
+            this.context.riMaintenance.clear();
+            this.context.riMaintenance.BusinessObject = 'iCABSExchangeFunctions.p';
+            this.context.riMaintenance.PostDataAdd('PostDesc', 'PreferredDayOfWeekReason', MntConst.eModeUpdate);
+            this.context.riMaintenance.PostDataAdd('PreferredDayOfWeekReasonCode', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'PreferredDayOfWeekReasonCode'), MntConst.eTypeInteger);
+            this.context.riMaintenance.PostDataAdd('LanguageCode', this.context.riExchange.LanguageCode(), MntConst.eTypeCode);
+            this.context.riMaintenance.ReturnDataAdd('PreferredDayOfWeekReasonDesc', MntConst.eModeUpdate);
+            this.context.riMaintenance.Execute(this.context, function (data: any): any {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PreferredDayOfWeekReasonLangDesc', data['PreferredDayOfWeekReasonDesc']);
+            });
+        } else {
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PreferredDayOfWeekReasonCode', '');
+            this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PreferredDayOfWeekReasonLangDesc', '');
+        }
+    }
+
+    public LinkedProductCodeOnChange(): void {
+        // Reset Cache Value So When A User Selects A Prod (may even be changed back to the || iginal),;
+        // The Grid Will Be Rebuilt Forcing The User To Reselect The Components;
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'ComponentGridCacheTime', this.context.utils.Time());
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'LinkedServiceCoverNumber', '');
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'LinkedServiceVisitFreq', '');
+        this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'LinkedProductDesc', '');
+        this.context.linkedServiceCoverSearchParams.ProductCode = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ProductCode');
+        this.context.linkedServiceCoverSearchParams.LinkedProductCode = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'LinkedProductCode');
+        this.context.linkedServiceCoverSearchParams.DispenserInd = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'DispenserInd');
+        this.context.linkedServiceCoverSearchParams.ConsumableInd = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ConsumableInd');
+        this.context.calledFromOnChange = true;
+        this.context.linkedServiceCoverSearch.openModal();
+    }
+
+    public ProcessTimeString(vbTimeField: any): void {
+        this.context.pageParams.vbError = false;
+        this.context.pageParams.vbTimeFormat = '##00' + this.context.pageParams.vbTimeSeparator + '##';
+        switch (vbTimeField) {
+            case 'StandardTreatmentTime':
+                this.context.pageParams.vbTime = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'StandardTreatmentTime').
+                    replace(this.context.pageParams.vbTimeSeparator, '');
+                break;
+            case 'InitialTreatmentTime':
+                this.context.pageParams.vbTime = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'InitialTreatmentTime').
+                    replace(this.context.pageParams.vbTimeSeparator, '');
+                break;
+            case 'ServiceAnnualTime':
+                this.context.pageParams.vbTime = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceAnnualTime').
+                    replace(this.context.pageParams.vbTimeSeparator, '');
+                break;
+            case 'SalesPlannedTime':
+                this.context.pageParams.vbTime = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'SalesPlannedTime').
+                    replace(this.context.pageParams.vbTimeSeparator, '');
+                break;
+            case 'ActualPlannedTime':
+                this.context.pageParams.vbTime = this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ActualPlannedTime').
+                    replace(this.context.pageParams.vbTimeSeparator, '');
+                break;
+        }
+
+        try {
+            let re = /^[0-9]{4,5}$/;
+            let reg = new RegExp(re);
+            if (reg.test(this.context.pageParams.vbTime)) {
+                if (!isNaN(parseInt(this.context.pageParams.vbTime, 10))) {
+                    this.context.pageParams.vbError = false;
+                } else {
+                    this.context.pageParams.vbError = true;
+                }
+            } else {
+                this.context.pageParams.vbError = true;
+            }
+        } catch (e) {
+            this.context.pageParams.vbError = true;
+        }
+
+        if (!this.context.pageParams.vbError && ((this.context.pageParams.vbTime.length < 4) || (this.context.pageParams.vbTime.length > 7))) {
+            this.context.pageParams.vbError = true;
+        } else if (!this.context.pageParams.vbError) {
+            if (!this.context.pageParams.vbError && parseInt(this.context.pageParams.vbTime, 10) === 0) {
+                this.context.pageParams.vbError = true;
+            }
+            if (!this.context.pageParams.vbError) {
+                this.context.pageParams.vbDurationHours = this.context.utils.mid(this.context.pageParams.vbTime, 1, this.context.pageParams.vbTime.length - 2);
+                this.context.pageParams.vbDurationMinutes = this.context.utils.Right(this.context.pageParams.vbTime, 2);
+                if (this.context.pageParams.vbDurationMinutes > 59) {
+                    this.context.showAlert('Minutes Entered Cannot Be Greater Than 59', 2);
+                    this.context.pageParams.vbError = true;
+                } else {
+                    this.context.pageParams.vbTimeSec = (this.context.pageParams.vbDurationHours * 60 * 60) + (this.context.pageParams.vbDurationMinutes * 60);
+                }
+            }
+        }
+
+        switch (vbTimeField) {
+            case 'StandardTreatmentTime':
+                //TODO Format time
+                if (!this.context.pageParams.vbError) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, vbTimeField,
+                        this.context.pageParams.vbDurationHours + ':' + this.context.pageParams.vbDurationMinutes);
+                    this.context.uiForm.controls[vbTimeField].setErrors(null);
+                } else {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, vbTimeField, '');
+                    this.context.uiForm.controls[vbTimeField].setErrors({ 'incorrect': true });
+                    this.context.pageParams.vbError = false;
+                }
+                break;
+            case 'InitialTreatmentTime':
+                if (!this.context.pageParams.vbError) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'InitialTreatmentTime',
+                        this.context.pageParams.vbDurationHours + ':' + this.context.pageParams.vbDurationMinutes);
+                    this.context.uiForm.controls[vbTimeField].setErrors(null);
+                } else {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'InitialTreatmentTime', '');
+                    this.context.pageParams.vbError = false;
+                }
+                break;
+            case 'ServiceAnnualTime':
+                if (!this.context.pageParams.vbError) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'ServiceAnnualTime',
+                        this.context.pageParams.vbDurationHours + ':' + this.context.pageParams.vbDurationMinutes);
+                    this.context.uiForm.controls[vbTimeField].setErrors(null);
+                } else {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'ServiceAnnualTime', '');
+                    this.context.uiForm.controls[vbTimeField].setErrors({ 'incorrect': true });
+                    this.context.pageParams.vbError = false;
+                }
+                break;
+            case 'SalesPlannedTime':
+                if (!this.context.pageParams.vbError) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SalesPlannedTime',
+                        this.context.pageParams.vbDurationHours + ':' + this.context.pageParams.vbDurationMinutes);
+                    this.context.uiForm.controls[vbTimeField].setErrors(null);
+                } else {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'SalesPlannedTime', '');
+                    this.context.uiForm.controls[vbTimeField].setErrors({ 'incorrect': true });
+                    this.context.pageParams.vbError = false;
+                }
+                break;
+            case 'ActualPlannedTime':
+                if (!this.context.pageParams.vbError) {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, vbTimeField,
+                        this.context.pageParams.vbDurationHours + ':' + this.context.pageParams.vbDurationMinutes);
+                    this.context.uiForm.controls[vbTimeField].setErrors(null);
+                } else {
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, vbTimeField, '');
+                    this.context.uiForm.controls[vbTimeField].setErrors({ 'incorrect': true });
+                    this.context.pageParams.vbError = false;
+                }
+                break;
+        }
+    }
+
+    public CalculateEntitlementServiceQuantity(): void {
+        if (this.context.pageParams.uiDisplay.trEntitlementServiceQuantity) {
+            this.context.riMaintenance.clear();
+            this.context.riMaintenance.BusinessObject = 'iCABSServiceCoverEntryRequests.p';
+            this.context.riMaintenance.PostDataAdd('action', '6', MntConst.eTypeInteger);
+            this.context.riMaintenance.PostDataAdd('Function', 'GetServiceVisitQuantity', MntConst.eModeUpdate);
+            this.context.riMaintenance.PostDataAdd('BusinessCode', this.context.utils.getBusinessCode(), MntConst.eTypeCode);
+            this.context.riMaintenance.PostDataAdd('ServiceVisitFrequency', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceVisitFrequency'), MntConst.eTypeInteger);
+            this.context.riMaintenance.PostDataAdd('EntitlementAnnualQuantity', this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'EntitlementAnnualQuantity'), MntConst.eTypeInteger);
+            this.context.riMaintenance.ReturnDataAdd('EntitlementServiceVisitQuantity', MntConst.eTypeInteger);
+            this.context.riMaintenance.Execute(this.context, function (data: any): any {
+                this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'EntitlementServiceQuantity', data['EntitlementServiceVisitQuantity']);
+            }, 'POST');
+        }
+    }
+
+    public AnnualValueChangeonBlur(): void {
+        if (this.context.isFieldValid('AnnualValueChange')) {
+            if (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'AnnualValueChange')) {
+                if (!this.context.pageParams.vbPriceChangeOnlyInd &&
+                    this.context.getControlValueAsString('ServiceVisitFrequency') === this.context.pageParams.vbServiceVisitFrequency &&
+                    this.context.getControlValueAsString('ServiceQuantity') === this.context.pageParams.vbServiceQuantity &&
+                    this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'AnnualValueChange') !== '0') {
+                    this.context.pageParams.uiDisplay.trPriceChangeOnly = true;
+                    this.context.riExchange.riInputElement.SetValue(this.context.uiForm, 'PriceChangeOnlyInd', true);
+                    this.context.pageParams.vbPriceChangeOnlyInd = true;
+                    //TODO
+                    // if (InStr(document.ActiveElement.id, 'riGrid-') = 0) {
+                    //     if (this.context.pageParams.uiDisplay.tdLostBusiness = '') {
+                    //         //Call ritab.TabFocusToHTMLElement('LostBusinessCode');
+                    //     } else {
+                    //         //Call riTab.TabFocusToHTMLElement('PriceChangeOnlyInd');
+                    //     }
+                    // }
+                } else if (this.context.pageParams.vbPriceChangeOnlyInd &&
+                    (this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceVisitFrequency').toString() !== this.context.pageParams.vbServiceVisitFrequency ||
+                        this.context.riExchange.riInputElement.GetValue(this.context.uiForm, 'ServiceQuantity').toString() !== this.context.pageParams.vbServiceQuantity)) {
+                    this.context.pageParams.uiDisplay.trPriceChangeOnly = false;
+                    this.context.pageParams.PriceChangeOnlyInd = false;
+                    this.context.pageParams.vbPriceChangeOnlyInd = false;
+                }
+                this.context.iCABSAServiceCoverMaintenance4.riExchange_CBORequest();
+            }
+        }
+    }
+
+    public ServiceQuantityLabel(): void {
+        if (this.context.pageParams.vbEnableServiceCoverDispLev &&
+            (this.context.riExchange.riInputElement.checked(this.context.uiForm, 'DisplayLevelInd'))) {
+            this.context.pageParams.spanServiceQuantityLab_innerText = 'Quantity of Displays';
+            this.context.pageParams.spanUnconfirmedDeliveryQtyLab_innerText = 'Quantity of Displays';
+        } else {
+            this.context.pageParams.spanServiceQuantityLab_innerText = 'Service Quantity';
+            this.context.pageParams.spanUnconfirmedDeliveryQtyLab_innerText = 'Quantity';
+        }
+    }
+}

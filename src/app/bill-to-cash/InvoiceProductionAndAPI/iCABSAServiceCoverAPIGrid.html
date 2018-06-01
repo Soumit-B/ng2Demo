@@ -1,0 +1,120 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+  <div class="row">
+    <div class="col-sm-12 page-title">
+      <h1>
+        {{this['pageTitle'] | translate }}
+      </h1>
+    </div>
+  </div>
+  <form novalidate [formGroup]="this['uiForm']">
+    <div class="row mt2">
+      <div class="col-sm-4">
+        <label class="col24"> {{'Account Number' | translate }}</label>
+        <div class="col8 pr5">
+          <input formControlName="AccountNumber" [attr.maxlength]="9" class="form-control" type="text" (change)="accountNumberOnchange($event.target)"
+            eTypeCode>
+        </div>
+        <div class="col13 pr5">
+          <input formControlName="AccountName" [attr.maxlength]="30" class="form-control" type="text" eTypeText>
+        </div>
+        <div class="col3">
+          <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccount" [modalConfig]="modalConfig"
+            [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountDataReceived($event, false)" [showHeader]="showHeader"
+            [searchModalRoute]="searchModalRoute" [disabled]="isAccountEllipsisDisabled"></icabs-ellipsis>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <label class="col24">&nbsp;</label>
+        <div class="col10">
+          <input class="btn btn-primary" type="button" id="AssignAll" value="{{'Assign All' | translate }}" [disabled]="isDisabledAssignAll"
+            (click)="assignAllOnclick()">
+        </div>
+        <div class="col9">
+          <input class="btn btn-primary" type="button" id="ClearAll" value="{{'Clear All' | translate }}" [disabled]="isDisabledClearAll"
+            (click)="clearAllOnclick()">
+        </div>
+      </div>
+
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-4">
+        <label class="col24">{{'Contract Number' | translate }}</label>
+        <div class="col8 pr5">
+          <input formControlName="ContractNumber" [attr.maxlength]="8" class="form-control" type="text" id="ContractNumber" (change)="contractNumberOnchange($event.target)"
+            eTypeCode>
+        </div>
+        <div class="col13 pr5">
+          <input formControlName="ContractName" [attr.maxlength]="30" class="form-control" type="text" eTypeText>
+        </div>
+        <div class="col3">
+          <icabs-ellipsis #contractSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig"
+            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader"
+            (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]=false></icabs-ellipsis>
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-4">
+        <label class="col24">{{'Premises Number' | translate }}</label>
+        <div class="col8 pr5">
+          <input formControlName="PremiseNumber" [attr.maxlength]="5" class="form-control" type="text" (change)="premiseNumberOnchange($event.target)"
+            eTypeInteger>
+        </div>
+        <div class="col13 pr5">
+          <input formControlName="PremiseName" [attr.maxlength]="30" class="form-control" type="text" eTypeText>
+        </div>
+        <div class="col3">
+          <icabs-ellipsis #premiseSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccountPremise"
+            [modalConfig]="modalConfig" [contentComponent]="accountPremise" (ellipsisData)="onPremiseSearchDataReceived($event, true)"
+            [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-4">
+        <label class="col24">{{'Product Code' | translate }}</label>
+        <div class="col8 pr5">
+          <input formControlName="ProductCode" [attr.maxlength]="6" class="form-control" type="text" (change)="productCodeOnchange($event.target)"
+            eTypeCode>
+        </div>
+        <div class="col13 pr5">
+          <input formControlName="ProductDesc" [attr.maxlength]="30" class="form-control" type="text" eTypeText>
+        </div>
+        <div class="col3">
+          <icabs-ellipsis #productCodeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceCover"
+            [modalConfig]="modalConfig" [contentComponent]="serviceCoverSearchComponent" (ellipsisData)="serviceCoverSearchDataReceived($event)"
+            [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>
+        </div>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-3">
+        <label class="col24">{{'API Code' | translate }}</label>
+        <div class="col21 pr5">
+          <icabs-apicodesearch #apiCodeDropDown [inputParams]="inputParams" (receivedAPICodesearch)="onAPICodeSearchReceived($event)"></icabs-apicodesearch>
+        </div>
+      </div>
+    </div>
+    <hr class="mt15 mb15">
+    <div class="row">
+      <div class="col-sm-12">
+        <icabs-refresh (click)="refresh()"></icabs-refresh>
+        <icabs-pagination #serviceCoverAPIPagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+          (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+      </div>
+    </div>
+    <div class="row mt2">
+      <div class="col-sm-12">
+        <icabs-grid #serviceCoverAPIGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+          (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)" (sortInfo)="sortGrid($event)"
+          [sortIndex]="gridSortHeaders" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+      </div>
+    </div>
+  </form>
+</div>
+<icabs-modal #messageModal [(showHeader)]="showHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptConfirmModalAll="child" [title]="promptConfirmTitle" [content]="promptConfirmContent" (saveEmit)="promptConfirmAll()"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalClear="child" [title]="promptConfirmTitle" [content]="promptConfirmContent" (saveEmit)="promptConfirmClear()"></icabs-prompt-modal>
+<icabs-modal #errorModal [showHeader]="true"> </icabs-modal>

@@ -1,0 +1,53 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Confirmed Service Plans' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="7" [attr.maxlength]="4" formControlName="BranchServiceAreaCode" class="form-control">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="40" [attr.maxlength]="40" formControlName="EmployeeSurname" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis> </icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <div class="col12 pr5">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="WeekNumber">{{ 'Week Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="WeekNumber" size="2" [attr.maxlength]="2" formControlName="WeekNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,105 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body" [formGroup]="this['uiForm']">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ClosedCalendarTemplateNumber">{{ 'Template Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ClosedCalendarTemplateNumber" formControlName="ClosedCalendarTemplateNumber" class="form-control" type="text"
+                            (change)="templateNumberOnchange($event)" size="9" maxlength="8" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="TemplateName" formControlName="TemplateName" autofocus class="form-control" type="text" size="40" maxlength="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ClosedCalendarTemplateNumber [autoOpen]="ellipsis.template.autoOpen" [childConfigParams]="ellipsis.template.childConfigParams"
+                            [showCloseButton]="ellipsis.template.showCloseButton" [showHeader]="ellipsis.template.showHeader"
+                            [contentComponent]="ellipsis.template.contentComponent" [modalConfig]="ellipsis.template.modalConfig"
+                            (ellipsisData)="setClosedTemplateNumber($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Owning Branch' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col14 pr5">
+                        <icabs-branchsearch #newBranchNumberSearch name="OwnerBranchNumber" [inputParams]="inputParamsBranch" [isDisabled]="branchSearchDisabled"
+                            [active]="inputParamsBranch.negBranchNumberSelected" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" id="PremiseSpecificInd" formControlName="PremiseSpecificInd" eTypeCheckBox>
+                    <label for="PremiseSpecificInd">{{ 'Premises Specific' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseSpecificText">{{ 'Short Name' | translate}}</label>
+                    <div class="col24">
+                        <input id="PremiseSpecificText" class="form-control" type="text" size="40" maxlength="40" formControlName="PremiseSpecificText"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <label class="col24" for="TemplateNotes">{{ 'Template Note' | translate}}</label>
+                    <textarea id="TemplateNotes" rows="6" cols="60" class="form-control" formControlName="TemplateNotes" eTypeText></textarea>
+                </div>
+            </div>
+
+            <div class="row mt10" *ngIf="tdRollOverType">
+                <div class="col-sm-4">
+                    <label class="col24" for="SelCalendarRolloverTypeCode">{{ 'Rollover Method' | translate}}</label>
+                    <div class="col12">
+                        <icabs-dropdown-static #rollOverDropdown [inputData]="this['pageParams']['rollover']"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 hidden">
+                <input id="ErrorMessageDesc" type="text" formControlName="ErrorMessageDesc" eTypeText>
+                <input id="CalendarRolloverTypeCode" type="text" formControlName="CalendarRolloverTypeCode" eTypeInteger>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <input type="button" class="btn btn-primary" value="{{ 'Save' | translate }}" [disabled]="showSaveDisable" (click)="saveOnClick()">
+                        <input type="button" class="btn btn-additional" value="{{ 'Delete' | translate }}" [disabled]="showDeleteDisable" (click)="deleteOnClick()"
+                            [ngClass]="!this['pageParams'].IsDeleteEnable?'hidden':''">
+                            <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" [disabled]="showCancelDisable" (click)="cancelOnClick()">
+                    </div>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <select id="menu" class="form-control" [disabled]="disableOptionMenu" (change)="optionsChange($event.target.value)">
+                            <option value="Options" selected>{{ 'Options' | translate }}</option>
+                            <option value="calendar" >{{ 'Calendar' | translate }}</option>
+                            <option value="access" >{{ 'Branch Access' | translate }}</option>
+                            <option value="templateuse" >{{ 'Template Use' | translate }}</option>
+                            <option value="history" >{{ 'History' | translate }}</option>
+                        </select>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" [content]="messageContentSave">
+</icabs-modal>
+<icabs-prompt-modal #promptModalForSave="child" [showHeader]="showMessageHeaderSave" [showCloseButton]="closeButtonSave"
+    [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptConfirm($event)"></icabs-prompt-modal>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>

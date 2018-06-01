@@ -1,0 +1,164 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="NumberLab">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" (change)="onChangeContractNumber()"
+                            [attr.maxlength]="8" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [childConfigParams]="inputParamsContractSearch" [contentComponent]="contractSearchComponent"
+                            [showHeader]="showHeader" (ellipsisData)="setContractNumber($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <div class="col20">
+                        <input id="Status" formControlName="Status" class="form-control" type="text" eTypeText size="20" [attr.maxlength]="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" type="text" eTypeText size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Account Address Line 1' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAddressLine1" formControlName="ContractAddressLine1" class="form-control" type="text" eTypeText [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Account Address Line 2' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAddressLine2" formControlName="ContractAddressLine2" class="form-control" type="text" eTypeText [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Account Address Line 3' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAddressLine3" formControlName="ContractAddressLine3" class="form-control" type="text" eTypeText [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Town' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAddressLine4" formControlName="ContractAddressLine4" class="form-control" type="text" eTypeText [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Value' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAnnualValue" formControlName="ContractAnnualValue" class="form-control" type="text" eTypeCurrency [attr.maxlength]="23">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'County' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractAddressLine5" formControlName="ContractAddressLine5" class="form-control" type="text" eTypeText [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Commence Date' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractCommenceDate" formControlName="ContractCommenceDate" class="form-control" type="text" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Postcode' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractPostcode" formControlName="ContractPostcode" class="form-control" type="text" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="isVisibleContractDurationCode">
+                    <label class="col24" id="tdContractDurationCodeLab">{{ 'Contract Duration' | translate }}</label>
+                    <div class="col20">
+                        <input id="ContractDurationCode" formControlName="ContractDurationCode" class="form-control" type="text" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="isVisibleContractExpiryDate">
+                    <label class="col24" id="spanContractExpiryDate">{{ 'Contract Expiry Date' | translate }}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ContractExpiryDate" [dt]="expiryDate" name="ContractExpiryDate" (selectedValue)="dateSelectedValue($event)"
+                            eTypeDate required></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanContractExpiryDate">{{ 'Negotiating Branch' | translate }}</label>
+                    <div class="col20">
+                        <icabs-branchsearch #branchsearchDropDown [inputParams]="inputParams" (receivedbranchsearch)="onreceivedBranch($event)" [isDisabled]="isDisabledBranchSearch"
+                            [attr.maxlength]="5"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="NumberLab">{{ 'Negotiating Employee' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractSalesEmployee" formControlName="ContractSalesEmployee" class="form-control" type="text" eTypeCode (blur)="fetchSurNameLookup()"
+                            [attr.maxlength]="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="SalesEmployeeSurname" formControlName="SalesEmployeeSurname" class="form-control" type="text">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [contentComponent]="employeeSearchComponent" [childConfigParams]="inputParamsEmployeeSearch" [showHeader]="showHeader"
+                            (ellipsisData)="setEmployeeNumber($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}" [disabled]="isButtonDisabled" (click)="saveOnclick()">
+                    <input type="button" class="btn btn-secondary" value="{{'Cancel'|translate}}" [disabled]="isButtonDisabled" (click)="onCancel($event)">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>
+<icabs-prompt-modal #promptModalForSave="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitleSave" [content]="promptContentSave"
+    [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+<icabs-modal #messageModal="child" [showHeader]="true" [showCloseButton]="showPromptCloseButtonSave" [content]="messageContentSave">
+</icabs-modal>
+<icabs-prompt-modal #promptModalForCancel="child" [(showHeader)]="showMessageHeaderCancel" [showCloseButton]="showPromptCloseButtonCancel"
+    [title]="promptTitleCancel" [content]="promptContentCancel" [config]="promptModalConfigCancel" (saveEmit)="promptContentCancelData($event)"></icabs-prompt-modal>

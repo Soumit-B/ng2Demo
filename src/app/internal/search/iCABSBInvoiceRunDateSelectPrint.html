@@ -1,0 +1,40 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body">
+            <div class="hidden">
+                <input id="CurrentInvoiceCreditCode" style="display:none">
+<input id="PassFirstInvoiceNumber" style="display:none">
+<input id="PassLastInvoiceNumber" style="display:none">
+<input id="PassFirstVisualInvoiceNumber" style="display:none">
+<input id="PassLastVisualInvoiceNumber" style="display:none">
+<input id="CompanyCode" type="hidden">
+<input id="CurrentTaxCode" type="hidden">
+<input id="InvoiceRangeParameters" type="hidden">
+</div>
+<div class="row mt10" id="grdInvoiceRunDate">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #invoiceRunDatPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="pageSize"
+                (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onGridRowDblClick($event)"></icabs-grid-advanced>
+        </div>
+    </div>
+</div>
+</section>
+</form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

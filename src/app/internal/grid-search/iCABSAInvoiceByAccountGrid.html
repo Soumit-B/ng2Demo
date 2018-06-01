@@ -1,0 +1,90 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountNumber" size="9" [attr.maxlength]="9" class="form-control" formControlName="AccountNumber"
+                            [required]="this['pageParams']['isAccount']" (blur)="onEllipsisDataBlur()" icabsZeroPad eTypeText>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="AccountName" size="40" [attr.maxlength]="40" class="form-control" formControlName="AccountName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsis.accountNumber.childConfigParams" [showCloseButton]="ellipsis.accountNumber.showCloseButton"
+                            [contentComponent]="ellipsis.accountNumber.contentComponent" (ellipsisData)="onAccountNumberRecieved($event)"
+                            [showHeader]="ellipsis.accountNumber.showHeader" [disabled]="this['pageParams']['accountEllipsis']"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="GroupAccountNumber">{{ 'Group Account Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="GroupAccountNumber" size="9" [attr.maxlength]="9" class="form-control" [required]="this['pageParams']['isGroupAccount']"
+                            formControlName="GroupAccountNumber" (blur)="onEllipsisDataBlur()" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="GroupName" size="40" [attr.maxlength]="40" class="form-control" formControlName="GroupName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsis.groupAccountNumber.childConfigParams" [showCloseButton]="ellipsis.groupAccountNumber.showCloseButton"
+                            [contentComponent]="ellipsis.groupAccountNumber.contentComponent" (ellipsisData)="onGroupAccountNumberRecieved($event)"
+                            [showHeader]="ellipsis.groupAccountNumber.showHeader" [disabled]="this['pageParams']['groupAccountEllipsis']"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12 pr5">
+                        <label class="col24" for="StartDate">{{ 'Report start date' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="StartDate" formControlName="StartDate" [isDirectiveBased]="false" [isRequired]="this['pageParams']['isStartDate']"
+                                (onChange)="startDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="EndDate">{{ 'Report end date' | translate }}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="EndDate" formControlName="EndDate" [isDirectiveBased]="false" [isRequired]="this['pageParams']['isEndDate']"
+                                (onChange)="endDateSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ExtractRunNumber">{{ 'Extract Run Number' | translate }}</label>
+                    <div class="col10 pr5">
+                        <input type="text" id="ExtractRunNumber" size="10" [attr.maxlength]="9" class="form-control" formControlName="ExtractRunNumber"
+                            (blur)="onEllipsisDataBlur()" eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsis.extractRunNumber.childConfigParams" [showCloseButton]="ellipsis.extractRunNumber.showCloseButton"
+                            [contentComponent]="ellipsis.extractRunNumber.contentComponent" (ellipsisData)="onExtractNumberRecieved($event)"
+                            [showHeader]="ellipsis.extractRunNumber.showHeader" [disabled]="this['pageParams']['extractRunEllipsis']"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="gridRefresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="{'hidden': isHidePagination}" [totalItems]="gridParams['totalRecords']" [itemsPerPage]="gridParams['itemsPerPage']"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="onGridDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

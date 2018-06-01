@@ -1,0 +1,144 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{'Service Area Sequence'|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="4" class="form-control" formControlName="BranchServiceAreaCode" id="BranchServiceAreaCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="20" maxlength="35" class="form-control" formControlName="EmployeeSurname" id="EmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Show' |translate}} </label>
+                    <div class="col12">
+                        <select id=" ContractTypeCode" class="form-control">
+                     </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="8" class="form-control" formControlName="ContractNumber" id="ContractNumber">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="20" maxlength="35" class="form-control" formControlName="ContractName" id="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Position On Post Code' |translate}} </label>
+                    <div class="col12">
+                        <input type="text" size="20" maxlength="35" class="form-control" id="CurrentWeek">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'View By' |translate}} </label>
+                    <div class="col24 pr5">
+                        <select id="GroupBy" class="form-control">
+                            <option value="Postcode">Postcode</option>
+                            <option value="Town">Town</option>
+                            <option value="Unexpired">Unexpired</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Commence Date' |translate}} </label>
+                    <div class="col12">
+                        <icabs-datepicker id="ContractCommenceDate"></icabs-datepicker>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-4">
+                    <label class="col24">{{'Show' |translate}} </label>
+                    <div class="col12">
+                        <select id="PortfolioStatusType" class="form-control">
+                            <option value="All">All</option>
+                            <option value="Current">Current Portfolio</option>
+                            <option value="NonCurrent">Non Current Portfolio</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-4">
+                    <label class="col24">{{'Seq Number' |translate}} </label>
+                    <div class="col12">
+                        <input type="text" size="15" maxlength="6" class="form-control" formControlName="SeqNumberFrom" id="SeqNumberFrom">
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-4">
+                    <label class="col24">{{'Entitlement Products' |translate}} </label>
+                    <div class="col12">
+                        <select id="EntitlementProd" class="form-control">
+                            <option value="Include">Include</option>
+                            <option value="Exclude">Exclude</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-6 pull-right">
+                    <div class="col6 pr5">
+                        <label class="col24">{{'Sequence In Gaps Of' |translate}} </label>
+                        <input type="text" size="3" maxlength="3" class="form-control" formControlName="SequenceGap" id="SequenceGap">
+                    </div>
+                    <div class="col5 mt20 pr5">
+                        <input type="button" id="cmdResequenceNumbers" class="btn btn-additional col24" value="{{ 'Resequence' | translate }}">
+
+                    </div>
+                    <div class="col6 pr5">
+                        <label class="col24">{{'Show' |translate}} </label>
+                        <select id="ShowType" class="form-control">
+                            <option value="All">All</option>
+                            <option value="Expired">Expired</option>
+                            <option value="Unexpired">Unexpired</option>
+                        </select>
+
+                    </div>
+                    <div class="col7 mt20">
+                        <input type="button" id="cmdDesequenceExpired" class="btn btn-additional col24" value="{{ 'Desequence Expired Jobs' | translate }}">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid></icabs-grid>
+                </div>
+            </div>
+
+        </section>
+    </form>
+</section>

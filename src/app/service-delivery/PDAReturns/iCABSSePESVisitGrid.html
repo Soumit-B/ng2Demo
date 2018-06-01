@@ -1,0 +1,118 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4" id="trBranch" *ngIf="tdBranchDisplay">
+                    <label class="col24" for="BranchNumber">{{'Branch' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input type="text" formControlName="BranchNumber" size="11" maxlength="11" class="form-control" id="BranchNumber" (change)="branchNumberOnChange($event, true)"
+                            eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input type="text" formControlName="BranchName" size="40" maxlength="40" class="form-control" id="BranchName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4" id="trBranch" *ngIf="tdBusinessDisplay">
+                    <label class="col24" for="BusinessCode">{{'Business' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input type="text" formControlName="BusinessCode" size="11" maxlength="11" class="form-control" id="BusinessCode" eTypeCode>
+                    </div>
+                    <div class="col18">
+                        <input type="text" formControlName="BusinessDesc" size="40" maxlength="40" class="form-control" id="BusinessDesc" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="EmployeeCode">{{'Employee' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input type="text" formControlName="EmployeeCode" size="6" maxlength="6" class="form-control" id="EmployeeCode" (change)="employeeCodeOnChange($event, true)"
+                            [attr.maxlength]="6" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" formControlName="EmployeeSurname" size="40" maxlength="40" class="form-control" id="EmployeeSurname" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.empSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.empSearchComponent.inputParams"
+                            [modalConfig]="ellipseConfig.empSearchComponent.config" [contentComponent]="empSearchComponent" (ellipsisData)="empSearchDataReceived($event)"
+                            [showHeader]="ellipseConfig.empSearchComponent.showHeader" [disabled]="ellipseConfig.empSearchComponent.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12 pr10">
+                        <label class="col24" for="DateFrom">{{'Sync From' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateFrom" maxlength="15" class="form-control hidden">
+                            <icabs-datepicker id="DateFrom" [dt]='DateFrom' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true"
+                                (selectedValue)="dateFromSelectedValue($event)" [icabsDirFocus]="setFocusDateFrom">
+                            </icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{'To' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col24">
+                            <input size="15" formControlName="DateTo" maxlength="15" class="form-control hidden">
+                            <icabs-datepicker id="DateTo" [dt]='DateTo' [isReadonly]="dateReadOnly" [isDisabled]="dateReadOnly" [isRequired]="true" (selectedValue)="dateToSelectedValue($event)">
+                            </icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="SupervisorEmployeeCode">{{'Supervisor Employee' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input type="text" formControlName="SupervisorEmployeeCode" size="6" maxlength="6" class="form-control" id="SupervisorEmployeeCode"
+                            (change)="supervisorCodeOnChange($event, true)" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" formControlName="SupervisorSurname" size="40" maxlength="40" class="form-control" id="SupervisorSurname"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.empSupervisorSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.empSupervisorSearchComponent.inputParams"
+                            [modalConfig]="ellipseConfig.empSupervisorSearchComponent.config" [contentComponent]="empSearchComponent"
+                            (ellipsisData)="empSupervisorSearchDataReceived($event)" [showHeader]="ellipseConfig.empSupervisorSearchComponent.showHeader"
+                            [disabled]="ellipseConfig.empSupervisorSearchComponent.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="col24 mt10">
+                        <input type="checkbox" formControlName="ShowInvalidEmployeeCodes" id="ShowInvalidEmployeeCodes" eTypeCheckBox>
+                        <label for="ShowInvalidEmployeeCodes">{{'Show Invalid Employee Codes' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #sePESVisitGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row  mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #sePESVisitGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (sortInfo)="sortGridInfo($event)"
+                        (gridInfo)="getGridInfo($event)" (selectedRowInfo)="gridOnDblClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+        <input type="hidden" formControlName="Level">
+    </form>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="promptConfig.forSave.showPromptMessageHeader" [title]="promptConfig.forSave.promptConfirmTitle"
+    [content]="promptConfig.forSave.promptConfirmContent" (saveEmit)="promptConfirm($event, 'save')" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="pageVariables.isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="messageModalConfig.showMessageHeader" [config]="messageModalConfig.config"
+    [title]="messageModalConfig.title" [content]="messageModalConfig.content" [showCloseButton]="messageModalConfig.showCloseButton"
+    (modalClose)="messageModalClose()"></icabs-modal>

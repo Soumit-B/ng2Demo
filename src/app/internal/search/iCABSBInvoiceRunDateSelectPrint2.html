@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="InvoiceRange">{{ 'Invoice Range' | translate}}</label>
+                    <div class="col24">
+                        <select id="InvoiceRange" class="form-control" formControlName="InvoiceRange">
+                            <option *ngFor="let item of invoiceOption" value="{{item.value}}">{{item.text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt7">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="CopyInvoices" formControlName="CopyInvoices">
+                    <label for="CopyInvoices">{{ 'Copy Invoice' | translate}}</label>
+                </div>
+            </div>
+            <div class="row mt7" *ngIf="!isSuppressCreditsHide">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="SuppressCredits" formControlName="SuppressCredits">
+                    <label for="SuppressCredits">{{ 'Suppress Credits' | translate}}</label>
+                </div>
+            </div>
+            <div class="row mt7" *ngIf="systemChars.vReproduceInvoiceForEmail">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="EmailInvoice" formControlName="EmailInvoice">
+                    <label for="EmailInvoice">{{ 'Print Invoice To Email' | translate}}</label>
+                </div>
+            </div>
+            <div *ngIf="systemChars.vSCEnableMultipleInvoiceLayouts">
+                <div class="row mt7" *ngFor="let item of invoiceLayoutArr">
+                    <div class="col-sm-3">
+                        <input type="checkbox" class="form-control" id="InvoiceLayout{{item}}" formControlName="InvoiceLayout{{item}}">
+                        <label for="InvoiceLayout{{item}}">{{ 'InvoicePrintScreen - Invoice Layout ^1^' | translate | replaceText:['\\^1\\^']:[item]}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <span id="SpanRange" class="colorCrimson">{{ spanRangeMessageDesc | translate }}</span>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <input type="button" id="cmdConfirm" [disabled]="isSaveDisabled" class="btn btn-primary mr10" value="{{ 'Confirm' | translate }}"
+                    (click)="onConfirm()">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

@@ -1,0 +1,135 @@
+<form novalidate [formGroup]="maintenanceAccountFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div>
+        <div class="row mt10" [hidden]="fieldVisibility.isHiddenCopyPremise">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input class="btn btn-sm btn-secondary" type="button" value="{{'Copy From Premises' | translate}}" (click)="cmdCopyFromPremiseOnClick($event)"
+                        [disabled]="buttonDisable.cp">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenProspectName">
+            <div class="col-sm-3">
+                <label class="col24">{{'Name' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ProspectName === true">* </span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ProspectName" [attr.size]="40" [attr.maxlength]="40" class="form-control" (focusout)="accountContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenAddressLine1">
+            <div class="col-sm-3">
+                <label class="col24" for="AddressLine1">{{'Address Line 1' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AddressLine1 === true">* </span></label>
+                <div class="col24">
+                    <input type="text" class="form-control " formControlName="AddressLine1" [attr.size]="40" [attr.maxlength]="40" (focusout)="accountContactPositiononfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddencmdGetAddress">
+                <div class="col24 mt20">
+                    <input class="btn btn-sm btn-secondary" id="cmdGetAddress" type="button" value="{{'Get Address' | translate}}" (click)="onGetAddressClick()"
+                        [disabled]="buttonDisable.getaddress">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenAddressLine2">
+            <div class="col-sm-3">
+                <label class="col24 " for="AddressLine2">{{'Address Line 2' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AddressLine2 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="AddressLine2" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="accountContactPositiononfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenAddressLine3">
+            <div class="col-sm-3">
+                <label class="col24 " for="AddressLine3">{{'Address Line 3' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AddressLine3 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="AddressLine3" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="accountContactPositiononfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenAddressLine4">
+            <div class="col-sm-3">
+                <label class="col24 " for="AddressLine4">{{'Town' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AddressLine4 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="AddressLine4" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="addressLine4Onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenAddressLine5">
+            <div class="col-sm-3">
+                <label class="col24 " for="AddressLine5">{{'County' | translate}}<span  class="mandatory" *ngIf="fieldRequired.AddressLine5 === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="AddressLine5" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="addressLine5onfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenPostcode">
+            <div class="col-sm-3">
+                <label class="col24 " for="Postcode">{{'Postcode' | translate}}<span  class="mandatory" *ngIf="fieldRequired.Postcode === true">*</span></label>
+                <div class="col18 pr5">
+                    <input type="text" formControlName="Postcode" class="form-control " [attr.size]="15" [attr.maxlength]="15" (change)="postcodeOnchange($event.target.value)"
+                        (focusout)="postcodeOnfocusout()" eTypeCode>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #postcodeAccountSearchEllipsis [childConfigParams]="inputAccountParamsPostcode" [contentComponent]="postcodeSearchComponent"
+                        [showHeader]="true" [disabled]="poscodeSearchDisable" [modalConfig]="modalConfig" (ellipsisData)="onAccountPostcodeDataReturn($event)"
+                        [hideIcon]="poscodeSearchHide"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactName">
+                <label class="col24 " for="ContactName">{{'Contact Name' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactName === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactName" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="accountContactPositiononfocusout()"
+                        eTypeTextFree>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactPosition">
+                <label class="col24 " for="ContactPosition">{{'Position' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactPosition === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactPosition" class="form-control " [attr.size]="40" [attr.maxlength]="40" (focusout)="accountContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactTelephone">
+                <label class="col24 " for="ContactTelephone">{{'Telephone' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactTelephone === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactTelephone" class="form-control " [attr.size]="20" [attr.maxlength]="20" (focusout)="accountContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactMobile">
+                <label class="col24 " for="ContactMobile">{{'Mobile' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactMobile === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactMobile" class="form-control " [attr.size]="20" [attr.maxlength]="20" (focusout)="accountContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactFax">
+                <label class="col24 " for="ContactFax">{{'Fax' | translate}}<span  class="mandatory" *ngIf="fieldRequired.contractPostcode === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactFax" class="form-control " [attr.size]="20" [attr.maxlength]="20" (focusout)="accountContactPositiononfocusout()"
+                        eTypeText>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="fieldVisibility.isHiddenContactEmail">
+                <label class="col24 " for="ContactEmail">{{'Email' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ContactEmail === true">*</span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ContactEmail" class="form-control " [attr.size]="40" [attr.maxlength]="40" eTypeEMail>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">

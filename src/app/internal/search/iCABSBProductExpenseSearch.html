@@ -1,0 +1,40 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title">
+            <h1>
+                {{'Product Details'| translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt2" [hidden]="productDisplay">
+            <div class="col-sm-3">
+                <label class="col24">{{'Product Code' | translate }}</label>
+                <div class="col8 pr5">
+                    <input formControlName="ProductCode" maxlength="9" class="form-control">
+                </div>
+                <div class="col16 pr5">
+                    <input formControlName="ProductDesc" maxlength="40" class="form-control">
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="mt15 mb15">
+    <!-- Projects Row -->
+    <div class="col-sm-3 pull-right">
+        <div class="col8 pull-right">
+            <input class="btn btn-secondary" type="button" value="{{'Add New' | translate}}" (click)="onAddNew()">
+        </div>
+    </div>
+    <div class="custom-top-container padding-zero">
+        <!-- Pagination -->
+        <div class="margin-zero">
+            <icabs-table #productExpenseSearchTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage"
+                [columns]="columns" [paginationTop]="true" [displayError]="false" (click)="refresh()"></icabs-table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+</div>

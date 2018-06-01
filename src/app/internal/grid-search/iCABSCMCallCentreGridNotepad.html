@@ -1,0 +1,86 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Log Reference' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="CurrentCallLogID" size="20" maxlength="40" formControlName="CurrentCallLogID">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15" [ngClass]="trContactName?'':'hidden'">
+            <div class="row mt2" [ngClass]="trContactName?'':'hidden'">
+                <div class="col-sm-3">
+                    <label class="col24 h4">{{ 'Contact Details' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="trContactName?'':'hidden'">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contact Name' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="CallContactName" size="40" maxlength="40" formControlName="CallContactName" (change)="contactName_Onchange()">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24 h4 mb10">{{ 'Log Details' | translate }}</label>
+                    <div class="mt5 col12 pr10">
+                        <input type="button" class="btn btn-primary" value="{{'Clear Details'|translate}}" (click)="cmdClearNotes_OnClick()">
+                    </div>
+                    <div class="mt5 col12">
+                        <input type="button" class="btn btn-primary" value="{{'Default Details'|translate}}" (click)="cmdDefault_OnClick()">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <label class="col24">{{ 'Summary' | translate }}<span class="mandatory" *ngIf="parentModeOfPage==='CallCentreSearchEndCall'">*</span></label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="CallNotepadSummary" size="60" maxlength="60" formControlName="CallNotepadSummary"
+                            (change)="callNotepadSummary_onChange()" (keydown)="setErrorStatusFalse('CallNotepadSummary')" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-9">
+                    <label class="col24">{{ 'Details' | translate }}<span class="mandatory" *ngIf="parentModeOfPage==='CallCentreSearchEndCall'">*</span></label>
+                    <div class="col24">
+                        <textarea class="form-control" id="CallNotepad" rows="6" cols="80" formControlName="CallNotepad" (keydown)="setErrorStatusFalse('CallNotepad')"
+                            eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3" [ngClass]="parentModeOfPage === 'CallCentreSearchEndCall'?'':'hidden'">
+                    <input class="btn btn-primary mr10" type="submit" value="{{'End Now'|translate}}" (click)="saveClicked()">
+                    <input class="btn btn-secondary" type="reset" value="{{'Continue' | translate}}" (click)="cancelClicked()">
+                </div>
+                <div class="col-sm-3" [ngClass]="parentModeOfPage === 'CallCentreSearch'?'':'hidden'">
+                    <input class="btn btn-primary mr10" type="submit" value="{{'Save'|translate}}" (click)="saveClicked()">
+                    <input class="btn btn-secondary" type="reset" value="{{'Cancel'|translate}}" (click)="cancelClicked()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onModalClose()">
+</icabs-modal>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm()" [showCloseButton]="true"
+    [(showHeader)]="showMessageHeader"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

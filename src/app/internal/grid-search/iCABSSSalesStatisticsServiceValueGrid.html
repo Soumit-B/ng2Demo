@@ -1,0 +1,81 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ this['pageParams']['labelTitle'] | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ContractNumber" id="ContractNumber" size="9" [attr.maxlength]="8" class="form-control"
+                            (change)="onContractChange()" icabsZeroPad>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ContractName" id="ContractName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParams.contractParams" [autoOpen]="inputParams.contractParams.isAutoOpen" [contentComponent]="contractSearchComponent" (ellipsisData)="ellipsisData($event, 'ContractNumber')"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeInteger formControlName="PremiseNumber" id="PremiseNumber" size="9" [attr.maxlength]="5" class="form-control"
+                            (change)="onPremiseChange()">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="PremiseName" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParams.premiseParams" [contentComponent]="premiseSearchComponent" (ellipsisData)="ellipsisData($event, 'PremiseNumber')"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" eTypeCode formControlName="ProductCode" id="ProductCode" size="9" [attr.maxlength]="6" class="form-control"
+                            (change)="onProductChange()">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" eTypeText formControlName="ProductDesc" id="ProductDesc" size="40" [attr.maxlength]="40" class="form-control">
+                    </div>
+                    <div class="col2" *ngIf="this['pageParams']['isAdd']">
+                        <icabs-ellipsis [childConfigParams]="inputParams.serviceCoverSearchParams" [contentComponent]="productSearchComponent" (ellipsisData)="ellipsisData($event, 'ProductCode')"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                    <div class="col2" *ngIf="!this['pageParams']['isAdd']">
+                        <icabs-ellipsis #serviceCoverSearchEllipsis [childConfigParams]="inputParams.serviceCoverSearchParams" [contentComponent]="serviceCoverSearchComponent"
+                            (ellipsisData)="ellipsisData($event, 'ProductCode')" [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #salesStatSVGPagination *ngIf="!isHidePagination" [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

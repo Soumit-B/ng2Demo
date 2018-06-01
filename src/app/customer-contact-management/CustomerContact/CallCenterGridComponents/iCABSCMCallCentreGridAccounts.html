@@ -1,0 +1,185 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="CustomerSearch" class="mt10">
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <div class="col4 pr10 ">
+                    <select (change)="accountSearchOnChange($event)" (keydown)="accountSearchOnKeyDown($event)" id="AccountSearchOn" name="AccountSearchOn" formControlName="AccountSearchOn" class="form-control">
+                        <option *ngFor="let c of dropdownList.AccountSearchOn" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+                <div class="col4 pr10">
+                    <input type="text" (keydown)="accountSearchValueKeyDown($event)" (change)="accountSearchValueOnChange($event)" id="AccountSearchValue" name="AccountSearchValue" formControlName="AccountSearchValue" [maxlength]="maxLength.AccountSearchValue" class="form-control">
+                </div>
+                <div class="col4 pr10">
+                    <select id="AccountStatus" (keydown)="accountStatusOnKeyDown($event)" (change)="accountStatusOnChange($event)" name="AccountStatus" formControlName="AccountStatus" class="form-control">
+                        <option value="all" selected>{{ 'Live & Non Live' | translate }}</option>
+                        <option value="liveonly">{{ 'Live' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col4 pr10">
+                    <select id="AccountNational" (keydown)="accountNationalOnKeyDown($event)" name="AccountNational" formControlName="AccountNational" class="form-control">
+                        <option value="all" selected>{{ 'All Account Types' | translate }}</option>
+                        <option value="nationalonly">{{ 'National Accounts' | translate }}</option>
+                        <option value="nonenational">{{ 'Non National Accounts' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col4">
+                    <select id="AccountContractType" (keydown)="accountContractTypeOnKeyDown($event)" (change)="accountContractTypeOnChange($event)" name="AccountContractType" formControlName="AccountContractType" class="form-control">
+                        <option *ngFor="let c of dropdownList.AccountContractType" [ngValue]="c.value">{{c.desc | translate}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <div class="col4 pr10 ">
+                    <select id="AccountSearchOn2" (change)="accountSearchOn2Change($event)" (keydown)="accountSearchOn2KeyDown($event)" name="AccountSearchOn2" formControlName="AccountSearchOn2" class="form-control">
+                        <option value="none" selected>{{ 'All' | translate }}</option>
+                        <option value="Address1">{{ 'Address Line 1' | translate }}</option>
+                        <option value="Address2">{{ 'Address Line 2' | translate }}</option>
+                        <option value="PostCode">{{ 'Postcode' | translate }}</option>
+                        <option value="Telephone">{{ 'Telephone' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col4 pr10">
+                    <input type="text" id="AccountSearchValue2" (keydown)="accountSearchValue2KeyDown($event)" name="AccountSearchValue2" formControlName="AccountSearchValue2" size="9" maxlength="9" class="form-control">
+                </div>
+                <div class="col4 pr10">
+                    <select id="AccountDataSet" name="AccountDataSet" formControlName="AccountDataSet" class="form-control">
+                        <option value="all" selected>{{ 'Search All' | translate }}</option>
+                        <option value="allnotpublic">{{ 'Search All (Not General Public)' | translate }}</option>
+                        <option value="accountspremises">{{ 'Search Accounts & Premises' | translate }}</option>
+                        <option value="accounts">{{ 'Search Accounts' | translate }}</option>
+                        <option value="public">{{ 'Search General Public' | translate }}</option>
+                        <option value="premises">{{ 'Search Premises' | translate }}</option>
+                        <option value="prospects">{{ 'Search Prospects' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col4 ">
+                </div>
+                <div class="col4 text-right">
+                    <input id="CmdClearSearch" (click)="cmdClearSearchOnClick($event);" name="CmdClearSearch" formControlName="CmdClearSearch" type="button" class="btn btn-primary" value="{{ 'Reset Search' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-3 mt20" *ngIf="fieldVisibility.FurtherRecords">
+                <div class="col12">
+                    <strong id="AccountFurtherRecords" formControlName="AccountFurtherRecords"></strong>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #accountsGrid [maxColumns]="maxColumns" [displayCountryBusiness]="displayCountryBusiness" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridCellClick($event)" [sortIndex]="sortIndex" (sortInfo)="sortGrid($event)" [showTick]="true" [headerProperties]="headerProperties" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div *ngIf="fieldVisibility.AccountForm">
+            <div class="row mt10">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountName">
+                    <label class="col24" for="AccountName">{{ 'Name' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountName" name="AccountName" formControlName="AccountName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactName">
+                    <label class="col24" for="AccountContactName">{{ 'Contact Name' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactName" name="AccountContactName" formControlName="AccountContactName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20" *ngIf="fieldVisibility.CmdContactAccount">
+                    <input (click)="cmdContactAccountOnClick($event)" id="CmdContactAccount" name="CmdContactAccount" formControlName="CmdContactAccount" type="button" class="btn btn-primary" value="{{ 'Contact Details' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountAddressLine1">
+                    <label class="col24" for="AccountAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountAddressLine1" name="AccountAddressLine1" formControlName="AccountAddressLine1" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactPosition">
+                    <label class="col24" for="AccountContactPosition">{{ 'Position' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactPosition" name="AccountContactPosition" formControlName="AccountContactPosition" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountAddressLine2">
+                    <label class="col24" for="AccountAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountAddressLine2" name="AccountAddressLine2" formControlName="AccountAddressLine2" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactTelephone">
+                    <label class="col24" for="AccountContactTelephone">{{ 'Telephone' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactTelephone" name="AccountContactTelephone" formControlName="AccountContactTelephone" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountAddressLine3">
+                    <label class="col24" for="AccountAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountAddressLine3" name="AccountAddressLine3" formControlName="AccountAddressLine3" maxlength="40" value="" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactMobile">
+                    <label class="col24" for="AccountContactMobile">{{ 'Mobile' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactMobile" name="AccountContactMobile" formControlName="AccountContactMobile" maxlength="40" value="" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountAddressLine4">
+                    <label class="col24" for="AccountAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountAddressLine4" name="AccountAddressLine4" formControlName="AccountAddressLine4" maxlength="40" value="" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactFax">
+                    <label class="col24" for="AccountContactFax">{{ 'Fax' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactFax" name="AccountContactFax" formControlName="AccountContactFax" maxlength="40" value="" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountAddressLine5">
+                    <label class="col24" for="AccountAddressLine5">{{ 'County' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountAddressLine5" name="AccountAddressLine5" formControlName="AccountAddressLine5" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountContactEmail">
+                    <label class="col24" for="AccountContactEmail">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="AccountContactEmail" name="AccountContactEmail" formControlName="AccountContactEmail" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="fieldVisibility.AccountPostcode">
+                    <label class="col24" for="AccountPostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="AccountPostcode" name="AccountPostcode" formControlName="AccountPostcode" maxlength="20" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldVisibility.NoneAccountComments">
+                <div class="col-sm-6">
+                    <label class="col24" for="NoneAccountComments">{{ 'Details' | translate }}</label>
+                    <textarea id="NoneAccountComments" name="NoneAccountComments" formControlName="NoneAccountComments" class="form-control"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

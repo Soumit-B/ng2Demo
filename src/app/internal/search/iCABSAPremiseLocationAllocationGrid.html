@@ -1,0 +1,114 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{this['pageParams'].titleSuffix | translate}} {{this['pageParams'].titles['TableTitle1'] | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="uiForm">
+        <div [hidden]="hiddenMode.grdContractInformation1">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24 ">{{this['pageParams'].CurrentContractTypeLabel | translate }} {{'Number' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input formControlName="ContractNumber" size="9" maxlength="9" class="form-control" eTypeCode>
+
+                    </div>
+                    <div class="col18">
+                        <input formControlName="ContractName" size="40" maxlength="40" value="" readonly="" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 ">{{'Premises Number' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input formControlName="PremiseNumber" size="9" maxlength="9" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col18">
+                        <input formControlName="PremiseName" size="40" maxlength="40" value="" readonly="" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" id="trProductDetails" [hidden]="hiddenMode.productDetails">
+                    <label class="col24 ">{{'Product Code' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input formControlName="ProductCode" size="8" maxlength="6" class="form-control" (change)="productCodeOnChange($event.target.value)"
+                            eTypeCode>
+
+                    </div>
+                    <div class="col16 pr5">
+                        <input formControlName="ProductDesc" size="40" maxlength="40" value="" readonly="" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productCodeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsServiceCover"
+                            [modalConfig]="modalConfig" [contentComponent]="serviceCoverSearchComponent" (ellipsisData)="serviceCoverSearchDataReceived($event)"
+                            [showHeader]="showHeader" [disabled]="productEllipsisDisable"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="hiddenMode.atDate">
+                <div class="col-sm-3">
+                    <label class="col24 ">{{this['pageParams'].labelatDate | translate }}</label>
+                    <div class="col10">
+                        <icabs-datepicker [dt]='currDate' (selectedValue)="atDateSelectedValue($event)" [isReadonly]="false" [isDisabled]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="hiddenMode.gridOption">
+                <div class="col-sm-3">
+                    <label class="col24 ">{{'Level' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #gridOptionSelectDropdown class="" [inputData]="gridOptions" [disabled]="gridOptionsDisabled" (onSelect)="gridOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-3" [hidden]="hiddenMode.labelIncludeInactive || hiddenMode.gridOption">
+                <div class="col24">
+                    <input type="checkbox" id="IncludeInactive" (change)="setIncludeInactive($event.target.checked)">
+                    <label for="IncludeInactive">{{'Include Inactive Portfolio' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-sm-3" [hidden]="hiddenMode.menu">
+                <div class="col8">
+                    <icabs-dropdown-static #menuOptionSelectDropdown class="" [inputData]="menuOptions" [disabled]="menuOptionsDisabled" (onSelect)="menuOptionsChange($event)"></icabs-dropdown-static>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #premiseAllocationGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #premiseAllocationGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                    (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)" [showTick]="true" [validateProperties]="validateProperties"
+                    [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" (getCellDataonBlur)="onCellKeyDown($event)"></icabs-grid>
+            </div>
+        </div>
+        <!--Legends-->
+        <!--assign the colors dynamically-->
+        <div class="row mt10">
+            <div class="col-sm-8 text-right">
+                <label class="pr5"></label>
+                <div class="inline-block pr10" *ngFor="let l of legend">
+                    <label>{{ l.label | translate }}</label>
+                    <div class="legend inline-block mr5 border-style" [style.background-color]="l.color"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<icabs-modal #messageModal [(showHeader)]="showHeader">
+</icabs-modal>
+<icabs-modal #errorModal [showHeader]="true" (modalClose)="onMessageClose()"> </icabs-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

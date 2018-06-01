@@ -1,0 +1,641 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ this['pageParams'].contractTypelabel | translate }}<span  class="mandatory" >* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="9" maxlength="8" value="" class="form-control" formControlName="ContractNumber"
+                            [readonly]="true">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" size="40" maxlength="40" value="" class="form-control" formControlName="ContractName"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.tdExpectedTotals">
+                    <label class="col24">{{ 'Expected Total Displays' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ExpectedTotalQty" size="4" class="form-control" formControlName="ExpectedTotalQty" [readonly]="true"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.tdExpectedTotals">
+                    <label class="col24">{{ 'Value' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="ExpectedTotalValue" size="10" class="form-control" formControlName="ExpectedTotalValue" [readonly]="true"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises Number' | translate }}<span  class="mandatory" >* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="9" maxlength="5" value="" class="form-control" formControlName="PremiseNumber"
+                            [readonly]="true" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" size="40" maxlength="40" value="" class="form-control" formControlName="PremiseName"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.tdExpectedTotals">
+                    <label class="col24">{{ 'Total Displays' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="TotalQty" size="4" class="form-control" formControlName="TotalQty" [readonly]="true" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.tdExpectedTotals">
+                    <div class="col12">
+                        <label class="col24">{{ 'Value' | translate }}</label>
+                        <div class="col24 pr5">
+                            <input type="text" id="TotalValue" size="10" class="form-control" formControlName="TotalValue" [readonly]="true" eTypeCurrency>
+                        </div>
+                    </div>
+                    <div class="col12" [hidden]="fieldHidden.tdExpectedTotals">
+                        <label class="col24">{{ 'W.E.D.' | translate }}</label>
+                        <div class="col24">
+                            <input type="text" id="TotalWEDValue" size="4" class="form-control" formControlName="TotalWEDValue" [readonly]="true" eTypeDecimal1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate }}<span  class="mandatory" >* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="9" maxlength="6" value="" class="form-control" formControlName="ProductCode" [readonly]="true">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" size="40" maxlength="40" value="" class="form-control" formControlName="ProductDesc"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Commence Date' | translate }}<span  class="mandatory" *ngIf="fieldRequired.ServiceCoverItemCommenceDate === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="ServiceCoverItemCommenceDate" size="10" maxlength="10" class="form-control" formControlName="ServiceCoverItemCommenceDate"
+                            [readonly]="true" eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.EffectiveDate">
+                    <label class="col24">{{ 'Effective Date' | translate }}<span  class="mandatory" *ngIf="fieldRequired.EffectiveDate === true">* </span></label>
+                    <div class="col24 pr5">
+                        <icabs-datepicker #effectiveDateChild [dt]='currDate' (selectedValue)="effectiveDateSelectedValue($event)" [isReadonly]="isDisableEffectiveDate"
+                            [isRequired]="fieldRequired.EffectiveDate" [clearDate]="true" [isDisabled]="isDisableEffectiveDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Commision Employee' | translate }} <span  class="mandatory" *ngIf="fieldRequired.ServiceSalesEmployee === true">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ServiceSalesEmployee" size="6" maxlength="6" class="form-control" formControlName="ServiceSalesEmployee"
+                            eTypeCode>
+                    </div>
+                    <div class="col10 pr5">
+                        <input type="text" id="EmployeeSurname" size="25" maxlength="25" class="form-control" formControlName="EmployeeSurname" eTypeText>
+                    </div>
+                    <div class="col6">
+                        <icabs-ellipsis #employeeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsEmployeeSearch"
+                            [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent" (ellipsisData)="onAssignEmployeeDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Reason' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="SalesEmployeeText" size="36" maxlength="40" class="form-control" formControlName="SalesEmployeeText"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <input type="checkbox" id="UsePercentageValuesInd" formControlName="UsePercentageValuesInd" (click)="usePercentageValuesIndOnChange($event.target.checked)">
+                    <label class="gray" for="UsePercentageValuesInd">{{ 'Use Percentage Values' | translate }}</label>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.DisplayQty">
+                    <label class="col24">{{ 'Display Qty' | translate }}<span  class="mandatory" *ngIf="fieldRequired.DisplayQty === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="DisplayQty" size="4" maxlength="4" class="form-control" formControlName="DisplayQty" (change)="displayQtyOnChange($event.target.value)"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Item Description' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ItemDescription" size="30" maxlength="40" class="form-control" formControlName="ItemDescription" eTypeText>
+                    </div>
+
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.trInstallations">
+                    <input type="checkbox" id="InstallByBranchInd" formControlName="InstallByBranchInd" (click)="installByBranchIndOnChange($event.target.checked)">
+                    <label for="InstallByBranchInd" class="gray">
+                    {{ 'Install By Branch' | translate }}<span  class="mandatory" *ngIf="fieldRequired.InstallByBranchInd === true">* </span>
+                </label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.trInstallations">
+                    <input type="checkbox" id="InstalledInd" formControlName="InstalledInd" (click)="installedIndOnChange($event.target.checked)">
+                    <label for="InstalledInd" class="gray">
+                    {{ 'Installed' | translate }}
+                </label>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.MaterialsCost">
+                    <label class="col24">{{ 'Materials Cost' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="MaterialsCost" size="20" maxlength="23" class="form-control" formControlName="MaterialsCost" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.trInstallationEmployee">
+                    <label class="col24">{{ 'Installation Employee' | translate }}<span  class="mandatory" *ngIf="fieldRequired.InstallationEmployeeCode === true">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="InstallationEmployeeCode" size="6" maxlength="6" class="form-control" formControlName="InstallationEmployeeCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col12 pr5">
+                        <input type="text" id="InstallationEmployeeName" size="40" maxlength="40" class="form-control" formControlName="InstallationEmployeeName">
+                    </div>
+                    <div class="col30">
+                        <icabs-ellipsis #employeeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsInstallationEmployeeSearch"
+                            [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent" (ellipsisData)="onInstallationEmployeeCodDataReceived($event, true)"
+                            [showHeader]="showHeader" [disabled]="isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <input type="checkbox" id="ReplacementIncludeInd" formControlName="ReplacementIncludeInd" (click)="replacementIncludeIndOnChange($event.target.checked)">
+                    <label for="" class="gray" for="ReplacementIncludeInd">
+                    {{ 'Replacement Included' | translate }}
+                </label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.trInstallationEmployee">
+                    <label class="col24">{{ 'Date' | translate }}</label>
+                    <div class="col24 pr5">
+                        <icabs-datepicker [dt]='currDate3' (selectedValue)="installationDateSelectedValue($event)" isReadonly=false></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.RenegOldContract">
+                    <label class="col24">{{ 'Contract' | translate }}<span  class="mandatory" *ngIf="fieldRequired.RenegOldContract === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="RenegOldContract" size="30" maxlength="30" class="form-control" formControlName="RenegOldContract"
+                            eTypeCode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.MaterialsValue">
+                    <label class="col24">{{ 'Materials Value' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="MaterialsValue" size="20" maxlength="23" class="form-control" formControlName="MaterialsValue" (change)="materialsValueOnChange()"
+                            eTypeCurrency>
+                    </div>
+                    <div class="col6 pr5" [hidden]="fieldHidden.percentDisplay">
+                        <input type="text" id="MaterialsValuePerc" size="4" class="form-control" formControlName="MaterialsValuePerc" eTypeDecimal2>
+                    </div>
+                    <div class="col2 mt5" [hidden]="fieldHidden.percentDisplay">
+                        <span>%</span>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.RenegOldPremise">
+                    <label class="col24">{{ 'Premises' | translate }}<span  class="mandatory" *ngIf="fieldRequired.RenegOldPremise === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="RenegOldPremise" size="30" maxlength="30" class="form-control" formControlName="RenegOldPremise" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.LabourValue">
+                    <label class="col24">{{ 'Labour Value' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="LabourValue" size="20" maxlength="23" class="form-control" formControlName="LabourValue" (change)="labourValueOnChange()"
+                            eTypeCurrency>
+                    </div>
+                    <div class="col6 pr5" [hidden]="fieldHidden.percentDisplay">
+                        <input type="text" id="LabourValuePerc" size="4" class="form-control" formControlName="LabourValuePerc" eTypeDecimal2>
+                    </div>
+                    <div class="col2 mt5" [hidden]="fieldHidden.percentDisplay">
+                        <span>%</span>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.RenegOldValue">
+                    <label class="col24">{{ 'Old Value' | translate }}<span  class="mandatory" *ngIf="fieldRequired.RenegOldValue === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="RenegOldValue" size="30" maxlength="30" class="form-control" formControlName="RenegOldValue" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.ReplacementValue">
+                    <label class="col24">{{ 'Replacement Value' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ReplacementValue" size="20" maxlength="23" class="form-control" formControlName="ReplacementValue"
+                            (change)="replacementValueOnChange()" eTypeCurrency>
+                    </div>
+                    <div class="col6 pr5" [hidden]="fieldHidden.percentDisplay">
+                        <input type="text" id="ReplacementValuePerc" size="4" class="form-control" formControlName="ReplacementValuePerc" eTypeDecimal2>
+                    </div>
+                    <div class="col2 mt5" [hidden]="fieldHidden.percentDisplay">
+                        <span>%</span>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.WEDValue">
+                    <label class="col24">{{ 'W.E.D' | translate }}<span  class="mandatory" *ngIf="fieldRequired.WEDValue === true">* </span></label>
+                    <div class="col24">
+                        <input type="text" id="WEDValue" size="10" class="form-control" formControlName="WEDValue" eTypeDecimal1>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Display Value' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="DisplayValue" size="20" maxlength="23" class="form-control" formControlName="DisplayValue" (change)="displayValueOnChange()"
+                            eTypeCurrency>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.LabourCost">
+                    <label class="col24">{{ 'Labour Cost' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="LabourCost" size="20" class="form-control" formControlName="LabourCost">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5" [hidden]="fieldHidden.chkRenegContract">
+                <div class="col-sm-4">
+                    <input type="checkbox" id="chkRenegContract" formControlName="chkRenegContract" (click)="chkRenegContractOnChange($event.target.checked)">
+                    <label for="chkRenegContract" class="gray">
+                    {{ 'Renegotiation' | translate }}
+                </label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Location' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseLocationNumber" size="4" class="form-control" formControlName="PremiseLocationNumber" (change)="premiseLocationNumberOnChange()"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="PremiseLocationDesc" size="40" class="form-control" formControlName="PremiseLocationDesc" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #premisesLocationEllipsis [autoOpen]="premiseLocationEllipsis.autoOpen" [showCloseButton]="premiseLocationEllipsis.showCloseButton"
+                            [childConfigParams]="premiseLocationEllipsis.childConfigParams" [modalConfig]="premiseLocationEllipsis.modalConfig"
+                            [contentComponent]="premiseLocationEllipsis.contentComponent" (ellipsisData)="premiseLocationOnKeyDown($event, true)"
+                            [showHeader]="premiseLocationEllipsis.showHeader" [disabled]="premiseLocationEllipsis.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Description 1' | translate }}</label>
+                    <textarea id="ItemText1" class="form-control" formControlName="ItemText1" maxlength="1000" eTypeText></textarea>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Description 2' | translate }}</label>
+                    <textarea id="ItemText2" class="form-control" formControlName="ItemText2" maxlength="1000" eTypeText></textarea>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.CurrentWeek">
+                    <label class="col24">{{ 'Current Week' | translate }}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="CurrentWeek" size="10" maxlength="10" class="form-control" formControlName="CurrentWeek" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.InitialComponentsDate">
+                    <label class="col24">{{'Take Initial Components From' | translate}}</label>
+                    <div class="col18 pr5">
+                        <icabs-datepicker #initialComponentsDateChild [dt]='currDate4' (selectedValue)="initialComponentsDateSelectedValue($event)"
+                            [isReadonly]="false" [isRequired]="false"></icabs-datepicker>
+                    </div>
+                    <div class="col6 pr5">
+                        <input type="submit" id="cmdAddInitialCompDate" class="btn btn-primary" value="{{ 'Add' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.ScheduleID">
+                    <label class="col24">{{ 'Schedule ID' | translate }}<span  class="mandatory" *ngIf="fieldRequired.ScheduleID === true">* </span></label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ScheduleID" size="20" maxlength="20" class="form-control" formControlName="ScheduleID" (change)="scheduleIDOonChange()"
+                            eTypeText>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="button" id="cmdScheduleHeader" class="btn btn-primary" value="Schedule" (click)="cmdScheduleHeaderOnClick()">
+                    </div>
+                </div>
+
+                <div class="col-sm-3" [hidden]="fieldHidden.ExchangesStartAfterDate">
+                    <label class="col24">{{ 'Exhanges Start After' | translate }}<span  class="mandatory" *ngIf="fieldRequired.ExchangesStartAfterDate === true">* </span></label>
+                    <div class="col16 pr5">
+                        <icabs-datepicker [dt]='currDate2' (selectedValue)="exchangesStartAfterDateSelectedValue($event)" [isReadonly]="false" [isRequired]="fieldRequired.ExchangesStartAfterDate"></icabs-datepicker>
+                    </div>
+                    <div class="col8">
+                        <input type="text" id="ExchangesStartAfterWk" size="10" maxlength="10" class="form-control" formControlName="ExchangesStartAfterWk"
+                            eTypeText>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.ScheduleDetails">
+                    <label class="col24">{{ 'Schedule Type' | translate }}</label>
+                    <div class="col15 pr5">
+                        <icabs-dropdown-static #scheduleTypeSelectDropdown class="" [inputData]="this['pageParams'].sheduleTypeOptions" [disabled]="sheduleTypeDisabled"
+                            (onSelect)="scheduleOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                    <div class="col9 pr5">
+                        <input type="button" class="btn btn-primary" value="Schedule Details" (click)="cmdScheduleDetailsOnClick()">
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.BranchServiceAreaCode">
+                    <label class="col24">{{'Service Area'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" size="9" maxlength="9"
+                            placeholder="" (change)="branchServiceAreaCodeonChange()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" size="40" maxlength="40"
+                            placeholder="" [readonly]="true">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsbranchServiceAreaSearc" [modalConfig]="modalConfig"
+                            [contentComponent]="branchServiceAreaSearcComponent" (ellipsisData)="branchServiceAreaSearcDataReceived($event)"
+                            [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.ScheduleName">
+                    <label class="col24">{{ 'Schedule Name' | translate }}</label>
+                    <div class="col15 pr5">
+                        <input type="text" id="ScheduleName" size="36" maxlength="40" class="form-control" formControlName="ScheduleName" eTypeText>
+                    </div>
+
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.ScheduleEmployeeCode">
+                    <label class="col24">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ScheduleEmployeeCode" size="6" maxlength="6" class="form-control" formControlName="ScheduleEmployeeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ScheduleEmployeeName" size="29" maxlength="40" class="form-control" formControlName="ScheduleEmployeeName">
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4" [hidden]="fieldHidden.ScheduleQty">
+                    <label class="col24">{{ 'Schedule Qty' | translate }}<span  class="mandatory" *ngIf="fieldRequired.ScheduleQty === true">* </span></label>
+                    <div class="col15 pr5">
+                        <input type="text" id="ScheduleQty" size="10" maxlength="10" class="form-control" formControlName="ScheduleQty" eTypeInteger>
+                    </div>
+
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.ExchangesGenUpTo">
+                    <label class="col24">{{ 'Exchanges Generated Up To' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ExchangesGenUpTo" size="10" maxlength="10" class="form-control" formControlName="ExchangesGenUpTo"
+                            eTypeDate>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ExchangesGenUpToWk" size="8" maxlength="5" class="form-control" formControlName="ExchangesGenUpToWk"
+                            eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div id="divComp" [hidden]="fieldHidden.divComp">
+
+                <div class="row mt5">
+                    <div class="col-sm-12">
+                        <div class="col1"></div>
+                        <div class="col4 pr5">
+                            <label class="col24">{{ 'Component Type' | translate }}</label>
+                        </div>
+                        <div class="col2 pr5">
+                            <label class="col24">{{ 'Product' | translate }}</label>
+                        </div>
+                        <div class="col3 pr5">
+                            <label class="col24">{{ 'Alternate Code' | translate }}</label>
+                        </div>
+                        <div class="col5 pr5">
+                            <label class="col24">{{ 'Description' | translate }}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <label class="col24">{{ 'Attribute 1' |translate }}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <label class="col24">{{ 'Attribute 2' | translate }}</label>
+                        </div>
+                        <div class="col1 pr5">
+                            <label class="col24">{{ 'Quantity' | translate }}</label>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <label class="col24">{{ 'Range' | translate }}</label>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <label class="col24">{{ 'Sequence No' | translate }}</label>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <label class="col24">{{ 'Rotation Rule' | translate }}</label>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['RotationalInterval1'] || fieldHidden['trComponentRange']">
+                            <label class="col24">{{ 'Rotation Period' | translate }}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--iterate from here -->
+                <div class="row mt5" *ngFor="let row of componentRows">
+                    <div class="col-sm-12">
+                        <div class="col1 pr5  text-right">
+                            <span>{{row.count.toString()| translate}}</span>
+                        </div>
+                        <div class="col4 pr5">
+                            <div class="col24 pr5">
+                                <icabs-component-type-lang-dd #cddCompTypeLangSearch [inputParams]="componentDropdownParam[row.count-1].compTypeLangSearch.inputParams"
+                                    [itemsToDisplay]="componentDropdownParam[row.count-1].compTypeLangSearch.itemsToDisplay"
+                                    [active]="componentDropdownParam[row.count-1].compTypeLangSearch.active" (selectedValue)="onSelectCompTypeLangSearch($event,row.count)"></icabs-component-type-lang-dd>
+                            </div>
+
+                        </div>
+                        <div class="col2 pr5">
+                            <div class="col18 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.ProductComponentCode}}" id="{{row.ProductComponentCode}}"
+                                    size="6" maxlength="6" (change)="setEllipsisParams(row.count)" eTypeCode>
+                            </div>
+                            <div class="col6">
+                                <icabs-ellipsis [autoOpen]="false" [showCloseButton]="showCloseButton" [childConfigParams]="productSearchParams[row.count-1]"
+                                    [modalConfig]="modalConfig" [contentComponent]="productSearchComponent" (ellipsisData)="onProductDataReceived($event, row.count)"
+                                    [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]=false></icabs-ellipsis>
+                            </div>
+                        </div>
+                        <div class="col3 pr5">
+                            <div class="col18 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.AlternateProductCode}}" id="{{row.AlternateProductCode}}"
+                                    size="15" maxlength="20" (change)="setEllipsisParams(row.count)" eTypeCode>
+                            </div>
+                            <div class="col6">
+                                <icabs-ellipsis [autoOpen]="false" [showCloseButton]="showCloseButton" [childConfigParams]="alternativeProductSearchParams[row.count-1]"
+                                    [modalConfig]="modalConfig" [contentComponent]="productSearchComponent" (ellipsisData)="onAlternativeProductDataReceived($event, row.count)"
+                                    [showHeader]="showHeader" (modalHidden)=false [searchModalRoute]="searchModalRoute" [disabled]=false></icabs-ellipsis>
+                            </div>
+                        </div>
+                        <div class="col5 pr5">
+                            <div class="col24 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.ProductComponentDesc}}" id="{{row.ProductComponentDesc}}"
+                                    size="35" maxlength="40" eTypeCode>
+                            </div>
+                        </div>
+                        <div class="col4 pr5">
+                            <div class="col8 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.AttributeLabelA}}" id="{{row.AttributeLabelA}}" size="10"
+                                    maxlength="20" eTypeCode>
+                            </div>
+                            <div class="col13 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.AttributeValueA}}" id="{{row.AttributeValueA}}" size="15"
+                                    maxlength="40" eTypeText>
+                            </div>
+                            <div class="col3">
+                                <icabs-ellipsis [showCloseButton]="productAttributeValueSearch[row.count-1].isShowCloseButton" [showHeader]="productAttributeValueSearch[row.count-1].isShowHeader"
+                                    [childConfigParams]="productAttributeValueSearch[row.count-1].childConfigParams" [contentComponent]="productAttributeValueSearch[row.count-1].contentComponent"
+                                    (ellipsisData)="onProductAttributeValueSearch($event, row.count)" [disabled]="AttributeCodeADisable[row.count-1].disableEllipsis"></icabs-ellipsis>
+                            </div>
+                        </div>
+                        <div class="col4 pr5">
+                            <div class="col8 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.AttributeLabelB}}" id="{row.AttributeLabelB}}" size="10" maxlength="20"
+                                    eTypeCode>
+                            </div>
+                            <div class="col13 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.AttributeValueB}}" id="{{row.AttributeValueB}}" size="15"
+                                    maxlength="40" eTypeText>
+                            </div>
+                            <div class="col3">
+                                <icabs-ellipsis [showCloseButton]="productAttributeValueSearchB[row.count-1].isShowCloseButton" [showHeader]="productAttributeValueSearchB[row.count-1].isShowHeader"
+                                    [childConfigParams]="productAttributeValueSearchB[row.count-1].childConfigParams" [contentComponent]="productAttributeValueSearchB[row.count-1].contentComponent"
+                                    (ellipsisData)="onProductAttributeValueSearchB($event, row.count)" [disabled]="AttributeCodeBDisable[row.count-1].disableEllipsis"></icabs-ellipsis>
+                            </div>
+                        </div>
+                        <div class="col1 pr5">
+                            <div class="col24">
+                                <input type="text" class="form-control" formControlName="{{row.ComponentQuantity}}" id="{{row.ComponentQuantity}}" size="2"
+                                    maxlength="4" eTypeInteger>
+                            </div>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <div class="col8 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.ProductRange}}" id="{{row.ProductRange}}" size="30" maxlength="20"
+                                    (change)="productRangeOnChange(row.count)" eTypeCode>
+                            </div>
+                            <div class="col16 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.ProductRangeDesc}}" id="{{row.ProductRangeDesc}}" size="30"
+                                    maxlength="20" eTypeCode>
+                            </div>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <div class="col24 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.SequenceNumber}}" id="{{row.SequenceNumber}}" size="9" maxlength="7"
+                                    eTypeInteger>
+                            </div>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden['trComponentRange']">
+                            <div class="col24 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.RotationalRule}}" id="{{row.RotationalRule}}" size="9" maxlength="1"
+                                    (change)="rotationalRuleOnChange(row.count)" eTypeText>
+                            </div>
+                        </div>
+                        <div class="col2 pr5" [hidden]="fieldHidden[row.RotationalInterval] || fieldHidden['trComponentRange']">
+                            <div class="col24 pr5">
+                                <input type="text" class="form-control" formControlName="{{row.RotationalInterval}}" id="{{row.RotationalInterval}}" size="9"
+                                    maxlength="7" eTypeText>
+                            </div>
+                        </div>
+                        <div class="col2" [hidden]="fieldHidden['trComponentRange']">
+                            <div class="col24 text-right" [hidden]="fieldHidden['customUpdate']">
+                                <input type="submit" value="{{ 'Update' | translate }}" class="btn btn-primary" (click)="btnCustomUpdateOnClick()">
+                            </div>
+                        </div>
+                    </div>
+                    <!--iterate to here -->
+                </div>
+
+                <div class="row mt5">
+                    <div class="col-sm-12">
+                        <div class="col1"></div>
+                        <div class="col2 pull-right">
+                            <input type="submit" class="pull-right btn btn-primary" value="+" (click)="addComponentRow()">
+                        </div>
+                        <div class="col2 pull-left" [hidden]="fieldHidden.tdPopulate">
+                            <input type="submit" value="{{'Populate' | translate }}" class="btn btn-primary" (click)="btnPopulateonclick()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row" [hidden]="fieldHidden.tdGridControl">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #componentGridPagination [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10" [hidden]="fieldHidden.tdGridControl">
+                <div class="col-sm-12">
+                    <icabs-grid #componentGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="onGridRowClick($event)" (getCellDataonBlur)="onCellKeyDown($event)"
+                        (gridInfo)="getGridInfo($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+
+
+        </section>
+
+        <footer class="screen-footer mt5 row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary" value="{{ 'Save' | translate }}" (click)="saveData()">
+                <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="resetFormdata()">
+                <input type="submit" class="btn btn-additional" value="{{ 'Delete' | translate }}" (click)="deleteData($event)" [disabled]="this['pageParams'].isDeleteDisabled">
+                <div class="col4 pull-right">
+                    <select id="menu" (change)="menuonChange($event.target.value)" class="form-control">
+                            <option value="">{{'Options' | translate}}</option>
+                            <optgroup label="{{'Service Cover Displays' | translate}}">
+                                <option value="{{opt.value}}" *ngFor="let opt of menuOptionsGroupscd">{{opt.text | translate}}</option>
+                                <optgroup label="{{'Service Cover' | translate}}">
+                                <option value="{{opt.value}}" *ngFor="let opt of menuOptionsGroupsc">{{opt.text | translate}}</option>
+                    </select>
+                    <icabs-modal #messageModal [(showHeader)]="showHeader"></icabs-modal>
+                    <icabs-modal #errorModal [showHeader]="true"> </icabs-modal>
+                    <icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+                    <icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>
+                </div>
+
+            </div>
+
+        </footer>
+    </form>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+</section>

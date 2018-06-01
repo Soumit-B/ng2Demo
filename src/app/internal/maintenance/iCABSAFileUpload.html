@@ -1,0 +1,31 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'File Upload' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Filename' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" name="FileUploaded" size="80" class="form-control">
+                    </div>
+                    <div class="col8">
+                        <input class="btn btn-additional" type="button" value="{{ 'Browse' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input id="btnFileUpload" class="btn btn-additional" type="button" value="{{ 'Upload File' | translate }}">
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,58 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="UserCode">{{ 'User Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="UserCode" size="10" [attr.maxlength]="10" class="form-control" formControlName="UserCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="UserName" size="40" [attr.maxlength]="40" class="form-control" formControlName="UserName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20">
+                    <input type="checkbox" class="form-control" id="ExistingBranchAuthorityInd" formControlName="ExistingBranchAuthorityInd"
+                        eTypeCheckbox>
+                        <label for="ExistingBranchAuthorityInd">{{'Only Show Exixting Branch Authority'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BusinessCode">{{ 'Business' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="BusinessDesc" size="40" [attr.maxlength]="40" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20">
+                    <input type="checkbox" class="form-control" id="LiveBranchInd" formControlName="LiveBranchInd" eTypeCheckbox>
+                    <label for="LiveBranchInd">{{'Only Show Live Branches'|translate}}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="col8 mt20">
+                        <input type="button" class="btn btn-additional" value="{{'Create All Branch Authority' | translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

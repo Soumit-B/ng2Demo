@@ -1,0 +1,1 @@
+node "node_modules\git-release-notes" v0.11.4..v0.11.5 html > changelog.html

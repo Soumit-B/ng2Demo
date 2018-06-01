@@ -1,0 +1,80 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ pageTitle | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Extract Date' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" size="10" maxlength="10" class="form-control" id="ExtractDate" formControlName="ExtractDate" readonly
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <span *ngIf="hideTaxPointDate">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Tax Point Date' | translate}}<span class="mandatory">*</span></label>
+            <div class="col16 pr5">
+                <icabs-datepicker #TaxPointDateDatepicker id="TaxPointDate" (selectedValue)="taxPointDateSelectedValue($event)" [isRequired]="true"
+                    [dt]="taxPointDateValue"></icabs-datepicker>
+            </div>
+            </div>
+            </div>
+            </span>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Schedule invoice run for' | translate}}</label>
+                    <div class="col16 pr5">
+                        <icabs-datepicker #ScheduleStartDatepicker [isRequired]="true" [dt]="scheduleStartDate" id="ScheduleStartDate" (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                    <div class="col8">
+                        <input type="text" size="5" maxlength="5" class="form-control" id="ScheduleStartTime" formControlName="ScheduleStartTime"
+                            eTypeTime pattern='^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$' (blur)=formatTime($event)>
+                    </div>
+                </div>
+            </div>
+
+            <span *ngIf="hideNextInvoiceNumber"> <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Next Invoice Number' | translate}}<span class="mandatory">*</span></label>
+            <div class="col16 pr5">
+                <input type="text" size="8" maxlength="8" class="form-control" id="NextInvoiceNumber" formControlName="NextInvoiceNumber"
+                    eTypeText pattern='^[^"]*$'>
+            </div>
+            </div>
+            </div>
+            </span>
+
+            <span *ngIf="hideNextCreditNumber"> <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Next Credit Number' | translate}}<span class="mandatory">*</span></label>
+            <div class="col16 pr5">
+                <input type="text" size="8" maxlength="8" class="form-control" id="NextCreditNumber" formControlName="NextCreditNumber" eTypeText
+                    pattern='^[^"]*$'>
+            </div>
+            </div>
+            </div>
+            </span>
+
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr10" type="button" value="{{ 'Confirm' | translate }} " (click)="runDateConfirmcheck()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [showHeader]="true">
+</icabs-modal>
+<icabs-modal #errorModal="child" [showHeader]="true">
+</icabs-modal>

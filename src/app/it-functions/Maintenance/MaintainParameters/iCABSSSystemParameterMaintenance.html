@@ -1,0 +1,152 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ 'System Parameter Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Week Ending Day' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="SystemParameterEndOFWeekDay" formControlName="SystemParameterEndOFWeekDay" type="text" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Central Document Server' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="CentralDocumentServer" formControlName="CentralDocumentServer" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Report Server' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="ReportServer" formControlName="ReportServer" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'PC Document Directory' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="PCDocumentDirectory" formControlName="PCDocumentDirectory" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Unix Export Directory' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="UnixExportDirectory" formControlName="UnixExportDirectory" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Batch Process Email Address' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="BatchProcessEmail" formControlName="BatchProcessEmail" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'System Performance Email Address' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="SystemPerformanceEmail" formControlName="SystemPerformanceEmail" type="text" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'System Performance Max Duration' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="SystemPerformanceMaxDuration" formControlName="SystemPerformanceMaxDuration" type="text" class="form-control"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Next Site Review Default Months' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="NextSiteReviewNumberOfMonths" formControlName="NextSiteReviewNumberOfMonths" type="text" class="form-control"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Accounts Company Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="OACompanyNumber" formControlName="OACompanyNumber" type="text" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Accounts Database' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="OADatabaseName" formControlName="OADatabaseName" type="text" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Database Connection String' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="OAConnectionString" formControlName="OAConnectionString" type="text" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" id="OASalesLedger" formControlName="OASalesLedger" class="form-control">
+                        <label for="OASalesLedger">{{ 'Open Accounts Sales Ledger' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" id="OAGeneralLedger" formControlName="OAGeneralLedger" class="form-control">
+                        <label for="OAGeneralLedger">{{ 'Open Accounts General Ledger' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'HTTP Proxy Host' | translate }}</label>
+                    <div class="col24">
+                        <input id="HTTPProxyHost" formControlName="HTTPProxyHost" type="text" class="form-control" maxlength="40" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'HTTP Proxy Port' | translate }}</label>
+                    <div class="col24">
+                        <input id="HTTPProxyPort" formControlName="HTTPProxyPort" type="text" class="form-control" maxlength="6" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Next BPay Number' | translate }}</label>
+                    <div class="col24">
+                        <input id="NextBPayNumber" formControlName="NextBPayNumber" type="text" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="button" (click)="saveParameterMaintenance($event)" class="btn btn-primary" value="{{ 'Save' | translate }}">
+                    <input type="button" (click)="resetData($event)" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-modal #messageModal="child">

@@ -1,0 +1,42 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Postcode Group Entry Details' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Postcode Group' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" size="7" maxlength="5" formControlName="BranchServiceAreaCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BranchServiceAreaDesc" size="40" maxlength="40" formControlName="BranchServiceAreaDesc">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table></icabs-table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 pull-right">
+                    <div class="col24">
+                        <select id="menu" class="form-control" formControlName="menu">
+                            <option value="" [selected]="true">{{'Options' | translate}}</option>
+                            <option value="AddPostcode">{{'Add Postcode' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

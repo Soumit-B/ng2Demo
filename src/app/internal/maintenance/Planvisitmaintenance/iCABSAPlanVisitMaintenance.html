@@ -1,0 +1,583 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div #topContainer>
+            <section class="screen-body">
+                <div class="row mt10">
+                    <div class="col-sm-4">
+                        <div hidden>
+                            <label class="col24">{{ 'Branch' | translate }} </label>
+                            <div class="col8 pr5">
+                                <input type="text" formControlName="BranchNumber" class="form-control" placeholder="" size="6" [attr.maxlength]="6">
+                            </div>
+                            <div class="col16">
+                                <input type="text" formControlName="BranchName" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                            </div>
+                        </div>
+                        <label class="col24">{{ contractNumberLabel  | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="ContractNumber" class="form-control" placeholder="" size="9" [attr.maxlength]="8">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="ContractName" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Service Cover Service Area' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="BranchServiceAreaCodeSC" class="form-control" placeholder="" size="6" [attr.maxlength]="4">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="BranchServiceAreaDescSC" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Premises Number' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="PremiseNumber" class="form-control" placeholder="" size="9" [attr.maxlength]="5">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="PremiseName" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Plan Visit Service Area' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="BranchServiceAreaCode" class="form-control" placeholder="" size="9" [attr.maxlength]="4" (change)="branchServiceAreaCode_onChange()">
+                        </div>
+                        <div class="col14 pr5">
+                            <input type="text" formControlName="EmployeeSurname" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [disabled]="ellipsisConfig.branchServiceArea.disabled" [showCloseButton]="ellipsisConfig.branchServiceArea.showCloseButton"
+                                [showHeader]="ellipsisConfig.branchServiceArea.showHeader" [childConfigParams]="ellipsisConfig.branchServiceArea"
+                                [contentComponent]="ellipsisConfig.branchServiceArea.component" (ellipsisData)="inputField_OnChange($event, 'BranchServiceArea')"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Product Code' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="ProductCode" class="form-control" placeholder="" size="9" [attr.maxlength]="6">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="ProductDesc" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Planned Visit Type' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="VisitTypeCode" class="form-control" placeholder="" size="6" [attr.maxlength]="2">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="VisitTypeDesc" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="col24">{{ 'Actual Visit Type' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" formControlName="ActualVisitTypeCode" class="form-control" placeholder="" size="6" [attr.maxlength]="2">
+                        </div>
+                        <div class="col16">
+                            <input type="text" formControlName="ActualVisitTypeDesc" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                        </div>
+                    </div>
+                </div>
+
+                <!--icabs-tabs portion which comes later-->
+                <div class="row mt30">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item" id="grdPlanMaintenance" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                                <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab1.active}" (click)="renderTab(1)">
+                                    <span>{{ 'Plan' | translate }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="grdApptMaintenance" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                                <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab2.active}" (click)="renderTab(2)">
+                                    <span>{{ 'Appointment' | translate }}</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item" id="grdCustomerIntegration" [ngClass]="{'active': uiDisplay.tab.tab3.active, 'hidden': !showCustomerIntegration}">
+                                <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab3.active}" (click)="renderTab(3)">
+                                    <span>{{ 'Customer Integration' | translate }}</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" id="grdVisitNotes" [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                                <a class="nav-link" [ngClass]="{'active': uiDisplay.tab.tab4.active}" (click)="renderTab(4)">
+                                    <span>{{ 'Visit Notes' | translate }}</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!--1st tab-->
+                            <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                                <div id="plan" class="tab-pane" [hidden]="uiDisplay.tab.tab1.visible === false" [ngClass]="{'active': uiDisplay.tab.tab1.active}">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="row mt10">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <label class="col24">{{ 'Status' | translate }}</label>
+                                                        <input formControlName="PlanVisitStatusCode" type="text" class="form-control hidden" placeholder="" size="1" [attr.maxlength]="1">
+                                                        <input formControlName="PlanVisitStatusDesc" type="text" class="form-control" placeholder="" size="20" [attr.maxlength]="30">
+                                                    </div>
+                                                    <div class="col14 pl10" [hidden]="!showCancelReinstate">
+                                                        <div class="col24">
+                                                            <label for="CancelReinstatePlanVisit">{{cancelReinstateLabel | translate}}</label>
+                                                        </div>
+                                                        <div class="col2">
+                                                            <input type="checkbox" [icabsDirFocus]="setFocusCancelReinstatePlanVisit" id="CancelReinstatePlanVisit" formControlName="CancelReinstatePlanVisit"
+                                                                (change)="cancelReinstatePlanVisit_OnClick()">
+                                                            <label for="CancelReinstatePlanVisit"></label>
+                                                        </div>
+                                                        <div class="col22" [hidden]="!showCancelReason">
+                                                            <select formControlName="SelReason" class="form-control">
+                                                                    <option *ngFor="let reason of cancelVisitReasons" [value]="reason.key">{{reason.value | translate}}</option>>
+                                                                </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <label class="col24">{{ 'Visit Due Date' | translate }}<span class="mandatory">*</span></label>
+                                                    <div class="col10 pr5">
+                                                        <icabs-datepicker [isDirectiveBased]="false" id="OriginalVisitDueDate" formControlName="OriginalVisitDueDate"></icabs-datepicker>
+                                                    </div>
+                                                    <div class="col14 pl10" [hidden]="!showRealignPlanVisits">
+                                                        <input type="checkbox" id="RealignPlanVisits" formControlName="RealignPlanVisits">
+                                                        <label for="RealignPlanVisits">{{ 'Adjust Subsequent Visits' | translate }}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <label class="col24">{{ 'Static Visit Date' | translate }}</label>
+                                                        <input eTypeDate type="text" class="form-control" formControlName="StaticVisitDate" placeholder="" size="9" [attr.maxlength]="10">
+                                                    </div>
+                                                    <div class="col14 pl10">
+                                                        <div class="col24"><label for="HardSlotInd">{{ 'Hard Slot' | translate }}</label></div>
+                                                        <div class="col2 pr5">
+                                                            <input type="checkbox" id="HardSlotInd" formControlName="HardSlotInd" (change)="hardSlotInd_OnClick()">
+                                                            <label for="HardSlotInd"></label>
+                                                        </div>
+                                                        <div class="col22">
+                                                            <select formControlName="selHardSlotType" class="form-control">
+                                                                    <option value="W">{{ 'Week (Week)' | translate }}</option>
+                                                                    <option value="D">{{ 'Day (Week and Day)' | translate }}</option>
+                                                                    <option value="A">{{ 'AM (Week, Day, AM)' | translate }}</option>
+                                                                    <option value="P">{{ 'PM (Week, Day, PM)' | translate }}</option>
+                                                                    <option value="S">{{ 'Specific Time (Week, Day and Time)' | translate }}</option> 
+                                                                </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <label class="col24">{{ 'Visit Start Time' | translate }}</label>
+                                                        <input formControlName="RoutingVisitStartTime" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5" eTypeTime>
+                                                    </div>
+                                                    <div class="col14 pl10">
+                                                        <div class="col24"><label for="AppointmentConfirmed">{{ 'Appointment Confirmed' | translate }}</label></div>
+                                                        <div class="col2">
+                                                            <input type="checkbox" id="AppointmentConfirmed" formControlName="AppointmentConfirmed" (change)="appointmentConfirmed_OnClick()">
+                                                            <label for="AppointmentConfirmed"></label>
+                                                        </div>
+                                                        <div class="col22">
+                                                            <input formControlName="AppointmentConfirmedReason" type="text" class="form-control" placeholder="" size="30" [attr.maxlength]="30"
+                                                                (change)="onAppReasonChange()">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10">
+                                                        <label class="col24">{{ 'Tech Estim. Duration' | translate }}</label>
+                                                        <div class="col24 pr5">
+                                                            <input formControlName="EstimatedDuration" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5" (change)="estimatedDuration_OnChange()">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col12 pl10">
+                                                        <label class="col24" for="SpanSelConfirmationType">{{ 'Confirmation Type' | translate }}</label>
+                                                        <div class="col24">
+                                                            <select formControlName="SelConfirmationType" class="form-control" (change)="selConfirmationType_OnChange()">
+                                                                    <option value="">{{ 'UnConfirmed' | translate }}</option>
+                                                                    <option value="day">{{ 'Confirmed Week and Date only' | translate }}</option>
+                                                                    <option value="am">{{ 'Confirmed Week, Day and AM only' | translate }}</option>
+                                                                    <option value="pm">{{ 'Confirmed Week, Day and PM only' | translate }}</option>
+                                                                    <option value="specific time">{{ 'Confirmed Week, Day and time' | translate }}</option>
+                                                                </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div [hidden]="!showVisitDurationDefault">
+                                                        <div class="col10">
+                                                            <label class="col24">{{ 'Visit Duration Default' | translate }}</label>
+                                                            <div class="col24 pr5">
+                                                                <input formControlName="VisitDurationDefault" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5" (change)="visitDurationDefault_OnChange()">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col12 pl10">
+                                                            <label class="col24">{{ 'Visit Value' | translate }}</label>
+                                                            <div class="col24">
+                                                                <input eTypeCurrency formControlName="OriginalValue" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="20">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10">
+                                                        <label class="col24">{{ 'Client Reference' | translate }}</label>
+                                                        <div class="col24 pr5">
+                                                            <input formControlName="ClientReference" type="text" class="form-control" placeholder="" size="30" [attr.maxlength]="30">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col12 pl10" [hidden]="!showOriginalVisitDuration">
+                                                        <label class="col24">{{ 'Original Duration' | translate }}</label>
+                                                        <div class="col8 pr5">
+                                                            <input formControlName="OriginalVisitDuration" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <label class="col24">{{ 'Service Plan Number' | translate }}</label>
+                                                        <div class="col24">
+                                                            <input formControlName="ServicePlanNumber" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col14 pl10">
+                                                        <label class="col24" for="ExcludeFromRouting">{{ 'Exclude From Optimisation' | translate }}</label>
+                                                        <div class="col2 pr5">
+                                                            <input type="checkbox" id="ExcludeFromRouting" formControlName="ExcludeFromRouting" (change)="excludeFromRouting_OnClick()">
+                                                            <label for="ExcludeFromRouting"></label>
+                                                        </div>
+                                                        <div class="col21">
+                                                            <input formControlName="RoutingExclusionReason" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="30">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12" [hidden]="!showVisitNarrative">
+                                                    <label class="col24">{{ 'Visit Narrative' | translate }}</label>
+                                                    <div class="col14 pr5">
+                                                        <div class="col6 pr5">
+                                                            <input formControlName="VisitNarrativeCode" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="8" (change)="visitNarrativeCode_onchange()">
+                                                        </div>
+                                                        <div class="col16 pr5">
+                                                            <input formControlName="VisitNarrativeDesc" type="text" class="form-control" placeholder="" size="50" [attr.maxlength]="50">
+                                                        </div>
+                                                        <div class="col2">
+                                                            <icabs-ellipsis [disabled]="ellipsisConfig.visitNarrative.disabled" [showCloseButton]="ellipsisConfig.visitNarrative.showCloseButton"
+                                                                [showHeader]="ellipsisConfig.visitNarrative.showHeader" [childConfigParams]="ellipsisConfig.visitNarrative"
+                                                                [contentComponent]="ellipsisConfig.visitNarrative.component"
+                                                                (ellipsisData)="inputField_OnChange($event, 'VisitNarrative')"></icabs-ellipsis>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <div [hidden]="!showDisplayBlock">
+                                                            <label class="col24">{{ 'Display' | translate }}</label>
+                                                            <div class="col4 pr5">
+                                                                <input type="text" formControlName="ServiceCoverItemNumber" class="form-control" placeholder="" size="9" [attr.maxlength]="8" (change)="serviceCoverItemNumber_onchange()">
+                                                            </div>
+                                                            <div class="col18 pr5">
+                                                                <input type="text" formControlName="ItemDescription" class="form-control" placeholder="" size="40" [attr.maxlength]="50">
+                                                            </div>
+                                                            <div class="col2">
+                                                                <icabs-ellipsis [disabled]="this['uiForm'].controls['ServiceCoverItemNumber'].disabled" [showCloseButton]="ellipsisConfig.serviceCoverItem.showCloseButton"
+                                                                    [showHeader]="ellipsisConfig.serviceCoverItem.showHeader"
+                                                                    [childConfigParams]="ellipsisConfig.serviceCoverItem" [contentComponent]="ellipsisConfig.serviceCoverItem.component"
+                                                                    (ellipsisData)="inputField_OnChange($event, 'ServiceCoverItem')"></icabs-ellipsis>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col14 pl10">
+                                                        <label class="col24">{{ 'Telesales Order' | translate }}</label>
+                                                        <div class="col16 pr5">
+                                                            <input formControlName="TelesalesOrderNumber" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                                        </div>
+                                                        <div class="col8">
+                                                            <input formControlName="CmdTelesalesOrder" type="button" class="btn btn-primary" [value]="'Telesales Order' | translate"
+                                                                (click)="cmdTelesalesOrder_onclick()">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10 pr5">
+                                                        <div [hidden]="!showLocation">
+                                                            <label class="col24">{{ 'Location' | translate }}</label>
+                                                            <div class="col4 pr5">
+                                                                <input formControlName="PremiseLocationNumber" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="8" (change)="premiseLocationNumber_onChange()">
+                                                            </div>
+                                                            <div class="col18 pr5 ">
+                                                                <input formControlName="PremiseLocationDesc" type="text" class="form-control" placeholder="" size="40" [attr.maxlength]="50">
+                                                            </div>
+                                                            <div class="col2">
+                                                                <icabs-ellipsis [disabled]="ellipsisConfig.premiseLocation.disabled" [showCloseButton]="ellipsisConfig.premiseLocation.showCloseButton"
+                                                                    [showHeader]="ellipsisConfig.premiseLocation.showHeader"
+                                                                    [childConfigParams]="ellipsisConfig.premiseLocation" [contentComponent]="ellipsisConfig.premiseLocation.component"
+                                                                    (ellipsisData)="inputField_OnChange($event, 'PremiseLocation')"></icabs-ellipsis>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col14 pl10">
+                                                        <label class="col24">{{ 'Line' | translate }}</label>
+                                                        <div class="col16 pr5">
+                                                            <input formControlName="TelesalesOrderLineNumber" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="4">
+                                                        </div>
+                                                        <div class="col8">
+                                                            <input formControlName="CmdTelesalesOrderLine" type="button" class="btn btn-primary" [value]="'Telesales Line' | translate"
+                                                                (click)="cmdTelesalesOrderLine_onclick()">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2" [hidden]="!showRemoveComponent">
+                                                <div class="col-sm-12">
+                                                    <div class="col10">
+                                                        <label class="col24">{{ 'Component to be removed' | translate }}</label>
+                                                        <div class="col6 pr5">
+                                                            <input type="text" formControlName="ProductComponentRemoved" class="form-control" placeholder="" size="9" [attr.maxlength]="8" (change)="productComponentRemoved_onChange()">
+                                                        </div>
+                                                        <div class="col18">
+                                                            <input type="text" formControlName="ProductComponentRemDesc" class="form-control" placeholder="" size="40" [attr.maxlength]="40">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12">
+                                                    <div class="col10" [hidden]="!showInstallComponent">
+                                                        <label class="col24">{{ 'Component to be installed' | translate }}</label>
+                                                        <div class="col6 pr5">
+                                                            <input type="text" formControlName="ProductComponentCode" class="form-control" placeholder="" size="9" [attr.maxlength]="8" (change)="productComponentCode_onChange()">
+                                                        </div>
+                                                        <div class="col18">
+                                                            <input type="text" formControlName="ProductComponentDesc" class="form-control" placeholder="" size="40" [attr.maxlength]="50">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12" [hidden]="!showInvoiceUnitValue">
+                                                    <label class="col24">{{ 'Invoice Unit Value' | translate }}</label>
+                                                    <div class="col10">
+                                                        <input eTypeCurrency formControlName="InvoiceUnitValue" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12" [hidden]="!showAdditionalCharge">
+                                                    <label class="col24">{{ 'Additional Charge Value' | translate }}</label>
+                                                    <div class="col10">
+                                                        <input eTypeCurrency formControlName="AdditionalChargeValue" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-12" [hidden]="!showVisitDetailText">
+                                                    <label class="col24">{{ 'Visit Text' | translate }}</label>
+                                                    <div class="col24">
+                                                        <textarea id="ServiceVisitText" [attr.maxlength]="100" rows="3" cols="50" formControlName="ServiceVisitText" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row mt2">
+                                                <div class="col-sm-6"></div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-6">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Planned Date' | translate }}</label>
+                                                        <input formControlName="PlannedVisitDate" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                                    </div>
+                                                    <div class="col12">
+                                                        <label class="col24">{{ 'Planned Quantity' | translate }}</label>
+                                                        <input formControlName="PlanQuantity" type="text" class="form-control" placeholder="" size="4" [attr.maxlength]="4">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-6">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Actual Visited Date' | translate }}</label>
+                                                        <input formControlName="ActualVisitDate" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10" eTypeDate>
+                                                    </div>
+                                                    <div class="col12">
+                                                        <label class="col24">{{ 'Actual Quantity' | translate }}</label>
+                                                        <input formControlName="ActualQuantity" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="4">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-6" [hidden]="!showRemoveQty">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Planned Removal Qty' | translate }}</label>
+                                                        <input formControlName="PlanRemQuantity" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="4">
+                                                    </div>
+                                                    <div class="col12">
+                                                        <label class="col24">{{ 'Actual Qty Removed' | translate }}</label>
+                                                        <input formControlName="RemovalQuantity" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="4">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-8">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Processed Date/Time' | translate }}</label>
+                                                        <input formControlName="ProcessedDateTime" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10" eTypeDate>
+                                                    </div>
+                                                    <div class="col12">
+                                                        <label class="col24">{{ 'User Code' | translate }}</label>
+                                                        <input formControlName="PlanVisitUserCode" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="20">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-6" [hidden]="!showVisitDuration">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Planned Duration' | translate }}</label>
+                                                        <input formControlName="PlannedVisitDuration" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5">
+                                                    </div>
+                                                    <div class="col12">
+                                                        <label class="col24">{{ 'Actual Duration' | translate }}</label>
+                                                        <input formControlName="ActualVisitDuration" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="5">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt2">
+                                                <div class="col-sm-8">
+                                                    <div class="col12 pr5">
+                                                        <label class="col24">{{ 'Planner Status' | translate }}</label>
+                                                        <select formControlName="SelPlannerStatus" class="form-control">
+                        <option *ngFor="let ttPlannerStatus of arrPlannerStatus" [value]="ttPlannerStatus.PlannerStatusCode">{{ttPlannerStatus.PlannerStatusDesc | translate}}</option>>
+                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--2nd tab-->
+                            <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab2.active}">
+                                <div id="Appointment">
+                                    <div class="row mt10">
+                                        <div class="col-sm-3">
+                                            <label class="col24">{{ 'Sequence Number' | translate }}</label>
+                                            <div class="col8">
+                                                <input eTypeCode formControlName="PlanVisitSeqNo" type="text" class="form-control" placeholder="" size="5" [attr.maxlength]="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-sm-6">
+                                            <label class="col24">{{ 'Special Instructions' | translate }}</label>
+                                            <div class="col24">
+                                                <textarea formControlName="SpecialInstructions" class="form-control" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--3rd tab-->
+                            <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab3.active}">
+                                <div id="Customer Integration">
+                                    <div class="row mt10">
+                                        <div class="col-sm-3">
+                                            <label class="col24">{{ 'Customer Reference' | translate }}</label>
+                                            <div class="co24">
+                                                <input formControlName="CICustomerRef" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="col24">{{ 'Linked Customer Reference' | translate }}</label>
+                                            <div class="co24">
+                                                <input formControlName="LinkedCICustomerRef" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="10">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label class="col24">{{ 'SLA Started At' | translate }}</label>
+                                            <div class="col8 pr5">
+                                                <input eTypeDate formControlName="CISLAStartDate" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="8">
+                                            </div>
+                                            <div class="col16">
+                                                <input eTypeTime formControlName="CISLAStartTime" type="text" class="form-control" placeholder="" size="9" [attr.maxlength]="8">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--4th tab-->
+                            <div class="tab-pane" [ngClass]="{'active': uiDisplay.tab.tab4.active}">
+                                <div id="visit notes">
+                                    <div class="row mt10">
+                                        <div class="col-sm-9">
+                                            <label class="col24">{{ 'Planning Notes' | translate }}</label>
+                                            <div class="col24">
+                                                <textarea formControlName="VisitNotes" class="form-control" rows="16"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <hr class="mt15 mb15">
+            <footer class="screen-footer">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input class="btn btn-primary mr10" type="submit" [value]="'Save' | translate" (click)="beforeSave()">
+                        <input class="btn btn-secondary" type="button" [value]="'Cancel' | translate" (click)="onAbandonClick()">
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </form>
+</section>
+
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+<icabs-prompt-modal #promptModal [(showHeader)]="showMessageHeader" [title]="promptTitle" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

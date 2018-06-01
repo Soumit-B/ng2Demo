@@ -1,0 +1,681 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="AccountNumber">{{ 'Account' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="8" maxlength="9">
+                    </div>
+                    <div class="col16">
+                        <input id="AccountProspectName" formControlName="AccountProspectName" class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="CurrentCallLogID">{{ 'Log Reference' | translate}}</label>
+                    <div class="col12">
+                        <input id="CurrentCallLogID" formControlName="CurrentCallLogID" class="form-control" type="text" size="20" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <!--Tab function-->
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul #navElement class="nav nav-tabs">
+                        <li class="nav-item" id="grdJobPricing" [ngClass]="{'active': uiTabs.tab.tab1.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiTabs.tab.tab1.active}" (click)="renderTab(1)">
+                                <span>{{'Pricing Details'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdJobPremiseAddress" [ngClass]="{'active': uiTabs.tab.tab2.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiTabs.tab.tab2.active}" (click)="renderTab(2)">
+                                <span>{{'Premises Address'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item " id="grdJobGeneral" [ngClass]="{'active': uiTabs.tab.tab3.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiTabs.tab.tab3.active}" (click)="renderTab(3)">
+                                <span>{{'Further Information'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdJobInvoiceAddress" [ngClass]="{'active': uiTabs.tab.tab4.active}">
+                            <a class="nav-link" [ngClass]="{'active': uiTabs.tab.tab4.active}" (click)="renderTab(4)">
+                                <span>{{'Invoice Address / Payment Details'|translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div #tabContainer class="tab-content">
+                        <!--Pricing Details tab content-->
+                        <div class="tab-pane" [ngClass]="{'active': uiTabs.tab.tab1.active}">
+                            <div id="grdJobPricing" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-2" *ngIf="isPricingPostCode">
+                                        <div class="col24">
+                                            <label class="col24" for="PricingPostCode">{{ 'Postcode' | translate}}
+                                                <span *ngIf="this['pageParams']['blnEnablePostCodeDefaulting']" class="mandatory">*</span>
+                                            </label>
+                                            <input #pricingPostCode id="PricingPostCode" formControlName="PricingPostCode" class="form-control" type="text" size="20"
+                                                maxlength="20" (change)="pricingPostCodeOnChange()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="PricingServiceBranchNumber">{{ 'Service Branch' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input id="PricingServiceBranchNumber" formControlName="PricingServiceBranchNumber" class="form-control" type="text" size="5"
+                                                maxlength="5">
+                                        </div>
+                                        <div class="col16">
+                                            <input id="PricingServiceBranchName" formControlName="PricingServiceBranchName" class="form-control" type="text" size="24"
+                                                maxlength="4">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 mt10">
+                                        <div class="col4 mt10">
+                                            <input type="button" class="btn btn-additional" formControlName="cmdResetPricing" value="{{ 'Reset' | translate }}" (click)="cmdResetPricingOnClick()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-6">
+                                        <div class="col14">
+                                            <icabs-refresh (click)="riGridPricingBeforeExecute()"></icabs-refresh>
+                                            <icabs-pagination [totalItems]="totalRecordsPricing" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event, 'pricing')"></icabs-pagination>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-grid-advanced #riGridPricing (onSuccess)="riGridPricingAfterExecute()" (bodyDblClick)="riGridPricingBodyOnDblClick($event)"></icabs-grid-advanced>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="isJobProspectOriginalNotes">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="JobProspectOriginalNotes">{{ 'Original Notes' | translate}}</label>
+                                        <textarea id="JobProspectOriginalNotes" formControlName="JobProspectOriginalNotes" class="form-control" rows="15" cols="80"
+                                            tabindex="18"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Premise Address tab content-->
+                        <div class="tab-pane" [ngClass]="{'active': uiTabs.tab.tab2.active}">
+                            <div id="grdJobPremiseAddress" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseName">{{ 'Premises Name' | translate}}
+                                                <span class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseName" formControlName="JobPremiseName" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CustomerTypeCode">{{ 'Customer Type' | translate}}
+                                            <span class="mandatory">*</span>
+                                        </label>
+                                        <div class="col8 pr5">
+                                            <input id="CustomerTypeCode" formControlName="CustomerTypeCode" class="form-control" type="text" size="5" maxlength="5">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="CustomerTypeDesc" formControlName="CustomerTypeDesc" class="form-control" type="text" size="30" maxlength="30">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [disabled]="ellipsisConfig.customerTypeCode.disabled" [showCloseButton]="ellipsisConfig.customerTypeCode.showCloseButton"
+                                                [showHeader]="ellipsisConfig.customerTypeCode.showHeader" [childConfigParams]="ellipsisConfig.customerTypeCode.childConfigParams"
+                                                [contentComponent]="ellipsisConfig.customerTypeCode.component" (ellipsisData)="onSelect($event, 'customerTypeCode')"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobPremiseAddressLine1">{{ 'Address Line 1' | translate}}
+                                            <span class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12 pr5">
+                                            <input id="JobPremiseAddressLine1" formControlName="JobPremiseAddressLine1" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                        <div class="col4" *ngIf="isGetPremiseAddress">
+                                            <input type="button" class="btn btn-additional" formControlName="cmdGetPremiseAddress" value="{{ 'Get Address' | translate }}"
+                                                (click)="cmdGetPremiseAddressOnClick()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobPurchaseOrderNo">{{ 'PO Number' | translate}}</label>
+                                        <div class="col12">
+                                            <input id="JobPurchaseOrderNo" formControlName="JobPurchaseOrderNo" class="form-control" type="text" size="20" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseAddressLine2">{{ 'Address Line 2' | translate}}</label>
+                                            <input id="JobPremiseAddressLine2" formControlName="JobPremiseAddressLine2" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobClientReference">{{ 'Client Reference' | translate}}</label>
+                                        <div class="col12">
+                                            <input id="JobClientReference" formControlName="JobClientReference" class="form-control" type="text" size="30" maxlength="30">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt2">
+                                    <div class="col-sm-4" *ngIf="isJobPremiseAddressLine3">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseAddressLine3">{{ 'Address Line 3' | translate}}
+                                                <span *ngIf="this['pageParams']['blnSCAddressLine3Logical']" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseAddressLine3" formControlName="JobPremiseAddressLine3" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="isInvoiceGroupNumber">
+                                        <label class="col24" for="InvoiceGroupNumber">{{ 'Invoice Group' | translate}}
+                                            <span class="mandatory">*</span>
+                                        </label>
+                                        <div class="col8 pr5">
+                                            <input eTypeInteger id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber" class="form-control" type="text" size="4"
+                                                [attr.maxlength]="2">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="InvoiceGroupDesc" formControlName="InvoiceGroupDesc" class="form-control" type="text" size="30" maxlength="30">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [disabled]="ellipsisConfig.invoice.disabled" [showCloseButton]="ellipsisConfig.invoice.showCloseButton" [showHeader]="ellipsisConfig.invoice.showHeader"
+                                                [childConfigParams]="ellipsisConfig.invoice.childConfigParams" [contentComponent]="ellipsisConfig.invoice.component"
+                                                (ellipsisData)="onSelect($event, 'invoice')"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseAddressLine4">{{ ' Town' | translate}}
+                                                <span class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseAddressLine4" formControlName="JobPremiseAddressLine4" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseAddressLine5">{{ 'County' | translate}}
+                                                <span *ngIf="this['pageParams']['blnSCAddressLine5Logical']" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseAddressLine5" formControlName="JobPremiseAddressLine5" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremisePostCode">{{ 'Postcode' | translate}}
+                                                <span class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremisePostCode" formControlName="JobPremisePostCode" class="form-control" type="text" size="20" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt15 mb15">
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseContactName">{{ 'Contact Name' | translate}}
+                                                <span class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseContactName" formControlName="JobPremiseContactName" class="form-control" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobPremiseContactPosition">{{ 'Contact Position' | translate}}
+                                            <span class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input id="JobPremiseContactPosition" formControlName="JobPremiseContactPosition" class="form-control" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseContactTelephone">{{ 'Telephone' | translate}}
+                                                <span class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobPremiseContactTelephone" formControlName="JobPremiseContactTelephone" class="form-control" type="text" size="20"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobPremiseContactMobile">{{ 'Mobile' | translate}}</label>
+                                        <div class="col12">
+                                            <input id="JobPremiseContactMobile" formControlName="JobPremiseContactMobile" class="form-control" type="text" size="20"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobPremiseContactFax">{{ 'Fax' | translate}}</label>
+                                            <input id="JobPremiseContactFax" formControlName="JobPremiseContactFax" class="form-control" type="text" size="20" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobPremiseContactEmail">{{ 'Email' | translate}}</label>
+                                        <div class="col12">
+                                            <input id="JobPremiseContactEmail" formControlName="JobPremiseContactEmail" class="form-control" type="text" size="40" maxlength="50">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" *ngIf="isNotifications">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="ContactNotifyWhenSelect">{{ 'Notify Customer' | translate}}</label>
+                                        <div class="col12">
+                                            <select id="ContactNotifyWhenSelect" formControlName="ContactNotifyWhenSelect" class="form-control">
+                                                <option *ngFor="let obj of contactNotifyOptions" [value]="obj.value">{{obj.desc | translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt15 mb15" *ngIf="isSeperatorProp">
+                                <div class="row" *ngIf="isGuaranteeProp1">
+                                    <div class="col-sm-4">
+                                        <input class="custom-checkbox" type="checkbox" id="GuaranteeRequired" formControlName="GuaranteeRequired">
+                                        <label class="col24" for="GuaranteeRequired">{{'Guarantee Required'|translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4" *ngIf="isGuaranteeProp2">
+                                        <label class="col24" for="AgeOfProperty">{{ 'Age Of Property (Years)' | translate}}</label>
+                                        <div class="col12">
+                                            <input eTypeInteger id="AgeOfProperty" formControlName="AgeOfProperty" class="form-control" type="text" size="6" maxlength="6">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="isGuaranteeProp1">
+                                        <div *ngIf="isNoGuarantee">
+                                            <label class="col24" for="NoGuaranteeCode">{{ 'No Guarantee Reason' | translate}}</label>
+                                            <div class="col8 pr5">
+                                                <input id="NoGuaranteeCode" formControlName="NoGuaranteeCode" class="form-control" type="text" size="6" maxlength="8">
+                                            </div>
+                                            <div class="col14 pr5">
+                                                <input id="NoGuaranteeDescription" formControlName="NoGuaranteeDescription" class="form-control" type="text" size="30" maxlength="30">
+                                            </div>
+                                            <div class="col2">
+                                                <icabs-ellipsis [disabled]="ellipsisConfig.newProduct.disabled" [showCloseButton]="ellipsisConfig.newProduct.showCloseButton"
+                                                    [showHeader]="ellipsisConfig.newProduct.showHeader" [childConfigParams]="ellipsisConfig.newProduct.childConfigParams"
+                                                    [contentComponent]="ellipsisConfig.newProduct.component" (ellipsisData)="onSelect($event, 'newProduct')"></icabs-ellipsis>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4" *ngIf="isGuaranteeProp3">
+                                        <label class="col24" for="NoGuaranteeCode">{{ 'Listed Building' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input id="ListedCode" formControlName="ListedCode" class="form-control" type="text" size="6" maxlength="8">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="ListedDescription" formControlName="ListedDescription" class="form-control" type="text" size="30" maxlength="30">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis [disabled]="ellipsisConfig.listedCode.disabled" [showCloseButton]="ellipsisConfig.listedCode.showCloseButton"
+                                                [showHeader]="ellipsisConfig.listedCode.showHeader" [childConfigParams]="ellipsisConfig.listedCode.childConfigParams"
+                                                [contentComponent]="ellipsisConfig.listedCode.component" (ellipsisData)="onSelect($event, 'listedCode')"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="isGuaranteeProp2">
+                                        <label class="col24" for="NumberBedrooms">{{ 'Number of Bedrooms' | translate}}
+                                            <span class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input eTypeInteger id="NumberBedrooms" formControlName="NumberBedrooms" class="form-control" type="text" size="6" maxlength="6">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="col24" for="JobNotes">{{ 'Notes' | translate}}</label>
+                                        <textarea id="JobNotes" formControlName="JobNotes" class="form-control" rows="15" cols="80" tabindex="18"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Further Information Tab content-->
+                        <div class="tab-pane" [ngClass]="{'active': uiTabs.tab.tab3.active}">
+                            <div id="grdJobGeneral" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-4">
+                                        <div class="row mt10">
+                                            <div class="col-sm-12">
+                                                <div class="col24">
+                                                    <icabs-refresh (click)="riGridSRABeforeExecute()"></icabs-refresh>
+                                                    <icabs-pagination [totalItems]="totalRecordsSRA" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event, 'SRA')"></icabs-pagination>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt10">
+                                            <div class="col-sm-12">
+                                                <icabs-grid-advanced #riGridSRA (bodyDblClick)="riGridSRABodyOnDblClick($event)"></icabs-grid-advanced>
+                                            </div>
+                                        </div>
+                                        <div class="row mt2">
+                                            <div class="col-sm-2">
+                                                <input type="button" class="btn btn-additional" formControlName="cmdSRAGenerateText" value="{{ 'Generate Text' | translate }}"
+                                                    (click)="cmdSRAGenerateTextOnClick()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="row mt2">
+                                            <div class="col-sm-12">
+                                                <div class="col24">
+                                                    <label class="col24" for="JobSiteRiskAssessment">{{ 'Site Risk Assessment' | translate}}</label>
+                                                    <textarea id="JobSiteRiskAssessment" formControlName="JobSiteRiskAssessment" class="form-control" rows="15" cols="80" tabindex="9"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt2">
+                                            <div class="col-sm-12">
+                                                <div class="col24">
+                                                    <label class="col24" for="JobSpecialInstructions">{{ 'Special Instructions' | translate}}</label>
+                                                    <textarea id="JobSpecialInstructions" formControlName="JobSpecialInstructions" class="form-control" rows="15" cols="80" tabindex="10"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt2">
+                                            <div class="col-sm-6">
+                                                <label class="col24" for="ContractExpiryDate">{{ 'Expiry Date' | translate}}</label>
+                                                <div class="col24">
+                                                    <input eTypeDate id="ContractExpiryDate" formControlName="ContractExpiryDate" class="form-control" type="text" size="10">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt2">
+                                            <div class="col-sm-12">
+                                                <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area/Employee' | translate}}
+                                                    <span class="mandatory">*</span>
+                                                </label>
+                                                <div class="col6 pr5">
+                                                    <input eTypeCode id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" class="form-control" type="text" size="8"
+                                                        [attr.maxlength]="2">
+                                                </div>
+                                                <div class="col6 pr5">
+                                                    <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" size="8" maxlength="8">
+                                                </div>
+                                                <div class="col10 pr5">
+                                                    <input id="EmployeeSurname" formControlName="EmployeeSurname" class="form-control" type="text" size="40" maxlength="40">
+                                                </div>
+                                                <div class="col2">
+                                                    <icabs-ellipsis [disabled]="ellipsisConfig.branchServiceAreaCode.disabled" [showCloseButton]="ellipsisConfig.branchServiceAreaCode.showCloseButton"
+                                                        [showHeader]="ellipsisConfig.branchServiceAreaCode.showHeader" [childConfigParams]="ellipsisConfig.branchServiceAreaCode.childConfigParams"
+                                                        [contentComponent]="ellipsisConfig.branchServiceAreaCode.component" (ellipsisData)="onSelect($event, 'branchServiceAreaCode')"></icabs-ellipsis>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt2">
+                                            <div class="col-sm-12">
+                                                <div *ngIf="isActionByDetails">
+                                                    <label class="col24" for="ActionByDate">{{ 'Action By Date/Time' | translate}}
+                                                        <span class="mandatory">*</span>
+                                                    </label>
+                                                    <div class="col8 pr5">
+                                                        <icabs-datepicker eTypeDate [isDirectiveBased]="false" id="ActionByDate" formControlName="ActionByDate" size="10" maxlength="10"></icabs-datepicker>
+                                                    </div>
+                                                    <div class="col4">
+                                                        <input eTypeTime id="ActionByTime" formControlName="ActionByTime" size="5" maxlength="5">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Invoice Address/ Payment Details tab content-->
+                        <div class="tab-pane" [ngClass]="{'active': uiTabs.tab.tab4.active}">
+                            <div id="grdJobInvoiceAddress" class="mt10">
+                                <div class="row mt5" *ngIf="isBtnCopyFromPremise">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <input type="button" class="btn btn-additional" formControlName="cmdCopyFromPremise" value="{{ 'Copy From Premise Address' | translate }}"
+                                                (click)="cmdCopyFromPremiseOnClick()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceName">{{ 'Name' | translate}}
+                                                <span class="mandatory" *ngIf="!isDisableInvoice">*</span>
+                                            </label>
+                                            <input id="JobInvoiceName" class="form-control" formControlName="JobInvoiceName" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="isJobInvoiceAddressLine3">
+                                        <label class="col24" for="PaymentTypeCode">{{ 'Payment Method' | translate}}</label>
+                                        <div class="col8 pr5">
+                                            <input eTypeCode id="PaymentTypeCode" class="form-control" formControlName="PaymentTypeCode" type="text" size="2" maxlength="2">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input id="PaymentDesc" class="form-control" formControlName="PaymentDesc" type="text" size="30" maxlength="30">
+                                        </div>
+                                        <div class="col2" *ngIf="isPaymentTypeUpdatable">
+                                            <icabs-ellipsis [disabled]="ellipsisConfig.paymentTypeCode.disabled" [showCloseButton]="ellipsisConfig.paymentTypeCode.showCloseButton"
+                                                [showHeader]="ellipsisConfig.paymentTypeCode.showHeader" [childConfigParams]="ellipsisConfig.paymentTypeCode.childConfigParams"
+                                                [contentComponent]="ellipsisConfig.paymentTypeCode.component" (ellipsisData)="onSelect($event, 'paymentTypeCode')"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobInvoiceAddressLine1">{{ 'Address Line 1' | translate}}
+                                            <span class="mandatory" *ngIf="!isDisableInvoice">*</span>
+                                        </label>
+                                        <div class="col12 pr5">
+                                            <input id="JobInvoiceAddressLine1" class="form-control" formControlName="JobInvoiceAddressLine1" type="text" size="40" maxlength="40">
+                                        </div>
+                                        <div class="col4" *ngIf="isGetInvoiceAddress">
+                                            <input type="button" class="btn btn-additional" formControlName="cmdGetInvoiceAddress" value="{{ 'Get Address' | translate }}"
+                                                (click)="cmdGetInvoiceAddressOnClick()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="isJobPaymentAuthorityCode">
+                                        <label class="col24" for="JobPaymentAuthorityCode">{{ 'Payment Authority Code' | translate}}
+                                            <span *ngIf="this['pageParams']['blnDefPaymentAuthCode']" class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input #jobPaymentAuthorityCode id="JobPaymentAuthorityCode" class="form-control" formControlName="JobPaymentAuthorityCode"
+                                                type="text" size="20" maxlength="30">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceAddressLine2">{{ 'Address Line 2' | translate}}
+                                                <span class="mandatory" *ngIf="!isDisableInvoice">*</span>
+                                            </label>
+                                            <input id="JobInvoiceAddressLine2" class="form-control" formControlName="JobInvoiceAddressLine2" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="CompanyVATNumber">{{this['pageParams']['strCompanyVATNumberLabel'] | translate}}
+                                            <span *ngIf="this['pageParams']['blnSCTaxRegNumber']" class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input eTypeCode id="CompanyVATNumber" class="form-control" formControlName="CompanyVATNumber" type="text" size="30" maxlength="30">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt2">
+                                    <div class="col-sm-4" *ngIf="isJobInvoiceAddressLine3">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceAddressLine3">{{ 'Address Line 3' | translate}}
+                                                <span *ngIf="this['pageParams']['blnSCAddressLine3Logical'] || !isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceAddressLine3" class="form-control" formControlName="JobInvoiceAddressLine3" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" *ngIf="this['pageParams']['blnSCEnableTaxRegistrationNumber2']">
+                                        <label class="col24" for="CompanyVATNumber2">{{ 'Tax Registration Number 2' | translate}}</label>
+                                        <div class="col12">
+                                            <input eTypeCode id="CompanyVATNumber2" class="form-control" formControlName="CompanyVATNumber2" type="text" size="20" maxlength="30">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceAddressLine4">{{ ' Town' | translate}}
+                                                <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceAddressLine4" class="form-control" formControlName="JobInvoiceAddressLine4" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceAddressLine5">{{ 'County' | translate}}
+                                                <span *ngIf="this['pageParams']['blnSCAddressLine5Logical'] || !isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceAddressLine5" class="form-control" formControlName="JobInvoiceAddressLine5" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoicePostCode">{{ 'Postcode' | translate}}
+                                                <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoicePostCode" class="form-control" formControlName="JobInvoicePostCode" type="text" size="20" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="mt15 mb15">
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceContactName">{{ 'Contact Name' | translate}}
+                                                <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceContactName" class="form-control" formControlName="JobInvoiceContactName" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobInvoiceContactPosition">{{ 'Contact Position' | translate}}
+                                            <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input id="JobInvoiceContactPosition" class="form-control" formControlName="JobInvoiceContactPosition" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceContactTelephone">{{ 'Telephone' | translate}}
+                                                <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceContactTelephone" class="form-control" formControlName="JobInvoiceContactTelephone" type="text" size="20"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobInvoiceContactMobile">{{ 'Mobile' | translate}}
+                                            <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input id="JobInvoiceContactMobile" class="form-control" formControlName="JobInvoiceContactMobile" type="text" size="20"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <label class="col24" for="JobInvoiceContactFax">{{ 'Fax' | translate}}
+                                                <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                            </label>
+                                            <input id="JobInvoiceContactFax" class="form-control" formControlName="JobInvoiceContactFax" type="text" size="20" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-4">
+                                        <label class="col24" for="JobInvoiceContactEmail">{{ 'Email' | translate}}
+                                            <span *ngIf="!isDisableInvoice" class="mandatory">*</span>
+                                        </label>
+                                        <div class="col12">
+                                            <input id="JobInvoiceContactEmail" class="form-control" formControlName="JobInvoiceContactEmail" type="text" size="40" maxlength="50">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt5" *ngIf="isBtnCopyToPremise">
+                                    <div class="col-sm-4">
+                                        <div class="col12">
+                                            <input type="button" id="cmdCopyToPremise" formControlName="cmdCopyToPremise" class="btn btn-additional" value="{{ 'Copy To Premise Address' | translate }}"
+                                                (click)="cmdCopyToPremiseOnClick()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <input type="button" id="dummy" class="btn dummy" value="" (focus)="focusSave($event)">
+                        <input #btnCreateJob type="button" formControlName="cmdCreateJob" class="btn btn-additional" value="{{ 'Create Job' | translate }}"
+                            (click)="cmdCreateJobOnClick()">
+                        <input type="button" formControlName="cmdRejectJob" class="btn btn-additional" value="{{ 'Reject Job' | translate }}" (click)="cmdRejectJobOnClick()">
+                        <input type="button" *ngIf="isBtnContactEmployee" formControlName="cmdContactEmployee" class="btn btn-additional" value="{{ 'Contact Employee' | translate }}"
+                            (click)="cmdContactEmployeeOnClick()">
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <icabs-ellipsis #auPostcodeSearch [disabled]="ellipsisConfig.postCodeSearch.disabled" [modalConfig]="ellipsisConfig.postCodeSearch.modalConfig"
+            [showCloseButton]="ellipsisConfig.postCodeSearch.showCloseButton" [showHeader]="ellipsisConfig.postCodeSearch.showHeader"
+            [childConfigParams]="ellipsisConfig.postCodeSearch.childConfigParams" [contentComponent]="ellipsisConfig.postCodeSearch.component"
+            [hideIcon]="true" (ellipsisData)="onSelect($event, 'postcode')"></icabs-ellipsis>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+</section>

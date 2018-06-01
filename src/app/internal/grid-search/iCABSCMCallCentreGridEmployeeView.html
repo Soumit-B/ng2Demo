@@ -1,0 +1,413 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ pageTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Account Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="AccountProspectNumber" formControlName="AccountProspectNumber" size="9" maxlength="9" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="AccountProspectName" formControlName="AccountProspectName" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Call Reference' |translate}} </label>
+                    <div class="col16">
+                        <input type="text" id="CurrentCallLogID" formControlName="CurrentCallLogID" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact' |translate}}</label>
+                    <div class="col16">
+                        <input type="text" id="AccountProspectContactName" formControlName="AccountProspectContactName" size="40" maxlength="40"
+                            class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2" *ngIf="trContractNumber">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" formControlName="ContractNumber" size="9" maxlength="9" class="form-control" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" formControlName="ContractName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="trPremiseNumber">
+                    <label class="col24">{{'Premises Number' |translate}} </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" formControlName="PremiseNumber" size="9" maxlength="9" class="form-control" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tdProductSelect">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Cover' |translate}}</label>
+                    <div class="col24">
+                        <Select class="form-control" id="ProductSelect" (change)="onServiceCoverSelect($event)">
+                           <option *ngFor="let serviceCover of serviceCoverList" value="{{serviceCover.value}}" >{{serviceCover.text}}</option>
+                        </Select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3" *ngIf="LabelNegEmployeeName">
+                    <label class="col24">{{'Negotiator' |translate}}</label>
+                </div>
+                <div class="col-sm-3" *ngIf="LabelSalesEmployeeName">
+                    <label class="col24">{{'Sales Person' |translate}}</label>
+                </div>
+                <div class="col-sm-3" *ngIf="LabelTechEmployeeName">
+                    <label class="col24">{{'Technician' |translate}}</label>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Name' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="NegEmployeeName" formControlName="NegEmployeeName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="SalesEmployeeName" formControlName="SalesEmployeeName" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="TechEmployeeName" formControlName="TechEmployeeName" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Mobile' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="NegMobilePhone" formControlName="NegMobilePhone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="SalesMobilePhone" formControlName="SalesMobilePhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="TechMobilePhone" formControlName="TechMobilePhone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Telephone' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegPhone">
+                    <div class="col24">
+                        <input type="text" id="NegPhone" formControlName="NegPhone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesPhone">
+                    <div class="col24">
+                        <input type="text" id="SalesPhone" formControlName="SalesPhone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechPhone">
+                    <div class="col24">
+                        <input type="text" id="TechPhone" formControlName="TechPhone" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'2nd Number' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegPhone2">
+                    <div class="col24">
+                        <input type="text" id="NegPhone2" formControlName="NegPhone2" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesPhone2">
+                    <div class="col24">
+                        <input type="text" id="SalesPhone2" formControlName="SalesPhone2" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechPhone2">
+                    <div class="col24">
+                        <input type="text" id="TechPhone2" formControlName="TechPhone2" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Email' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegEmail">
+                    <div class="col24">
+                        <input type="text" id="NegEmail" formControlName="NegEmail" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesEmail">
+                    <div class="col24">
+                        <input type="text" id="SalesEmail" formControlName="SalesEmail" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechEmail">
+                    <div class="col24">
+                        <input type="text" id="TechEmail" formControlName="TechEmail" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Branch' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegBranch">
+                    <div class="col24">
+                        <input type="text" id="NegBranch" formControlName="NegBranch" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesBranch">
+                    <div class="col24">
+                        <input type="text" id="SalesBranch" formControlName="SalesBranch" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechBranch">
+                    <div class="col24">
+                        <input type="text" id="TechBranch" formControlName="TechBranch" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3" *ngIf="tdBranch1">
+                    <input *ngIf="tdBranch1" type="button" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdBranch1" (click)="cmdBranch1_OnClick()">
+                    <input *ngIf="tdDiary1" type="button" class="btn btn-primary pull-right" value="{{'Employee Diary'|translate}}" id="cmdDiary1"
+                        (click)="cmdDiary1_onClick()">
+
+                </div>
+                <div class="col-sm-3" *ngIf="tdBranch2">
+                    <input type="button" *ngIf="tdBranch2" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdBranch2" (click)="cmdBranch2_OnClick()">
+                    <input type="button" *ngIf="tdDiary2" class="btn btn-primary pull-right" value="{{'Employee Diary'|translate}}" id="cmdDiary2"
+                        (click)="cmdDiary2_onClick()">
+
+                </div>
+                <div class="col-sm-3" *ngIf="tdBranch3">
+                    <input type="button" *ngIf="tdBranch3" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdBranch3" (click)="cmdBranch3_OnClick()">
+                    <input type="button" *ngIf="tdDiary3" class="btn btn-primary pull-right" value="{{'Employee Diary'|translate}}" id="cmdDiary3"
+                        (click)="cmdDiary3_onClick()">
+
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Supervisor' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorEmployeeName" formControlName="NegSupervisorEmployeeName" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorEmployeeName" formControlName="SalesSupervisorEmployeeName" size="40" maxlength="40"
+                            class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorEmployeeName">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorEmployeeName" formControlName="TechSupervisorEmployeeName" size="40" maxlength="40"
+                            class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Mobile' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorMobilePhone" formControlName="NegSupervisorMobilePhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorMobilePhone" formControlName="SalesSupervisorMobilePhone" size="40" maxlength="40"
+                            class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorMobilePhone">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorMobilePhone" formControlName="TechSupervisorMobilePhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Telephone' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorPhone">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorPhone" formControlName="NegSupervisorPhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorPhone">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorPhone" formControlName="SalesSupervisorPhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorPhone">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorPhone" formControlName="TechSupervisorPhone" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'2nd Number' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorPhone2">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorPhone2" formControlName="NegSupervisorPhone2" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorPhone2">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorPhone2" formControlName="SalesSupervisorPhone2" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorPhone2">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorPhone2" formControlName="TechSupervisorPhone2" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Email' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorEmail">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorEmail" formControlName="NegSupervisorEmail" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorEmail">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorEmail" formControlName="SalesSupervisorEmail" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorEmail">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorEmail" formControlName="TechSupervisorEmail" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1">
+                    <div class="col24">
+                        <label class="col24">{{'Branch' |translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdNegSupervisorBranch">
+                    <div class="col24">
+                        <input type="text" id="NegSupervisorBranch" formControlName="NegSupervisorBranch" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdSalesSupervisorBranch">
+                    <div class="col24">
+                        <input type="text" id="SalesSupervisorBranch" formControlName="SalesSupervisorBranch" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="tdTechSupervisorBranch">
+                    <div class="col24">
+                        <input type="text" id="TechSupervisorBranch" formControlName="TechSupervisorBranch" size="40" maxlength="40" class="form-control"
+                            eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3" *ngIf="tdSBranch1">
+                    <input type="button" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdSBranch1" (click)="cmdSBranch1_OnClick()">
+
+                </div>
+                <div class="col-sm-3" *ngIf="tdSBranch2">
+                    <input type="button" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdSBranch2" (click)="cmdSBranch2_OnClick()">
+
+                </div>
+                <div class="col-sm-3" *ngIf="tdSBranch3">
+                    <input type="button" class="btn btn-primary" value="{{'Contact Branch'|translate}}" id="cmdSBranch3" (click)="cmdSBranch3_OnClick()">
+
+                </div>
+            </div>
+
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>

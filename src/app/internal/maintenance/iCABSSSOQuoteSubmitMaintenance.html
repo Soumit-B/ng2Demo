@@ -1,0 +1,68 @@
+<section class="container-fluid custom-container">
+  <header class="screen-header">
+    <div class="row">
+      <div class="col-sm-12 page-title">
+        <h1>{{'Confirm Payment Details' | translate }}</h1>
+      </div>
+    </div>
+  </header>
+  <form novalidate [formGroup]="this['uiForm']">
+    <section class="screen-body">
+      <div class="row mt10">
+        <div class="col-sm-3">
+          <label class="col24" for="PaymentTypeCode">{{'Payment Method' | translate }} <span class="mandatory">*</span></label>
+          <div class="col7 pr5">
+            <input id="PaymentTypeCode" maxlength="3" class="form-control" type="text" formControlName="PaymentTypeCode" (change)="onChangePaymentTypeCode($event)">
+          </div>
+          <div class="col14 pr5">
+            <input id="PaymentDesc" maxlength="40" class="form-control" type="text" formControlName="PaymentDesc">
+          </div>
+          <div class="col3">
+            <icabs-ellipsis [showCloseButton]="ellipsConf.paymentTypeCode.showCloseButton" [childConfigParams]="ellipsConf.paymentTypeCode.childConfigParams"
+              [contentComponent]="ellipsConf.paymentTypeCode.contentComponent" (ellipsisData)="onPaymentTypeCodeEllipsisDataReceived($event, true)"
+              [showHeader]="ellipsConf.paymentTypeCode.showHeader"></icabs-ellipsis>
+          </div>
+        </div>
+      </div>
+      <div class="row mt2" [hidden]="hideControl.AuthorityCode">
+        <div class="col-sm-3">
+          <label class="col24" for="AuthorityCode">{{'Dudley Credit Reference Number' | translate }}</label>
+          <div class="col21 pr5">
+            <input id="AuthorityCode" maxlength="20" class="form-control" type="text" formControlName="AuthorityCode">
+          </div>
+        </div>
+      </div>
+      <div class="row mt2" [hidden]="hideControl.ProcessedVADDInd">
+        <div class="col-sm-8">
+          <div class="col24 mt5">
+            <input id="ProcessedVADDInd" class="form-control" type="checkbox" formControlName="ProcessedVADDInd" [ngClass]="{'error': hasErrorProcessedVADDInd}">
+            <label for="ProcessedVADDInd">{{'Has the customer completed & signed the VADD form for you to send to the office?' | translate }} <span class="mandatory">*</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class=" mb15 mt15">
+    <footer class="screen-footer">
+      <div class="row mt2">
+        <div class="col-sm-3">
+          <input class="btn btn-primary mr10" type="submit" value="{{'Save' | translate}}" (click)="onClickSaveBtn()">
+          <input class="btn btn-secondary" type="button" value="{{'Cancel' | translate}}" (click)="doCancel()">
+        </div>
+      </div>
+    </footer>
+    <input id="MandateRequired" type="checkbox" style="display:none" formControlName="MandateRequired">
+    <input id="ReferenceRequired" type="checkbox" style="display:none" formControlName="ReferenceRequired">
+    <input id="dlBatchRef" style="display:none" formControlName="dlBatchRef">
+    <input id="dlRecordType" value="CO" style="display:none" formControlName="dlRecordType">
+    <input id="dlExtRef" style="display:none" formControlName="dlExtRef">
+    <input id="dlContractRef" style="display:none" formControlName="dlContractRef">
+    <input id="QuoteNumber" style="display:none" formControlName="QuoteNumber">
+    <input id="ProspectNumber" style="display:none" formControlName="ProspectNumber">
+    <input id="ParentMode" style="display:none">
+    <input id="SubmitMessage" style="display:none" formControlName="SubmitMessage">
+  </form>
+</section>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" (modalClose)="onModalClose()"></icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+  (saveEmit)="promptSave($event)"></icabs-prompt-modal>

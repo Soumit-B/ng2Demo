@@ -1,0 +1,78 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductDetailCode">{{ 'Product Detail Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ProductDetailCode" class="form-control" formControlName="ProductDetailCode" type="text" size="8" [attr.maxlength]="6"
+                            (change)="productDetailCodeTabout()" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDetailDesc" class="form-control" formControlName="ProductDetailDesc" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParams" [contentComponent]="productDetailSearchComponent"
+                            [showHeader]="true" (ellipsisData)="setProductDetailCode($event)" [modalConfig]="modalConfig" [autoOpen]="isAutoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="InfestationGroupCode">{{ 'Infestation Group Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="InfestationGroupCode" class="form-control" formControlName="InfestationGroupCode" type="text" size="8" [attr.maxlength]="2"
+                            (change)="infestationGroupCodeTabout(false)" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="InfestationGroupDesc" class="form-control" formControlName="InfestationGroupDesc" type="text" size="40" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParams" [contentComponent]="infestationGroupSearchComponent"
+                            [showHeader]="true" [disabled]="isInfestationDisabled" (ellipsisData)="setInfestationGroupCode($event)"
+                            [modalConfig]="modalConfig"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <input id="passToPDAInd" class="form-control" formControlName="PassToPDAInd" type="checkbox">
+                        <label for="passToPDAInd">{{ 'Pass To PDA' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="SortOrder">{{ 'Sort Order' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="SortOrder" class="form-control" formControlName="SortOrder" type="text" size="8" [attr.maxlength]="8" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" [disabled]="isSaveDisabled" class="btn btn-primary mr5" value="{{ 'Save' | translate }}" (click)="promptForSaveProductDetail()">
+                <input type="button" [disabled]="isCancelDisabled" class="btn btn-secondary mr5" value="{{ 'Cancel' | translate }}" (click)="cancelProductDetail()">
+                <input type="button" [disabled]="isDeleteDisabled" class="btn btn-additional" value="{{ 'Delete' | translate }}" (click)="promptForDeleteProductDetail()">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

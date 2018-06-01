@@ -1,0 +1,138 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-2">
+                    <label class="col24">{{'Type' | translate}}</label>
+                    <div class="col24">
+                        <select id="SearchType" class="form-control" formControlName="SearchType" (change)="searchTypeonchange($event.target.value, true)">
+                            <option value="Supervisor">{{'Supervisor' | translate}}</option>
+                            <option value="Employee">{{'Employee' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]="!this['pageParams']['trSupervisor'] ? 'hidden' : ''">
+                    <label class="col24">{{'Supervisor' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="SupervisorEmployeeCode" id="SupervisorEmployeeCode" (change)="supervisorEmployeeCodeonkeydown($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" formControlName="SupervisorSurname" id="SupervisorSurname" etypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #supervisorSearchEllipsis [autoOpen]="ellipsis.supervisor.autoOpenSearch" [showCloseButton]="ellipsis.supervisor.showCloseButton"
+                            [childConfigParams]="ellipsis.supervisor.childConfigParams" [modalConfig]="ellipsis.supervisor.modalConfig"
+                            [contentComponent]="ellipsis.supervisor.contentComponent" (ellipsisData)="supervisoronchange($event, true)"
+                            [showHeader]="ellipsis.supervisor.showHeader" [disabled]='ellipsis.supervisor.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]="!this['pageParams']['trEmployee'] ? 'hidden' : ''">
+                    <label class="col24">{{'Employee' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="EmployeeCode" id="EmployeeCode" (change)="employeeCodeonkeydown($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" formControlName="EmployeeSurname" id="EmployeeSurname" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #employeeSearchEllipsis [autoOpen]="ellipsis.employee.autoOpenSearch" [showCloseButton]="ellipsis.employee.showCloseButton"
+                            [childConfigParams]="ellipsis.employee.childConfigParams" [modalConfig]="ellipsis.employee.modalConfig"
+                            [contentComponent]="ellipsis.employee.contentComponent" (ellipsisData)="employeeonchange($event, true)"
+                            [showHeader]="ellipsis.employee.showHeader" [disabled]='ellipsis.employee.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Status' | translate}}</label>
+                    <div class="col24">
+                        <select id="selectStatus" class="form-control" formControlName="selectStatus" (change)="selectStatusOnchange($event)">
+                            <option value="all">{{'All Messages' | translate}}</option>
+                            <option value="sent">{{'Sent Messages' | translate}}</option>
+                            <option value="unsent">{{'Unsent Messages' | translate}}</option>
+                            <option value="Resent">{{'Resent Messages' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-2">
+                    <div class="col24 mr5">
+                        <label class="col24">{{'Date From' | translate}}
+                            <span class="page-asterisk mandatory">*</span>
+                        </label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateFrom" [(dt)]="this['pageParams']['DateFrom']" [isRequired]="true" (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                            <input type="hidden" id="DateFrom" formControlName="DateFrom" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="col24">
+                        <label class="col24">{{'Date To' | translate}}
+                            <span class="page-asterisk mandatory">*</span>
+                        </label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateTo" [(dt)]="this['pageParams']['DateTo']" [isRequired]="true" (selectedValue)="dateToSelectedValue($event)"></icabs-datepicker>
+                            <input type="hidden" id="DateTo" formControlName="DateTo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt20 mb20">
+
+            <div class="row mt5">
+                <div class="col-sm-12">
+                    <icabs-refresh [disabled]="false" (onRefresh)="onRefresh()">
+                    </icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="this.totalRecords > 0 ? '':'hidden'" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)">
+                    </icabs-pagination>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (bodyDblClick)="riGrid_BodyOnDblClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="inline-block pr10" *ngFor="let i of imglabel">
+                    <div class="legend inline-block mr5">
+                        <img src="{{i.img}}" class="mb15">
+                    </div>
+                    <label>{{ i.label | translate }}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="inline-block pr10" *ngFor="let l of legend">
+                    <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                    <label>{{ l.label | translate }}</label>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>
+
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-modal #errorModal="child" [title]="errorTitle" [content]="errorContent" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [title]="messageTitle" [content]="messageContent" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showPromptHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>

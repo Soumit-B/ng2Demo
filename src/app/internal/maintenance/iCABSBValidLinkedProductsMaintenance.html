@@ -1,0 +1,64 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ParentProductCode">{{ 'Parent Product' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ParentProductCode" class="form-control" formControlName="ParentProductCode" type="text" size="10" maxlength="6"
+                            (change)="onProductCodeChange($event.target.value, 'ParentProductCode')">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ParentProductDesc" class="form-control" formControlName="ParentProductDesc" type="text" size="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.parentProduct.disabled" [showCloseButton]="ellipsisConfig.parentProduct.showCloseButton"
+                            [showHeader]="ellipsisConfig.parentProduct.showHeader" [childConfigParams]="ellipsisConfig.parentProduct.childConfigParams"
+                            [contentComponent]="ellipsisConfig.parentProduct.component" (ellipsisData)="productSearch($event, 'parent')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ChildProductCode">{{ 'Child Product' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ChildProductCode" class="form-control" formControlName="ChildProductCode" type="text" size="10" maxlength="6"
+                            (change)="onProductCodeChange($event.target.value, 'ChildProductCode')">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ChildProductDesc" class="form-control" formControlName="ChildProductDesc" type="text" size="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.childProduct.disabled" [showCloseButton]="ellipsisConfig.childProduct.showCloseButton"
+                            [showHeader]="ellipsisConfig.childProduct.showHeader" [childConfigParams]="ellipsisConfig.childProduct.childConfigParams"
+                            [contentComponent]="ellipsisConfig.childProduct.component" (ellipsisData)="productSearch($event, 'child')"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <footer class="screen-footer">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="button" *ngIf="parentMode!=='View'" formControlName="btnSave" class="btn btn-primary" value="{{'Save' | translate}}"
+                            (click)="beforeSave()">
+                        <input type="button" *ngIf="parentMode!=='View'" formControlName="btnCancel" class="btn btn-secondary" value="{{'Cancel' | translate}}"
+                            (click)="onCancel()">
+                        <input type="button" *ngIf="parentMode==='View'" formControlName="btnDelete" class="btn btn-additional mr5" value="{{'Delete' | translate}}"
+                            (click)="promptDelete()">
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+</section>

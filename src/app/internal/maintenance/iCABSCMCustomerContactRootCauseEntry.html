@@ -1,0 +1,103 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Contact Root Cause Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Root Cause' | translate }}<span class="mandatory" >*</span></label>
+                    </div>
+                    <div class="col16">
+                        <select id="RootCauseSelect" class="form-control" formControlName="RootCauseSelect">     
+                            <option value="">{{ 'None' | translate }}</option>
+                            <option *ngFor="let item of ttRootCause" [value]="item.ttRootCauseCode" >{{item.ttRootCauseSystemDescription }}</option>             			
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Created By' | translate }}<span class="mandatory" *ngIf="fieldRequired.CreatedByEmployeeCode">*</span></label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CreatedByEmployeeCode" size="10" maxlength="6" formControlName="CreatedByEmployeeCode">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="CreatedByEmployeeSurname" size="40" formControlName="CreatedByEmployeeSurname">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Occupation' | translate }}<span class="mandatory" >*</span></label>
+                    </div>
+                    <div class="col16">
+                        <select id="OccupationSelect" class="form-control" formControlName="OccupationSelect">     
+                            <option value="">{{ 'None' | translate }}</option>
+                            <option *ngFor="let item of ttOccupation" [value]="item.ttOccupationCode" >{{item.ttOccupationDesc}}</option>             			
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Employee Code' | translate }}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="RootCauseEmployeeCode" size="6" maxlength="6" formControlName="RootCauseEmployeeCode"
+                            (keydown.PageDown)="RootCauseEmployeeCode_onkeydown()" (change)="validateEmployeeCode()">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="RootCauseEmployeeSurname" size="40" formControlName="RootCauseEmployeeSurname">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #employeeSearchEllipsis [autoOpen]="ellipsis.employee.autoOpenSearch" [showCloseButton]="ellipsis.employee.showCloseButton"
+                            [childConfigParams]="ellipsis.employee.childConfigParams" [modalConfig]="ellipsis.employee.modalConfig"
+                            [contentComponent]="ellipsis.employee.contentComponent" (ellipsisData)="employeeonchange($event)"
+                            [showHeader]="ellipsis.employee.showHeader" [disabled]='ellipsis.employee.disabled'>
+                        </icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{ 'Notes' | translate }}</label>
+                    </div>
+                    <div class="col24">
+                        <textarea class="form-control" id="RootCauseNotes" cols="60" rows="4" formControlName="RootCauseNotes"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input class="btn btn-primary" type="button" value="{{ 'Add' | translate}} " (click)="btnAdd_onClick()" *ngIf="updateMode === true && showAddBtn === true">
+                    <input type="button" class="btn btn-primary mr10" value="{{ 'Save' | translate}}" (click)=" onSubmit()" [disabled]="!saveBtn">
+                    <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate}}" (click)=" onCancel()" [disabled]="!saveBtn">
+                    <input type="button" class="btn btn-primary" value="{{'Delete' | translate}}" (click)="onDelete($event)" *ngIf="updateMode === true && showDeleteBtn === true">
+                </div>
+            </div>
+        </footer>
+        <div class="hidden">
+            <input id="CustomerContactNumber" formControlName="CustomerContactNumber" size="10" maxlength="10">
+            <input id="RootCauseCode" formControlName="RootCauseCode" size="8" maxlength="8">
+            <input id="OccupationCode" formControlName="OccupationCode" size="2" maxlength="2">
+        </div>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>

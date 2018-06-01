@@ -1,0 +1,395 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="7" maxlength="20" formControlName="BranchServiceAreaCode" class="form-control"
+                            [icabsDirFocus]="setFocus.branchServiceAreaCode" (change)="onChangeBranchServiceAreaCode()" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="EmployeeSurname" size="40" maxlength="40" formControlName="EmployeeSurname" class="form-control" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="ellipsConf.serviceArea.childConfigParams" [modalConfig]="modalConfig"
+                            [contentComponent]="ellipsConf.serviceArea.contentComponent" (ellipsisData)="onServiceAreaEllipsisDataReceived($event)"
+                            [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'Plan From' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <icabs-datepicker formControlName="StartDate" [isDirectiveBased]="false" (onChange)="onSelecteDatePicker($event, datepickerType.startDate)"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'To' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <div class="col22 pr5">
+                            <icabs-datepicker formControlName="EndDate" [isDirectiveBased]="false" [icabsDirFocus]="setFocus.endDate" (onChange)="onSelecteDatePicker($event, datepickerType.endDate)"></icabs-datepicker>
+                        </div>
+                        <div class="col2 pr5" *ngIf="pageParams.isPlusMinus">
+                            <span class="glyphicon glyphicon-plus plusmin"></span>
+                            <span class="glyphicon glyphicon-minus plusmin"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="col6 pr5">
+                        <label class="col24" for="WeekNumber">{{ 'Week' | translate }}</label>
+                        <input type="text" id="WeekNumber" size="2" maxlength="2" formControlName="WeekNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col6 pr5">
+                        <label class="col24" for="GridPageSize">{{ 'Display Lines' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" id="GridPageSize" size="2" maxlength="2" formControlName="GridPageSize" class="form-control" eTypeInteger
+                            (change)="onChangeGridPageSize()">
+                    </div>
+                    <div class="col6 mt20">
+                        <input type="checkbox" id="CManualDates" formControlName="CManualDates" (click)="onClickCManualDates($event)">
+                        <label class="col24" for="CManualDates">{{ 'Manual Dates' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div [hidden]="this['pageParams']['isDivHidden']">
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24">{{ 'Neg Branch' | translate }}</label>
+                        <icabs-branchsearch [inputParams]="dropdown.negBranch.params" (receivedbranchsearch)="onChangeDD($event, dropdown.negBranch.type)"
+                            [active]="dropdown.negBranch.active" [isDisabled]="dropdown.negBranch.isDisabled" [isRequired]="dropdown.negBranch.isRequired"></icabs-branchsearch>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col12 pr5" *ngIf="pageParams.isFromDate">
+                            <label class="col24" for="FromDate">{{ 'Visits Due From' | translate }}</label>
+                            <icabs-datepicker formControlName="FromDate" [isDirectiveBased]="false" (onChange)="onSelecteDatePicker($event)"></icabs-datepicker>
+                        </div>
+                        <div class="col12 pr5" *ngIf="pageParams.isUpToDate">
+                            <label class="col24" for="UpToDate">{{ 'To' | translate }}
+                                <span class="mandatory">*</span>
+                            </label>
+                            <icabs-datepicker formControlName="UpToDate" [isDirectiveBased]="false" (onChange)="onSelecteDatePicker($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col8 pr5" [ngClass]="{'invisible': !this['pageParams']['isServicePlanNumber']}">
+                            <label class="col24" for="ServicePlanNumber">{{ 'Service Plan Number' | translate }}</label>
+                            <input type="text" id="ServicePlanNumber" size="10" maxlength="10" formControlName="ServicePlanNumber" class="form-control"
+                                eTypeInteger>
+                        </div>
+                        <div class="col8">
+                            <label class="col24">{{ 'Visit Type' | translate }}</label>
+                            <select class="form-control" id="VisitTypeFilter" formControlName="VisitTypeFilter">
+                                <option *ngFor="let item of dropdown.listVisitTypeFilter" [ngValue]="item.value">{{item.text | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24">{{ 'Service Type' | translate }}</label>
+                        <icabs-servicetype-search [inputParams]="dropdown.serviceType" (receivedServiceTypeData)="onChangeDD($event, dropdown.serviceType.type)"
+                            [active]="dropdown.serviceType.active" [isDisabled]="dropdown.serviceType.isDisabled" [isRequired]="dropdown.serviceType.isRequired"></icabs-servicetype-search>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col6 pr5" *ngIf="pageParams.vSAreaSeqGroupAvail">
+                            <label class="col24" for="SequenceGroupNo">{{ 'Seq Group' | translate }}</label>
+                            <input type="text" id="SequenceGroupNo" formControlName="SequenceGroupNo" class="form-control" size="5" maxlength="5" (change)="onChangeSequenceGroupNo()">
+                        </div>
+                        <div class="col12 pr5">
+                            <label class="col24" for="SequenceNumber">{{ 'Seq From' | translate }}</label>
+                            <input type="text" id="SequenceNumber" size="10" maxlength="6" formControlName="SequenceNumber" class="form-control" eTypeInteger>
+                        </div>
+                        <div class="col6 pr5" *ngIf="pageParams.vSAreaSeqGroupAvail">
+                            <label class="col24" for="SeqNoTo">{{ 'Seq To' | translate }}</label>
+                            <input type="text" id="SeqNoTo" formControlName="SeqNoTo" class="form-control" size="4" maxlength="6" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col8 pr5 mt20">
+                            <input type="checkbox" id="DisplayTimes" formControlName="DisplayTimes" (click)="onClickCheckBox()">
+                            <label class="col24" for="DisplayTimes">{{ 'Display Times' | translate }}</label>
+                        </div>
+                        <div class="col8">
+                            <label class="col24">{{ 'View Days' | translate }}</label>
+                            <select class="form-control" id="ViewDays" formControlName="ViewDays" (change)="onChangeDD($event, dropdown.serviceType.viewDays)">
+                                <option *ngFor="let item of dropdown.listViewDays" [ngValue]="item.value">{{item.text | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24">{{ 'Contract Type' | translate }}</label>
+                        <select class="form-control" id="ContractTypeFilter" formControlName="ContractTypeFilter">
+                            <option *ngFor="let item of dropdown.listContractTypeFilter" [ngValue]="item.value">{{item.text | translate }}</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col12 pr5">
+                            <label class="col24" for="ContractNumberSearch">{{ 'Contract Number' | translate }}</label>
+                            <div class="col20 pr5">
+                                <input type="text" id="ContractNumberSearch" size="10" maxlength="8" formControlName="ContractNumberSearch" class="form-control"
+                                    eTypeCode icabsZeroPad>
+                            </div>
+                            <div class="col2">
+                                <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="ellipsConf.contractNumber.childConfigParams" [modalConfig]="modalConfig"
+                                    [contentComponent]="ellipsConf.contractNumber.contentComponent" (ellipsisData)="onContractNumberEllipsisDataReceived($event)"
+                                    [showHeader]="true"></icabs-ellipsis>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col8 pr5 mt20">
+                            <input type="checkbox" id="DisplayAverageWeight" formControlName="DisplayAverageWeight" (click)="onClickCheckBox()">
+                            <label class="col24" for="DisplayAverageWeight">{{ 'Display Weight' | translate }}</label>
+                        </div>
+                        <div class="col8">
+                            <label class="col24">{{ 'Status' | translate }}</label>
+                            <select class="form-control" id="PlanningStatus" formControlName="PlanningStatus" (change)="onChangeDD($event, dropdown.serviceType.planningStatus)">
+                                <option *ngFor="let item of dropdown.listPlanningStatus" [ngValue]="item.value">{{item.text | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24" for="ContractNameSearch">{{ 'Name begins' | translate }}</label>
+                        <input type="text" id="ContractNameSearch" size="42" maxlength="40" formControlName="ContractNameSearch" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col-sm-6 pull-right">
+                        <div class="col8 pr5 mt20">
+                            <input type="checkbox" id="DisplayServiceType" formControlName="DisplayServiceType" (click)="onClickCheckBox()">
+                            <label class="col24" for="DisplayServiceType">{{ 'Display Service Type' | translate }}</label>
+                        </div>
+                        <div class="col8">
+                            <label class="col24">{{ 'Display' | translate }}</label>
+                            <select id="DisplayFilter" formControlName="DisplayFilter" class="form-control">
+                                <option value="All">{{ 'All' | translate }}</option>
+                                <option value="Current">{{ 'Current' | translate}}</option>
+                                <option value="NonCurrent">{{ 'Non-Current' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-3">
+                        <label class="col24" for="TownSearch">{{ 'Town' | translate }}</label>
+                        <input type="text" id="TownSearch" size="42" maxlength="40" formControlName="TownSearch" class="form-control" eTypeText>
+                    </div>
+                    <div class="col-sm-3" *ngIf="pageParams.isConfApptOnly">
+                        <div class="col24 pr5 mt20">
+                            <input type="checkbox" id="ConfApptOnly" formControlName="ConfApptOnly" (click)="onClickConfApptOnly($event)">
+                            <label class="col24" for="ConfApptOnly">{{ 'Confirmed Appointments (Only)' | translate }}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col12 pr5 mt20">
+                            <input type="button" class="btn btn-additional col18" value="{{cmdPlanCancel | translate}}" (click)="onClickCancel()">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt15 mb15">
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [ngClass]="{'hidden': isHidePagination}"></icabs-pagination>
+                </div>
+                <div class="col-sm-8" *ngIf="pageParams.isUnplannedTotals">
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="UnplannedNettValue">{{ 'Nett Value' | translate }}</label>
+                        <input type="text" id="UnplannedNettValue" class="form-control" formControlName="UnplannedNettValue" maxlength="23" size="20"
+                            eTypeCurrency>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="UnplannedTime">{{ 'Time' | translate }}</label>
+                        <input type="text" id="UnplannedTime" maxlength="6" size="6" class="form-control" formControlName="UnplannedTime" eTypeText>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableWED">
+                        <label class="col24" for="UnplannedWED">{{ 'W.E.D' | translate }}</label>
+                        <input type="text" id="UnplannedWED" maxlength="6" size="6" class="form-control" formControlName="UnplannedWED" eTypeDecimal1>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableInstallsRemovals">
+                        <label class="col24" for="UnplannedNoOfExchanges">{{ 'Units' | translate }}</label>
+                        <input type="text" id="UnplannedNoOfExchanges" maxlength="6" size="6" class="form-control" formControlName="UnplannedNoOfExchanges"
+                            eTypeInteger>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="UnplannedNoOfCalls">{{ 'Unplanned Visits' | translate }}</label>
+                        <input type="text" id="UnplannedNoOfCalls" maxlength="6" size="6" class="form-control" formControlName="UnplannedNoOfCalls"
+                            eTypeInteger>
+                    </div>
+                    <div class="col4 pr5 mt20 pull-right" *ngIf="pageParams.isTdGotoDiary">
+                        <input type="button" class="btn btn-additional col24" value="{{'Go To Diary' | translate}}" (click)="onClickCmdGotoDiary()">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGridBodyOnClick($event)" (bodyDblClick)="riGridBodyDblClick($event)" (headerClick)="riGridSort($event)"
+                        (onSuccess)="riGridAfterExecute($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <input type="button" class="btn btn-additional col10 mr5" value="{{this['pageParams']['cmdDefaultRoutinesLbl'] | translate}}"
+                        *ngIf="pageParams.isAllocate && pageParams.isDefaultRoutines" (click)="onClickCmdDefaultRoutines()">
+                    <input type="button" class="btn btn-additional col10" value="{{'Summary' | translate}}" [disabled]="this['pageParams']['isCmdSummaryDisabled']"
+                        (click)="onClickCmdSummary()">
+                </div>
+                <div class="col-sm-8 pull-right">
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalNettValue">{{ 'Nett Value' | translate }}</label>
+                        <input type="text" id="SubtotalNettValue" maxlength="23" size="20" class="form-control" formControlName="SubtotalNettValue"
+                            eTypeCurrency>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalTime">{{ 'Time' | translate }}</label>
+                        <input type="text" id="SubtotalTime" maxlength="6" size="6" class="form-control" formControlName="SubtotalTime" eTypeText>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableWED">
+                        <label class="col24" for="SubtotalWED">{{ 'W.E.D' | translate }}</label>
+                        <input type="text" id="SubtotalWED" maxlength="6" size="6" class="form-control" formControlName="SubtotalWED" eTypeDecimal1>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableInstallsRemovals">
+                        <label class="col24" for="SubtotalNoOfExchanges">{{ 'Units' | translate }}</label>
+                        <input type="text" id="SubtotalNoOfExchanges" maxlength="6" size="6" class="form-control" formControlName="SubtotalNoOfExchanges"
+                            eTypeInteger>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="SubtotalNoOfCalls">{{ 'Filtered Visits' | translate }}</label>
+                        <input type="text" id="SubtotalNoOfCalls" maxlength="6" size="6" class="form-control" formControlName="SubtotalNoOfCalls"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 mt20">
+                    <input type="button" class="btn btn-additional col10 mr5" value="{{'Undo Selection' | translate}}" [disabled]="this['pageParams']['isUndoSelection']"
+                        (click)="onClickCmdUndoSelection()">
+                    <input type="button" class="btn btn-additional col10" value="{{this['pageParams']['cmdShowFilterLbl'] | translate}}" (click)="onClickCmdShowFilter()">
+                </div>
+                <div class=" col-sm-8 pull-right">
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="TotalNettValue">{{ 'Nett Value' | translate }}</label>
+                        <input type="text" id="TotalNettValue" maxlength="23" size="20" class="form-control" formControlName="TotalNettValue" eTypeCurrency>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="TotalTime">{{ 'Time' | translate }}</label>
+                        <input type="text" id="TotalTime" maxlength="6" size="6" class="form-control" formControlName="TotalTime" eTypeText>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableWED">
+                        <label class="col24" for="TotalWED">{{ 'W.E.D' | translate }}</label>
+                        <input type="text" id="TotalWED" maxlength="6" size="6" class="form-control" formControlName="TotalWED" eTypeDecimal1>
+                    </div>
+                    <div class="col4 pr5 pull-right" *ngIf="pageParams.vEnableInstallsRemovals">
+                        <label class="col24" for="TotalNoOfExchanges">{{ 'Units' | translate }}</label>
+                        <input type="text" id="TotalNoOfExchanges" maxlength="6" size="6" class="form-control" formControlName="TotalNoOfExchanges"
+                            eTypeInteger>
+                    </div>
+                    <div class="col4 pr5 pull-right">
+                        <label class="col24" for="TotalNoOfCalls">{{ 'Total Visits' | translate }}</label>
+                        <input type="text" id="TotalNoOfCalls" maxlength="6" size="6" class="form-control" formControlName="TotalNoOfCalls" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="pageParams.isTrNewPlan">
+                <div class="col-sm-12 text-center">
+                    <label class="pr5">{{'Legends'}}: </label>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#FFFFFF'}"></div>
+                        <label>{{'Up To Date' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#CCFFCC'}"></div>
+                        <label>{{'Unplanned (Late)' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#f4a433'}"></div>
+                        <label>{{'Appointment Confirmed' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10" *ngIf="pageParams.isTrNPClosed">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#333333'}"></div>
+                        <label>{{'Closed' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10" *ngIf="pageParams.isTrSuspend">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#CCCCFF'}"></div>
+                        <label>{{'Suspended' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="pageParams.isTrAdjustPlan">
+                <div class="col-sm-12 text-center">
+                    <label class="pr5">{{'Legends'}}: </label>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#FFCCCC'}"></div>
+                        <label>{{'Late' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#FFFFCC'}"></div>
+                        <label>{{'Not Completed' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#FFFFFF'}"></div>
+                        <label>{{'Visit Done' | translate}}</label>
+                    </div>
+                    <div class="inline-block pr10" *ngIf="pageParams.isTrAPClosed">
+                        <div class="legend inline-block mr5" [ngStyle]="{'background-color':'#333333'}"></div>
+                        <label>{{'Closed' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row" *ngIf="pageParams.isAllocate">
+                <div class="col-sm-8">
+                    <div class="col8 pull-right">
+                        <label class="col24" for="SeqNumberTo">{{ 'To' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" id="SeqNumberTo" size="6" maxlength="6" class="form-control" formControlName="SeqNumberTo" eTypeInteger>
+                    </div>
+                    <div class="col8 pr5 pull-right">
+                        <label class="col24" for="SeqNumberFrom">{{ 'Seq Number From' | translate }}
+                            <span class="mandatory">*</span>
+                        </label>
+                        <input type="text" id="SeqNumberFrom" size="6" maxlength="6" class="form-control" formControlName="SeqNumberFrom" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col18 pr5">
+                        <label class="col24">{{ 'Allocate To' | translate }}</label>
+                        <div class="col24">
+                            <select id="PlanDays" formControlName="PlanDays" class="form-control">
+                                <option value="0" selected>{{'Monday' | translate}}</option>
+                                <option value="1">{{'Tuesday' | translate}}</option>
+                                <option value="2">{{'Wednesday' | translate}}</option>
+                                <option value="3">{{'Thursday' | translate}}</option>
+                                <option value="4">{{'Friday' | translate}}</option>
+                                <option value="5">{{'Saturday' | translate}}</option>
+                                <option value="6">{{'Sunday' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col6 mt20">
+                        <input type="button" class="btn btn-additional" value="{{ 'Allocate' | translate}}" (click)="onClickCmdPlanSubmit()">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-spinner [isRunning]="this[ 'isRequesting']"></icabs-spinner>
+</section>

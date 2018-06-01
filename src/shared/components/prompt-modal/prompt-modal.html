@@ -1,0 +1,29 @@
+<div class="" [ngClass]="{'shiftTop': shiftTop}">
+    <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+        [config]="config" (onHidden)="onHidden($event)">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" [hidden]="!showHeader" [attr.data-hidden]="!showHeader">
+                    <button type="button" [hidden]="!showCloseButton" [attr.data-hidden]="!showCloseButton" class="close" aria-label="Close"
+                        (click)="hide()">&nbsp;
+                        <!--<span >&times;</span>-->
+                    </button>
+                    <h4 class="modal-title">{{title | translate}}</h4>
+                </div>
+                <div class="modal-body" [ngClass]="{ 'padding-top-zero': showHeader }">
+                    <div *ngIf="!isContentAnArray">{{content | translate}}</div>
+                    <div *ngIf="isContentAnArray">
+                        <div *ngFor="let msg of content">{{msg | translate}} </div>
+                    </div>
+                    <ng-content></ng-content>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" [ngClass]="optValueYesorNo?'hidden':''" class="btn btn-lg btn-secondary" data-dismiss="modal" (click)="cancel()">{{ 'Cancel' | translate}}</button>
+                    <button type="button" [ngClass]="optValueYesorNo?'hidden':''" class="btn btn-lg btn-primary" (click)="save()">{{'Confirm' | translate}}</button>
+                    <button type="button" [ngClass]="optValueYesorNo?'':'hidden'" class="btn btn-lg btn-secondary" data-dismiss="modal" (click)="cancel()">{{ 'No' | translate}}</button>
+                    <button type="button" [ngClass]="optValueYesorNo?'':'hidden'" class="btn btn-lg btn-primary" (click)="save()">{{'Yes' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

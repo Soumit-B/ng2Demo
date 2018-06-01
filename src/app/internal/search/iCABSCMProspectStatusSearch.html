@@ -1,0 +1,22 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Prospect Status Search' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-12">
+                <icabs-table #riTable [columns]="columns" (selectedData)="tableRowClick($event)" [itemsPerPage]="itemsPerPage" [page]="page"
+                    [paginationTop]="true" [displayError]="false"></icabs-table>
+            </div>
+        </div>
+    </section>
+    <footer class="screen-footer">
+    </footer>
+</section>

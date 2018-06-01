@@ -1,0 +1,108 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Cover Invoice Suspend Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="ContractNumber" size="9" [attr.maxlength]="8" formControlName1="ContractNumber">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" id="ContractName" size="40" [attr.maxlength]="40" formControlName1="ContractName">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Status' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" id="Status" size="20" [attr.maxlength]="20" formControlName1="Status">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="PremiseNumber" size="9" [attr.maxlength]="6" formControlName1="PremiseNumber">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" id="PremiseName" size="40" [attr.maxlength]="40" formControlName1="PremiseName">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Product Code' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input type="text" class="form-control" id="ProductCode" size="9" [attr.maxlength]="6" formControlName1="ProductCode">
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" class="form-control" id="ProductDesc" size="40" [attr.maxlength]="40" formControlName1="ProductDesc">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt20 mb20">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Value' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" id="ServiceAnnualValue" size="20" [attr.maxlength]="23" formControlName1="ServiceAnnualValue">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Service Quality' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" id="ServiceQuantity" size="3" [attr.maxlength]="3" formControlName1="ServiceQuantity">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Commence Date' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" id="ServiceCommenceDate" size="10" [attr.maxlength]="10" formControlName1="ServiceCommenceDate">
+                </div>
+            </div>
+        </div>
+        <hr class="mt20 mb20">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Old Visit Frequency' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" id="ServiceVisitFrequency" size="3" [attr.maxlength]="3" formControlName1="ServiceVisitFrequency">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'New Visit Frequency' | translate }}</label>
+                <div class="col16 pr5">
+                    <input type="text" id="NewServiceVisitFrequency" size="3" [attr.maxlength]="3" class="form-control" formControlName1="NewServiceVisitFrequency">
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="mb20 mt20">
+    <footer class="screen-footer">
+        <div class="row mt5">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary" value="Save">
+                <input type="button" class="btn btn-secondary" value="Cancel">
+            </div>
+        </div>
+    </footer>
+</section>

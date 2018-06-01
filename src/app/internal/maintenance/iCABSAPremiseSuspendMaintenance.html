@@ -1,0 +1,159 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ this['numberLabel'] | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" size="10" [attr.maxlength]="8" class="form-control" formControlName="ContractNumber"
+                            (change)="onContractChange($event);" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ContractName" size="40" [attr.maxlength]="40" class="form-control" formControlName="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #contractNumberEllipsis [showCloseButton]="ellipsis.contract.showCloseButton" [childConfigParams]="ellipsis.contract.childConfigParams"
+                            [modalConfig]="ellipsis.contract.modalConfig" [contentComponent]="ellipsis.contract.contentComponent"
+                            (modalHidden)="getModalinfo($event)" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="ellipsis.contract.showHeader"
+                            [disabled]="ellipsis.contract.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate }} <span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" size="10" [attr.maxlength]="6" class="form-control" formControlName="PremiseNumber"
+                            eTypeInteger [icabsDirFocus]="setFocusOnPremiseNumber" (change)="onPremiseChange($event);">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="PremiseName" size="40" [attr.maxlength]="40" class="form-control" formControlName="PremiseName" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="ellipsis.premise.autoOpen" [showCloseButton]="ellipsis.premise.showCloseButton" [childConfigParams]="ellipsis.premise.childConfigParams"
+                            [modalConfig]="ellipsis.premise.modalConfig" [contentComponent]="ellipsis.premise.contentComponent"
+                            (modalHidden)="getModalinfo($event)" (ellipsisData)="onPremisetDataReceived($event, true)" [showHeader]="ellipsis.premise.showHeader"
+                            [disabled]="ellipsis.premise.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Status">{{ 'Status' | translate }}</label>
+                    <div class="col10">
+                        <input type="text" id="Status" size="20" [attr.maxlength]="20" class="form-control" formControlName="Status">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" id="PremiseAddressLine1" size="37" [attr.maxlength]="40" class="form-control" formControlName="PremiseAddressLine1"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" id="PremiseAddressLine2" size="37" [attr.maxlength]="40" class="form-control" formControlName="PremiseAddressLine2"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" id="PremiseAddressLine3" size="37" [attr.maxlength]="40" class="form-control" formControlName="PremiseAddressLine3"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" id="PremiseAddressLine4" size="37" [attr.maxlength]="40" class="form-control" formControlName="PremiseAddressLine4"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAddressLine5">{{ 'County' | translate }}</label>
+                    <div class="col24 pr5">
+                        <input type="text" id="PremiseAddressLine5" size="37" [attr.maxlength]="40" class="form-control" formControlName="PremiseAddressLine5"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremisePostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="PremisePostcode" size="15" [attr.maxlength]="15" class="form-control" formControlName="PremisePostcode"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseAnnualValue">{{ 'Value' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="PremiseAnnualValue" size="20" [attr.maxlength]="23" class="form-control" formControlName="PremiseAnnualValue"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseCommenceDate">{{ 'Commence Date' | translate }}</label>
+                    <div class="col12">
+                        <input type="text" id="PremiseCommenceDate" size="10" [attr.maxlength]="10" class="form-control" formControlName="PremiseCommenceDate"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Suspend Invoice' | translate }}</label>
+                    <div class="col2 pr5">
+                        <input type="checkbox" class="form-control" size="2" [attr.maxlength]="2" id="InvoiceSuspendInd" formControlName="InvoiceSuspendInd"
+                            (change)="checkAddress()" eTypeCheckBox>
+                            <label for="InvoiceSuspendInd"></label>
+                    </div>
+
+                    <div class="col22">
+                        <input type="text" id="InvoiceSuspendText" size="40" [attr.maxlength]="40" class="form-control" formControlName="InvoiceSuspendText"
+                            eTypeText>
+
+                    </div>
+                </div>
+            </div>
+            <footer class="screen-footer">
+                <div class="row mt10">
+                    <div class="col-sm-6">
+                        <div class="col24">
+                            <input type="button" class="btn btn-primary" value="{{ 'Save' | translate }}" [disabled]="isButtonsDisabled" (click)="onClickSave()">
+                            <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" [disabled]="isButtonsDisabled" (click)="onClickCancel()">
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

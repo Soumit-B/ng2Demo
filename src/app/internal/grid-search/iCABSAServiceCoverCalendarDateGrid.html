@@ -1,0 +1,105 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Service Cover Calendar' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div #topContainer>
+            <div class="row mt10" id="trContract">
+                <div class="col-sm-4">
+                    <label class="col24" id="labelContract" for="ContractNumber">{{ 'Contract' | translate }} </label>
+
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" type="text" class="form-control" size="9" maxlength="8" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" type="text" class="form-control" size="30" maxlength="40" formControlName="ContractName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Year' | translate }}</label>
+                    <div class="col12 pr5">
+                        <select id="SelectedYear" class="form-control" formControlName="SelectedYear">
+                            <option *ngFor="let year of this['pageParams'].yearList" value= "{{year.value}}">{{year.text}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" id="trPremise">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises' | translate }}</label>
+
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" type="text" class="form-control" size="9" maxlength="7" formControlName="PremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" type="text" class="form-control" size="30" maxlength="40" formControlName="PremiseName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'Visit Frequency' | translate }}</label>
+                        <input id="ServiceVisitFrequency" size="6" class="form-control" formControlName="ServiceVisitFrequency" eTypeInteger>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{ 'Entered' | translate }}</label>
+                        <input id="TotalVisits" size="6" class="form-control" formControlName="TotalVisits" [ngClass]="{ 'ng-invalid' : hasMoreEntered }" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" id="trProduct">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate }}</label>
+
+                    <div class="col8 pr5">
+                        <input id="ProductCode" type="text" class="form-control" size="9" maxlength="6" formControlName="ProductCode" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductDesc" type="text" class="form-control" size="30" maxlength="40" formControlName="ProductDesc" eTypeText>
+                    </div>
+                </div>
+            </div>
+
+
+            <hr class="mt20 mb20">
+            <div class="row mb20">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced #riGrid id="riGrid" (TRDblClick)="onGridDoubleClick($event)" (onSuccess)="onGridSuccess()"></icabs-grid-advanced>
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-modal #errorModal="child" [showHeader]="true"></icabs-modal>
+                </div>
+            </div>
+            <hr class="mt20 mb20">
+            <div class="row mb20">
+                <div class="col-sm-6">
+                    <input class="btn btn-sm btn-primary mr10" type="button" [value]="'Save' | translate" (click)="onSave()" *ngIf="this['pageParams']['isUpdatable']">
+                    <input class="btn btn-sm btn-secondary" type="button" [value]="'Cancel' | translate" (click)="onCancel()" *ngIf="this['pageParams']['isUpdatable']">
+                </div>
+            </div>
+
+        </div>
+        <!--Legends-->
+        <!--assign the colors dynamically-->
+        <div class="row mt10">
+            <div class="col-sm-8 text-left">
+                <label class="pr5">{{ 'Legend' | translate }} :</label>
+                <div class="inline-block pr10" *ngFor="let l of legend">
+                    <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                    <label>{{ l.label | translate }}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+    <icabs-prompt-modal class="routeAway" #promptModal="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitle"
+        [content]="promptContent" [config]="promptModalConfig"></icabs-prompt-modal>
+</div>

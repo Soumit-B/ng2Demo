@@ -1,0 +1,84 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Invoice Group Payment'| translate}}</h1>
+            </div>
+        </div>
+    </header>
+
+    <form novalidate [formGroup]="uiForm">
+        <section class="screem-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number'| translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" size="9" maxlength="9" (change)="onAccountNumberChange($event);" icabsZeroPad>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AccountName" formControlName="AccountName" class="form-control" size="40" maxlength="40">
+
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsAccountNumber" [contentComponent]="accountSearchComponent"
+                            [modalConfig]="modalConfig" [showHeader]="showHeader" (ellipsisData)="onAccountNumberReceived($event)"
+                            [autoOpen]="autoOpenSearch" [disabled]="ellipsis.account.disable"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice Group Number'| translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+
+                        <input id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber" class="form-control" size="9" maxlength="9" (change)="onInvoiceNumberChange($event);">
+                    </div>
+                    <!-- <div class="col14 pr5">
+                        <input class="form-control" id="InvoiceGroupName" formControlName="InvoiceGroupName" size="40" maxlength="40">
+
+                    </div> -->
+                    <div class="col2">
+                        <icabs-ellipsis #invoiceGroupEllipsis [childConfigParams]="ellipsisQueryParams.inputParamsInvoiceGroupNumber" [modalConfig]="modalConfig"
+                            [contentComponent]="invoiceGroupGridComponent" (ellipsisData)="onInvoiceGroupNumberReceived($event)"
+                            [showHeader]="showHeader" [showCloseButton]="showCloseButton" [disabled]="ellipsis.invoice.disable"></icabs-ellipsis>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Payment Term'| translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PaymentTermNumber" formControlName="PaymentTermNumber" size="9" maxlength="9">
+                    </div>
+                    <div class="col14 pr5">
+                        <input size="9" maxlength="40" class="form-control" id="PaymentTermDesc" formControlName="PaymentTermDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #paymentTermEllipsis [childConfigParams]="ellipsisQueryParams.inputParamsPaymentTermSearch" [modalConfig]="modalConfig"
+                            [contentComponent]="PaymentTermSearchComponent" (ellipsisData)="onPaymentTermReceived($event)" [showHeader]="showHeader"
+                            [showCloseButton]="showCloseButton" [disabled]="ellipsis.payment.disable"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+
+                <div class="col-sm-3">
+                    <input class="btn btn-primary" type="submit" formControlName="Save" value="{{ 'Save' | translate  }}" (click)="saveInvoiceGroupData()">
+                    <input class="btn btn-secondary" type="button" formControlName="Cancel" value="{{ 'Cancel' | translate  }}" (click)="resetForm()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-prompt-modal #promptModalForSave="child" [(showHeader)]="showMessageHeaderSave" [(showCloseButton)]="showPromptCloseButtonSave"
+    [title]="promptTitleSave" [content]="promptContentSave" [config]="promptModalConfigSave" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader" [content]="messageContentSave">
+    </icabs-modal>
+
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" [content]="messageContentError">
+    </icabs-modal>

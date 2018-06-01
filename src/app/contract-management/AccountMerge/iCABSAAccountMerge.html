@@ -1,0 +1,174 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-header-row page-title">
+            <h1 class="page-header margin-zero">
+                <!--Page Heading-->
+                {{ 'Merge Account' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="form_group" (ngSubmit)="onSubmit(form_group.value, form_group.valid, $event)" class="col24">
+        <div class="">
+            <div class="col-sm-4 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="fromAccountNumber">{{ 'Merge From Account Number' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col-sm-10 pr5">
+                        <input #fromAccountNumber id="fromAccountNumber" type="text" class="form-control" formControlName="fromAccountNumber" (change)="onBlur($event); onFromAccountBlur($event)" [attr.maxlength]="9">
+                    </div>
+                    <icabs-ellipsis [(autoOpen)]="autoOpenFrom" [ellipsisIdentifier]="fromIdentifier" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="fromComponent" (ellipsisData)="onDataReceived($event, true)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-4 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="FromAccountName">{{ 'Name' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="FromAccountName" formControlName="FromAccountName" class="form-control" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="col24">
+        <div class="col-sm-4 padding-zero">
+            <div class="">
+                <div class="col-sm-12 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="FromAccountAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="FromAccountAddressLine1" formControlName="FromAccountAddressLine1" class="form-control" [attr.maxlength]="40" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="FromAccountAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="FromAccountAddressLine3" formControlName="FromAccountAddressLine3" class="form-control" [attr.maxlength]="40" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="FromAccountAddressLine5">{{ 'County' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="FromAccountAddressLine5" formControlName="FromAccountAddressLine5" class="form-control" [attr.maxlength]="30" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 padding-zero">
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="FromAccountAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="FromAccountAddressLine2" class="form-control" formControlName="FromAccountAddressLine2" [attr.maxlength]="40" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="FromAccountAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="FromAccountAddressLine4" class="form-control" formControlName="FromAccountAddressLine4" [attr.maxlength]="40" placeholder="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="FromPostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="FromPostcode" class="form-control" placeholder="" formControlName="FromPostcode" [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="col24">
+        <div class="">
+            <div class="col-sm-4 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="toAccountNumber">{{ 'Merge To Account Number' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col-sm-10 pr5">
+                        <input #toAccountNumber id="toAccountNumber" type="text" class="form-control" formControlName="toAccountNumber" (change)="onBlur($event); onToAccountBlur($event);" [attr.maxlength]="9">
+                    </div>
+                    <icabs-ellipsis [(autoOpen)]="autoOpenTo" [ellipsisIdentifier]="toIdentifier" [showCloseButton]="showCloseButton" [childConfigParams]="inputParams" [modalConfig]="modalConfig" [contentComponent]="toComponent" (ellipsisData)="onDataReceivedTo($event, true)" [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-4 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="ToAccountName">{{ 'Name' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="ToAccountName" formControlName="ToAccountName" [attr.maxlength]="40" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="col24">
+        <div class="col-sm-4 padding-zero">
+            <div class="">
+                <div class="col-sm-12 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="ToAccountAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="ToAccountAddressLine1" class="form-control" formControlName="ToAccountAddressLine1" [attr.maxlength]="40" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="ToAccountAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="ToAccountAddressLine3" class="form-control" placeholder="" [attr.maxlength]="40" formControlName="ToAccountAddressLine3">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 padding-left-zero form-item">
+                    <div class="form-group row">
+                        <label class="col-sm-12" for="ToAccountAddressLine5">{{ 'County' | translate }}</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="ToAccountAddressLine5" class="form-control" placeholder="" [attr.maxlength]="30" formControlName="ToAccountAddressLine5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 padding-zero">
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="ToAccountAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="ToAccountAddressLine2" class="form-control" placeholder="" [attr.maxlength]="40" formControlName="ToAccountAddressLine2">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="ToAccountAddressLine4">{{ 'Town' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="ToAccountAddressLine4" class="form-control" [attr.maxlength]="40" placeholder="" formControlName="ToAccountAddressLine4">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 padding-left-zero form-item">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="ToPostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="ToPostcode" class="form-control" placeholder="" [attr.maxlength]="15" formControlName="ToPostcode">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="col24">
+        <div class="col24">
+                <input class="btn btn-lg btn-primary" type="submit" [disabled]="!form_group.valid" value="{{buttonTranslatedText.save | translate}}">
+                <input class="btn btn-lg btn-secondary" type="button" value="{{buttonTranslatedText.cancel | translate}}" (click)="disableForm()">
+        </div>
+    </form>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

@@ -1,0 +1,39 @@
+{
+  "hosting": {
+    "public": "target",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [ {
+      "source" : "**",
+      "headers" : [ {
+        "key" : "X-Frame-Options",
+        "value" : "DENY"
+      },
+      {
+          "key" : "X-XSS-Protection",
+          "value" : "1"
+      },
+      {
+          "key" : "X-UA-Compatible",
+          "value" : "IE=Edge"
+      } ]
+    }, {
+      "source" : "**/*.@(jpg|jpeg|gif|png|svg)",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=1209600"
+      } ]
+    },
+    {
+      "source" : "**/*.@(js|css|html|json)",
+      "headers" : [ {
+        "key" : "Cache-Control",
+        "value" : "max-age=7200"
+      } ]
+    } ]
+  }
+}

@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div #topcontainer>
+                <div class="row mt10">
+                    <div class="col-sm-4">
+                        <label class="col24" for="ContractNumber" id="labelContractNumber">{{ contractLabel | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" id="ContractNumber" formControlName="ContractNumber" class="form-control" placeholder="" size="7" maxlength="8">
+                        </div>
+                        <div class="col16">
+                            <input type="text" id="ContractName" formControlName="ContractName" class="form-control" placeholder="" size="40" maxlength="40">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24" for="PremiseNumber" id="labelPremiseNumber">{{'Premises Number' |translate}}</label>
+                        <div class="col8 pr5">
+                            <input type="text" id="PremiseNumber" formControlName="PremiseNumber" class="form-control" placeholder="" size="7" maxlength="5">
+                        </div>
+                        <div class="col16">
+                            <input type="text" id="PremiseName" formControlName="PremiseName" class="form-control" placeholder="" size="40" maxlength="40">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label class="col24" for="ProductCode" id="labelProductCode">{{'Product Code' |translate}}</label>
+                        <div class="col8 pr5">
+                            <input type="text" id="ProductCode" formControlName="ProductCode" class="form-control" placeholder="" size="7" maxlength="6">
+                        </div>
+                        <div class="col16">
+                            <input type="text" id="ProductDesc" formControlName="ProductDesc" class="form-control" placeholder="" size="40" maxlength="40">
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt15 mb15">
+                <div class="row">
+                    <div class="col-sm-3 pull-right" id="tdMenu" *ngIf="tdMenuDisplay">
+                        <select id="menu" class="form-control" formControlName="tdMenu" (change)="menuOnchange($event)">
+                            <option selected value="Options">{{ 'Options' | translate }}</option>
+                            <option value="AddDetail">{{ 'Add Service Detail' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt10">
+                    <div class="col-sm-12">
+                        <icabs-table #ServiceCoverDetailTable [columns]="columns" [tableheader]="tableheading" (selectedData)="tableRowClick($event)"
+                            [itemsPerPage]="itemsPerPage" [page]="page" [paginationTop]="true" [displayError]="false">
+                        </icabs-table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,174 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="CustomerContactNumber">{{ 'Reference Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="CustomerContactNumber" id="CustomerContactNumber" size="11" maxlength="50">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactTypeCode">{{ 'Ticket Type' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ContactTypeCode" id="ContactTypeCode" size="3" maxlength="3" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ContactTypeDesc" id="ContactTypeDesc" size="27">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="AccountNumber" id="AccountNumber" size="11" maxlength="9" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="AccountName" id="AccountName" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="ClosedDate">{{ 'Closed' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ClosedDate" id="ClosedDate" size="10" maxlength="10" eTypeDate>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ClosedTime" id="ClosedTime" size="5" maxlength="5" eTypeTime>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Actions' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="ActionCount" id="ActionCount" size="3" maxlength="3" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ContractNumber">{{ 'Contract Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ContractNumber" id="ContractNumber" size="11" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ContractName" id="ContractName" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="CurrentOwnerEmployeeCode">{{ 'Current Owner' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="CurrentOwnerEmployeeCode" id="CurrentOwnerEmployeeCode" size="6"
+                            maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="CurrentOwnerEmployeeName" id="CurrentOwnerEmployeeName" size="30"
+                            maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="PremiseNumber">{{ 'Premises Number' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="PremiseNumber" id="PremiseNumber" size="11" maxlength="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="PremiseName" id="PremiseName" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="CurrentActionEmployeeCode">{{ 'Current Actioner' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="CurrentActionEmployeeCode" id="CurrentActionEmployeeCode" size="6"
+                            maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="CurrentActionEmployeeName" id="CurrentActionEmployeeName" size="30"
+                            maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24 " for="ProductCode">{{ 'Product Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="ProductCode" id="ProductCode" size="11" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="ProductDesc" id="ProductDesc" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12 page-title mt10">
+                    <h1>
+                        {{ 'Original Details' | translate }}
+                    </h1>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="CustomerContactName">{{ 'Contact Name' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" formControlName="CustomerContactName" id="CustomerContactName" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 " for="CreatedDate">{{ 'Created On' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="CreatedDate" id="CreatedDate" size="10" maxlength="10" eTypeDate>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="CreatedTime" id="CreatedTime" size="5" maxlength="5" eTypeTime>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24 " for="CreatedByEmployeeCode">{{ 'Created By' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" formControlName="CreatedByEmployeeCode" id="CreatedByEmployeeCode" size="6" maxlength="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" formControlName="CreatedByEmployeeName" id="CreatedByEmployeeName" size="25" maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24 " for="ContactNarrative">{{ 'Details' | translate }}</label>
+                    <div class="col24 pr5">
+                        <textarea class="form-control" formControlName="ContactNarrative" id="ContactNarrative" style="width: 763px; height: 105px"
+                            rows=3 cols=77></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #contactDetailPagination [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #contactDetailGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                        (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowDoubleClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+</section>

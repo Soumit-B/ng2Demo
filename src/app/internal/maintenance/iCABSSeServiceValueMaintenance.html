@@ -1,0 +1,193 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Value Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}<span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="8" maxlength="8" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}<span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="8" maxlength="5" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}<span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" size="8" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName="ProductDesc" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Effective Date'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ServiceValueEffectDate" formControlName="ServiceValueEffectDate" size="20" maxlength="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Employee Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="EmployeeCode" formControlName="EmployeeCode" size="6" maxlength="6" eTypeText>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="30" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Reason'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="ValueChangeDesc" formControlName="ValueChangeDesc" size="30" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Value Change'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="AnnualValueChange" formControlName="AnnualValueChange" size="20" maxlength="23"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Total Value'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CurrentAnnualValue" formControlName="CurrentAnnualValue" size="20" maxlength="23"
+                            eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Frequency Change'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="VisitFrequencyChange" formControlName="VisitFrequencyChange" size="20" maxlength="3"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Current Frequency'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CurrentVisitFrequency" formControlName="CurrentVisitFrequency" size="20" maxlength="3"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Quantity Change'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ServiceQuantityChange" formControlName="ServiceQuantityChange" size="20" maxlength="10"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Current Quantity'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CurrentServiceQuantity" formControlName="CurrentServiceQuantity" size="20" maxlength="10"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Time Change'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="AnnualTimeChange" formControlName="AnnualTimeChange" size="6" maxlength="5" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Current Time'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CurrentAnnualTime" formControlName="CurrentAnnualTime" size="6" maxlength="5"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'User Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="tUserCode" formControlName="tUserCode" size="20" maxlength="10" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Business Origin'|translate}}</label>
+                    <div class="col22 pr5">
+                        <icabs-business-origin-language-search #businessOriginDropdown [inputParams]="dropdown.businessOriginLang.inputParams" [isRequired]="dropdown.businessOriginLang.isRequired"
+                            [isDisabled]="dropdown.businessOriginLang.isDisabled" [triggerValidate]="dropdown.businessOriginLang.isTriggerValidate"
+                            [active]="dropdown.businessOriginLang.active" (receivedLostBusinessLangSearch)="onBusinessOriginCodeChange($event)"></icabs-business-origin-language-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Business Origin Detail'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="BusinessOriginDetail" formControlName="BusinessOriginDetail" size="20" maxlength="10"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <!--  <icabs-dropdown></icabs-dropdown> will be implemented when iCABSBBusinessOriginDetailLanguageSearch is developed as dropdown -->
+
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Lead Employee'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="LeadEmployee" formControlName="LeadEmployee" size="20" maxlength="20" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer mt5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary mr10" (click)="saveData()" value="{{ 'Save'| translate}}">
+                    <input type="button" class="btn btn-secondary" (click)="resetForm()" value="{{ 'Cancel'| translate}}" [disabled]="isCancelDisabled">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

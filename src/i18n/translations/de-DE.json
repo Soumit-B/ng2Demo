@@ -1,0 +1,14 @@
+{"translations":[
+	{
+      "BaseTranslationValue": "ENTER SITE",
+      "LanguageCode": "ENG",
+      "LocaleCode": "de-DE",
+      "TranslationValue": "Enter Site"
+    },
+    {
+      "BaseTranslationValue": "SETUP WELCOME",
+      "LanguageCode": "ENG",
+      "LocaleCode": "de-DE",
+      "TranslationValue": "Welcome {{value}}! you need to select a language and region from the below options to enter into the site."
+    }
+]}

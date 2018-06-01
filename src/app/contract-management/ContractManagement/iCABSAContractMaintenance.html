@@ -1,0 +1,287 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                  {{ inputParams.pageHeader | translate }}
+                </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="contractFormGroup" (ngSubmit)="onSubmit(contractFormGroup.value, contractFormGroup.valid, $event)">
+        <!-- flag -->
+        <div class="flag-fixed">
+            <ul>
+                <li *ngIf="displayList.expired === true">
+                    <img src="/assets/images/cross-icon.png" title="Expired" /><strong>{{ 'Expired' | translate }}</strong>
+                </li>
+                <li *ngIf="displayList.nationalAccount === true">
+                    <img src="/assets/images/cross-icon.png" title="National Account" /><strong>{{ 'National Account' | translate }}</strong>
+                </li>
+                <li *ngIf="displayList.badDebtAccountCheckbox === true">
+                    <input class="custom-checkbox" type="checkbox" id="badDebtAccount" formControlName="BadDebtAccount">
+                    <label class="custom-checkbox-label gray" for="" for="badDebtAccount">{{ 'Bad Debt' | translate }}</label>
+                </li>
+                <li *ngIf="displayList.badDebtAccount === true">
+                    <img src="/assets/images/cross-icon.png" title="Bad Debt Account" /><strong>{{ 'Bad Debt Account' | translate }}</strong>
+                </li>
+                <li *ngIf="displayList.pnol === true">
+                    <img src="/assets/images/cross-icon.png" title="PNOL" /><strong>{{ 'myRentokil' | translate }}</strong>
+                </li>
+                <li *ngIf="displayList.trialPeriodInd === true">
+                    <input id="TrialPeriodInd" type="checkbox" formControlName="TrialPeriodInd" (change)='onTrialPeriodIndChange($event)'>
+                    <label class="" for="" for="TrialPeriodInd">{{ 'Trial Period' | translate }}</label>
+                </li>
+                <!-- <li>
+                      <img src="/assets/images/cross-icon.png" title="Expired" /><strong>Expired</strong>
+                    </li> -->
+            </ul>
+        </div>
+        <!-- flag -->
+        <div class="section-container" #topContainer>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{labelFields.contractNumber | translate}}<span class="mandatory" *ngIf="fieldRequired.contractNumber === true">* </span></label>
+                    <div class="col22 pr5">
+                        <input id="ContractNumber" type="text" class="form-control" placeholder="" formControlName="ContractNumber" [attr.maxlength]="8" (change)="onContractNumberBlur($event)" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig" [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader" (modalHidden)="modalHidden($event);" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractName">{{ 'Name' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col18 pr5">
+                        <input type="text" id="ContractName" autofocus (change)='onContractNameChange($event)' (blur)="onContractNameBlur();" class="form-control" placeholder="" formControlName="ContractName" [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" eTypeTextFree>
+                    </div>
+                    <div class="col6">
+                        <input class="btn btn-primary btn-copy col24" formControlName="Copy" (click)="onCopyClick($event)" type="button" id="Copy">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div *ngIf="displayList.contractAnnualValue === true">
+                        <label class="col24" for="ContractAnnualValue"><span>{{ 'Value' | translate }}</span></label>
+                        <div class="col12 pr5">
+                            <input id="ContractAnnualValue" class="form-control padding-left-zero" type="text" formControlName="ContractAnnualValue" [attr.maxlength]="23" eTypeCurrency>
+                        </div>
+                        <div class="col12" *ngIf="displayList.future === true">
+                            <input class="btn btn-primary" type="button" (click)='onCmdValueClick($event)' formControlName="Future" value="{{ 'Future Change' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24 " for="AccountNumber">{{ 'Account Number' | translate}}</label>
+                        <div class="col8 pr5">
+                            <input class="form-control" id="AccountNumber" type="text" name="accountNumber" formControlName="AccountNumber" (change)='onAccountBlur($event)' [attr.maxlength]="9" eTypeText>
+                        </div>
+                        <div class="col14 pr5">
+                            <input class="form-control" type="text" name="accountDescription" formControlName="AccountName" [attr.maxlength]="40" eTypeText>
+                        </div>
+
+                        <div class="col2">
+                            <icabs-ellipsis [autoOpen]="autoOpenAccount" (modalHidden)="accountModalHidden($event);" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccount" [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountDataReceived($event, false)" [showHeader]="showHeader" [searchModalRoute]="searchModalRoute" [disabled]="isAccountEllipsisDisabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24" *ngIf="displayList.moreThanOneContract === true">
+                        <label class="col24 " for="MoreThanOneContract">{{ 'Multi Contracts' | translate}}</label>
+                        <div class="col4 pr5">
+                            <input class="form-control padding-zero" type="text" name="moreThanOneContract" formControlName="MoreThanOneContract" eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="NegBranchNumber">{{ 'Negotiating Branch' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col-sm-12 padding-left-zero">
+                        <icabs-branchsearch [inputParams]="inputParams" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="negBranchNumberSelected" [isDisabled]="isNegBranchDropdownsDisabled" [isRequired]='fieldRequired.negBranchNumber'></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-sm-6 pl0 pr0">
+                        <label class="col24">{{ 'Commence Date' | translate }}<span class="mandatory">* </span></label>
+                        <div class="col24 pr5">
+                            <icabs-datepicker [dt]='contractCommenceDate' [clearDate]='clearDate.contractCommenceDate' [isDisabled]="!dateObjectsEnabled.contractCommenceDate" (selectedValue)="commenceDateSelectedValue($event)" [isRequired]="true" [validate]="dateObjectsValidate.contractCommenceDate"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pl0 pr0">
+                        <label class="col24">{{ 'Status' | translate }}</label>
+                        <div class="col24">
+                            <input class="form-control" type="text" formControlName="Status" [attr.maxlength]="20" eTypeText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="secondarySection mt20">
+                <accordion>
+                    <accordion-group #group [isOpen]="isCollapsibleOpen">
+                        <div accordion-heading class="sectionHeading">
+                            {{ 'Secondary Action Area' | translate }}
+                            <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="sectionCollapcible">
+                                    <div class="collapcibleContent">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <label class="col24" for="CurrentPremises">{{ 'Premises' | translate }}</label>
+                                                <input type="text" class="form-control" placeholder="" id="CurrentPremises" formControlName="CurrentPremises" [attr.maxlength]="3" eTypeInteger>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div *ngIf="displayList.inactiveEffectDate === true">
+                                                    <label class="col24">{{ 'From' | translate }}
+                                                        <!-- <span class="mandatory">* </span> --></label>
+                                                    <div class="col12 pr5">
+                                                        <icabs-datepicker [dt]='inactiveEffectDate' [clearDate]='clearDate.inactiveEffectDate' [isDisabled]="!dateObjectsEnabled.inactiveEffectDate" (selectedValue)="inactiveEffectDateSelectedValue($event)" [validate]="dateObjectsValidate.inactiveEffectDate"></icabs-datepicker>
+                                                    </div>
+                                                    <div *ngIf="displayList.anyPendingBelow === true">
+                                                        <div class="col12">
+                                                            <input type="text" id="AnyPendingBelow" class="form-control" placeholder="" formControlName="AnyPendingBelow" eTypeText>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt2">
+                                            <div class="col-sm-4" *ngIf="displayList.groupAccount === true">
+                                                <div>
+                                                    <label class="col24" for="GroupAccountNumber">{{ 'Group Account' | translate }}</label>
+                                                    <div class="col8 pr5">
+                                                        <input class="form-control" type="text" [attr.maxlength]="5" formControlName="GroupAccountNumber" id="GroupAccountNumber" (blur)="onGroupAccountBlur($event)" eTypeInteger>
+                                                    </div>
+                                                    <div class="col14 pr5">
+                                                        <input class="form-control" type="text" [attr.maxlength]="40" formControlName="GroupName" eTypeText>
+                                                    </div>
+                                                    <div class="col2">
+                                                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsGroupAccount" [modalConfig]="modalConfig" [contentComponent]="groupAccountSearchComponent" (ellipsisData)="onGroupAccountDataReceived($event, false)" [showHeader]="showHeader" [searchModalRoute]="searchModalRoute" [disabled]="isGroupAccountEllipsisDisabled"></icabs-ellipsis>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div *ngIf="displayList.lostBusinessDesc1 === true">
+                                                    <label class="col24">{{labelFields.lostBusinessDesc1 | translate}}
+                                                        <!-- <span class="mandatory">* </span> --></label>
+                                                    <div class="col24">
+                                                        <input type="text" id="LostBusinessDesc" class="form-control" placeholder="" formControlName="LostBusinessDesc" eTypeText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt2">
+                                            <div class="col-sm-3">
+                                                <label class="col24" for="AccountBalance">{{ 'Account Balance' | translate }}</label>
+                                                <div class="col12 pr5">
+                                                    <input type="text" class="form-control" id="AccountBalance" placeholder="" formControlName="AccountBalance" eTypeCurrency>
+                                                </div>
+                                                <div class="col12" *ngIf="displayList.customerInformation === true">
+                                                    <input class="btn btn-primary" type="button" (click)='onCustomerInformationClick($event)' value="Customer Information">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div *ngIf="displayList.lostBusinessDesc2 === true">
+                                                    <label class="col24">{{labelFields.lostBusinessDesc2}}
+                                                        <!-- <span class="mandatory">* </span> --></label>
+                                                    <div class="col24">
+                                                        <input type="text" id="lostBusinessDesc2" class="form-control" placeholder="" formControlName="LostBusinessDesc2" eTypeText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt2">
+                                            <div class="col-sm-3">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div *ngIf="displayList.lostBusinessDesc3 === true">
+                                                    <label class="col24">{{labelFields.lostBusinessDesc3}}
+                                                        <!-- <span class="mandatory">* </span> --></label>
+                                                    <div class="col24">
+                                                        <input type="text" id="lostBusinessDesc3" class="form-control" placeholder="" formControlName="LostBusinessDesc3" eTypeText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </div>
+            <div class="row margin-zero">
+            </div>
+            <div class="row margin-zero">
+            </div>
+            <div class="row margin-zero">
+                <div class="col-sm-7 padding-zero">
+                </div>
+            </div>
+            <div class="row margin-zero">
+            </div>
+        </div>
+        <div #tabCont id="tabCont" class="tabs-cont margin-top-m" [ngClass]="{'error-tab-a': tabsError.tabA, 'error-tab-b': tabsError.tabB, 'error-tab-c': tabsError.tabC, 'error-tab-d': tabsError.tabD, 'error-tab-e': tabsError.tabE, 'no-opacity': tabsHide}">
+            <icabs-tabs [tabs]="tabs" [componentList]="componentList" (onTabSelect)="onTabSelect($event)">
+            </icabs-tabs>
+        </div>
+        <!-- <INPUT type="checkbox" class="hidden" formControlName="ShowValueButton" ngDefaultControl>
+        <INPUT id="NationalAccount" type="text" class="hidden" formControlName="NationalAccount" ngDefaultControl>
+        <INPUT id="IsNationalAccount" class="hidden" formControlName="IsNationalAccount" ngDefaultControl>
+        <INPUT id="NationalAccountchecked" class="hidden" type="checkbox" formControlName="NationalAccountchecked" ngDefaultControl>
+        <INPUT id="DisableList" class="hidden" formControlName="DisableList" ngDefaultControl>
+        <INPUT id="MandateRequired" class="hidden" type="checkbox" formControlName="MandateRequired" ngDefaultControl>
+        <INPUT id="ReqAutoNumber" class="hidden" type="checkbox" formControlName="ReqAutoNumber" ngDefaultControl>
+        <INPUT id="PaymentTypeWarning" class="hidden" formControlName="PaymentTypeWarning" ngDefaultControl>
+        <INPUT id="ProspectNumber" class="hidden" formControlName="ProspectNumber" ngDefaultControl>
+        <INPUT id="ErrorMessageDesc" class="hidden" formControlName="ErrorMessageDesc" ngDefaultControl>
+        <INPUT id="CustomerInfoAvailable" class="hidden" type="checkbox" formControlName="CustomerInfoAvailable" ngDefaultControl>
+        <INPUT id="ContractHasExpired" class="hidden" formControlName="ContractHasExpired" ngDefaultControl>
+        <INPUT id="RunningReadOnly" class="hidden" formControlName="RunningReadOnly" ngDefaultControl>
+        <INPUT id="CallLogID" class="hidden" formControlName="CallLogID" ngDefaultControl>
+        <INPUT id="CurrentCallLogID" class="hidden" formControlName="CurrentCallLogID" ngDefaultControl>
+        <input id="WindowClosingName" class="hidden" formControlName="WindowClosingName" ngDefaultControl>
+        <input id="ClosedWithChanges" class="hidden" formControlName="ClosedWithChanges" ngDefaultControl>
+        <input id="PNOL" class="hidden" type="checkbox" formControlName="PNOL" ngDefaultControl>
+        <input id="CICustRefReq" class="hidden" formControlName="CICustRefReq" ngDefaultControl>
+        <input id="CIRWOReq" class="hidden" formControlName="CIRWOReq" ngDefaultControl>
+        <input id="CICFWOReq" class="hidden" formControlName="CICFWOReq" ngDefaultControl>
+        <input id="CICFWOSep" class="hidden" formControlName="CICFWOSep" ngDefaultControl>
+        <input id="OrigCICustRefReq" class="hidden" formControlName="OrigCICustRefReq" ngDefaultControl>
+        <input id="OrigCIRWOReq" class="hidden" formControlName="OrigCIRWOReq" ngDefaultControl>
+        <input id="OrigCICFWOReq" class="hidden" formControlName="OrigCICFWOReq" ngDefaultControl>
+        <input id="OrigCICFWOSep" class="hidden" formControlName="OrigCICFWOSep" ngDefaultControl>
+        <input id="OrigCICResponseSLA" class="hidden" formControlName="OrigCICResponseSLA" ngDefaultControl>
+        <input id="OrigCIFirstSLAEscDays" class="hidden" formControlName="OrigCIFirstSLAEscDays" ngDefaultControl>
+        <input id="OrigCISubSLAEscDays" class="hidden" formControlName="OrigCISubSLAEscDays" ngDefaultControl> -->
+    </form>
+    <hr class="mt10 mb10">
+    <div class="row">
+        <div class="col-sm-6">
+            <div *ngIf="showControlBtn === true">
+                <input class="btn btn-primary mr5" type="submit" (click)="onSubmit(contractFormGroup.value, contractFormGroup.valid, $event)" value="{{'Save' | translate}}" (keyup)="onSaveFocus($event)" [disabled]="!addMode && searchMode && !updateMode">
+                <input class="btn btn-secondary mr5" type="button" value="{{'Cancel' | translate}}" (click)="onCancel($event)" [disabled]="!addMode && searchMode && !updateMode">
+            </div>
+        </div>
+        <div class="col-sm-3 pull-right" *ngIf="displayList.options === true">
+            <select [(ngModel)]="options" [disabled]="(addMode) || (searchMode && !(storeData.data.ContractNumber))" [ngModelOptions]="{standalone: true}" class="form-control" (change)="optionsChange($event.target.value)" name="status" name="options">
+                <optgroup *ngFor="let item of optionsList" label="{{item.title | translate}}">
+                    <option *ngFor="let child of item.list" [ngValue]="child.value" [selected]="child.value == 'options'">
+                        {{ child.text | translate }}
+                    </option>
+                </optgroup>
+            </select>
+        </div>
+    </div>
+</div>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader" (modalClose)="errorModalClose();" [config]="modalConfig">
+</icabs-modal>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)" (cancelEmit)="promptCancel($event)" [config]="modalConfig"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModal="child" [shiftTop]="shiftTop" [(showHeader)]="showMessageHeader" [title]="promptConfirmTitle" [content]="promptConfirmContent" [config]="modalConfig" (saveEmit)="promptConfirmSave($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

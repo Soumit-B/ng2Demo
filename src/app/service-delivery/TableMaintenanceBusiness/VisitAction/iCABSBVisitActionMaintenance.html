@@ -1,0 +1,53 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Visit Action Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="VisitTypeCode">{{ 'Visit Type Code' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="VisitTypeCode" size="2" maxlength="2" class="form-control" formControlName="VisitTypeCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="VisitTypeDesc" size="40" maxlength="40" class="form-control" formControlName="VisitTypeDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SystemVisitActionCode">{{ 'System Visit Action Code' | translate}} <span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="SystemVisitActionCode" size="2" maxlength="2" class="form-control" formControlName="SystemVisitActionCode">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="SystemVisitActionDesc" size="40" maxlength="40" class="form-control" formControlName="SystemVisitActionDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr10" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr10" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

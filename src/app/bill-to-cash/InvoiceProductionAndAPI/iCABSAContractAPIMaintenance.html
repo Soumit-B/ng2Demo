@@ -1,0 +1,163 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Contract API Maintenance' | translate }}
+
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="contractAPIFormGroup" (ngSubmit)="onSubmit(contractAPIFormGroup.value, contractAPIFormGroup.valid, $event)">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                <div class="col8 pr5">
+                    <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" [attr.maxlength]="8" (change)="onContractNumberBlur($event)" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input id="contractDesc" formControlName="ContractName" class="form-control padding-zero" type="text" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [autoOpen]="autoOpenSearch" [showCloseButton]="showCloseButton" [childConfigParams]="contractSearchParams" [modalConfig]="modalConfig" [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event, true)" [showHeader]="showHeader" (modalHidden)="modalHidden()" [disabled]="isContractEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <label for="Status" class="col24">{{ 'Status' | translate }}</label>
+                <div class="col16">
+                    <input id="status" formControlName="Status" class="form-control" type="text" [attr.maxlength]="20" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                <div class="col8 pr5">
+                    <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" [attr.maxlength]="6" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input id="AccountName" formControlName="AccountName" class="form-control" type="text" eTypeText>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAddressLine1" class="form-control" formControlName="ContractAddressLine1" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAddressLine2" class="form-control" formControlName="ContractAddressLine2" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAddressLine3" class="form-control" formControlName="ContractAddressLine3" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="ContractAddressLine4">{{ 'Town' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAddressLine4" class="form-control" formControlName="ContractAddressLine4" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="ContractAddressLine5">{{ 'County' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAddressLine5" class="form-control" formControlName="ContractAddressLine5" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="ContractPostcode">{{ 'Postcode' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractPostcode" class="form-control" formControlName="ContractPostcode" [attr.maxlength]="15" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="ContractAnnualValue">{{ 'Value' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAnnualValue" class="form-control" formControlName="ContractAnnualValue" [attr.maxlength]="10" eTypeCurrency>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Commence Date' | translate }}</label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='contractCommenceDate' [isDisabled]="!dateObjectsEnabled.contractCommenceDate" (selectedValue)="commenceDateSelectedValue($event)" [isRequired]="fieldRequired.contractCommenceDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'Anniversary Date' | translate }}</label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='annivDate' [isDisabled]="!dateObjectsEnabled.annivDate" (selectedValue)="annivDateSelectedValue($event)" [isRequired]="fieldRequired.annivDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col5 pr5">
+                    <input id="APIExemptInd" (change)="onAPIExemptChange($event)" type="checkbox" formControlName="APIExemptInd">
+                    <label for="APIExemptInd" class="gray" for="APIExemptInd">
+                        {{'API Exempt' | translate}}
+                    </label>
+                </div>
+                <div class="col5" *ngIf="fieldVisibility.APIExemptText === true">
+                    <label class="col24" id="APIExemptText">{{ 'Reason' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="APIExemptText" class="form-control" formControlName="APIExemptText" [attr.maxlength]="50" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <input class="btn btn-primary mr10" type="submit" value="{{ 'Save' | translate }}" [disabled]="!contractAPIFormGroup.valid">
+                <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate }}" (click)="onCancelClick($event)">
+            </div>
+        </div>
+    </form>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+            </icabs-modal>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+            </icabs-modal>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent" (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-spinner></icabs-spinner>
+        </div>
+    </div>
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

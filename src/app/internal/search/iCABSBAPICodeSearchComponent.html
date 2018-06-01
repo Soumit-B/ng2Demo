@@ -1,0 +1,25 @@
+<!-- Page Content -->
+<section class="container-fluid custom-container">
+    <!-- Page Heading -->
+    <header class="screen-header">
+        <div class="row">
+            <div class="page-title">
+                <h1 class="title-label padding-top-s padding-bottom-s">{{ 'API Code Search' | translate }}</h1>
+            </div>
+            <div class="col-sm-6 form-item padding-bottom-s" [hidden]="!showAddNew">
+                <input type="button" name="" value="{{'Add New' | translate}}" class="btn btn-sm btn-primary" (click)="onAddNew()">
+            </div>
+        </div>
+    </header>
+    <!-- Projects Row -->
+    <section class="screen-body">
+        <div class="custom-top-container padding-zero">
+            <!-- Pagination -->
+            <div class="margin-zero">
+                <icabs-table #apiCodeSearchTable (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                    [paginationTop]="true" [displayError]="false" (click)="refresh()"></icabs-table>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+</section>

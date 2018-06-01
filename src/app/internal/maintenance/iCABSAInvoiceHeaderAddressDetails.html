@@ -1,0 +1,79 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Invoice Header Address' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="invoiceHeaderAddressFormGroup" (ngSubmit)="onSubmit(invoiceHeaderAddressFormGroup.value, invoiceHeaderAddressFormGroup.valid, $event)">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceName">{{ 'Invoice Name' | translate }}</label>
+                <div class="col24">
+                    <input id="InvoiceName" formControlName="InvoiceName" class="form-control padding-zero" type="text" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                <div class="col24">
+                    <input id="InvoiceAddressLine1" formControlName="InvoiceAddressLine1" class="form-control" type="text" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="InvoiceAddressLine2" class="form-control" formControlName="InvoiceAddressLine2" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="InvoiceAddressLine3" class="form-control" formControlName="InvoiceAddressLine3" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceAddressLine4">{{ 'Town' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="InvoiceAddressLine4" class="form-control" formControlName="InvoiceAddressLine4" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="InvoiceAddressLine5">{{ 'County' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="InvoiceAddressLine5" class="form-control" formControlName="InvoiceAddressLine5" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="InvoicePostcode">{{ 'Postcode' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="InvoicePostcode" class="form-control" formControlName="InvoicePostcode" [attr.maxlength]="40">
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-spinner [isRunning]="false"></icabs-spinner>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-modal #errorModal="child" [showHeader]="true">
+            </icabs-modal>
+        </div>
+    </div>
+</div>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

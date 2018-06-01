@@ -1,0 +1,204 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']" (ngSubmit)="onSubmit($event)">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input id="ContractNumber" class="form-control" type="text" formControlName="ContractNumber" size="9" maxlength="8" eTypeCode>
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="ContractName" class="form-control" type="text" formControlName="ContractName" size="30" maxlength="30" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Portfolio Status' | translate }}</label>
+                    <div class="col15">
+                        <input id="PortfolioStatus" class="form-control" type="text" formControlName="PortfolioStatus" size="20" maxlength="20" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="isTrPremise">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input id="PremiseNumber" class="form-control" type="text" formControlName="PremiseNumber" size="9" maxlength="6" eTypeInteger>
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="PremiseName" class="form-control" type="text" formControlName="PremiseName" size="30" maxlength="30" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="isTrServiceCover">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input id="ProductCode" class="form-control right" type="text" formControlName="ProductCode" size="9" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="ProductDesc" class="form-control" type="text" formControlName="ProductDesc" size="30" maxlength="30" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Request Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input id="LostBusinessRequestNumber" class="form-control right" type="text" formControlName="LostBusinessRequestNumber"
+                            size="9" maxlength="5" eTypeAutoNumber>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Invoice Frequency' | translate }}</label>
+                    <div class="col7 pr5">
+                        <input id="InvoiceFrequencyCode" class="form-control" type="text" formControlName="InvoiceFrequencyCode" size="3" maxlength="3"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Invoice Anniversary Date' | translate }}</label>
+                    <div class="col7">
+                        <input id="InvoiceAnnivDate" class="form-control" type="text" formControlName="InvoiceAnnivDate" size="10" maxlength="10"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2" *ngIf="isTrContactTypeDetailCodeSelect">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contact Type Detail' | translate }}</label>
+                    <div class="col22 pr5">
+                        <icabs-dropdown-static id="ContactTypeDetailCodeSelect" [inputData]="contactTypeDetailList" [doTranslate]="false" (onSelect)="contactTypeDetailCodeSelectOnChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Request Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col9">
+                        <icabs-datepicker #RequestDate id="RequestDate" formControlName="RequestDate" size="10" maxlength="10" [isDirectiveBased]="false"
+                            (onChange)="requestDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Request Status' | translate }}</label>
+                    <div class="col15">
+                        <input id="RequestStatus" class="form-control" type="text" formControlName="RequestStatus" size="10" maxlength="10" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Earliest Effect Date' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col9">
+                        <icabs-datepicker id="EarliestEffectDate" formControlName="EarliestEffectDate" size="10" maxlength="10" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Client Contact' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <input #ClientContact id="ClientContact" class="form-control" type="text" formControlName="ClientContact" size="40" maxlength="40"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Client Contact Telephone' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <input id="ClientContactTelephoneNumber" class="form-control" type="text" formControlName="ClientContactTelephoneNumber"
+                            size="20" maxlength="20" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Client Contact Position' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <input id="ClientContactPosition" class="form-control" type="text" formControlName="ClientContactPosition" size="20" maxlength="20"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Origin Code' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <icabs-lostbusiness-requestorigin-languagesearch #RequestOrigin [inputParams]="inputParamsOrigin" [active]="originCodeSelected"
+                            (receivedLanguageSearch)="onOriginDataReceived($event)" [isRequired]="true"></icabs-lostbusiness-requestorigin-languagesearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Branch Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <icabs-branchsearch [inputParams]="inputParamsBranch" [active]="branchNumberSelected" (receivedbranchsearch)="onBranchDataReceived($event)"
+                            [isRequired]="true"></icabs-branchsearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Passed To Employee' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col7 pr5">
+                        <input id="EmployeeCode" class="form-control" type="text" formControlName="EmployeeCode" size="6" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="EmployeeSurname" class="form-control" type="text" formControlName="EmployeeSurname" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.employee.childConfigParams" [contentComponent]="ellipsisParams.employee.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('Employee', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.employee.isDisabled" [showCloseButton]="ellipsisParams.employee.isShowCloseButton"
+                            [showHeader]="ellipsisParams.employee.isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 mb10" *ngIf="isTrCreateProspect">
+                <div class="col-sm-4">
+                    <div class="col24 mt10">
+                        <input type="checkbox" id="CreateProspectInd" formControlName="CreateProspectInd">
+                        <label for="CreateProspectInd">{{ 'Create Prospect' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Narrative' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col22 pr5">
+                        <textarea id="LostBusinessRequestNarrative" class="form-control" placeholder="" formControlName="LostBusinessRequestNarrative"
+                            rows="3" cols="60" eTypeTextFree></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <input class="btn btn-primary mr5" type="submit" value="{{ 'Save' | translate }}">
+                    <input class="btn btn-secondary mr5" type="button" value="{{ 'Cancel' | translate }}" (click)="cancelOnClick($event)">
+                    <input class="btn btn-additional" type="button" value="{{ 'Cancel Request' | translate }}" [style.display]="isAddMode ? 'none' : ''"
+                        (click)="cancelRequestOnClick($event)">
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <icabs-dropdown-static #menu id="menu" [inputData]="menuList" (onSelect)="menuSelectOnChange($event)" [disabled]="isAddMode"></icabs-dropdown-static>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

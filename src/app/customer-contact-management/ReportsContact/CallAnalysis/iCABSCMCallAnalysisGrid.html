@@ -1,0 +1,120 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="ViewBy">{{ 'View By' | translate }}</label>
+                    <div class="col16">
+                        <select id="ViewBy" class="form-control" formControlName="ViewBy" [(ngModel)]="viewBySelected" (change)="setViewBy($event.target.value)"
+                            eTypeTextFree>
+                            <option value="account">{{ 'Account' | translate }}</option>
+                            <option value="branch">{{ 'Branch' | translate }}</option>
+                            <option selected value="employee">{{ 'Employee' | translate }}</option>
+                            <option value="region">{{ 'Region' | translate }}</option>
+                            <option value="team">{{ 'Team' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="viewBySelected!=='branch'">
+                    <label class="col24" for="ViewBy">{{ viewBySelectedLabel | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="ViewByValue" class="form-control" type="text" size="12" maxlength="12" formControlName="ViewByValue" (change)="viewByValueTabout($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ViewByValueDesc" class="form-control" type="text" size="25" maxlength="25" formControlName="ViewByValueDesc" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis *ngIf="viewBySelected==='employee'" [(showHeader)]="ellipsisConfig[viewBySelected].showHeader" [(showCloseButton)]="ellipsisConfig[viewBySelected].showCloseButton"
+                            [(childConfigParams)]="ellipsisConfig[viewBySelected].childConfigParams" [(contentComponent)]="ellipsisConfig[viewBySelected].contentComponent"
+                            [(modalConfig)]="ellipsisConfig[viewBySelected].modalConfig" (ellipsisData)="onEllipsisDataReceived($event, viewBySelected)"></icabs-ellipsis>
+                        <icabs-ellipsis *ngIf="viewBySelected==='account'" [(showHeader)]="ellipsisConfig[viewBySelected].showHeader" [(showCloseButton)]="ellipsisConfig[viewBySelected].showCloseButton"
+                            [(childConfigParams)]="ellipsisConfig[viewBySelected].childConfigParams" [(contentComponent)]="ellipsisConfig[viewBySelected].contentComponent"
+                            [(modalConfig)]="ellipsisConfig[viewBySelected].modalConfig" (ellipsisData)="onEllipsisDataReceived($event, viewBySelected)"></icabs-ellipsis>
+                        <icabs-ellipsis *ngIf="viewBySelected==='region'" [(showHeader)]="ellipsisConfig[viewBySelected].showHeader" [(showCloseButton)]="ellipsisConfig[viewBySelected].showCloseButton"
+                            [(childConfigParams)]="ellipsisConfig[viewBySelected].childConfigParams" [(contentComponent)]="ellipsisConfig[viewBySelected].contentComponent"
+                            [(modalConfig)]="ellipsisConfig[viewBySelected].modalConfig" (ellipsisData)="onEllipsisDataReceived($event, viewBySelected)"></icabs-ellipsis>
+                        <icabs-ellipsis *ngIf="viewBySelected==='team'" [(showHeader)]="ellipsisConfig[viewBySelected].showHeader" [(showCloseButton)]="ellipsisConfig[viewBySelected].showCloseButton"
+                            [(childConfigParams)]="ellipsisConfig[viewBySelected].childConfigParams" [(contentComponent)]="ellipsisConfig[viewBySelected].contentComponent"
+                            [(modalConfig)]="ellipsisConfig[viewBySelected].modalConfig" (ellipsisData)="onEllipsisDataReceived($event, viewBySelected)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="viewBySelected==='branch'">
+                    <label class="col24" for="ViewBy">{{ viewBySelectedLabel | translate }}</label>
+                    <icabs-branchsearch [inputParams]="inputParamsBranch" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="branchSelected"></icabs-branchsearch>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContactType">{{ 'Contact Type' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #contactTypeDropdown class="" [inputData]="contactTypeCodesList" (onSelect)="onContactTypeSelect($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetail">{{ 'Detail' | translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #contactDetailDropdown class="" [inputData]="contactTypeDetailCodesList" (onSelect)="onContactTypeDetailSelect($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <!-- Removed after discussion with SME team
+                    <label class="col24" for="ContactStatusCode">{{ 'Contact Status' | translate}}</label>
+                    <div class="col16">
+                        <select id="ContactStatusCode" class="form-control" formControlName="ContactStatusCode">
+                            <option value="account">{{ 'All' | translate }}</option>
+                        </select>
+                    </div>-->
+                </div>
+                <div class="col-sm-3">
+                    <div class="col16 mt20">
+                        <input type="checkbox" id="chkIncludeInactive" formControlName="chkIncludeInactive" (change)="onChangeIncludeInactive()">
+                        <label for="chkIncludeInactive">{{ 'Include Inactive' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-3">
+                    <div class="col8 pr5">
+                        <label for="FromDate">{{ 'From' | translate }}<span class="mandatory">*</span></label>
+                        <icabs-datepicker #fromDate [dt]="fromDateValue" [isRequired]="true" (selectedValue)="datePickerSelectedValue($event, 'FromDate')"></icabs-datepicker>
+                    </div>
+                    <div class="col8">
+                        <label for="ToDate">{{ 'To' | translate }}<span class="mandatory">*</span></label>
+                        <icabs-datepicker #toDate [dt]="toDateValue" [isRequired]="true" (selectedValue)="datePickerSelectedValue($event, 'ToDate')"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refreshGrid()"></icabs-refresh>
+                    <icabs-pagination #callAnalysisPagination *ngIf="gridParams.totalRecords > 0" [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #callAnalysisGrid [maxColumns]="gridParams.maxColumn" [itemsPerPage]="gridParams.itemsPerPage" [currentPage]="gridParams.currentPage"
+                        (selectedRowInfo)="onGridColumnDbClick($event)" [sortHeaders]="gridSortHeaders" (gridInfo)="getGridInfo($event)"
+                        [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+
+<icabs-modal #errorModal="child" [showHeader]="true" [content]="messageContentError">
+</icabs-modal>

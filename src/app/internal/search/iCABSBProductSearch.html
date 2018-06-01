@@ -1,0 +1,143 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{'Product Code/Description Search'|translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <!--<div class="row mt10 hidden" [ngClass]="{'hidden':(!this['pageParams']['vServiceCoverDispLevelEnabled']  || !this['pageParams']['vProdLinkEnabled'])}">-->
+            <div class="row mt10">
+                <div class="col-sm-2" *ngIf="tdLineOfService">
+                    <label class="col24">{{'Business'|translate}}</label>
+                    <div class="col24">
+                        <select id="LOSCode" class="form-control" formControlName="LOSCode">
+                            <option selected value="" >{{'All' | translate }}</option>
+                            <option *ngFor="let item of lineOfService" value="{{item.LOSCode}}" >{{item.LOSName}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Search Type'|translate}}</label>
+                    <div class="col24">
+                        <select id="ProductSearchType" size=1 accesskey=t class="form-control" formControlName="ProductSearchType" (change)="productSearchType_onchange($event.target.value)">
+                                <option value="Code" selected>{{'Product Code'|translate}}</option>
+                                <option value="Description">{{'Product Description'|translate}}</option>
+                                <option value="AlternateProduct" [ngClass]="{'hidden':hideServiceCoverDispLevelBlock}">{{'Alternate Product Code'|translate}}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Search'|translate}}</label>
+                    <div class="col24">
+                        <input id="ProductSearchValue" #ProductSearchValue size="20" maxlength="30" class="form-control" type="text" formControlName="ProductSearchValue"
+                            (change)="productSearchValue_onchange($event.target.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden" [ngClass]="{'hidden':hideServiceCoverDispLevelBlock}">
+                <div class="col-sm-2">
+                    <label class="col24">{{'Default Range'|translate}}</label>
+                    <div class="col24">
+                        <input id="ProductRange" size="15" maxlength="20" class="form-control" type="text" formControlName="ProductRange">
+                        <!--<icabs-dropdown></icabs-dropdown>-->
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Other Ranges'|translate}}</label>
+                    <div class="col24">
+                        <input id="ProductOtherRange1" size="15" maxlength="20" class="form-control" type="text" formControlName="ProductOtherRange1">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col12 pr5">
+                        <input id="ProductOtherRange2" size="15" maxlength="20" class="form-control" type="text" formControlName="ProductOtherRange2">
+                    </div>
+                    <div class="col12">
+                        <input id="ProductOtherRange3" size="15" maxlength="20" class="form-control" type="text" formControlName="ProductOtherRange3">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 hidden" [ngClass]="{'hidden':hideServiceCoverDispLevelBlock}">
+                <div class="col-sm-2">
+                    <label class="col24">{{'Replacement'|translate}}</label>
+                    <div class="col24">
+                        <select id="ReplacementSearchType" size=1 accesskey=t class="form-control" formControlName="ReplacementSearchType">
+                                <option value="All" selected>{{'All'|translate}}</option>
+                                <option value="Yes">{{'Yes'|translate}}</option>
+                                <option value="No">{{'No'|translate}}</option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Rotational'|translate}}</label>
+                    <div class="col24">
+                        <select id="RotationalProductSearchType" size=1 accesskey=t class="form-control" formControlName="RotationalProductSearchType">
+                                <option value="All" selected>{{'All'|translate}}</option>
+                                <option value="Yes">{{'Yes'|translate}}</option>
+                                <option value="No">{{'No'|translate}}</option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2 hidden" [ngClass]="{'hidden':hideServiceCoverDispLevelBlock}">
+                    <label class="col24">{{'Component Type'|translate}}</label>
+                    <div class="col24">
+                        <select id="ComponentTypeCodeSearchType" size=1 accesskey=t class="form-control" formControlName="ComponentTypeCodeSearchType">
+                                <option value="Blank">{{'Blank'|translate}}</option>
+                                <option value="All" selected>{{'All'|translate}}</option>
+                                <option *ngFor="let item of componentType" value="{{item.ComponentTypeCode}}" >{{item.ComponentTypeCode}} </option>
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-6 mt20">
+                    <input type="button" value="{{'Search'|translate}}" class="btn btn-primary" (click)="cmdSearch_onclick()">
+                    <input type="button" value="{{'Add New'|translate}}" class="btn btn-secondary" *ngIf="inputParams.isShowAddNew" (click)="onAddNew()">
+                </div>
+            </div>
+            <!--</div>-->
+            <!--<div class="row mt10 hidden" [ngClass]="{'hidden':(this['pageParams']['vServiceCoverDispLevelEnabled']  && this['pageParams']['vProdLinkEnabled'])}">
+                <div class="col-sm-2" *ngIf="tdLineOfService">
+                    <label class="col24">{{'Business'|translate}}</label>
+                    <div class="col24">
+                        <select id="LOSCode" class="form-control" formControlName="LOSCode">
+                            <option selected value="" >{{'All' | translate }}</option>
+                            <option *ngFor="let item of lineOfService" value="item.LOSCode" >{{item.LOSName}} </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Search Type'}}</label>
+                    <div class="col24">
+                        <select id="ProductSearchType" size=1 accesskey=t class="form-control" formControlName="ProductSearchType" (change)="productSearchType_onchange($event.target.value)">
+                            <option value="Code" selected>{{'Product Code'|translate}}</option>
+                            <option value="Description">{{'Product Description'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Search'|translate}}</label>
+                    <div class="col24">
+                        <input id="ProductSearchValue" #ProductSearchValue size="20" maxlength="30" class="form-control" type="text" formControlName="ProductSearchValue"
+                            (change)="productSearchValue_onchange($event.target.value)">
+                    </div>
+                </div>
+                <div class="col-sm-2 mt20">
+                    <input type="button" value="{{'Search'|translate}}" class="btn btn-primary" (click)="cmdSearch_onclick()">
+                </div>
+            </div>-->
+
+            <hr class="mt15 mb15" />
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #riTable [paginationTop]="false" (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage"
+                        [columns]="columns" [rowmetadata]="rowmetadata" (onRefresh)="updateView()" [doTranslate]="true"></icabs-table>
+                </div>
+            </div>
+        </section>
+        <input class="form-control hidden" id="LOSCodeSel" formControlName="LOSCodeSel" />
+    </form>
+</section>

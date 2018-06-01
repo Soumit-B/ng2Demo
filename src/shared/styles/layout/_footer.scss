@@ -1,0 +1,24 @@
+// File Name: _footer.scss
+// Description: global footer styles
+// Used by: Page.scss
+// Dependencies:
+// ------------------------------------------------------------
+.parent-footer {
+    margin: 0;
+    display: table;
+    width: 100%;
+}
+
+.custom-footer {
+    height: $footer_height;
+    text-align: center;
+    font-size: $regularSize;
+    line-height: $regularSize;
+    color: $footer_color;
+    background-color: $footer_bg_color;
+    display: table-cell;
+    vertical-align: middle;
+    a{
+        color: $footer_color;
+    }
+}

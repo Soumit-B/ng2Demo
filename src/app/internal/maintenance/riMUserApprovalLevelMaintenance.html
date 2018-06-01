@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'User Credit Approval Level' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">Approval Level Code</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ApprovalLevelCode" size="2" maxlength="2" class="form-control" formControlName1="ApprovalLevelCode">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">Approval Level Description</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ApprovalLevelDescription" size="30" maxlength="30" class="form-control" formControlName1="ApprovalLevelDescription">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">Lower Limit</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ApprovalLevelLowerLimit" size="20" maxlength="30" value="0" class="form-control" formControlName1="ApprovalLevelLowerLimit">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">Upper Limit</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ApprovalLevelUpperLimit" size="20" maxlength="30" value="0" class="form-control" formControlName1="ApprovalLevelUpperLimit">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">Monthly Limit</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="ApprovalLevelMonthlyLimit" size="20" maxlength="30" value="0" class="form-control" formControlName1="ApprovalLevelMonthlyLimit">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer mt5">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary" value="Save">
+                    <input type="button" class="btn btn-secondary" value="Cancel">
+                    <input type="submit" class="btn btn-additional" value="Delete">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

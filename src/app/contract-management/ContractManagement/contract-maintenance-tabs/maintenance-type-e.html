@@ -1,0 +1,82 @@
+<form novalidate [formGroup]="maintenanceEFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div class="mt10">
+        <div class="row margin-zero" *ngIf="radioVisibility.visibleRow1 === true">
+            <div class="form-item col-sm-3  padding-left-zero ">
+                <div class="form-group row ">
+                    <label class="col-sm-12">{{"Plan Visits require customer's reference" | translate}}</label>
+                    <div class="col-sm-12 mt10">
+                        <label class="inline padding-right-m" *ngFor="let row of radioList.radioRow1">
+                            <input type="radio" class="" name="radio1" [(ngModel)]="radioModel.radioRow1" [value]="row.value" [ngModelOptions]="{standalone: true}" [disabled]="!row.enable"><span class="padding-left-s">{{row.display | translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero" *ngIf="radioVisibility.visibleRow2 === true">
+            <div class="form-item col-sm-3  padding-left-zero">
+                <div class="form-group row">
+                    <label class="col-sm-12">{{'Each routine follow-up requires its own work order' | translate }}</label>
+                    <div class="col-sm-12 mt10">
+                        <label class="inline padding-right-m" *ngFor="let row of radioList.radioRow2">
+                            <input type="radio" class="" name="radio2" [(ngModel)]="radioModel.radioRow2" [value]="row.value" [ngModelOptions]="{standalone: true}" [disabled]="!row.enable"><span class="padding-left-s">{{row.display | translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero" *ngIf="radioVisibility.visibleRow3 === true">
+            <div class="form-item col-sm-3  padding-left-zero">
+                <div class="form-group row ">
+                    <label class="col-sm-12">{{'Callout follow-up requires new work orders' | translate}}</label>
+                    <div class="col-sm-12 mt10">
+                        <label class="inline padding-right-m" *ngFor="let row of radioList.radioRow3">
+                            <input type="radio" class="" name="radio3" [(ngModel)]="radioModel.radioRow3" [value]="row.value" [ngModelOptions]="{standalone: true}" [disabled]="!row.enable"><span class="padding-left-s">{{row.display | translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero" *ngIf="radioVisibility.visibleRow4 === true">
+            <div class="form-item col-sm-3  padding-left-zero ">
+                <div class="form-group row ">
+                    <label class="col-sm-12">{{'Each callout follow-up requires its own work order' | translate}}</label>
+                    <div class="col-sm-12 mt10">
+                        <label class="inline padding-right-m" *ngFor="let row of radioList.radioRow4">
+                            <input type="radio" class="" name="radio4" [(ngModel)]="radioModel.radioRow4" [value]="row.value" [ngModelOptions]="{standalone: true}" [disabled]="!row.enable"><span class="padding-left-s">{{row.display | translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero">
+            <div class="form-item col-sm-3  padding-left-zero ">
+                <div class="form-group row">
+                    <label class="col-sm-12" for="CICResponseSLA">{{'Callout response SLA' | translate}}</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" placeholder="" [attr.maxlength]="50" id="CICResponseSLA" formControlName="CICResponseSLA" (blur)="checkNumeric($event);" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero">
+            <div class="form-item col-sm-3  padding-left-zero">
+                <div class="form-group row ">
+                    <label class="col-sm-12" for="CIFirstSLAEscDays">{{'Number of days to first infestation SLA escalation' | translate}}</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" placeholder="" [attr.maxlength]="10" id="CIFirstSLAEscDays" formControlName="CIFirstSLAEscDays" (blur)="checkNumeric($event);" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-zero">
+            <div class="form-item col-sm-3  padding-left-zero ">
+                <div class="form-group row ">
+                    <label class="col-sm-12" for="CISubSLAEscDays">{{'Number of days to subsequent infestation SLA escalation' | translate}}</label>
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" placeholder="" [attr.maxlength]="10" id="CISubSLAEscDays" formControlName="CISubSLAEscDays" (blur)="checkNumeric($event);" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

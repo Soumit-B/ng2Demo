@@ -1,0 +1,66 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Info Number' | translate}}</label>
+                    <div class="col8">
+                        <input type="text" size="8" maxlength="8" class="form-control" id="CustomerInfoNumber" formControlName="CustomerInfoNumber"
+                            pattern="[0-9]+" (change)="customerInfoChanged($event.target)">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Info Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" maxlength="40" class="form-control" id="CustomerInfoName" formControlName="CustomerInfoName"
+                            pattern="[a-zA-Z0-9 ]+" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Branch Number' | translate}}</label>
+                    <div class="col6">
+                        <input type="text" size="5" maxlength="5" class="form-control" id="BranchNumber" formControlName="BranchNumber" pattern="[0-9]+"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #accountAddressPagination [totalItems]="totalRecords" *ngIf="totalRecords > 0 && errorNumber" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    <!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #accountAddressPagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+                </div>
+            </div>
+            <div class="row mt10" [ngClass]="errorNumber?'':'hidden'">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #customerInfoMaintainenceGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+                        (gridInfo)="getGridInfo($event)" (getCellData)="onGridRowClick($event)" (selectedRowInfo)="onGridRowDblClick($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)" (bodyKeyDown)="riGrid_BodyOnKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+        <input id="Mode" formControlName="Mode" style="display:none">
+        <input id="CustomerPassNumber" formControlName="CustomerPassNumber" style="display:none">
+        <input id="CustomerPassLevel" formControlName="CustomerPassLevel" style="display:none">
+        <input id="CallingProg" formControlName="CallingProg" style="display:none">
+        <input id="InfoLevel" formControlName="InfoLevel" style="display:none">
+
+    </form>
+</section>

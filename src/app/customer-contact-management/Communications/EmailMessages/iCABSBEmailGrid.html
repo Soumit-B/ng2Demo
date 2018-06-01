@@ -1,0 +1,78 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ pageTitle | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="uiForm">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" id="spanEmployeeCode">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" type="text" class="form-control" (change)="fetchAPIDetails($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" formControlName="EmployeeSurname" type="text" class="form-control">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsemployee" [contentComponent]="employeeSearchComponent"
+                            [modalConfig]="modalConfig" [showHeader]="showHeader" (ellipsisData)="onEmployeeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" id="spanselectStatus">{{ 'Status' | translate }}</label>
+                    <div class="col24">
+                        <select id="selectStatus" formControlName="selectStatus" class="form-control">
+                            <option value="Sent">{{ 'Sent Messages' | translate }}</option>
+                            <option value="Created">{{ 'Created Messages' | translate }}</option>
+                            <option value="Unsent">{{ 'Unsent Messages' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{ 'Date From' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateFrom" [dt]='DateFrom' name="DateFrom" (selectedValue)="dateFromSelectedValue($event)" [isRequired]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24"> {{ 'Date To' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateTo" [dt]='DateTo' name="DateTo" (selectedValue)="dateToSelectedValue($event)" [isRequired]="true"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" id="spanselectMailType">{{ 'Type' | translate }}</label>
+                    <div class="col24">
+                        <select id="selectDestination" formControlName="selectDestination" class="form-control">
+                            <option value="I">{{ 'Internal Messages' | translate }}</option>
+                            <option value="E">{{ 'External Messages' | translate }}</option>
+                           
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <span [ngClass]="visiblePagination ? '' : 'hidden'"><icabs-pagination #emailPagination [totalItems]="gridTotalItems" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination></span>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid #emailGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [validateProperties]="validateProperties"
+                        (gridInfo)="getGridInfo($event)"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #messageModal="child" [(showHeader)]="showErrorHeader"></icabs-modal>

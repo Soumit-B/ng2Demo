@@ -1,0 +1,104 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" type="text" formControlName="ContractNumber" size="8" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" class="form-control" type="text" formControlName="ContractName" size="30" [attr.maxlength]="35">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24" for="DateFrom">{{ 'Service Date From' | translate}}</label>
+                        <input id="DateFrom" class="form-control" formControlName="DateFrom" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="DateTo">{{ 'To' | translate}}</label>
+                        <input id="DateTo" class="form-control" formControlName="DateTo" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="8" [attr.maxlength]="5">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" for="ServiceAnnualValue">{{ 'Annual Value' | translate}}</label>
+                        <input id="ServiceAnnualValue" class="form-control" formControlName="ServiceAnnualValue" type="text" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="8" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" for="ServiceVisitFrequency">{{ 'Visit Freq' | translate}}</label>
+                        <input id="ServiceVisitFrequency" class="form-control" formControlName="ServiceVisitFrequency" type="text" size="3">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="col8">
+                        <label class="col24" for="VisitValue">{{ 'Visit Value' | translate}}</label>
+                        <input id="VisitValue" class="form-control" formControlName="VisitValue" type="text" size="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="col8">
+                        <label class="col24" for="ServiceQuantity">{{ 'Service Quantity' | translate}}</label>
+                        <input id="ServiceQuantity" class="form-control" formControlName="ServiceQuantity" type="text" size="1-">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-additional mr5" value="{{ 'Calculate Productivity' | translate }}">
+                    <input type="button" class="btn btn-additional" value="{{ 'Release' | translate }}">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

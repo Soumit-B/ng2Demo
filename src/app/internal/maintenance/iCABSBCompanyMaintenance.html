@@ -1,0 +1,522 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="CompanyCode">{{ 'Company Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="CompanyCode" class="form-control" formControlName="CompanyCode" type="text" size="2" maxlength="2">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="CompanyDesc" class="form-control" formControlName="CompanyDesc" type="text" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active" id="grdGeneral">
+                            <a class="nav-link active">
+                                <span>{{'General'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdAddress">
+                            <a class="nav-link">
+                                <span>{{'Address'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdRegistration">
+                            <a class="nav-link">
+                                <span>{{'Registration'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdInvoicing">
+                            <a class="nav-link">
+                                <span>{{'Invoicing'|translate }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="grdLockBoxAddress">
+                            <a class="nav-link">
+                                <span>{{'LocalBox Address'|translate }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--General Tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="grdGeneral" class="mt10">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="DefaultCompanyInd" formControlName="DefaultCompanyInd">
+                                            <label class="col24" for="DefaultCompanyInd">{{'Default Company'|translate}}<span class="mandatory">*</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <label class="col24" for="APICode">{{'API'|translate}}</label>
+                                            <icabs-dropdown id="APICode"></icabs-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <label class="col24" for="AcquisitionDate">{{'Acquisition Date'|translate}}</label>
+                                            <icabs-datepicker id="AcquisitionDate"></icabs-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="AccountSortCode">{{ 'BIC' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="AccountSortCode" class="form-control" formControlName="AccountSortCode" type="text" size="10" maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="DomesticBankAccountNumber">{{ 'Bank Account' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="DomesticBankAccountNumber" class="form-control" formControlName="DomesticBankAccountNumber" type="text" size="80"
+                                                maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InternationalBankAccountNumber">{{ 'International Bank Account' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InternationalBankAccountNumber" class="form-control" formControlName="InternationalBankAccountNumber" type="text"
+                                                size="30" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="SeparateCompanyInvoices">{{ 'Separate Invoices' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="SeparateCompanyInvoices" class="form-control" formControlName="SeparateCompanyInvoices" type="text" size="10"
+                                                maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="AllowMixedAccountsIND" formControlName="AllowMixedAccountsIND">
+                                            <label class="col24" for="AllowMixedAccountsIND">{{'Allow Mixed Accounts'|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" class="form-control" id="UseDefaultCompanyInvoiceRange" formControlName="UseDefaultCompanyInvoiceRange">
+                                            <label class="col24" for="UseDefaultCompanyInvoiceRange">{{'Use Default Company Invoice Range'|translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Address Tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdAddress" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAddressLine1">{{ 'Company Address Line 1' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyAddressLine1" class="form-control" formControlName="CompanyAddressLine1" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAddressLine2">{{ 'Company Address Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyAddressLine2" class="form-control" formControlName="CompanyAddressLine2" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAddressLine3">{{ 'Company Address Line 3' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyAddressLine3" class="form-control" formControlName="CompanyAddressLine3" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAddressLine4">{{ 'Town' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <input id="CompanyAddressLine4" class="form-control" formControlName="CompanyAddressLine4" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAddressLine5">{{ 'Country' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <input id="CompanyAddressLine5" class="form-control" formControlName="CompanyAddressLine5" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyPostCode">{{ 'Post Code' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyPostCode" class="form-control" formControlName="CompanyPostCode" type="text" size="15" maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyTelephone">{{ 'Phone' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyTelephone" class="form-control" formControlName="CompanyTelephone" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyFax">{{ 'Fax' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyFax" class="form-control" formControlName="CompanyFax" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyEmail">{{ 'Email' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyEmail" class="form-control" formControlName="CompanyEmail" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyWebsite">{{ 'Website' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyWebsite" class="form-control" formControlName="CompanyWebsite" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyRepresentativeName">{{ 'Company Representative Name' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyRepresentativeName" class="form-control" formControlName="CompanyRepresentativeName" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyContactName">{{ 'Company Contact Name' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyContactName" class="form-control" formControlName="CompanyContactName" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyContactDepartment">{{ 'Company Contact Department' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyContactDepartment" class="form-control" formControlName="CompanyContactDepartment" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Registration Tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdRegistration" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyGroupName">{{ 'Company Group Name' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyGroupName" class="form-control" formControlName="CompanyGroupName" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyRegistrationTown">{{ 'Registration Town' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyRegistrationTown" class="form-control" formControlName="CompanyRegistrationTown" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyRegistrationNumber">{{ 'Registration Number' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyRegistrationNumber" class="form-control" formControlName="CompanyRegistrationNumber" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyVATNumber">{{ 'VAT Number' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyVATNumber" class="form-control" formControlName="CompanyVATNumber" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyTypeText">{{ 'Company Type Text' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyTypeText" class="form-control" formControlName="CompanyTypeText" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyActivityText">{{ 'Activity Text' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyActivityText" class="form-control" formControlName="CompanyActivityText" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyAgreementText">{{ 'Agreements Text' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyAgreementText" class="form-control" formControlName="CompanyAgreementText" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="TaxCodeDesc">{{ 'Tax Code' | translate}}</label>
+                                        <div class="col24">
+                                            <icabs-dropdown id="TaxCodeDesc"></icabs-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CreditorID">{{ 'Creditor Identity Number' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <input id="CreditorID" class="form-control" formControlName="CreditorID" type="text" size="40" maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="MandatePrefix">{{ 'Mandate Prefix' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="MandatePrefix" class="form-control" formControlName="MandatePrefix" type="text" size="3" maxlength="3">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="NAVCompanyCode">{{ 'Navision Company Code' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="NAVCompanyCode" class="form-control" formControlName="NAVCompanyCode" type="text" size="4" maxlength="4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Invoicing Tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdInvoicing" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="MinimumCompanyInvoiceNumber">{{ 'Minimum Invoice Number' | translate}}<span class="mandatory">*</span></label>
+                                        <div class="col24">
+                                            <input id="MinimumCompanyInvoiceNumber" class="form-control" formControlName="MinimumCompanyInvoiceNumber" type="text" size="10"
+                                                maxlength="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine1">{{ 'Invoice Message Line 1' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine1" class="form-control" formControlName="InvoiceMessageLine1" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine2">{{ 'Invoice Message Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine2" class="form-control" formControlName="InvoiceMessageLine2" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine3">{{ 'Invoice Message Line 3' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine3" class="form-control" formControlName="InvoiceMessageLine3" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine4">{{ 'Invoice Message Line 4' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine4" class="form-control" formControlName="InvoiceMessageLine4" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine5">{{ 'Invoice Message Line 5' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine5" class="form-control" formControlName="InvoiceMessageLine5" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine6">{{ 'Invoice Message Line 6' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine6" class="form-control" formControlName="InvoiceMessageLine6" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine7">{{ 'Invoice Message Line 7' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine7" class="form-control" formControlName="InvoiceMessageLine7" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine8">{{ 'Invoice Message Line 8' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine8" class="form-control" formControlName="InvoiceMessageLine8" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine9">{{ 'Invoice Message Line 9' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine9" class="form-control" formControlName="InvoiceMessageLine9" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="InvoiceMessageLine10">{{ 'Invoice Message Line 10' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="InvoiceMessageLine10" class="form-control" formControlName="InvoiceMessageLine10" type="text" size="40" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--LocalBox Address Tab content-->
+                    <div class="tab-content">
+                        <div class="tab-pane">
+                            <div id="grdLockBoxAddress" class="mt10">
+                                <div class="row mt5">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxAddressLine1">{{ 'Company LockBox Address Line 1' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxAddressLine1" class="form-control" formControlName="CompanyLockBoxAddressLine1" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxAddressLine2">{{ 'Company LockBox Address Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxAddressLine2" class="form-control" formControlName="CompanyLockBoxAddressLine2" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxAddressLine3">{{ 'Company LockBox Address Line 2' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxAddressLine3" class="form-control" formControlName="CompanyLockBoxAddressLine3" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxAddressLine4">{{ 'Town' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxAddressLine4" class="form-control" formControlName="CompanyLockBoxAddressLine4" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxAddressLine5">{{ 'Country' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxAddressLine5" class="form-control" formControlName="CompanyLockBoxAddressLine5" type="text" size="40"
+                                                maxlength="40">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24" for="CompanyLockBoxPostCode">{{ 'Post Code' | translate}}</label>
+                                        <div class="col24">
+                                            <input id="CompanyLockBoxPostCode" class="form-control" formControlName="CompanyLockBoxPostCode" type="text" size="15" maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-additional mr5" value="{{'Add' | translate}}">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

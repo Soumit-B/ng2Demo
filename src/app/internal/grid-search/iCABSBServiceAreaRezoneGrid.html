@@ -1,0 +1,128 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'From Service Area' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="6" [attr.maxlength]="4">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BranchServiceAreaDesc" class="form-control" formControlName="BranchServiceAreaDesc" type="text" size="25" [attr.maxlength]="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="ContractTypeCode">{{ 'Show' | translate}}</label>
+                        <select id="ContractTypeCode" class="form-control" formControlName="ContractTypeCode"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCodeTo">{{ 'To Service Area' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCodeTo" class="form-control" formControlName="BranchServiceAreaCodeTo" type="text" size="6" [attr.maxlength]="4">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BranchServiceAreaDescTo" class="form-control" formControlName="BranchServiceAreaDescTo" type="text" size="25"
+                            [attr.maxlength]="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="PortfolioStatusType">{{ 'Show' | translate}}</label>
+                        <select id="PortfolioStatusType" class="form-control" formControlName="PortfolioStatusType">
+                            <option  value="All">{{ 'All' | translate}}</option>
+                            <option selected value="Current">{{ 'Current Portfolio' | translate}}</option>
+                            <option  value="NonCurrent">{{ 'Non Current Portfolio' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductServiceGroupCode">{{ 'Product Group' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductServiceGroupCode" class="form-control" formControlName="ProductServiceGroupCode" type="text" size="6" [attr.maxlength]="4">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductServiceGroupDesc" class="form-control" formControlName="ProductServiceGroupDesc" type="text" size="25"
+                            [attr.maxlength]="30">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Postcode">{{ 'Postcode' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="Postcode" class="form-control" formControlName="Postcode" type="text" size="10" [attr.maxlength]="8">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="State">{{ 'State' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="State" class="form-control" formControlName="State" type="text" size="20" [attr.maxlength]="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Town">{{ 'Town' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="Town" class="form-control" formControlName="Town" type="text" size="20" [attr.maxlength]="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{'Rezone All' | translate}}">
+                    </div>
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{'Undo Rezone' | translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

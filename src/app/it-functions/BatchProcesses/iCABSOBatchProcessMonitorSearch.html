@@ -1,0 +1,59 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Batch Process Monitor Search Criteria' | translate }}
+                <!--<span class="font-sm inline-block pl20">
+                    <span class="mandatory">*</span>{{ 'are mandatory fields' | translate }}
+                </span>-->
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="uiForm">
+        <div class="row mt10">
+            <div class="col-sm-3">
+                <label class="col24" id="labelBatchProcessTypeCode" for="BatchProcessTypeCode">{{ 'Status' | translate }} <span id="SpanBatchProcessTypeCode"> </span></label>
+                <div class="col24">
+                    <select id="BatchProcessTypeCode" class="form-control" formControlName="BatchProcessTypeCode">
+                            <option value = "0">{{ 'Scheduled' | translate }}</option>
+                            <option value="1">{{ 'Submitted' | translate }}</option>
+                            <option selected value="2">{{ 'Executing' | translate }}</option>
+                            <option value="3">{{ 'Completed' | translate }}</option>
+                            <option value="4">{{ 'Failed' | translate }}</option>
+                            <option value="5">{{ 'Failed by Operations' | translate }}</option>
+                        </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" id="labelUserCode" for="UserCode">{{ 'User Code' | translate }} <span id="SpanUserCode">{{ '(blank for all)' | translate}} </span></label>
+                <div class="col16 pr10">
+                    <input id="UserCode" class="form-control" formControlName="BatchProcessUserCode" size=16 />
+                </div>
+                <div class="col8">
+                    <button class="btn btn-sm btn-primary" (click)="buildTable()">{{ 'Search' | translate }}</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt20 mb20">
+        <div class="row mb20">
+             <div class="col-sm-12 mt10">
+                <icabs-table #batchProcessMonitorTable (selectedData)="onSelect($event)" [columns]="columns" [paginationTop]="true" [displayError]="false"
+                    [tableheader]="tableheading" (dataLoaded)="tableDataLoaded($event)" [page]="page" (click)="refresh()" [itemsPerPage]="itemsPerPage"></icabs-table>
+            </div>
+            <div class="col-sm-12 mt10">
+                <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+                </icabs-modal>
+
+                <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+                </icabs-modal>
+
+                <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+-                    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+            </div>
+        </div>
+    </form>
+</div>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

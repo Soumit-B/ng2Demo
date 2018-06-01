@@ -1,0 +1,219 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="UserCode">{{ 'UserCode' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="UserCode" class="form-control" formControlName="UserCode" type="text" size="15" maxlength="10">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="UserName">{{ 'Name' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="UserName" class="form-control" formControlName="UserName" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageCode">{{ 'Language Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="LanguageCode" class="form-control" formControlName="LanguageCode" type="text" size="3" maxlength="3">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="LanguageDescription">{{ 'Description' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="LanguageDescription" class="form-control" formControlName="LanguageDescription" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Email">{{ 'Email Address' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="Email" class="form-control" formControlName="Email" type="text" size="50" maxlength="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PhoneNumber">{{ 'Phone Number' | translate}}</label>
+                    <div class="col10  pr5">
+                        <input id="PhoneNumber" class="form-control" formControlName="PhoneNumber" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="FaxNumber">{{ 'Fax Number' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="FaxNumber" class="form-control" formControlName="FaxNumber" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Password">{{ 'Password' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="Password" class="form-control" formControlName="Password" type="password" size="20" maxlength="30">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="PasswordLastChangedDate">{{ 'Last Changed' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="PasswordLastChangedDate" class="form-control" formControlName="PasswordLastChangedDate" type="text" size="10"
+                            maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PasswordRetries">{{ 'Password Retries' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="PasswordRetries" class="form-control" formControlName="PasswordRetries" type="text" size="2" maxlength="2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="DateLastLoggedOn">{{ 'Last Logged On' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="DateLastLoggedOn" class="form-control" formControlName="DateLastLoggedOn" type="text" size="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="LocalDocumentServer">{{ 'Local Document Server' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="LocalDocumentServer" class="form-control" formControlName="LocalDocumentServer" type="text" size="25" maxlength="25">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ReportServer">{{ 'Report Server' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="ReportServer" class="form-control" formControlName="ReportServer" type="text" size="25" maxlength="25">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="UserTypeCode">{{ 'User Type Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="UserTypeCode" class="form-control" formControlName="UserTypeCode" type="text" size="3" maxlength="3">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="UserTypeDescription">{{ 'User Type Description' | translate}}</label>
+                    <div class="col10 pr5">
+                        <input id="UserTypeDescription" class="form-control" formControlName="UserTypeDescription" type="text" size="20" maxlength="20">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ApprovalLevelCode">{{ 'Credit Approval Level Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ApprovalLevelCode" class="form-control" formControlName="ApprovalLevelCode" type="text" size="4" maxlength="4">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SOUserQuoteTypeGroupCode">{{ 'SOQuote Type Group' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="SOUserQuoteTypeGroupCode" class="form-control" formControlName="SOUserQuoteTypeGroupCode" type="text" size="4"
+                            maxlength="4">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="OwnSubmissionsInd" formControlName="OwnSubmissionsInd">
+                        <label class="col24" for="OwnSubmissionsInd">{{'Own Submissions Only'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="Inactive" formControlName="Inactive">
+                        <label class="col24" for="Inactive">{{'InActive'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3>
+                        {{ 'riModel' | translate }}
+                    </h3>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="riDeveloper" formControlName="riDeveloper">
+                        <label class="col24" for="riDeveloper">{{'riDeveloper'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="riMessagingEnabled" formControlName="riMessagingEnabled">
+                        <label class="col24" for="riMessagingEnabled">{{'Messaging Enabled'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="riProgramRequestStats" formControlName="riProgramRequestStats">
+                        <label class="col24" for="riProgramRequestStats">{{'Run Request Status'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+            <div class="col-sm-offset-4 col-sm-2">
+                <div class="col24">
+                    <input type="button" class="btn btn-additional mr5" value="{{'Team Membership' | translate}}">
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>

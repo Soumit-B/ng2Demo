@@ -1,0 +1,145 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Branch' | translate}}</label>
+                    <div class="col24">
+                        <icabs-branchsearch #branchSearchDropDown [inputParams]="inputParams.branchParams" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Status' | translate}}</label>
+                    <div class="col24">
+                        <icabs-languagesearch #langSearchDropDown (LangSearchReceived)="onPCStatusCodeReceived($event)" [active]="langSelected"></icabs-languagesearch>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{'Contract' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="8" [attr.maxlength]="8" formControlName="ContractNumber"
+                            (change)="onContractDataChange()" eTypeCode icabsZeroPad>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="ContractName" size="25" [attr.maxlength]="30" formControlName="ContractName"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParams.contractParams" [contentComponent]="contractSearchComponent" (ellipsisData)="ellipsisData($event)"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="DateFilter">{{'Filter By' | translate}}</label>
+                    <div class="col24">
+                        <select id="DateFilter" formControlName="DateFilter" class="form-control">
+                            <option selected value="Effective">{{'Effective'|translate}}</option>
+                            <option value="Processed">{{'Processed'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{'Premises' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="8" [attr.maxlength]="5" formControlName="PremiseNumber"
+                            (change)="onPremiseDataChange()" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="PremiseName" size="25" [attr.maxlength]="30" formControlName="PremiseName" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="inputParams.premiseParams" [contentComponent]="premiseSearchComponent" (ellipsisData)="ellipsisData($event)"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Reason' | translate}}</label>
+                    <div class="col24">
+                        <icabs-invoice-credit-language-search #invoiceCreditReasonCode [inputParams]="dropdown.invoiceCreditReasonCode.params" [isRequired]="dropdown.invoiceCreditReasonCode.isRequired"
+                            [isTriggerValidate]="dropdown.invoiceCreditReasonCode.isTriggerValidate" [isDisabled]="dropdown.invoiceCreditReasonCode.isDisabled"
+                            [active]="dropdown.invoiceCreditReasonCode.isActive" [isFirstItemSelected]="false" (invoiceReasonCodeEmitter)="invoiceCreditReasonCodeSelected($event)"></icabs-invoice-credit-language-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{'Product' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" class="form-control" id="ProductCode" size="8" [attr.maxlength]="6" formControlName="ProductCode" (change)="onProductDataChange()"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" class="form-control" id="ProductDesc" size="25" [attr.maxlength]="30" formControlName="ProductDesc" eTypeText>
+                    </div>
+                    <div class="col2" [ngClass]="this['pageParams']['isPremiseNum'] ? 'hidden': ''">
+                        <icabs-ellipsis [childConfigParams]="inputParams.serviceCoverSearchParams" [contentComponent]="productSearchComponent" (ellipsisData)="ellipsisData($event)"
+                            [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                    <div class="col2" [ngClass]="this['pageParams']['isPremiseNum'] ? '': 'hidden'">
+                        <icabs-ellipsis [childConfigParams]="inputParams.serviceCoverSearchParams" [contentComponent]="serviceCoverSearchComponent"
+                            (ellipsisData)="ellipsisData($event)" [showHeader]="isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'Start From' | translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateFrom" [isRequired]="true" formControlName="DateFrom" [isDirectiveBased]="false"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'To' | translate}}</label>
+                        <div class="col24">
+                            <icabs-datepicker id="DateTo" [isRequired]="true" formControlName="DateTo" [isDirectiveBased]="false"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <div class="col12 pr5">
+                        <label class="col24" for="ServiceVisitFrequency">{{'Visit Freq' | translate}}</label>
+                        <div class="col24">
+                            <input type="text" class="form-control" id="ServiceVisitFrequency" size="3" formControlName="ServiceVisitFrequency" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="InvoiceCreditCode">{{'Show' | translate}}</label>
+                        <div class="col24">
+                            <select id="InvoiceCreditCode" formControlName="InvoiceCreditCode" class="form-control">
+                                <option value="All" selected>{{ 'All' | translate }}</option>
+                                <option value="I">{{ 'Invoices' | translate }}</option>
+                                <option value="C">{{ 'Credits' | translate }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #proRataChargeBPagination [ngClass]="isHidePagination ? 'hidden' : ''" [currentPage]="gridParams.pageCurrent"
+                [totalItems]="gridParams.totalRecords" [itemsPerPage]="gridParams.itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid-advanced #riGrid (headerClick)="riGridSort($event)" (bodyDblClick)="onGridRowClick($event)"></icabs-grid-advanced>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,148 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContactTypeCode" class="form-control" formControlName="ContactTypeCode" type="text" size="5" maxlength="2" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContactTypeSystemDesc" class="form-control" formControlName="ContactTypeSystemDesc" type="text" size="20" maxlength="30"
+                            eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetailCode">{{ 'Detail Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContactTypeDetailCode" class="form-control" formControlName="ContactTypeDetailCode" type="text" size="10" maxlength="10"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input id="ContactTypeDetailSystemDesc" class="form-control" formControlName="ContactTypeDetailSystemDesc" type="text" size="30"
+                            maxlength="30" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="TeamID">{{ 'Team' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="TeamID" formControlName="TeamID" size="12" maxlength="12" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="SMSTemplateCode">{{ 'SMS' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="SMSTemplateCode" formControlName="SMSTemplateCode" class="form-control" size="15" maxlength="12" />
+                        <icabs-dropdown id="SMSTemplateCode"></icabs-dropdown>
+                        <!--<icabs-notification-template-search id="SMSTemplateCode"></icabs-notification-template-search>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="EmailTemplateCode">{{ 'Email' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="EmailTemplateCode" formControlName="EmailTemplateCode" size="12" maxlength="12" class="form-control"
+                        />
+                        <icabs-dropdown id="EmailTemplateCode"></icabs-dropdown>
+                        <!--<icabs-notification-template-search id="EmailTemplateCode"></icabs-notification-template-search>-->
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="NotifyGroupCode">{{ 'Group' | translate}}</label>
+                    <div class="col16 pr5">
+                        <input type="text" id="NotifyGroupCode" formControlName="NotifyGroupCode" class="form-control" size="15" maxlength="12" />
+                        <icabs-dropdown id="NotifyGroupCode"></icabs-dropdown>
+                        <!--<icabs-notification-group-search [inputParams]="dropdown.notifyGroupCode.inputParams"></icabs-notification-group-search>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-4">
+                    <div class="col16 pr5">
+                        <select class="form-control" formControlName="BranchGroupSelect" id="BranchGroupSelect" (change)="branchGroupSelectOnChange($event)">
+                            <option selected value="All">{{'All'|translate}}</option>
+                            <option value="Branch">{{'Branch'|translate}}</option>
+                            <option value="Account">{{'Account'|translate}}</option>
+                            <option value="GroupAccount">{{'Group Account'|translate}}</option>
+                            <option value="Tier">{{'Account Tier'|translate}}</option>
+                            <option value="Business">{{'Business'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col16" *ngIf="this['pageParams']['isTierCodeisDisplay']">
+                        <input type="text" class="form-control hidden" id="TierCode" formControlName="TierCode" size="8" maxlength="8" eTypeCode
+                        />
+                        <icabs-tiersearch id="TierCode" [inputParams]="dropdown.tierCode.inputParams" [isRequired]="dropdown.tierCode.isRequired"
+                            [icabsDirFocus]="isformControlTierCode" (receivedtiersearch)="tierCodeOnChange($event)"></icabs-tiersearch>
+                    </div>
+                    <div class="col16" *ngIf="this['pageParams']['isBranchNumberisDisplay']">
+                        <icabs-branchsearch [inputParams]="dropdown.branchNumber.inputParams" (receivedbranchsearch)="branchNumberOnchange($event)"
+                            [active]="dropdown.branchNumber.active" [isRequired]="dropdown.branchNumber.isRequired"></icabs-branchsearch>
+                        <input #formControlBranchNumber type="text" class="form-control hidden" id="BranchNumber" formControlName="BranchNumber"
+                            size="8" maxlength="8" eTypeInteger />
+                    </div>
+                    <div class="col24" *ngIf="this['pageParams']['isAccountNumberisDisplay']">
+                        <div class="col16 pr5">
+                            <input id="AccountNumber" type="text" class="form-control" placeholder="" formControlName="AccountNumber" [icabsDirFocus]="isFormControlAccountNumber"
+                                (change)="accountNumberNumPadding($event)" eTypeCodeNumericAutoNumber />
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [autoOpen]="ellipsis.accountNumber.autoOpen" [showCloseButton]="ellipsis.accountNumber.showCloseButton" [childConfigParams]="ellipsis.accountNumber.childConfigParams"
+                                [contentComponent]="ellipsis.accountNumber.contentComponent" (ellipsisData)="accountNumberOnchange($event)"
+                                [showHeader]="ellipsis.accountNumber.showHeader" [searchModalRoute]="ellipsis.accountNumber.searchModalRoute"
+                                [disabled]="ellipsis.accountNumber.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col24" *ngIf="this['pageParams']['isGroupAccountNumberisDisplay']">
+                        <div class="col16 pr5">
+                            <input type="text" class="form-control" id="GroupAccountNumber" formControlName="GroupAccountNumber" size="8" maxlength="8"
+                                [icabsDirFocus]="isformControlGroupAccountNumber" eTypeInteger />
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [autoOpen]="ellipsis.groupAccountNumber.autoOpen" [showCloseButton]="ellipsis.groupAccountNumber.showCloseButton"
+                                [childConfigParams]="ellipsis.groupAccountNumber.childConfigParams" [contentComponent]="ellipsis.groupAccountNumber.contentComponent"
+                                (ellipsisData)="groupAccountNumberOnchange($event)" [showHeader]="ellipsis.groupAccountNumber.showHeader"
+                                [searchModalRoute]="ellipsis.groupAccountNumber.searchModalRoute" [disabled]="ellipsis.groupAccountNumber.disabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <input type="button" class="btn btn-sm btn-additional" value="{{'Populate' | translate}}" (click)="btnPopulateOnClick($event)"
+                        />
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="riGridOnRefresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [ngClass]="this['pageParams']['totalRecords'] > 0 ? '':'hidden'" [totalItems]="this['pageParams']['totalRecords']"
+                        [currentPage]="this['pageParams']['curPage']" [itemsPerPage]="this['pageParams']['pageSize']" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGridAfterExecute()" (bodyDblClick)="riGridBodyOnDblClick($event)"
+                        (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

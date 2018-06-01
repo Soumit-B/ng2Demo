@@ -1,0 +1,118 @@
+<div id="grdInvoiceText">
+    <form novalidate [formGroup]="invoiceTextFormGroup" (ngSubmit)="$event.preventDefault();">
+
+        <div class="row mt10" *ngIf="fieldVisibility.CurrentInvoiceGroups === true">
+            <div class="col-sm-3">
+                <label class="col24" id="labelCurrentInvoiceGroups">{{ 'Current Invoice Groups' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" formControlName="CurrentInvoiceGroups" size="5" maxlength="5" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="InvoiceNarrativeSL" formControlName="InvoiceNarrativeSL" size="2" maxlength="2"
+                        value="">
+                    <label id="spanInvoiceNarrativeSL" for="InvoiceNarrativeSL">{{ 'Invoice Narrative to SL' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="CommonStatement" formControlName="CommonStatement" size="2" maxlength="2">
+                    <label id="spanCommonStatement" for="CommonStatement">{{ 'Common Statement' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <input type="checkbox" class="form-control" id="CreateNewInvoiceGroupInd" formControlName="CreateNewInvoiceGroupInd" size="2"
+                        maxlength="2">
+                    <label id="spanCreateNewInvoiceGroupInd" for="CreateNewInvoiceGroupInd">{{ 'New Invoice Group' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt7">
+            <div class="col-sm-3">
+                <div class="col16">
+                    <input type="checkbox" class="form-control" id="OutsortInvoiceDefaultInd" formControlName="OutsortInvoiceDefaultInd" size="2"
+                        maxlength="2">
+                    <label id="spanOutsortInvoiceDefaultInd" for="OutsortInvoiceDefaultInd">{{ 'Invoice Outsort Default' | translate }}</label>
+                </div>
+                <div class="col6 pr5">
+                    <input type="button" id="cmdSetInvoiceGroupDefault" class="btn btn-primary" value="{{ 'Apply to all Invoice Groups' | translate }}"
+                        formControlName="cmdSetInvoiceGroupDefault" (click)="onCmdSetInvoiceGroupDefaultClick($event)">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText1">{{ 'Account Invoice Text 1' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" id="AccountInvoiceText1" formControlName="AccountInvoiceText1" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText2">{{ 'Account Invoice Text 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="AccountInvoiceText2" id="AccountInvoiceText2" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText3">{{ 'Account Invoice Text 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="AccountInvoiceText3" id="AccountInvoiceText3" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText4">{{ 'Account Invoice Text 4' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="AccountInvoiceText4" id="AccountInvoiceText4" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText5">{{ 'Account Invoice Text 5' | translate }}</label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="AccountInvoiceText5" id="AccountInvoiceText5" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" id="SpanAccountInvoiceText6">{{ 'Account Invoice Text 6' | translate }} </label>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" formControlName="AccountInvoiceText6" id="AccountInvoiceText6" size="50"
+                        maxlength="50">
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

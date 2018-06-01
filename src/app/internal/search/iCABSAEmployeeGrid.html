@@ -1,0 +1,63 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ 'Employee Search' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-2 pr5">
+                    <label class="col24">{{ 'Filter' | translate }}</label>
+                    <div class="col24 pr5">
+                        <select id="SelStatus" class="form-control" formControlName="SelStatus" (change)="selStatusOnChange($event.target.value)">
+                            <option value="AllEmp" [selected]="true">{{ 'All Employees' | translate }}</option>
+                            <option value="CurrentEmp">{{ 'Current Employees' | translate }}</option>
+                            <option value="LeftEmp">{{ 'Left Employees' | translate }}</option>
+                            <option value="CurrentBra">{{ 'Current Branch' | translate }}</option>
+                            <option value="SpecBra">{{ 'Specific Branch' | translate }}</option>
+                        </select>
+                    </div>
+                    <div class="col12 hidden">
+                        <input id="BranchNumber" formControlName="BranchNumber" size="5" maxlength="5" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col6 pr5" [ngClass]="isShowBranch ? '' : 'hidden'">
+                    <label class="col24">{{ 'branch' | translate }}</label>
+                    <div class="col24">
+                        <icabs-branchsearch [inputParams]="inputParamsBranchSearch" (receivedbranchsearch)="onBranchDataReturn($event)"  [active]="negBranchNumberSelected" ></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col4 pr5 pl5">
+                    <label class="col24">{{ 'Surname' | translate }}</label>
+                    <div class="col24">
+                        <input id="SelEmployeeSurname" formControlName="SelEmployeeSurname" size="20" maxlength="20" type="text" class="form-control Key"
+                            (change)="employeeSurNameOnChange($event.target.value)">
+                    </div>
+                </div>
+                <div class="col-sm-2 mt20">
+                    <input type="button" id="btnSelected" class="btn btn-primary" value="{{ 'Selected' | translate }}" (click)="selectedEmployeeCode($event)">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #employeeGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    <!--<icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #employeeGridPagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>-->
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #employeeGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                        (getchangedCheckBox)="checkBoxChanged($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (bodyClick)="tbodyEmployeeSearchGrid_onClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                        (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

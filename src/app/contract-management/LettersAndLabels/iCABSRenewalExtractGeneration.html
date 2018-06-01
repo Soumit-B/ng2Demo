@@ -1,0 +1,99 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-9 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Branch' | translate }}</label>
+                    <div class="col16">
+                        <icabs-branchsearch [inputParams]="inputParamsBranch" [active]="negBranchNumberSelected" (receivedbranchsearch)="onBranchDataReceived($event)"></icabs-branchsearch>
+                    </div>
+                </div>
+                <div class="col-sm-3 ">
+                    <div class="col12 pr5 ">
+                        <label class="col24 ">{{ 'Date From' | translate }}</label>
+                        <div class="col24 ">
+                            <icabs-datepicker id="FromDate " [dt]='dateObjects.fromDateDisplay' name="FromDate
+                            " (selectedValue)="dateFromSelectedValue($event)"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12 ">
+                        <label class="col24 "> {{ 'Date To' | translate }}</label>
+                        <div class="col24 ">
+                            <icabs-datepicker id="ToDate " [dt]='dateObjects.toDateDisplay' name="ToDate
+                            " (selectedValue)="dateToSelectedValue($event) "></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2 ">
+                <div class="col-sm-3">
+                    <label class="col24 ">{{'Destination'| translate}}</label>
+                    <div class="col10 pr5 ">
+                        <select class="form-control " id="RepDest " formControlName="RepDest">
+                            <option value="direct">{{'Report Viewer' | translate}}</option>
+                            <option value="Email ">{{'Email' | translate}}</option>
+				    </select>
+                    </div>
+                    <div class="col14 ">
+                        <select class="form-control " id="ReportURL " formControlName="ReportURL" (change)="menuOnchange($event.target.value)">
+                           <option *ngFor="let x of LetterTypeDescoptions "  [value]="x.DocumentURL">{{x.LetterTypeDesc | translate}}</option>
+				        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <div class="col24 ">
+                        <input id="SelectAllInd " type="checkbox" (change)="SelectAllInd($event) " formControlName="SelectAllInd">
+                        <label for="SelectAllInd " class="gray ">
+                        {{ 'Select to Print All' | translate }}
+                    </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20 ">
+                <div class="col-sm-3 hidden">
+                    <div class="col12 pr5 ">
+                        <label class="col24 ">{{ 'Pinters' | translate }}</label>
+                        <select class="form-control " id="Printers ">
+                                <option>{{ 'Export' | translate }}</option>
+                                <option>{{ 'Go to page' | translate }}</option>
+        				</select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <input id="SubmitReport" type="button" formControlName="SubmitReport" class="btn btn-primary" (click)="submitReport($event) "
+                        value="{{ 'Extract Selected Letters' | translate }} ">
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12" id="trInformation" *ngIf="trInformation">
+                    <div class="alert alert-info" id="thInformation">
+                        <strong>{{information}}</strong>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15 ">
+            <div class="row">
+                <div class="col-sm-12 ">
+                    <icabs-refresh (click)="refresh() "></icabs-refresh>
+                    <icabs-pagination #renewalExtractGenerationPagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="itemsPerPage
+                            " (getCurrentPage)="getCurrentPage($event) "></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10 ">
+                <div class="col-sm-12 ">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGrid_Sort($event)" (bodyClick)="onGridRowClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #messageModal [showHeader]="true" (modalClose)="proceedGridLoad()"> </icabs-modal>

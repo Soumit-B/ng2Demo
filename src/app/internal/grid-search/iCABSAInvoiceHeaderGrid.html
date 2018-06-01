@@ -1,0 +1,182 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5" [hidden]="fieldHidden.tdCheckBoxes">
+                <div class="col-sm-3" [hidden]="fieldHidden.trCopyInvoice">
+                    <div class="col16 mb10">
+                        <input type="checkbox" size="2" maxlength="2" id="CopyInvoice" formControlName="CopyInvoice" (click)="copyInvoiceOnChange($event.target.checked)">
+                        <label for="CopyInvoice">{{'Copy Invoice(s)'| translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" [hidden]="fieldHidden.trInvoiceForEmail">
+                    <div class="col16 mb10">
+                        <input type="checkbox" size="2" maxlength="2" id="EmailInvoice" formControlName="EmailInvoice" (click)="emailInvoiceOnChange($event.target.checked)">
+                        <label for="EmailInvoice">{{'Print Invoice To Email'| translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Filter By'| translate}}</label>
+                    </div>
+                    <div class="col16">
+
+                        <icabs-dropdown-static #lstCriteriaOneDropDown class="" [inputData]="lstCriteriaOneOptions" [disabled]="false" (onSelect)="lstCriteriaOneOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4" [hidden]="fieldHidden.trCompanyCode">
+                    <label class="col24">{{'Company Code'| translate}}</label>
+                    <div class="col16">
+                        <icabs-business-company-search #companyDropdown [isRequired]="true" [inputParams]="companyInputParams" (receivedCompanyCode)="onCompanyChange($event)"
+                            [active]="companyDefault" [isDisabled]="fieldDisable.CompanyCode"></icabs-business-company-search>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" [hidden]="fieldHidden.tdLstDate">
+                    <label class="col24">{{'Filter By'| translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #lstDateDropDown class="" [inputData]="lstDateOptions" [disabled]="false" (onSelect)="lstDateOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4" [hidden]="fieldHidden.trInvoiceNumber">
+                    <label class="col24">{{'Invoice / Credit Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="10" maxlength="10" class="form-control" placeholder="" formControlName="CompanyInvoiceNumber" id="CompanyInvoiceNumber"
+                            (change)="companyInvoiceNumberOonChange($event.target)" pattern="[0-9]*">
+                    </div>
+                    <div class="col14">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" formControlName="InvoiceName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Filter By'| translate}}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #lstCriteriaTwoDropDown class="" [inputData]="lstCriteriaTwoOptions" [disabled]="false" (onSelect)="lstCriteriaTwoOptionsChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-4" [hidden]="fieldHidden.trAccountNumber">
+                    <label class="col24">{{'Account Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="AccountNumber" size="9" maxlength="9" class="form-control" placeholder="" (blur)="accountChange();">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="AccountName" size="40" maxlength="40" class="form-control" placeholder="">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccount" [modalConfig]="modalConfig"
+                            [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountDataReceived($event, false)"
+                            [showHeader]="showHeader" [searchModalRoute]="searchModalRoute" [disabled]="isAccountEllipsisDisabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldHidden.trInvoiceGroupNumber">
+                <div class="col-sm-4 col-sm-offset-3">
+                    <label class="col24" for="">{{'Invoice Group Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" formControlName="InvoiceGroupNumber" id="InvoiceGroupNumber" size="9" maxlength="9" class="form-control"
+                            placeholder="">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="InvoiceGroupDesc" id="InvoiceGroupDesc" size="40" maxlength="40" class="form-control"
+                            placeholder="">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #invoiceGroupEllipsis [childConfigParams]="inputParamsInvoiceGroupNumber" [modalConfig]="modalConfig" [contentComponent]="invoiceGroupGridComponent"
+                            (ellipsisData)="onInvoiceGroupNumberReceived($event)" [showHeader]="showHeader" [showCloseButton]="showCloseButton"
+                            [disabled]="invoiceshowDisable"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2" [hidden]="fieldHidden.trExtractDate">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24">{{'Extract Date'| translate}}</label>
+                    <div class="col12">
+                        <icabs-datepicker #extractDatePicker [dt]='currDate' (selectedValue)="extraDateSelectedValue($event)" [clearDate]="true"
+                            [isReadonly]="false" [uiFormGroup]="this['uiForm']" [controlName]="'ExtractDate'"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldHidden.trExtractRunNumber">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <div class="col24">
+                        <label class="col24">{{'Run Number From'| translate}}</label>
+                        <div class="col12 pr5">
+                            <input type="text" formControlName="ExtractRunNumberFrom" id="ExtractRunNumberFrom" size="9" maxlength="9" class="form-control"
+                                placeholder="" pattern="[0-9]*">
+                        </div>
+
+                        <div class="col2">
+                            <!--<icabs-ellipsis [showCloseButton]="true" [modalConfig]="modalConfig" [contentComponent]="screenNotReadyComponent" [showHeader]="true"
+                                [disabled]="false"></icabs-ellipsis>-->
+                        </div>
+                    </div>
+
+                    <div class="col24">
+                        <label class="col24">{{'Run Number To'| translate}}</label>
+                        <div class="col12 pr5">
+                            <input type="text" formControlName="ExtractRunNumberTo" id="ExtractRunNumberTo" size="9" maxlength="9" class="form-control"
+                                placeholder="" pattern="[0-9]*">
+                        </div>
+
+                        <div class="col2">
+                            <!--<icabs-ellipsis [showCloseButton]="true" [modalConfig]="modalConfig" [contentComponent]="screenNotReadyComponent" [showHeader]="true"
+                                [disabled]="false"></icabs-ellipsis>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldHidden.trPeriodDate">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24">{{'Period Start'| translate}}</label>
+                    <div class="col12">
+                        <icabs-datepicker #periodDatePicker [dt]='currDate1' (selectedValue)="periodDateSelectedValue($event)" [isReadonly]="false"
+                            [uiFormGroup]="this['uiForm']" [controlName]="'PeriodDate'"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="fieldHidden.trProcessedDate">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24">{{'Processed From'| translate}}</label>
+                    <div class="col12 pr5">
+                        <icabs-datepicker #processdatePicker [dt]='currDate2' (selectedValue)="processedDateSelectedValue($event)" [uiFormGroup]="this['uiForm']"
+                            [controlName]="'ProcessedDate'"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination #invoiceHeaderGridPagination [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-12 mt10">
+                <icabs-grid #invoiceHeaderGrid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+                    (selectedRowInfo)="onGridRowDblClick($event,$event)" (sortInfo)="sortGrid($event)" [sortIndex]="gridSortHeaders"
+                    [headerProperties]="headerProperties" [checkItemsPerPage]="false" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </section>
+    <footer class="screen-footer">
+
+    </footer>
+</section>
+<icabs-ellipsis #invoiceSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="invoiceSearchComponentinputParams"
+    [modalConfig]="modalConfig" [contentComponent]="invoiceSearchComponent" (ellipsisData)="invoiceSearchComponentDataReceived($event)"
+    [showHeader]="showHeader" [disabled]="false" [hideIcon]="true"></icabs-ellipsis>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>

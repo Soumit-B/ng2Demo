@@ -1,0 +1,133 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{numberLabel|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" formControlName="ContractNumber" class="form-control" size="9" [attr.maxlength]="8"
+                            eTypeCode>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="ContractName" formControlName="ContractName" class="form-control" size="35" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Area'|translate}}</label>
+                    <div class="col9 pr5">
+                        <input type="text" id="BranchServiceAreaCode" formControlName="BranchServiceAreaCode" class="form-control" size="6" [attr.maxlength]="4"
+                            eTypeCode>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="BranchServiceAreaDesc" formControlName="BranchServiceAreaDesc" class="form-control" size="35" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" formControlName="PremiseNumber" class="form-control" size="9" [attr.maxlength]="5"
+                            eTypeInteger>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="PremiseName" formControlName="PremiseName" class="form-control" size="35" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Planned Visit Type'|translate}}</label>
+                    <div class="col9 pr5">
+                        <input type="text" id="VisitTypeCode" formControlName="VisitTypeCode" class="form-control" size="6" [attr.maxlength]="2"
+                            eTypeCode>
+                    </div>
+                    <div class="col14">
+                        <input type="text" id="VisitTypeDesc" formControlName="VisitTypeDesc" class="form-control" size="35" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" formControlName="ProductCode" class="form-control" size="9" [attr.maxlength]="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" formControlName="ProductDesc" id="ProductDesc" size="35" [attr.maxlength]="40" class="form-control" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Visit Due Date'|translate}}</label>
+                    <div class="col8 pr5">
+                        <icabs-datepicker id="OriginalVisitDueDate" formControlName="OriginalVisitDueDate" [isDirectiveBased]="false" (onChange)="visitDueDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col9 pr5">
+                        <label class="col24">{{'Visit Start Time'|translate}}<span class="mandatory" [ngClass]="!this['pageParams']['isVisitStartTime'] ? 'hidden' : ''">*</span></label>
+                        <input type="text" id="RoutingVisitStartTime" formControlName="RoutingVisitStartTime" class="form-control" size="10" [attr.maxlength]="5"
+                            [required]="this['pageParams']['isVisitStartTime']" (change)="visitStartTimeOnChange()" eTypeTime>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4 mt10">
+                    <input type="checkbox" id="AppointmentConfirmed" formControlName="AppointmentConfirmed" class="form-control" (change)="appointmentConfirmed()">
+                    <label class="col24" for="AppointmentConfirmed">{{'Appointment Confirmed'|translate}}</label>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col9 pr5">
+                        <label class="col24">{{'Tech Estimated Duration'|translate}}</label>
+                        <input type="text" id="EstimatedDuration" formControlName="EstimatedDuration" class="form-control" size="10" [attr.maxlength]="5"
+                            (change)="estimatedDurationOnChange()" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col22">
+                        <input type="text" id="AppointmentConfirmedReason" formControlName="AppointmentConfirmedReason" class="form-control" size="60"
+                            [attr.maxlength]="60" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Sequence Number'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PlanVisitSeqNo" formControlName="PlanVisitSeqNo" class="form-control" size="5" [attr.maxlength]="5"
+                            (change)="planVisitSeqNumberFormat()" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-8">
+                    <label class="col24">{{'Special Instructions'|translate}}</label>
+                    <textarea id="SpecialInstructions" formControlName="SpecialInstructions" class="form-control" type="text" rows="20" cols="10"
+                        eTypeText></textarea>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary mr10" value="{{'Save'|translate}}" (click)="saveOnClick()">
+                    <input type="button" class="btn btn-secondary" value="{{'Cancel'|translate}}" (click)="cancelOnClick()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

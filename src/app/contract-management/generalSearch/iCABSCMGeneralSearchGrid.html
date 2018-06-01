@@ -1,0 +1,221 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'General Search' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row ">
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label class="col24">{{'Search' | translate }}</label>
+                            <div class="col24">
+                                <select id="SearchOn" class="form-control" formControlName="SearchOn" (change)="onChangeSearch()">
+                                    <option value="PostCode">{{'Post Code' | translate }}</option>
+                                    <option value="Telephone">{{'Telephone' | translate }}</option>
+                                    <option value="Name">{{'Name' | translate }}</option>
+                                    <option value="Number">{{'Number' | translate }}</option>
+                                    <option value="Address">{{'Address' | translate }}</option>
+                                    <option value="Account">{{'Account' | translate }}</option>
+                                    <option value="GroupAccountName">{{'Group Account Name' | translate }}</option>
+                                    <option value="GroupAccountNumber">{{'Group Account Number' | translate }}</option>
+                                    <option value="Area">{{'Service Area' | translate }}</option>
+                                    <option value="AreaSeq">{{'Area + Seq' | translate }}</option>
+                                    <option value="TaxReg">{{'Tax Registration' | translate }}</option>
+                                    <option value="ContractRef">{{'Contract Ref' | translate }}</option>
+                                    <option value="ClientRef">{{'Client Ref' | translate }}</option>
+                                    <option value="InvCrdRef">{{'Invoice/Credit Number' | translate }}</option>
+                                    <option value="PremiseWasteRegNo" *ngIf="this['pageParams'].vShowPremiseWasteTab">{{'Waste Regulatory Premises Ref' | translate }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2">
+                        <div class="col-sm-12" id="spanSearchValue">
+                            <label class="col24">{{searchValueProperty.spanSearchValueText | translate }}</label>
+                            <div [ngClass]="(isShowEllipsis || isSearchInfo) ? 'col22 pr5' : 'col24'">
+                                <input type="text" *ngIf="searchValueProperty.spanSearchValueText == 'Contract/Job Number'" class="form-control" id="SearchValue"
+                                    size="40" [maxlength]="searchValueProperty.maxLength" formControlName="SearchValue" icabsZeroPad
+                                    eTypeText>
+                                    <input type="text" *ngIf="searchValueProperty.spanSearchValueText == 'Account Number'" class="form-control" id="SearchValue"
+                                        size="40" [maxlength]="searchValueProperty.maxLength" formControlName="SearchValue" icabsZeroPad
+                                        eTypeText>
+                                        <input type="text" *ngIf="searchValueProperty.spanSearchValueText != 'Account Number' && searchValueProperty.spanSearchValueText != 'Contract/Job Number'"
+                                            class="form-control" id="SearchValue" size="40" [maxlength]="searchValueProperty.maxLength"
+                                            formControlName="SearchValue" eTypeText>
+                            </div>
+                            <div class="col2 pr5" *ngIf="isShowEllipsis">
+                                <icabs-ellipsis [showCloseButton]="ellipsis.searchValueEllipsis.showCloseButton" [childConfigParams]="ellipsis.searchValueEllipsis.childparams"
+                                    [modalConfig]="modalConfig" [contentComponent]="ellipsis.searchValueEllipsis.component" (ellipsisData)="onDataReceived($event)"
+                                    [showHeader]="ellipsis.searchValueEllipsis.showHeader"></icabs-ellipsis>
+                            </div>
+                            <div class="col1 mt5" *ngIf="isSearchInfo">
+                                <img src="assets/images/info.gif" class="info-icon pointer" (click)="showInfoModal()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2" *ngIf="isSearchValue2">
+                        <div class="col-sm-12">
+                            <label class="col24">{{spanSearchValue2Text | translate }}</label>
+                            <div class="col24">
+                                <input type="text" class="form-control" id="SearchValue2" size="40" [maxlength]="searchValue2maxLength" formControlName="SearchValue2"
+                                    eTypeInteger>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2" *ngIf="isSearchValue3">
+                        <div class="col-sm-12">
+                            <label class="col24">{{spanSearchValue3Text | translate }}</label>
+                            <div class="col18">
+                                <input type="text" id="SearchValue3" size="10" maxlength="10" class="form-control hidden" formControlName="SearchValue3"
+                                    eTypeCode>
+                                    <icabs-sbproductservice-groupsearch #ddProductServiceGroupSearch [inputParams]="dropdownConfig.ProductServiceGroupSearch"
+                                        [active]="dropdownConfig.ProductServiceGroupSearch.active" [isDisabled]="dropdownConfig.ProductServiceGroupSearch.isDisabled"
+                                        [isRequired]="dropdownConfig.ProductServiceGroupSearch.isRequired" (receivedProductServiceGroupSearch)="onProductServiceGroupSearch($event)"></icabs-sbproductservice-groupsearch>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2" *ngIf="isDateFrom">
+                        <div class="col-sm-12">
+                            <label class="col24">{{'Date From' | translate }}</label>
+                            <div class="col24">
+                                <icabs-datepicker formControlName="DateFrom" (onChange)="fromDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2" *ngIf="isDateTo">
+                        <div class="col-sm-12">
+                            <label class="col24">{{'Date To' | translate }}</label>
+                            <div class="col24">
+                                <icabs-datepicker formControlName="DateTo" (onChange)="toDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="row " [ngClass]="!showHideSelectCell.SearchWhat ? 'hidden' : ''">
+                        <div class="col-sm-12" id="SearchWhat">
+                            <label class="col24">{{'Type' | translate }}</label>
+                            <div class="col24">
+                                <select id="SearchWhat" formControlName="SearchWhat" class="form-control" (change)="onChangeSearchWhat()">
+                                    <option *ngFor="let item of searchWhatProperty| orderBy: ['index']" [ngValue]="item.value">
+                                        {{item.text | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt2">
+                        <div class="col-sm-12" id="tdBranchRestrictText">
+                            <label class="col24">{{'Branch' | translate }}</label>
+                            <div class="col24">
+                                <icabs-branchsearch [inputParams]="dropdownConfig.branchSearch.inputParams" (receivedbranchsearch)="onBranchDataReceived($event)"
+                                    [isDisabled]="dropdownConfig.branchSearch.isDisabled" [active]="dropdownConfig.branchSearch.selected"
+                                    [isRequired]='false'></icabs-branchsearch>
+                                    <input type="text" class="form-control hidden" id="BranchNumber" formControlName="BranchNumber" eTypeInteger>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " [ngClass]="!showHideSelectCell.JobStatus ? 'hidden' : ''">
+                        <div class="col-sm-12" id="tdJobStatus">
+                            <label class="col24">{{'Status' | translate }}</label>
+                            <div class="col24">
+                                <select id="JobStatus" class="form-control" formControlName="JobStatus">
+                                    <option value="all" selected>{{'All' | translate }}</option>
+                                    <option value="completed">{{'Completed' | translate }}</option>
+                                    <option value="notcompleted">{{'Not Completed' | translate }}</option>
+                                    <option value="expired">{{'Expired' | translate }}</option>
+                                    <option value="unexpired">{{'Unexpired' | translate }}</option>
+                                    <option value="cancelled">{{'Cancelled' | translate }}</option>
+                                    <option value="novisits">{{'No Visits' | translate }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " [ngClass]="!showHideSelectCell.ContractStatus ? 'hidden' : ''">
+                        <div class="col-sm-12" id="tdContractStatus">
+                            <label class="col24">{{'Status' | translate }}</label>
+                            <div class="col24">
+                                <select id="ContractStatus" formControlName="ContractStatus" class="form-control">
+                                    <option value="all" selected>{{'All' | translate }}</option>
+                                    <option *ngFor="let item of contractDropDown" [value]="item.value">
+                                        {{item.text | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " [ngClass]="!showHideSelectCell.PremiseStatus ? 'hidden' : ''">
+                        <div class="col-sm-12" id="tdPremiseStatus">
+                            <label class="col24">{{'Status' | translate }}</label>
+                            <div class="col24">
+                                <select id="PremiseStatus" formControlName="PremiseStatus" class="form-control">
+                                    <option value="all" selected>{{'All' | translate }}</option>
+                                    <option *ngFor="let item of premiseDropDown" [value]="item.value">
+                                        {{item.text | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " [ngClass]="!showHideSelectCell.ProductSaleStatus ? 'hidden' : ''">
+                        <div class="col-sm-12" id="tdProductSaleStatus">
+                            <label class="col24">{{'Status' | translate }}</label>
+                            <div class="col24">
+                                <select id="ProductSaleStatus" formControlName="ProductSaleStatus" class="form-control">
+                                    <option value="all" selected>{{'All' | translate }}</option>
+                                    <option *ngFor="let item of productDropDown" [value]="item.value">
+                                        {{item.text | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row " [ngClass]="!showHideSelectCell.ProspectStatus ? 'hidden' : ''">
+                        <div class="col-sm-12" id="tdProspectStatus">
+                            <label class="col24">{{'Status' | translate }}</label>
+                            <div class="col24">
+                                <select id="ProspectStatus" formControlName="ProspectStatus" class="form-control">
+                                    <option value="all" selected>{{'All' | translate }}</option>
+                                    <option *ngFor="let item of prospectDropDown" [value]="item.value">
+                                        {{item.text | translate}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <icabs-refresh (click)="refresh()"></icabs-refresh>
+                        <icabs-pagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select id="menu" class="form-control" formControlName="menu" (change)="menuOnChange()">
+                            <option value="options" selected>{{'Options' | translate }}</option>
+                            <option value="newprospect">{{'New Prospect' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onGridCellDoubleClick($event)" (bodyKeyDown)="riGridBodyOnKeyDown($event)"
+                        (onSuccess)="riGridAfterExecute()" (bodyClick)="riGridBodyOnClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </form>
+    </section>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

@@ -1,0 +1,33 @@
+<!-- Tab 1 - Portfolio Search -->
+<div id="grdSearchContact">
+    <div class="row mt10">
+        <div class="col-sm-6">
+            <icabs-refresh [disabled]="this.cUpdateMode === 'ADD' || this.cUpdateMode === 'UPDATE'" (onRefresh)="riGridContact_onRefresh()"></icabs-refresh>
+            <icabs-pagination *ngIf="gridTotalItemsContact > 0" [currentPage]="currentPageContact" [itemsPerPage]="pageSize" [totalItems]="gridTotalItemsContact"
+                (getCurrentPage)="getCurrentContactPage($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <div id="tblSearchContact">
+                <icabs-grid #riGridContact [sortIndex]="gridSortHeaders" [itemsPerPage]="pageSize" [maxColumns]="maxColumnsContact" [currentPage]="currentPageContact"
+                    (getCellData)="selectedRowFocusContact($event)" (sortInfo)="sortGridContact($event)" (gridInfo)="gridInfoContact($event)"></icabs-grid>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt10">
+        <div class="col-sm-6">
+            <icabs-pagination *ngIf="gridTotalItemsGlobalRole > 0" [currentPage]="currentPageContactGlobalRole" [itemsPerPage]="pageSize"
+                [totalItems]="gridTotalItemsGlobalRole" (getCurrentPage)="getCurrentPageContactRole($event)"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-6">
+            <div id="tblSearchContactGlobal">
+                <icabs-grid #riGridContactGlobalRole [itemsPerPage]="pageSize" [maxColumns]="maxColumnsContactGlobalRole" [currentPage]="currentPageContactGlobalRole"
+                    (gridInfo)="gridInfoContactGlobalRole($event)" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+    </div>
+</div>

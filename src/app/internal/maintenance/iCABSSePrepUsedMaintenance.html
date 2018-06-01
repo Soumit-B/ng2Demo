@@ -1,0 +1,256 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Prep Used Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName1="ContractNumber" size="9" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" formControlName1="ContractName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premise Number' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName1="PremiseNumber" size="9" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" formControlName1="PremiseName" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName1="ProductCode" size="9" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName1="ProductDesc" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PrepCode">{{ 'Prep Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PrepCode" formControlName1="PrepCode" size="9" [attr.maxlength]="3">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="PrepDesc" formControlName1="PrepDesc" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb10">
+        <!-- tabs start here -->
+        <div class="row mt15">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link"><span>{{ 'General' | translate }}</span></a>
+                    </li>
+                    <li class="nav-item active"><a class="nav-link"><span>{{ 'Treatment' | translate }}</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"><span>{{ 'Conditions' | translate }}</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"><span>{{ 'Notes' | translate }}</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"><span>{{ 'Targeted Pests' | translate }}</span></a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!-- General Tab -->
+                    <div class="tab-pane active">
+                        <div id="grdGeneral">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="MeasureBy">{{ 'Measure By' | translate}}</label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="MeasureBy" formControlName1="MeasureBy" size="20" [attr.maxlength]="20">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="PrepVolume">{{ 'Volume' | translate}}<span class="mandatory">*</span></label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="PrepVolume" formControlName1="PrepVolume" size="10" [attr.maxlength]="10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="PrepValue">{{ 'Prep Value' | translate}}<span class="mandatory">*</span></label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="PrepValue" formControlName1="PrepValue" size="10" [attr.maxlength]="10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="MixRatio">{{ 'Mix Ratio' | translate}}</label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="MixRatio" formControlName1="MixRatio" size="10" [attr.maxlength]="10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="EPANumber">{{ 'EPA Number' | translate}}</label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="EPANumber" formControlName1="EPANumber" size="60" [attr.maxlength]="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="PrepUsedText">{{ 'Text' | translate}}</label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="PrepUsedText" formControlName1="PrepUsedText" size="50" [attr.maxlength]="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt2">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="PrepBatchNumber">{{ 'Batch Number' | translate}}</label>
+                                    <div class="col16">
+                                        <input type="text" class="form-control" id="PrepBatchNumber" formControlName1="PrepBatchNumber" size="30" [attr.maxlength]="30">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Treatment Tab -->
+                    <div class="tab-pane">
+                        <div id="grdTreatment">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="AreaCovered">{{ 'Area Covered' | translate}}</label>
+                                    <div class="col8">
+                                        <input type="text" class="form-control" id="AreaCovered" formControlName1="AreaCovered" size="10" [attr.maxlength]="9">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Area Measurement ' | translate}}</label>
+                                    <div class="col16">
+                                        <icabs-dropdown></icabs-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Hardware' | translate}}</label>
+                                    <div class="col16">
+                                        <icabs-dropdown></icabs-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Treatment  Method ID' | translate}}</label>
+                                    <div class="col16">
+                                        <icabs-dropdown></icabs-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Conditions Tab -->
+                    <div class="tab-pane">
+                        <div id="grdConditions">
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Sky Condition' | translate}}</label>
+                                    <div class="col16">
+                                        <icabs-dropdown></icabs-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="Temperature">{{ 'Temperature' | translate}}</label>
+                                    <div class="col8">
+                                        <input type="text" class="form-control" id="Temperature" formControlName1="Temperature" size="10" [attr.maxlength]="9">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="Humidity">{{ 'Humidity' | translate}}</label>
+                                    <div class="col8">
+                                        <input type="text" class="form-control" id="Humidity" formControlName1="Humidity" size="10" [attr.maxlength]="9">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24">{{ 'Wind Direction' | translate}}</label>
+                                    <div class="col16">
+                                        <icabs-dropdown></icabs-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt10">
+                                <div class="col-sm-3">
+                                    <label class="col24" for="WindSpeed">{{ 'Wind Speed' | translate}}</label>
+                                    <div class="col8">
+                                        <input type="text" class="form-control" id="WindSpeed" formControlName1="WindSpeed" size="10" [attr.maxlength]="9">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notes Tab -->
+                    <div class="tab-pane">
+                        <div id="grdNotes">
+                            <div class="row mt10">
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" id="ApplicationNote" formControlName1="ApplicationNote" rows="10" cols=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Targeted Pests Tab -->
+                    <div class="tab-pane">
+                        <div id="grdTargetedPests">
+                            <div class="row mt2">
+                                <div class="col-sm-12">
+                                    <icabs-table></icabs-table>
+                                </div>
+                            </div>
+                            <input type="button" class="btn btn-primary mr10" value="Add Targeted Pests" id="btnAddTargetPest">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb10">
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr10" value="Save">
+                <input type="button" class="btn btn-secondary mr10" value="Cancel">
+                <input type="button" class="btn btn-additional" value="Delete">
+            </div>
+        </div>
+    </footer>
+</section>

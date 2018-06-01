@@ -1,0 +1,177 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="SearchType">{{ 'Search By' | translate}}</label>
+                        <select id="SearchType" class="form-control" formControlName="SearchType">
+                            <option value="PlanVisit">{{ 'Plan Visits Service Area' | translate}}</option>
+                            <option value="ServiceCover">{{ 'Service Covers Service Area' | translate}}</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area From' | translate}}</label>
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col2 pr5 mt20">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                    <div class="col8 pr5">
+                        <label class="col24" for="BranchServiceAreaPlan">{{ 'To' | translate}}</label>
+                        <input id="BranchServiceAreaPlan" class="form-control" formControlName="BranchServiceAreaPlan" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col2 mt20">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="FilterType">{{ 'Filter By' | translate}}</label>
+                        <select id="FilterType" class="form-control" formControlName="FilterType">
+                            <option value="All">{{ 'All' | translate}}</option>
+                            <option value="Routine">{{ 'Routine' | translate}}</option>
+                            <option value="Installation">{{ 'Installation' | translate}}</option>
+                            <option value="Removal">{{ 'Removal' | translate}}</option>
+                            <option value="CancelRemove">{{ 'Cancel And Remove' | translate}}</option>
+                            <option value="Repair">{{ 'Repair' | translate}}</option>
+                            <option value="Urgent">{{ 'Urgent' | translate}}</option>
+                            <option value="Delivery">{{ 'Delivery' | translate}}</option>
+                         </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col10 pr20">
+                        <label class="col24" for="StartDate">{{ 'Visits Due From' | translate}}</label>
+                        <icabs-datepicker id="StartDate"></icabs-datepicker>
+                    </div>
+                    <div class="col8">
+                        <label class="col24" for="EndDate">{{ 'To' | translate}}</label>
+                        <icabs-datepicker id="EndDate"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductCode">{{ 'Product' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" class="form-control" formControlName="ProductCode" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ProductCodeDesc" class="form-control" formControlName="ProductCodeDesc" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseNumber">{{ 'Premise' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" type="text" size="10" maxlength="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="7" maxlength="4">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="DayFilter">{{ 'Day' | translate}}</label>
+                        <select id="DayFilter" class="form-control" formControlName="DayFilter">
+                            <option value="All">{{ 'All' | translate}}</option>
+                            <option value="Mon">{{ 'Monday' | translate}}</option>
+                            <option value="Tue">{{ 'Tuesday' | translate}}</option>
+                            <option value="Wed">{{ 'Wednesday' | translate}}</option>
+                            <option value="Thu">{{ 'Thursday' | translate}}</option>
+                            <option value="Fri">{{ 'Friday' | translate}}</option>
+                            <option value="Sat">{{ 'Saturday' | translate}}</option>
+                            <option value="Sun">{{ 'Sunday' | translate}}</option>
+                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PremiseName">{{ 'Premises Name begins' | translate}}</label>
+                    <div class="col24">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="32" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductServiceGroupCode">{{ 'Sequence Number' | translate}}</label>
+                    <div class="col24">
+                        <icabs-dropdown id="ProductServiceGroupCode"></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24" for="ServiceFrequency">{{ 'Frequency' | translate}}</label>
+                    <div class="col24">
+                        <input id="ServiceFrequency" class="form-control" formControlName="ServiceFrequency" type="text" size="10" maxlength="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24" for="SequenceNumber">{{ 'Sequence Number' | translate}}</label>
+                    <div class="col24">
+                        <input id="SequenceNumber" class="form-control" formControlName="SequenceNumber" type="text" size="5" maxlength="5">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Reverse' | translate }}">
+                    </div>
+                    <div class="col10">
+                        <input type="button" class="btn btn-additional" value="{{ 'Update All' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

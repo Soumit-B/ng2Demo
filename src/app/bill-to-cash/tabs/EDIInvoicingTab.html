@@ -1,0 +1,60 @@
+<div id="EDIInvoicing" class="tab-pane fade in" [formGroup]="ediInvoicingFormGroup">
+    <div class="row mt5">
+        <div class="col-sm-3">
+            <label class="col24">{{'Partner Account Code' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="20" class="form-control" id="EDIPartnerAccountCode" formControlName="EDIPartnerAccountCode">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Partner ANA Number' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="13" class="form-control" id="EDIPartnerANANumber" formControlName="EDIPartnerANANumber">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Location Account Code' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="20" class="form-control" id="EDILocationAccountCode" formControlName="EDILocationAccountCode">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Location ANA Number' | translate}} </label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="13" class="form-control" id="EDILocationANANumber" formControlName="EDILocationANANumber">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Partner Location Code' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="17" class="form-control" id="EDIPartnerLocationCode" formControlName="EDIPartnerLocationCode">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Attachment Type' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="2" class="form-control" id="AttachmentType" formControlName="AttachmentType">
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Despatch Instructions' | translate}}</label>
+            <div class="col24">
+                <input type="text" size="9" maxlength="2" class="form-control" id="DespatchInstructions" formControlName="DespatchInstructions">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<form novalidate [formGroup]="maintenanceDFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div>
+        <div class="row mt10">
+            <div class="col-sm-3 mt20">
+                <input class="custom-checkbox" type="checkbox" id="PromptPaymentInd" formControlName="PromptPaymentInd" [checked]="promptPaymentInd" [(ngModel)]="promptPaymentInd" (change)="onPaymentDiscountChange($event)">
+                <label for="PromptPaymentInd">{{'Prompt Payment Discount'| translate}}</label>
+            </div>
+        </div>
+        <div class="row mt10" *ngIf="promptPaymentInd === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label for="PromptPaymentRate">{{ 'Prompt Payment Rate' | translate }}<span class="mandatory">* </span></label>
+                </div>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" id="PromptPaymentRate" formControlName="PromptPaymentRate" [attr.maxlength]="5" eTypeDecimal2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5" *ngIf="promptPaymentInd === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label for="PromptPaymentNarrative">{{ 'Prompt Payment Narrative' | translate }}<span class="mandatory">* </span></label>
+                </div>
+                <div class="col24">
+                    <textarea id="PromptPaymentNarrative" class="form-control" placeholder="" formControlName="PromptPaymentNarrative" eTypeTextFree>
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5">
+            <div class="col-sm-3 mt20">
+                <input type="checkbox" id="RetrospectiveInd" formControlName="RetrospectiveInd" [checked]="retrospectiveInd" [(ngModel)]="retrospectiveInd" (change)="onRetrospectiveDiscountChange($event)">
+                <label for="RetrospectiveInd">
+                    {{'Retrospective Discount' | translate}}
+                </label>
+            </div>
+        </div>
+        <div class="row mt5" *ngIf="retrospectiveInd === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label for="RetrospectiveRate">{{ 'Retrospective Rate' | translate }}<span class="mandatory">* </span></label>
+                </div>
+                <div class="col24">
+                    <input type="text" class="form-control" placeholder="" id="RetrospectiveRate" formControlName="RetrospectiveRate" [attr.maxlength]="5" eTypeDecimal2>
+                </div>
+            </div>
+        </div>
+        <div class="row mt5" *ngIf="retrospectiveInd === true">
+            <div class="col-sm-3">
+                <div class="col24">
+                    <label for="RetrospectiveNarrative">{{ 'Retrospective Narrative' | translate }}<span class="mandatory">* </span></label>
+                </div>
+                <div class="col24">
+                    <textarea id="RetrospectiveNarrative" class="form-control" placeholder="" formControlName="RetrospectiveNarrative" eTypeTextFree>
+                    </textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<icabs-modal #messageTypeDModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>

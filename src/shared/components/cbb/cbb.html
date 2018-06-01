@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4 col-sm-12 cbb-cont cbb-country">
+        <label class="col24">{{'Country' | translate}}</label>
+        <div class="col24">
+            <icabs-dropdown-static #CBBCountryDropdown class="" [inputData]="cbbDataCountries" (onSelect)="onCountrySelect($event)" [triggerUpdateOnChange]="false"  [disabled]="isDisabled"></icabs-dropdown-static>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 cbb-business">
+        <label class="col24">{{'Business' | translate}}</label>
+        <div class="col24">
+            <icabs-dropdown-static #CBBBusinessDropdown class="" [inputData]="cbbDataBusinesses" (onSelect)="onBusinessSelect($event)" [triggerUpdateOnChange]="false" [disabled]="isDisabled"></icabs-dropdown-static>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 cbb-branch">
+        <label class="col24">{{'Current Branch' | translate}}</label>
+        <div class="col24">
+            <icabs-dropdown-static #CBBBranchDropdown class="" [inputData]="cbbDataBranches" [disabled]="isDisabled" [triggerUpdateOnChange]="false" (onSelect)="onBranchSelect($event)"></icabs-dropdown-static>
+        </div>
+    </div>
+</div>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

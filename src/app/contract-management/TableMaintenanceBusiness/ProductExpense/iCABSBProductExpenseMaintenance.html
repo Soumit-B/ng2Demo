@@ -1,0 +1,149 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <icabs-ellipsis #ProductExpenseMaintenanceEllipsis [childConfigParams]="ellipsisQueryParams.productExpense.childConfigParams"
+                        [disabled]="ellipsisQueryParams.productExpense.disabled" [modalConfig]="ellipsisQueryParams.productExpense.modalConfig"
+                        [contentComponent]="ellipsisQueryParams.productExpense.contentComponent" [showHeader]="ellipsisQueryParams.productExpense.showHeader"
+                        [showCloseButton]="ellipsisQueryParams.productExpense.showCloseButton" [hideIcon]="true" [autoOpen]="ellipsisQueryParams.productExpense.autoOpenSearch"
+                        (ellipsisData)="productSearchOnchange($event)"></icabs-ellipsis>
+                    <label class="col24">{{'Product Code'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" eTypeCode formControlName="ProductCode" size="6" maxlength="10"
+                            (change)="onChangeproductDetails($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ProductDesc" eTypeText formControlName="ProductDesc" size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductExpenseMaintenanceEllipsis [childConfigParams]="ellipsisQueryParams.productSearch.childConfigParams"
+                            [disabled]="ellipsisQueryParams.productSearch.disabled" [modalConfig]="ellipsisQueryParams.productSearch.modalConfig"
+                            [contentComponent]="ellipsisQueryParams.productSearch.contentComponent" [showHeader]="ellipsisQueryParams.productSearch.showHeader"
+                            [showCloseButton]="ellipsisQueryParams.productSearch.showCloseButton" [autoOpen]="ellipsisQueryParams.productSearch.autoOpenSearch"
+                            (ellipsisData)="productDetailsOnkeydown($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Type'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-common-dropdown [inputParams]="dropdown.contractTypeSearch.params" [isRequired]="true" [isDisabled]="dropdown.contractTypeSearch.isDisabled"
+                            [displayFields]="dropdown.contractTypeSearch.displayFields" [isActive]="dropdown.contractTypeSearch.isActive"
+                            [isTriggerValidate]="dropdown.contractTypeSearch.isTriggerValidate" (onDataReceived)="onContractTypeDataReceive($event)">
+                        </icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Expense Code'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <icabs-expensecode [inputParams]="dropdown.expenseCodeSearch" [active]="dropdown.expenseCodeSearch.active" [isDisabled]="dropdown.expenseCodeSearch.isDisabled"
+                            [isRequired]="true" (receivedExpenseCode)="onExpenseCodeReceived($event)" [isTriggerValidate]="dropdown.expenseCodeSearch.isTriggerValidate"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Initial Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode #expenseCodeSearch [inputParams]="dropdown.initialExpenseCodeSearch" [active]="dropdown.initialExpenseCodeSearch.active"
+                            [isDisabled]="dropdown.initialExpenseCodeSearch.isDisabled" [isRequired]="dropdown.initialExpenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onInitialExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Installation Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode [inputParams]="dropdown.installationExpenseCodeSearch" [active]="dropdown.installationExpenseCodeSearch.active"
+                            [isDisabled]="dropdown.installationExpenseCodeSearch.isDisabled" [isRequired]="dropdown.installationExpenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onInstallationExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Removal Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode [inputParams]="dropdown.removalExpenseCodeSearch" [active]="dropdown.removalExpenseCodeSearch.active"
+                            [isDisabled]="dropdown.removalExpenseCodeSearch.isDisabled" [isRequired]="dropdown.removalExpenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onRemovalExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="pageParams.isvbMultipleTaxRates">
+                    <label class="col24">{{'Materials Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode [inputParams]="dropdown.materialExpenseCodeSearch" [active]="dropdown.materialExpenseCodeSearch.active"
+                            [isDisabled]="dropdown.materialExpenseCodeSearch.isDisabled" [isRequired]="dropdown.materialExpenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onMaterialsExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="pageParams.isvbMultipleTaxRates">
+                    <label class="col24">{{'Labour Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode [inputParams]="dropdown.labourExpenseCodeSearch" [active]="dropdown.labourExpenseCodeSearch.active" [isDisabled]="dropdown.labourExpenseCodeSearch.isDisabled"
+                            [isRequired]="dropdown.labourExpenseCodeSearch.isRequired" (receivedExpenseCode)="onLabourExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="pageParams.isvbMultipleTaxRates">
+                    <label class="col24">{{'Replacement Expense Code'|translate}}</label>
+                    <div class="col16">
+                        <icabs-expensecode #expenseCodeSearch [inputParams]="dropdown.replacementExpenseCodeSearch" [active]="dropdown.replacementExpenseCodeSearch.active"
+                            [isDisabled]="dropdown.replacementExpenseCodeSearch.isDisabled" [isRequired]="dropdown.replacementExpenseCodeSearch.isRequired"
+                            (receivedExpenseCode)="onReplacementExpenseCodeReceived($event)"></icabs-expensecode>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Default Tax Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="TaxCode" formControlName="TaxCode" eTypeCode size="10" maxlength="7" (change)="onChangetaxCode($event)">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="TaxCodeDesc" formControlName="TaxCodeDesc" eTypeText size="40" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #ProductExpenseMaintenanceEllipsis [childConfigParams]="ellipsisQueryParams.taxCode.childConfigParams" [disabled]="ellipsisQueryParams.taxCode.disabled"
+                            [modalConfig]="ellipsisQueryParams.taxCode.modalConfig" [contentComponent]="ellipsisQueryParams.taxCode.contentComponent"
+                            [showHeader]="ellipsisQueryParams.taxCode.showHeader" [showCloseButton]="ellipsisQueryParams.taxCode.showCloseButton"
+                            (ellipsisData)="onDefaultTaxChange($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row ">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary mr10" value="{{ 'Save' | translate }}" (click)="saveData($event)" [ngClass]="this[ 'riMaintenance'][ 'FunctionSelect'] ? 'disabled' : '' ">
+                    <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate }}" (click)="cancel()" [ngClass]="this[ 'riMaintenance'][ 'FunctionSelect'] ? 'disabled' : '' ">
+                    <input type="button" class="btn btn-secondary mr10" value="{{ 'Search' | translate }}" (click)="search()" [ngClass]="this[ 'riMaintenance'][ 'FunctionSelect'] ? 'disabled' : '' ">
+                    <input type="button" class="btn btn-additional" value="{{ 'Delete' | translate }}" (click)="deleteData($event)" [ngClass]="!this[ 'riMaintenance'][ 'FunctionDelete'] ? 'disabled' : '' ">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-prompt-modal #promptConfirmModal="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('save')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptConfirmModalDelete="child" [content]="promptConfirmContent" (saveEmit)="promptConfirm('delete')"></icabs-prompt-modal>

@@ -1,0 +1,68 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Cover Waste' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Contract Number' | translate}}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="ContractName" formControlName="ContractName" class="form-control padding-zero" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanPremiseNumber">{{ 'Premises Number' | translate}}<span class="mandatory">* </span> </label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" eTypeInteger>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanProductCode">{{'Product Code' | translate }}<span class="mandatory">* </span></label>
+                    <div class="col8 pr5">
+                        <input formControlName="ProductCode" class="form-control" type="text" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input formControlName="ProductDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                    <div class="col2">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #serviceCoverWastePagination [totalItems]="totalRecords" [currentPage]="pageCurrent" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-12">
+                    <icabs-grid #serviceCoverWasteGrid [maxColumns]="maxColumn" [itemsPerPage]="pageSize" [currentPage]="pageCurrent" (gridInfo)="getGridInfo($event)"
+                        (selectedRowInfo)="onGridRowDblClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-modal #errorModal="child" [showHeader]="'true'">
+</icabs-modal>

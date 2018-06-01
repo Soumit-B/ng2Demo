@@ -1,0 +1,152 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form [formGroup]="this['uiForm']" novalidate>
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" size="9" [attr.maxlength]="940" class="form-control" placeholder="" id="ContractNumber" formControlName="ContractNumber"
+                            (change)="lookupSearch('ContractNumber')" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractName" formControlName="ContractName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.contractSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.contractSearchComponent.inputParams"
+                            [modalConfig]="ellipseConfig.contractSearchComponent.config" [contentComponent]="contractSearchComponent"
+                            (ellipsisData)="contractSearchDataReceived($event)" [showHeader]="ellipseConfig.contractSearchComponent.showHeader"
+                            [disabled]="ellipseConfig.contractSearchComponent.disabled" [autoOpen]="ellipseConfig.contractSearchComponent.autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" size="9" [attr.maxlength]="940" class="form-control" placeholder="" id="PremiseNumber" formControlName="PremiseNumber"
+                            (change)="lookupSearch('PremiseNumber')" eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="PremiseName" formControlName="PremiseName">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.premiseSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.premiseSearchComponent.inputParams"
+                            [modalConfig]="ellipseConfig.premiseSearchComponent.config" [contentComponent]="premiseSearchComponent"
+                            (ellipsisData)="premiseSearchDataReceived($event)" [showHeader]="ellipseConfig.premiseSearchComponent.showHeader"
+                            [disabled]="ellipseConfig.premiseSearchComponent.disabled" [autoOpen]="ellipseConfig.premiseSearchComponent.autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}</label>
+                    <div class="col6 pr5">
+                        <input type="text" size="9" [attr.maxlength]="940" class="form-control" placeholder="" id="ProductCode" formControlName="ProductCode"
+                            (change)="lookupSearch('ProductCode')" eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ProductDesc" formControlName="ProductDesc" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [showCloseButton]="ellipseConfig.serviceCoverSearchComponent.showCloseButton" [childConfigParams]="ellipseConfig.serviceCoverSearchComponent.inputParams"
+                            [modalConfig]="ellipseConfig.serviceCoverSearchComponent.config" [contentComponent]="serviceCoverSearchComponent"
+                            (ellipsisData)="serviceCoverSearchDataReceived($event)" [showHeader]="ellipseConfig.serviceCoverSearchComponent.showHeader"
+                            [disabled]="ellipseConfig.serviceCoverSearchComponent.disabled" [autoOpen]="ellipseConfig.serviceCoverSearchComponent.autoOpen"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'Status'|translate}}</label>
+                        <div class="col24">
+                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="Status" formControlName="Status" eTypeText>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'Commence Date'|translate}}</label>
+
+                        <div class="col24">
+                            <icabs-datepicker id="ServiceCommenceDate" [uiFormGroup]="this['uiForm']" [controlName]="'ServiceCommenceDate'" [dt]="datePickerConfig.serviceCommencementDate.dt"
+                                (selectedValue)="selectedCommenceDdate($event)" [isDisabled]="true"></icabs-datepicker>
+                            <input type="hidden" id="ServiceCommenceDate" formControlName="ServiceCommenceDate" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'Visit Frequency'|translate}}</label>
+                        <div class="col24">
+                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" eTypeInteger>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'Service Quantity'|translate}}</label>
+                        <div class="col24">
+                            <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ServiceQuantity" formControlName="ServiceQuantity" eTypeInteger>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Value'|translate}}</label>
+                    <div class="col12 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ServiceAnnualValue" formControlName="ServiceAnnualValue" eTypeCurrency>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <!--<input type="button" class="btn btn-primary" value="Save">
+                    <input type="button" class="btn btn-secondary" value="Cancel">-->
+                    <!--<input type="button" class="btn btn-primary" value="Search" (click)="searchFunctionality()">-->
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select id="menu" class="form-control" [(ngModel)]="menu" (change)="menuOnchange()" [ngModelOptions]="{standalone: true}">
+                            <option selected value="">{{'Options'|translate}}</option>
+                            <option *ngFor="let item of dropdownConfig.menu.dropdownValues" [value]="item.value">
+                                {{item.text|translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        <input type="hidden" formControlName="ActionType">
+        <input type="hidden" formControlName="CompositeInd">
+        <input type="hidden" formControlName="LostBusinessRequestNumber">
+        <input type="hidden" formControlName="AccountNumber">
+        <input type="hidden" formControlName="AccountName">
+        <input type="hidden" formControlName="InvoiceFrequencyCode">
+        <input type="hidden" formControlName="InvoiceAnnivDate">
+        <input type="hidden" formControlName="GotStatus">
+        <input type="hidden" formControlName="findResult">
+        <input type="hidden" formControlName="ServiceCoverROWID" value="0x0000000000046445">
+    </form>
+</section>
+<icabs-prompt-modal #promptConfirmModal="child" [(showHeader)]="promptConfig.forSave.showPromptMessageHeader" [title]="promptConfig.forSave.promptConfirmTitle"
+    [content]="promptConfig.forSave.promptConfirmContent" (saveEmit)="promptConfirm($event, 'save')" (cancelEmit)="promptCancel($event)"
+    [config]="promptConfig.config"></icabs-prompt-modal>
+<icabs-spinner [isRunning]="pageVariables.isRequesting"></icabs-spinner>
+<icabs-modal #messageModal="child" [(showHeader)]="messageModalConfig.showMessageHeader" [config]="messageModalConfig.config"
+    [title]="messageModalConfig.title" [content]="messageModalConfig.content" [showCloseButton]="messageModalConfig.showCloseButton"
+    (modalClose)="messageModalClose()"></icabs-modal>

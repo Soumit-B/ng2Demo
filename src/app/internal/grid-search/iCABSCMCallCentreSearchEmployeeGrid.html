@@ -1,0 +1,224 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label for="SearchBy" class="col24">{{ 'Search By' | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" id="SearchBy" formControlName="SearchBy" (change)="onChangeSearchBy($event)">
+                            <option value="Name" selected>{{ 'Employee Name' | translate}}</option>
+                            <option value="PostCode">{{'Post Code' | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="hideBlock.isSearchByEmployee">
+                <div class="col-sm-4">
+                    <label for="EmployeeCode" class="col24">{{ 'Employee Code' | translate }}</label>
+                    <div class="col14 pr5">
+                        <input id="EmployeeCode" class="form-control" type="text" size="8" maxlength="8" formControlName="EmployeeCode" eTypeText>
+                    </div>
+                    <div class="col2 ">
+                        <icabs-ellipsis [showCloseButton]="ellipsConf.employee.showCloseButton" [childConfigParams]="ellipsConf.employee.childConfigParams"
+                            [modalConfig]="ellipsConf.employee.modalConfig" [contentComponent]="ellipsConf.employee.contentComponent"
+                            (ellipsisData)="onEmpSearchEllipsisDataReceived($event, true)" [showHeader]="ellipsConf.employee.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="EmployeeForename1" class="col24">{{ 'Forename' | translate }}</label>
+                    <div class="col16">
+                        <input id="EmployeeForename1" class="form-control" type="text" size="30" maxlength="40" formControlName="EmployeeForename1"
+                            eTypeText>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2" [hidden]="hideBlock.isSearchByEmployee">
+                <div class="col-sm-4">
+                    <label for="OccupationCodeSelect" class="col24">{{ 'Occupation' | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" id="OccupationCodeSelect" formControlName="OccupationCodeSelect">
+                            <option value=" " selected>{{ 'All' | translate}}</option>
+                            <option *ngFor="let item of ttOccupation" [ngValue]="item.occupationCode">{{item.occupationDesc}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="EmployeeSurname" class="col24">{{ 'Surname' | translate }}</label>
+                    <div class="col16">
+                        <input id="EmployeeSurname" class="form-control" type="text" size="30" maxlength="40" formControlName="EmployeeSurname" eTypeText>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" [hidden]="hideBlock.isSearchByPostCode">
+                    <label for="AddressLine4" class="col24">{{ 'Town' | translate }}</label>
+                    <div class="col16">
+                        <input id="AddressLine4" class="form-control" type="text" size="30" maxlength="30" formControlName="AddressLine4">
+                    </div>
+                </div>
+                <div class="col-sm-4" [hidden]="hideBlock.isSearchByEmployee">
+                    <label for="BranchNumberSelect" class="col24">{{ "Branch" | translate }}</label>
+                    <div class="col16">
+                        <select class="form-control" id="BranchNumberSelect" formControlName="BranchNumberSelect">
+                            <option value="-1" selected>{{ 'All' | translate}}</option>
+                            <option *ngFor="let item of ttBranch" [ngValue]="item.branchNumber">{{item.branchNumber}} - {{item.branchName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [hidden]="hideBlock.isSearchByPostCode">
+                <div class="col-sm-4">
+                    <label for="AddressLine5" class="col24">{{ 'County' | translate }}</label>
+                    <div class="col16">
+                        <input id="AddressLine5" class="form-control" type="text" size="30" maxlength="30" formControlName="AddressLine5">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="PostCode" class="col24">{{ 'Post Code' | translate }}</label>
+                    <div class="col16">
+                        <input id="PostCode" class="form-control" type="text" size="15" maxlength="15" formControlName="PostCode">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [ngClass]="{'hidden': isHidePagination}"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row  mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (bodyClick)="riGridBodyOnClick($event)" (headerClick)="riGridSort($event)" (onSuccess)="riGridAfterExecute($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div [hidden]="hideBlock.isSearchResult">
+                <div class="row mt10">
+                    <div class="col-sm-4">
+                        <label for="SelectedName" class="col24">{{ 'Selected Employee' | translate }}</label>
+                        <div class="col16 pr5">
+                            <input id="SelectedName" class="form-control" type="text" size="40" maxlength="40" formControlName="SelectedName" eTypeText>
+                        </div>
+                        <input type="button" id="cmdDiary1" class="btn btn-primary" value="{{ 'Diary' | translate }}" (click)="doNavigate('Dairy')">
+                    </div>
+                    <div class="col-sm-4" [hidden]="hideBlock.isSupervisorFor">
+                        <label for="SupervisorSelect" class="col24">{{ 'Supervisor For' | translate }}</label>
+                        <div class="col16">
+                            <select class="form-control" id="SupervisorSelect" formControlName="SupervisorSelect" (change)="onChangeSupervisorSelect($event)">
+                                <option value="employee" selected>{{ 'Selected Employee' | translate}}</option>
+                                <option value="redirected">{{'Redirected Employee' | translate}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <div [hidden]="hideBlock.isRedirectedTo">
+                            <label for="RedirectedName" class="col24">{{ 'Redirected To' | translate }}</label>
+                            <div class="col16 pr5">
+                                <input id="RedirectedName" class="form-control" type="text" size="40" maxlength="40" formControlName="RedirectedName" eTypeText>
+                            </div>
+                            <input type="button" id="cmdDiary2" class="btn btn-primary" value="{{ 'Diary' | translate }}" (click)="doNavigate('Dairy')">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorName" class="col24">{{ 'Supervisor Name' | translate }}</label>
+                        <div class="col16">
+                            <input id="SupervisorName" class="form-control" type="text" size="40" maxlength="40" formControlName="SupervisorName" eTypeText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label for="EmployeeMobile" class="col24">{{ 'Mobile' | translate }}</label>
+                        <div class="col16">
+                            <input id="EmployeeMobile" class="form-control" type="text" size="20" maxlength="20" formControlName="EmployeeMobile" eTypeText>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorMobile" class="col24">{{ 'Mobile' | translate }}</label>
+                        <div class="col16">
+                            <input id="SupervisorMobile" class="form-control" type="text" size="20" maxlength="20" formControlName="SupervisorMobile"
+                                eTypeText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label for="EmployeeTelephone" class="col24">{{ 'Telephone' | translate }}</label>
+                        <div class="col16">
+                            <input id="EmployeeTelephone" class="form-control" type="text" size="20" maxlength="20" formControlName="EmployeeTelephone"
+                                eTypeText>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorTelephone" class="col24">{{ 'Telephone' | translate }}</label>
+                        <div class="col16">
+                            <input id="SupervisorTelephone" class="form-control" type="text" size="20" maxlength="20" formControlName="SupervisorTelephone"
+                                eTypeText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label for="EmployeeSecondary" class="col24">{{ '2nd Contact Num' | translate }}</label>
+                        <div class="col16">
+                            <input id="EmployeeSecondary" class="form-control" type="text" size="20" maxlength="20" formControlName="EmployeeSecondary"
+                                eTypeText>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorSecondary" class="col24">{{ '2nd Contact Num' | translate }}</label>
+                        <div class="col16">
+                            <input id="SupervisorSecondary" class="form-control" type="text" size="20" maxlength="20" formControlName="SupervisorSecondary"
+                                eTypeText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label for="EmployeeEmail" class="col24">{{ 'Email' | translate }}</label>
+                        <div class="col16">
+                            <input id="EmployeeEmail" class="form-control" type="text" size="50" maxlength="50" formControlName="EmployeeEmail">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorEmail" class="col24">{{ 'Email' | translate }}</label>
+                        <div class="col16">
+                            <input id="SupervisorEmail " class="form-control" type="text" size="50" maxlength="50" formControlName="SupervisorEmail">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt2">
+                    <div class="col-sm-4">
+                        <label for="EmployeeBranch" class="col24">{{ 'Branch' | translate }}</label>
+                        <div class="col16 pr5">
+                            <input id="EmployeeBranch " class="form-control" type="text" size="38" maxlength="38" formControlName="EmployeeBranch" eTypeText>
+                        </div>
+                        <input type="button" id="cmdBranch1" class="btn btn-primary" value="{{ 'Contact' | translate }}" (click)="runBranchDetails('EmployeeBranchNo')">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="SupervisorBranch" class="col24">{{ 'Branch' | translate }}</label>
+                        <div class="col16 pr5">
+                            <input id="SupervisorBranch " class="form-control" type="text" size="38" maxlength="38" formControlName="SupervisorBranch"
+                                eTypeText>
+                        </div>
+                        <input type="button" id="cmdBranch2" class="btn btn-primary" value="{{ 'Contact' | translate }}" (click)="runBranchDetails('SupervisorBranchNo')">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

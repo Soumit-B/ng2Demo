@@ -1,0 +1,180 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24">{{'Account Type'|translate}}</label>
+                    <div class="col24 ">
+                        <select class="form-control" id="QuoteFilter" formControlName="QuoteFilter">
+                            <option *ngFor="let item of ttQuoteType" [value]="item.QuoteTypeCode">
+                                {{item.QuoteTypeDesc |translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="EmployeeCode">{{'Sales Emp/Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="EmployeeCode" formControlName="EmployeeCode" class="form-control" type="text" [attr.maxlength]="10" size="8" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="FilterUserCode" formControlName="FilterUserCode" class="form-control" type="text" [attr.maxlength]="10" size="8"
+                            (change)="filterUserCodeOnChange()">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #userInformationSearch [autoOpen]="ellipsisConfig.riMUserInformationSearch.autoOpen" #contractNumberEllipsis
+                            [showCloseButton]="ellipsisConfig.riMUserInformationSearch.showCloseButton" [childConfigParams]="ellipsisConfig.riMUserInformationSearch.childConfigParams"
+                            [modalConfig]="ellipsisConfig.riMUserInformationSearch.modalConfig" [contentComponent]="ellipsisConfig.riMUserInformationSearch.component"
+                            (ellipsisData)="onRiMUserInformationSearchDataReceived($event, true)" [showHeader]="ellipsisConfig.riMUserInformationSearch.showHeader"
+                            [searchModalRoute]="ellipsisConfig.riMUserInformationSearch.searchModalRoute" [disabled]="ellipsisConfig.riMUserInformationSearch.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5 mt20">
+                        <input id="UserName" formControlName="UserName" class="form-control" type="text" [attr.maxlength]="20" size="20">
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="ProspectNumber">{{'Prospect No.'|translate}}</label>
+                        <input id="ProspectNumber" formControlName="ProspectNumber" class="form-control" type="text" size="8" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="StatusSelect">{{'Quote Status'|translate}}</label>
+                    <div class="col24 ">
+                        <select class="form-control" id="StatusSelect" formControlName="StatusSelect">
+                            <option *ngFor="let item of statusSelectData" [value]="item.value" [selected]="item.value === 'SVW'">
+                                {{item.text |translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="ContractTypeFilter">{{'Type'|translate}}</label>
+                        <select class="form-control" id="ContractTypeFilter" formControlName="ContractTypeFilter">
+                            <option value="A" selected>{{'All'|translate}}</option>
+                            <option value="C">{{'Contract'|translate}}</option>
+                            <option value="J">{{'Job'|translate}}</option>
+                            <option value="P">{{'Product Sale'|translate}}</option>
+                        </select>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="MaxValue">{{'Maximum Value'|translate}}</label>
+                        <input id="MaxValue" formControlName="MaxValue" class="form-control" type="text" size="8" [attr.maxlength]="8" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'From Date'|translate}}</label>
+                    <div class="col14">
+                        <icabs-datepicker formControlName="DateFrom" id="DateFrom" [required]="isDateFromRequired" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (onRefresh)="refresh()"> </icabs-refresh>
+                    <icabs-pagination #riPagination *ngIf="isPaginationEnabled === true" [totalItems]="totalRecords" [itemsPerPage]="actualPageSize"
+                        (getCurrentPage)="getCurrentPage($event)" [currentPage]="gridCurPage"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="gridSort()" (bodyDblClick)="riGridBodyOnDblClick($event)" (bodyClick)="riGridBodyOnClick($event)"
+                        (onSuccess)="riGridAfterExecute($event)" (bodyKeyDown)="riGridBodyOnKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2" id="grdDetails">
+                <div class="col-sm-2">
+                    <label class="col24" for="dlContractRef">{{'Selected'|translate}}</label>
+                    <div class="col24">
+                        <input id="dlContractRef" formControlName="dlContractRef" class="form-control" type="text" size="10">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Contract/Prod Sale Effective'|translate}}</label>
+                    <div class="col24">
+                        <input id="PassContractCommenceDate" formControlName="PassContractCommenceDate" class="form-control" type="text" size="10"
+                            eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24">{{'Job Effective'|translate}}</label>
+                    <div class="col24">
+                        <input id="PassJobCommenceDate" formControlName="PassJobCommenceDate" class="form-control" type="text" size="10" eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right text-right">
+                    <div class="col24">
+                        <select class="form-control" #menuOption id="menu" formControlName="menu" (change)="menuOnChange(menuOption.value)">
+                            <option value="" selected>{{'Options'|translate}}</option>
+                            <option value="EnterPORef">{{'Enter Purchase Order Number'|translate}}</option>
+                            <option value="Email">{{'Resend Email Confirmation'|translate}}</option>
+                            <option value="AccountCheck">{{'Check for Account'|translate}}</option>
+                            <option value="CalculatedValue">{{'Calculated Values'|translate}}</option>
+                            <option value="ConfirmationLetter">{{'Confirmation Letter'|translate}}</option>
+                            <option value="ConfirmationLetterCustCopy">{{'Confirmation Letter (Customer Copy)'|translate}}</option>
+                            <option value="History">{{'History'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="PassContractNumber">{{'Contract No.'|translate}}</label>
+                    <div class="col16 pr5">
+                        <input id="PassContractNumber" formControlName="PassContractNumber" class="form-control" size="10">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div style="display:none">
+            <input id='Misc' formControlName='Misc'>
+            <input id='dlBatchRef' formControlName='dlBatchRef'>
+            <input id='ContractTypeCode' formControlName='ContractTypeCode'>
+            <input id='SubSystem' value='SalesOrder' formControlName='SubSystem'>
+            <input id='ContractName' formControlName='ContractName'>
+            <input id='CustomerLetterRowID' formControlName='CustomerLetterRowID'>
+            <input id='BranchNumber' formControlName='BranchNumber'>
+            <input id='PassQuoteTypeCode' formControlName='PassQuoteTypeCode'>
+            <input id='PremiseAddressLine1' formControlName='PremiseAddressLine1'>
+            <input id='PremiseAddressLine2' formControlName='PremiseAddressLine2'>
+            <input id='PremiseAddressLine3' formControlName='PremiseAddressLine3'>
+            <input id='PremiseAddressLine4' formControlName='PremiseAddressLine4'>
+            <input id='PremiseAddressLine5' formControlName='PremiseAddressLine5'>
+            <input id='PremisePostcode' formControlName='PremisePostcode'>
+            <input id='GPSCoordinateX' formControlName='GPSCoordinateX'>
+            <input id='GPSCoordinateY' formControlName='GPSCoordinateY'>
+            <input id='RoutingGeonode' formControlName='RoutingGeonode'>
+            <input id='RoutingScore' formControlName='RoutingScore'>
+            <input id='RoutingSource' formControlName='RoutingSource'>
+            <input id='RoutingNode' formControlName='RoutingNode'>
+            <input id='dlPremiseRowID' formControlName='dlPremiseRowID'>
+            <input id='SOPQuoteType' formControlName='SOPQuoteType'>
+            <select id='SelRoutingSource' formControlName='SelRoutingSource'>
+                <option value=''>None</option>
+                <option value='T'>Third Party</option>
+                <option value='M'>Manual</option>
+                <option value='P'>PDA</option>
+            </select>
+        </div>
+    </form>
+</section>
+<icabs-ellipsis #accountSearchEllipsis [disabled]="ellipsisConfig.accountSearch.disabled" [autoOpen]="ellipsisConfig.accountSearch.autoOpen"
+    [modalConfig]="ellipsisConfig.accountSearch.modalConfig" [showCloseButton]="ellipsisConfig.accountSearch.showCloseButton"
+    [showHeader]="ellipsisConfig.accountSearch.showHeader" [childConfigParams]="ellipsisConfig.accountSearch.childConfigParams"
+    [contentComponent]="ellipsisConfig.accountSearch.component" [hideIcon]="true" (ellipsisData)="onAccountSearchDataReceived($event)"></icabs-ellipsis>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

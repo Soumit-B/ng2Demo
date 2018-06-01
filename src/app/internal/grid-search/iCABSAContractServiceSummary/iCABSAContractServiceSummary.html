@@ -1,0 +1,143 @@
+<div class="container-fluid custom-container">
+	<div class="row">
+		<div class="col-sm-12 page-title mt10">
+			<h1>
+				{{"Contract Service Summary" | translate }}
+			</h1>
+		</div>
+	</div>
+	<form novalidate [formGroup]="uiForm" (ngSubmit)="onSubmit( uiForm, $event )">
+		<div class="row mt5">
+			<div class="col-sm-3">
+				<label class="col24"> {{"Number" | translate }}</label>
+				<div class="col8 pr5">
+					<input class="form-control" id="ContractNumber" formControlName="ContractNumber" size="8" [attr.maxlength]="8" eTypeCode>
+				</div>
+				<div class="col16 pr5">
+					<input class="form-control" id="ContractName" formControlName="ContractName" [attr.maxlength]="45" eTypeText>
+				</div>
+			</div>
+			<div class="col-sm-7">
+				<div class="col6 pr10">
+					<label class="col24">{{"Invoice Frequency" | translate }}</label>
+					<div class="col24">
+						<input class="form-control" id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode" size="2" [attr.maxlength]="2" eTypeInteger>
+					</div>
+				</div>
+				<div class="col14">
+					<label class="col24"> {{"Neg. Branch" | translate }}</label>
+					<div class="col24">
+						<icabs-branchsearch [inputParams]="negBranch.params" (receivedbranchsearch)="onBranchDataReceived($event)" [active]="negBranch.active"
+							[isDisabled]="negBranch.disabled" [isRequired]='negBranch.required'></icabs-branchsearch>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{"Account Number" | translate }}</label>
+				<div class="col8 pr5">
+					<input class="form-control" id="AccountNumber" formControlName="AccountNumber" size="8" [attr.maxlength]="9" eTypeCode>
+				</div>
+				<div class="col16 pr5">
+					<input class="form-control" id="AccountName" formControlName="AccountName" [attr.maxlength]="45" eTypeText>
+				</div>
+			</div>
+			<div class="col-sm-7">
+				<div class="col6 pr10">
+					<label class="col24"> {{"Anniversary Date" | translate }}</label>
+					<div class="col24">
+						<input class="form-control" id="InvoiceAnnivDate" formControlName="InvoiceAnnivDate" size="10" [attr.maxlength]="10" eTypeDate>
+					</div>
+				</div>
+				<div class="col8">
+					<label class="col24" id="tdAnnualValueLab" *ngIf="uiDisplay.tdAnnualValueLab"> {{"Annual Value" | translate }}</label>
+					<div class="col24" id="tdAnnualValue" *ngIf="uiDisplay.tdAnnualValue">
+						<input class="form-control" id="ContractAnnualValue" formControlName="ContractAnnualValue" size="20" [attr.maxlength]="23" eTypeCurrency>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt2">
+			<div class="col-sm-3">
+				<label class="col24">{{"Premises Number" | translate }}</label>
+				<div class="col8 pr5">
+					<input id="PremiseNumber" class="form-control" formControlName="PremiseNumber" #PremiseNumber size="8" [attr.maxlength]="9" (change)="PremiseNumber_onchange($event)"
+						(keydown.PageDown)="onkeydown($event)" eTypeInteger>
+				</div>
+				<div class="col14 pr5">
+					<input class="form-control" id="PremiseName" formControlName="PremiseName" [attr.maxlength]="45" eTypeText>
+				</div>
+				<div class="col2">
+					<icabs-ellipsis #premiseEllipsis [childConfigParams]="inputParamsPremise" [contentComponent]="premiseSearchComponent" [showHeader]="true"
+						[disabled]="false" (ellipsisData)="onPremiseDataReturn($event)"></icabs-ellipsis>
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<label id="tdTelesalesOrderLab" *ngIf="uiDisplay.tdTelesalesOrderLab" class="col24"> {{"Telesales Order" | translate }}</label>
+				<div class="col8 pr5" id="tdTelesalesOrder" *ngIf="uiDisplay.tdTelesalesOrder">
+					<input class="form-control" id="TelesalesOrderNumber" formControlName="TelesalesOrderNumber" size="6" [attr.maxlength]="9" (keydown.PageDown)="onkeydown($event)">
+				</div>
+				<div class="col2" *ngIf="uiDisplay.tdTelesalesOrder">
+					<icabs-ellipsis #telesalesEllipsis [childConfigParams]="inputParamsTelesalesOrderNumber" [contentComponent]="telesalesOrderSearchComponent"
+						[showHeader]="true" [disabled]="false" (ellipsisData)="onTelesalesOrderSearchDataReturn($event)"></icabs-ellipsis>
+				</div>
+			</div>
+		</div>
+		<hr class="mt15 mb15">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="col6 pr10">
+					<label class="col24">{{"Status" | translate }}</label>
+					<div class="col24">
+						<select class="form-control" id="StatusSearchType" formControlName="StatusSearchType" (change)="loadGrid()">
+                            <option *ngFor="let i of StatusSearchTypeList" [value]="i.value">{{i.label }}</option>
+                        </select>
+					</div>
+				</div>
+				<div class="col6 pr10">
+					<label class="col24">{{"Line of Service" | translate }}</label>
+					<div class="col24">
+						<select class="form-control" id="LOSCodeSel" formControlName="LOSCodeSel">
+                            <option value="" selected>All</option>
+                            <option *ngFor="let i of LineOfService" [value]="i.LOSCode">{{i.LOSName }}</option>
+                        </select>
+					</div>
+				</div>
+				<div class="col6 mt20" *ngIf="uiDisplay.tdServiceDetail">
+					<input (click)="showDetails_onclick($event)" class="custom-checkbox" id="DetailInd" formControlName="DetailInd" type="checkbox">
+					<label for="DetailInd">{{"Show Detail" | translate }}</label>
+				</div>
+			</div>
+		</div>
+		<hr class="mt15 mb15">
+		<div class="row">
+			<div class="col-sm-6">
+				<icabs-refresh (click)="refreshGrid()"></icabs-refresh>
+				<icabs-pagination #GridPagination *ngIf="totalRecords> 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+			</div>
+			<div class="col-sm-3 pull-right">
+				<div class="col12 pull-right">
+					<select class="form-control" id="menu" formControlName="menu" (change)="menu_onchange($event)">
+                        <option selected value="Options">{{"Options" | translate }}</option>
+                        <option value="AddRecord">{{"Add" | translate }}</option>
+                    </select>
+				</div>
+			</div>
+		</div>
+		<div class="row mt10">
+			<div class="col-sm-12">
+				<icabs-grid #Grid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)"
+					[sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" (selectedRowInfo)="onGridRowClick($event)" [validateProperties]="validateProperties"></icabs-grid>
+			</div>
+		</div>
+		<div class="row mt10">
+			<input formControlName="ServiceCoverRowID" id="ServiceCoverRowID" *ngIf="uiDisplay.ServiceCoverRowID">
+			<input formControlName="RunningReadOnly" id="RunningReadOnly" *ngIf="uiDisplay.RunningReadOnly">
+			<input formControlName="vAllowUserAuthView" id="vAllowUserAuthView" type="checkbox" *ngIf="uiDisplay.vAllowUserAuthView">
+			<input formControlName="CallLogID" id="CallLogID" *ngIf="uiDisplay.CallLogID">
+			<input formControlName="CurrentCallLogID" id="CurrentCallLogID" *ngIf="uiDisplay.CurrentCallLogID">
+		</div>
+	</form>
+</div>
+<icabs-modal #messageModal [showCloseButton]="true" [showHeader]="true"></icabs-modal>

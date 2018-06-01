@@ -1,0 +1,93 @@
+<!-- Page Heading -->
+<section class="container-fluid custom-container modal-fix">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    <!--Page Heading-->
+                    {{ screenHeaderTitle | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Projects Row -->
+    <form>
+        <section class="screen-body">
+            <div class="row mt10" *ngIf="grdSearchName">
+                <!-- grdSearchName -->
+                <div id="grdSearchName" class="col-sm-6">
+                    <label class="col24">{{ 'Name' | translate }}</label>
+                    <input type="text" class="form-control" maxlength="40" [(ngModel)]="searchValue" name="searchValue" placeholder="" [disabled]="isSearchValueDisabled">
+                </div>
+            </div>
+            <div class="row mt10" *ngIf="grdAccountSearch">
+                <!-- grdAccountSearch -->
+                <div id="grdAccountSearch" class="col-sm-12">
+                    <div id="grdGroupAccountDetail" *ngIf="grdGroupAccountDetail" class="col8">
+                        <label class="col24">{{ 'Group' | translate }}</label>
+                        <div class="col8 pr5">
+                            <input type="text" class="form-control" maxlength="10" [(ngModel)]="groupNumber" name="groupNumber" placeholder="" disabled="">
+                        </div>
+                        <div class="col16 pr10">
+                            <input type="text" class="form-control" maxlength="30" [(ngModel)]="groupName" name="groupName" placeholder="" disabled="">
+                        </div>
+                    </div>
+                    <div class="col3 pr5">
+                        <label class="col24">{{ 'Search By' | translate }}</label>
+                        <select class="form-control" name="searchFilter" [(ngModel)]="searchFilter" (change)="filterOnChange(); clearRowId();">
+                            <option [selected]="true">{{ 'Name begins' | translate }}</option>
+                            <option>{{ 'Name matches' | translate }}</option>
+                            <option>{{ 'Number' | translate }}</option>
+                            <option>{{ 'Post Code' | translate }}</option>
+                        </select>
+
+                    </div>
+                    <div class="col9 pr5">
+                        <label class="col24">{{ 'Search' | translate }}</label>
+                        <input type="text" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="searchValue" name="searchValue" placeholder=""
+                            (blur)="onAccountNumberBlur($event)" (keydown)="search_onkeydown($event)">
+                    </div>
+                    <!-- grdPostcodeSearch  -->
+                    <div id="grdPostcodeSearch" class="col3 pr5" *ngIf="grdPostcodeSearch">
+                        <label class="col24">{{ 'Postcode' | translate }}</label>
+                        <input type="text" class="form-control" maxlength="40" [(ngModel)]="searchValue" name="searchValue" placeholder="" (keydown)="search_onkeydown($event)">
+                    </div>
+                    <div class="col4 pr5" *ngIf="showCountryCode === true">
+                        <label class="col24">{{ 'Country' | translate }}</label>
+                        <select class="form-control" [(ngModel)]="countryCode" name="countryCode" (change)="countryOnChange($event)" [attr.disabled]="disableCountry">
+                        <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                        <option *ngFor="let c of countryCodeList" [ngValue]="c.value">{{c.text}}</option>
+                    </select>
+                    </div>
+                    <div class="col4 pr5" *ngIf="showBusinessCode === true">
+                        <label class="col24">{{ 'Business' | translate }}</label>
+                        <select class="form-control" [(ngModel)]="businessCode" name="businessCode" (change)="businessOnChange($event)" [disabled]="businessCodeListDisabled">
+                        <option [value]="'All'" selected>{{ 'All' | translate }}</option>
+                        <option *ngFor="let b of businessCodeList" [ngValue]="b.value">{{b.text}}</option>
+                    </select>
+                    </div>
+                    <div class="col2 pr5 mt20">
+                        <input #searchButton type="submit" (click)="$event.preventDefault();loadData()" [disabled]="isSearchDisabled" name="Search"
+                            [value]="buttonTranslatedText.search" class="form-control btn btn-lg btn-primary">
+                    </div>
+                    <div class="col2 mt20">
+                        <input type="button" name="" [value]="buttonTranslatedText.addNew" class="form-control btn btn-lg btn-secondary" [disabled]="!showAddNew"
+                            [ngClass]="!showAddNewDisplay?'hidden':''" (click)="onAddNew()">
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </section>
+    </form>
+    <hr class="mt15">
+    <div class="row mt15">
+        <!-- <div class="col-sm-12">
+            <h2 class="margin-top-zero page-header padding-zero margin-bottom-zero"><small>{{ 'Account Search' | translate }}</small></h2>
+        </div> -->
+        <div class="col-sm-12">
+            <icabs-table #accountTable (dataLoaded)="tableDataLoaded($event)" (selectedData)="selectedData($event)" (onRefresh)="loadData()"
+                [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns" [(rows)]="rows" [resetRowId]="resetRowId"></icabs-table>
+        </div>
+    </div>
+</section>

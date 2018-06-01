@@ -1,0 +1,212 @@
+<form novalidate [formGroup]="maintenanceGeneralFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenCustomerTypeCode">
+            <div class="col-sm-4">
+                <label class="col24">{{'Customer Type' | translate}}<span  class="mandatory" *ngIf="fieldRequired.CustomerTypeCode === true">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" formControlName="CustomerTypeCode" [attr.size]="8" [attr.maxlength]="10" class="form-control" (blur)="customerTypeCodeOnchange($event.target.value)"
+                        eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" formControlName="CustomerTypeDesc" [attr.size]="40" [attr.maxlength]="40" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="inputParamsCustomerTypeSearch" [contentComponent]="CustomerTypeSearchComponent" (ellipsisData)="onCustomerTypeSearch($event)"
+                        [showHeader]="showHeader" [disabled]="isDisabledCustomerTypeSearch"></icabs-ellipsis>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenSICCode">
+            <div class="col-sm-4">
+                <label class="col24">{{'SIC Code' | translate}}<span  class="mandatory" *ngIf="fieldRequired.SICCode === true">* </span></label>
+                <div class="col6 pr5">
+                    <input type="text" formControlName="SICCode" [attr.size]="8" [attr.maxlength]="8" class="form-control" (blur)="sICCodeOnchange($event.target.value)"
+                        eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" formControlName="SICDescription" [attr.size]="40" [attr.maxlength]="40" class="form-control ">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [childConfigParams]="inputSICSearch" [contentComponent]="sICSearchComponent" (ellipsisData)="onSICCodeSearch($event)"
+                        [showHeader]="showHeader" [disabled]="fieldDisable.SICCode"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenNarrative">
+            <div class="col-sm-3">
+                <label class="col24" for="Narrative">{{'Notes' | translate}}<span  class="mandatory" *ngIf="fieldRequired.Narrative === true">* </span></label>
+                <div class="col24">
+                    <textarea formControlName="Narrative" rows="6" cols="63" eTypeTextFree></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt30" [hidden]="fieldVisibility.isHiddenEstimatedContractQuotes">
+            <div class="col-sm-10">
+                <div class="col3 pr5 mt20">{{ 'Estimated Number' | translate }}</div>
+                <div class="col5 pr25">
+                    <label class="col24 pl5">{{ 'Contract Quotes' | translate }}</label>
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedContractQuotes" [attr.size]="10" (blur)="estimatedContractQuotesOnChange($event.target)"
+                            class="form-control" eTypeInteger>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.EstimatedContractQuotes === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <label class="col24">{{ 'Job Quotes' | translate }}</label>
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedJobQuotes" [attr.size]="10" (blur)="estimatedJobQuotesOnChange($event.target)"
+                            class="form-control" eTypeInteger>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.EstimatedJobQuotes === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <label class="col24" [hidden]="fieldVisibility.productHeading">{{ 'Product Sale Quotes' | translate }}</label>
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedProductSaleQuotes" [attr.size]="10" (blur)="estimatedProductSaleQuotesOnChange($event.target)"
+                            class="form-control" eTypeInteger>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.EstimatedProductSaleQuotes === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <label class="col24">{{ 'Total' | translate }}</label>
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedTotalQuotes" [attr.size]="10" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [hidden]="fieldVisibility.isHiddenEstimatedContractValue">
+            <div class="col-sm-10">
+                <div class="col3 pr5">{{ 'Estimated Value' | translate }}</div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedContractValue" class="form-control" [attr.size]="10" (blur)="estimatedContractValueOnChange($event.target)"
+                            eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left pl5" *ngIf="fieldRequired.EstimatedContractValue === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedJobValue" class="form-control" [attr.size]="10" (blur)="estimatedJobValueOnChange($event.target)"
+                            eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left pl5" *ngIf="fieldRequired.EstimatedJobValue === true">*</span>
+                </div>
+                <div class="col5 pr25" [hidden]="fieldVisibility.isHiddenEstimatedProductSaleValue">
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedProductSaleValue" class="form-control" [attr.size]="10" (blur)="estimatedProductSaleValueOnChange($event.target)"
+                            eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left pl5" *ngIf="fieldRequired.EstimatedProductSaleValue === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input type="text" formControlName="EstimatedTotalValue" class="form-control" [attr.size]="10" eTypeDecimal1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10" [hidden]="fieldVisibility.isHiddenExpectedValue">
+            <div class="col-sm-10">
+                <div class="col3 pr5">{{ 'Actual Value' | translate }}</div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input type="text" formControlName="ExpectedValue" [attr.size]="10" class="form-control" eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.ExpectedValue === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input formControlName="ExpectedJobValue" [attr.size]="10" class="form-control" eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.ExpectedJobValue === true">*</span>
+                </div>
+
+                <div class="col5 pr25" [hidden]="fieldVisibility.isHiddenExpectedProductSaleValue">
+                    <div class="col22">
+                        <input type="text" formControlName="ExpectedProductSaleValue" [attr.size]="10" class="form-control" eTypeDecimal1>
+                    </div>
+                    <span class="mandatory pull-left" *ngIf="fieldRequired.ExpectedProductSaleValue === true">*</span>
+                </div>
+                <div class="col5 pr25">
+                    <div class="col22">
+                        <input type="text" formControlName="ExpectedTotalValue" [attr.size]="10" class="form-control" eTypeDecimal1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt30" [hidden]="fieldVisibility.isHiddenEstimatedClosedDate">
+            <div class="col-sm-3">
+                <label class="col24" for="CurrDate">{{'Estimated Closed Date' | translate}}<span  class="mandatory" *ngIf="fieldRequired.EstimatedClosedDate === true">* </span></label>
+                <div class="col24">
+                    <icabs-datepicker [dt]='CurrDate' (selectedValue)="effectiveDateSelectedValue($event)" [isRequired]="fieldRequired.EstimatedClosedDate"
+                        [isDisabled]="dateDisable.estimatedClosedDate"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenDaysOld">
+            <div class="col-sm-3">
+                <label class="col24" for="DaysOld">{{'Days Old' | translate}}<span  class="mandatory" *ngIf="fieldRequired.DaysOld === true">* </span></label>
+                <div class="col24">
+                    <input type="text" formControlName="DaysOld" [attr.size]="5" class="form-control" eTypeInteger>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenProspectStatusCode">
+            <div class="col-sm-3">
+                <label class="col24" for="ProspectStatusCode">{{'Status' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ProspectStatusCode === true">* </span></label>
+                <div class="col8 pr5">
+                    <input type="text" formControlName="ProspectStatusCode" [attr.size]="2" [attr.maxlength]="2" class="form-control" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="text" formControlName="ProspectStatusDesc" [attr.size]="40" [attr.maxlength]="40" class="form-control">
+                </div>
+                <div class="col2">
+                    <!-- <icabs-ellipsis [childConfigParams]="inputParamsProspectStatusSearch" [contentComponent]="prospectStatusSearchComponent"
+                        (ellipsisData)="onProspectStatusDataReceived($event)" [showHeader]="showHeader" [disabled]="false"></icabs-ellipsis>-->
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="col24 mt20">
+                    <input class="btn btn-sm btn-secondary" type="button" value="{{'Cancel - Poor Quality' | translate}}" (click)="setStatuClick($event)"
+                        [disabled]="cmdCancelDisable">
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenProbability">
+            <div class="col-sm-3">
+                <label class="col24" for="Probability">{{'Probability' | translate}}<span  class="mandatory" *ngIf="fieldRequired.Probability === true">* </span></label>
+                <div class="col24">
+                    <input type="text" formControlName="Probability" [attr.size]="8" [attr.maxlength]="8" class="form-control" eTypeCode>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2" [hidden]="fieldVisibility.isHiddenConvertedToNumber">
+            <div class="col-sm-3">
+                <label class="col24" for="ConvertedToNumber">{{'Converted To Job' | translate}}<span  class="mandatory" *ngIf="fieldRequired.ConvertedToNumber">* </span></label>
+                <div class="col24">
+                    <input type="text" formControlName="ConvertedToNumber" [attr.size]="9" [attr.maxlength]="8" class="form-control" eTypeCode>
+                </div>
+            </div>
+        </div>
+        <div class="row mt7" [hidden]="fieldVisibility.isHiddenchkAuthorise">
+            <div class="col-sm-6">
+                <div class="col6 pr5">
+                    <input formControlName="chkAuthorise" id="chkAuthorise" type="checkbox" class="form-control">
+                    <label class="col24" for="chkAuthorise">{{ 'Authorise' | translate }}</label>
+                </div>
+                <div class="col6 pr5">
+                    <input formControlName="chkReject" id="chkReject" type="checkbox" size="10" maxlength="10" class="form-control">
+                    <label class="col24" for="chkReject">{{ 'Reject' | translate }}</label>
+                </div>
+                <div class="col6">
+                    <input formControlName="chkBranch" id="chkBranch" type="checkbox" size="10" maxlength="10" class="form-control">
+                    <label for="chkBranch">{{ 'Converted To Job' | translate }}</label>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>

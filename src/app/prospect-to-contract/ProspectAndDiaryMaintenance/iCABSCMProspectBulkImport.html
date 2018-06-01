@@ -1,0 +1,40 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body">
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active" id="grdProspectImport">
+                            <a class="nav-link active">
+                                <span>{{'Import' | translate}}</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <div id="grdProspectImport" class="mt10">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20">
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <input type="button" value="Import Prospect Details from an Excel Worksheet" id="cmdImport" name="cmdImport">
+                        <span class="mandatory">importing excel is out of scope</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

@@ -1,0 +1,168 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Address Search' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="button" class="btn btn-primary mr10" value="Apply" id="Apply" formControlName="Apply">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt15">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbAddressLine1" formControlName="cbAddressLine1">
+                                <label for="cbAddressLine1">{{'Address Line 1' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strAddressLine1" size="40" maxlength="40" formControlName="strAddressLine1">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbAddressLine2" formControlName="cbAddressLine2">
+                                <label for="cbAddressLine2">{{'Address Line 2' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strAddressLine2" size="40" maxlength="40" formControlName="strAddressLine2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbAddressLine3" formControlName="cbAddressLine3">
+                                <label for="cbAddressLine3">{{'Address Line 3' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strAddressLine3" size="40" maxlength="40" formControlName="strAddressLine3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbAddressLine4" formControlName="cbAddressLine4">
+                                <label for="cbAddressLine4">{{'Town' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strAddressLine4" size="40" maxlength="40" formControlName="strAddressLine4">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbPostcode" formControlName="cbPostcode">
+                                <label for="cbPostcode">{{'Postcode' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strPostcode" size="40" maxlength="40" formControlName="strPostcode">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbCountry" formControlName="cbCountry">
+                                <label for="cbCountry">{{'Country' | translate }}</label>
+                            </div>
+                            <div class="col12 pr5 mt7">
+                                <input type="text" class="form-control" id="strCountry" size="4" maxlength="3" formControlName="strCountry">
+                            </div>
+                            <div class="col8 mt7">
+                                <input type="button" class="btn btn-primary mr10" value="Find From Address" id="cmdAddress" formControlName="cmdAddress">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" id="cbGPSX" formControlName="cbGPSX">
+                                <label for="cbGPSX">{{'GPS' | translate }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col12 pr10">
+                                <label for="strGPSX" class="col24">{{'X' | translate }}</label>
+                                <div class="col24">
+                                    <input type="text" class="form-control" id="strGPSX" size="10" maxlength="9" formControlName="strGPSX">
+                                </div>
+                            </div>
+                            <div class="col12">
+                                <label for="strGPSY" class="col24">{{'Y' | translate }}</label>
+                                <div class="col24">
+                                    <input type="text" class="form-control" id="strGPSY" size="10" maxlength="9" formControlName="strGPSY">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col10">
+                                <input type="submit" class="form-control" value="Find From GPS" id="cmdFind" formControlName="cmdFind">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col12 pr10">
+                                <label for="strScore" class="col24">{{'Score' | translate }}</label>
+                                <div class="col24">
+                                    <input type="text" class="form-control" id="strScore" size="5" maxlength="4" formControlName="strScore">
+                                </div>
+                            </div>
+                            <div class="col12">
+                                <label class="col24" for="strSelRoutingSource">{{'Source' | translate }}</label>
+                                <div class="col24">
+                                    <icabs-dropdown id="strSelRoutingSource" formControlName="strSelRoutingSource"></icabs-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt10">
+                        <div class="col-sm-12">
+                            <div class="col24">
+                                <input type="checkbox" class="form-control" formControlName="cbGeonode" id="cbGeonode">
+                                <label for="cbGeonode">{{'Geocode' | translate }}</label>
+                            </div>
+                            <div class="col24 mt7">
+                                <input type="text" class="form-control" id="strGeonode" size="10" maxlength="9" formControlName="strGeonode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <!----Geolocation Section---->
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-refresh> </icabs-refresh>
+            <icabs-pagination></icabs-pagination>
+
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid></icabs-grid>
+
+        </div>
+    </div>
+</section>

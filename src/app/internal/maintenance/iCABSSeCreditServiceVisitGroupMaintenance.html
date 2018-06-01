@@ -1,0 +1,381 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ '^1^ Number' | replaceText:['\\^1\\^']:[this['pageParams']['currentContractTypeLabel']] | translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']" (ngSubmit)="onSubmit($event)">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{ '^1^ Number' | replaceText:['\\^1\\^']:[this['pageParams']['currentContractTypeLabel']] | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" class="form-control" formControlName="ContractNumber" type="text" size="9" maxlength="8" (change)="onContractNumberChange($event)"
+                            icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ContractName" class="form-control" formControlName="ContractName" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2" *ngIf="this.ellipsisParams.contractNumber.showEllipsis">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.contractNumber.childConfigParams" [contentComponent]="ellipsisParams.contractNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('ContractNumber', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.contractNumber.disabled" [showCloseButton]="ellipsisParams.contractNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.contractNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{ 'Premises Number' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" class="form-control right" formControlName="PremiseNumber" type="text" size="9" maxlength="5" (change)="onPremiseNumberChange($event)"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="PremiseName" class="form-control" formControlName="PremiseName" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2" *ngIf="this.ellipsisParams.premiseNumber.showEllipsis">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.premiseNumber.childConfigParams" [contentComponent]="ellipsisParams.premiseNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PremiseNumber', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.premiseNumber.disabled" [showCloseButton]="ellipsisParams.premiseNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.premiseNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" class="form-control right" formControlName="ProductCode" type="text" size="9" maxlength="6" (change)="onProductCodeChange($event)"
+                            eTypeCode>
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductDesc" class="form-control" formControlName="ProductDesc" type="text" size="40" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2" *ngIf="this.ellipsisParams.productCode.showEllipsis">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.productCode.childConfigParams" [contentComponent]="ellipsisParams.productCode.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('ProductCode', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.productCode.disabled" [showCloseButton]="ellipsisParams.productCode.showCloseButton"
+                            [showHeader]="ellipsisParams.productCode.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="CreditNumberOfVisits">{{ 'Number Of Missed Visits' | translate}}</label>
+                    <div class="col19">
+                        <input id="CreditNumberOfVisits" class="form-control right" formControlName="CreditNumberOfVisits" type="text" size="2" eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ProRataChargeValue">{{ 'Credit Value' | translate}}</label>
+                    <div class="col19">
+                        <input id="ProRataChargeValue" class="form-control right" formControlName="ProRataChargeValue" type="text" size="10" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber1">{{ 'Plan Visit 1' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber1" class="form-control right" formControlName="PlanVisitNumber1" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number1" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber1', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart1">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart1" formControlName="ServiceDateStart1" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge1">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge1" class="form-control right" formControlName="StandardRateCharge1" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber2">{{ 'Plan Visit 2' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber2" class="form-control right" formControlName="PlanVisitNumber2" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number2" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber2', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart2">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart2" formControlName="ServiceDateStart2" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge2">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge2" class="form-control right" formControlName="StandardRateCharge2" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber3">{{ 'Plan Visit 3' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber3" class="form-control right" formControlName="PlanVisitNumber3" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number3" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber3', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart3">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart3" formControlName="ServiceDateStart3" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge3">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge3" class="form-control right" formControlName="StandardRateCharge3" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber4">{{ 'Plan Visit 4' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber4" class="form-control right" formControlName="PlanVisitNumber4" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number4" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber4', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart4">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart4" formControlName="ServiceDateStart4" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge4">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge4" class="form-control right" formControlName="StandardRateCharge4" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber5">{{ 'Plan Visit 5' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber5" class="form-control right" formControlName="PlanVisitNumber5" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number5" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber5', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart5">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart5" formControlName="ServiceDateStart5" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge5">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge5" class="form-control right" formControlName="StandardRateCharge5" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber6">{{ 'Plan Visit 6' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber6" class="form-control right" formControlName="PlanVisitNumber6" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number6" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber6', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart6">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart6" formControlName="ServiceDateStart6" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge6">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge6" class="form-control right" formControlName="StandardRateCharge6" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber7">{{ 'Plan Visit 7' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber7" class="form-control right" formControlName="PlanVisitNumber7" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number7" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber7', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart7">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart7" formControlName="ServiceDateStart7" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge7">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge7" class="form-control right" formControlName="StandardRateCharge7" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber8">{{ 'Plan Visit 8' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber8" class="form-control right" formControlName="PlanVisitNumber8" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number8" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber8', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart8">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart8" formControlName="ServiceDateStart8" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge8">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge8" class="form-control right" formControlName="StandardRateCharge8" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber9">{{ 'Plan Visit 9' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber9" class="form-control right" formControlName="PlanVisitNumber9" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number9" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber9', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart9">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart9" formControlName="ServiceDateStart9" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge9">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge9" class="form-control right" formControlName="StandardRateCharge9" type="text" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-2">
+                    <label class="col24" for="PlanVisitNumber10">{{ 'Plan Visit 10' | translate}}</label>
+                    <div class="col20 pr5">
+                        <input id="PlanVisitNumber10" class="form-control right" formControlName="PlanVisitNumber10" type="text" size="8" maxlength="6"
+                            eTypeInteger>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.planVisitNumber.childConfigParams.Number10" [contentComponent]="ellipsisParams.planVisitNumber.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('PlanVisitNumber10', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.planVisitNumber.disabled" [showCloseButton]="ellipsisParams.planVisitNumber.showCloseButton"
+                            [showHeader]="ellipsisParams.planVisitNumber.showHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="ServiceDateStart10">{{ 'Visit Date' | translate}}</label>
+                    <div class="col20">
+                        <icabs-datepicker id="ServiceDateStart10" formControlName="ServiceDateStart10" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <label class="col24" for="StandardRateCharge10">{{ 'Value' | translate}}</label>
+                    <div class="col20">
+                        <input id="StandardRateCharge10" class="form-control right" formControlName="StandardRateCharge10" type="text" size="10"
+                            maxlength="10" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <footer class="screen-footer">
+                <div class="row mt10">
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" [disabled]="this['pageParams']['isDisableSave']">
+                        <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="onCancelClick($event)">
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

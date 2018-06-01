@@ -1,0 +1,130 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{this['pageTitle'] | translate}}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']" (ngSubmit)="onSubmit($event)">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number' | translate}}</label>
+                    <div class="col7 pr5">
+                        <input #ContractNumber id="ContractNumber" class="form-control" type="text" formControlName="ContractNumber" size="8" maxlength="8"
+                            eTypeCode icabsZeroPad (change)="contractNumberOnChange($event)">
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="ContractName" class="form-control" type="text" formControlName="ContractName" size="45" maxlength="45" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="isAutoOpenContractSearch" [childConfigParams]="ellipsisParams.contract.childConfigParams" [contentComponent]="ellipsisParams.contract.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('Contract', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.contract.isDisabled" [showCloseButton]="ellipsisParams.contract.isShowCloseButton"
+                            [showHeader]="ellipsisParams.contract.isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number' | translate}}</label>
+                    <div class="col7 pr5">
+                        <input id="PremiseNumber" class="form-control right" type="text" formControlName="PremiseNumber" size="8" maxlength="8" eTypeInteger
+                            (change)="premiseNumberOnChange($event)">
+                    </div>
+                    <div class="col15 pr5">
+                        <input id="PremiseName" class="form-control" type="text" formControlName="PremiseName" size="45" maxlength="45" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [childConfigParams]="ellipsisParams.premise.childConfigParams" [contentComponent]="ellipsisParams.premise.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived('Premise', $event)" [modalConfig]="ellipsisParams.common.modalConfig"
+                            [disabled]="ellipsisParams.premise.isDisabled" [showCloseButton]="ellipsisParams.premise.isShowCloseButton"
+                            [showHeader]="ellipsisParams.premise.isShowHeader"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Account Balance' | translate}}</label>
+                    <div class="col12">
+                        <input id="AccountBalance" class="form-control right" type="text" formControlName="AccountBalance" size="10" maxlength="10"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col10 pr5">
+                        <label class="col24">{{'Suspension Start Date' | translate}}<span *ngIf="this['pageParams'].isUpdateMode" class="mandatory">*</span></label>
+                        <div class="col24">
+                            <icabs-datepicker #suspendStartDate formControlName="SuspendStartDate" [isDirectiveBased]="false"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col10">
+                        <label class="col24">{{'End Date' | translate}}<span *ngIf="this['pageParams'].isUpdateMode" class="mandatory">*</span></label>
+                        <div class="col24">
+                            <icabs-datepicker formControlName="SuspendEndDate" [isDirectiveBased]="false"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24 mt20">
+                        <input type="checkbox" id="CreditSuspendServiceInd" formControlName="CreditSuspendServiceInd">
+                        <label for="CreditSuspendServiceInd">{{'Issue Credit' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24 mt5">
+                        <input type="checkbox" id="ServiceVisitAnnivDateInd" formControlName="ServiceVisitAnnivDateInd" (change)="toggleServiceVisitAnnivDate($event)">
+                        <label for="ServiceVisitAnnivDateInd">{{'Reset Visit Anniv Date' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col12 pr5">
+                        <icabs-datepicker formControlName="UpdatedAnnivDate" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Suspension Reason' | translate}}</label>
+                    <div class="col24 pr5">
+                        <icabs-common-dropdown #suspendReasonSearch [inputParams]="suspendReasonSearchInputParams" [displayFields]="suspendReasonSearchColumns"
+                            (onDataReceived)="suspendReasonSearchDataRecieved($event)" [isDisabled]="isSuspendReasonSearchDisabled"
+                            [isActive]="suspendReasonSelected"></icabs-common-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10" *ngIf="this['pageParams'].isUpdateMode">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary mr10" value="{{ 'Save' | translate }}">
+                    <input type="button" class="btn btn-secondary mr10" value="{{ 'Cancel' | translate }}" (click)="cancelOnClick($event)">
+                    <input type="button" class="btn btn-additional" value="{{ 'Cancel Suspension' | translate }}" (click)="cancelSuspensionOnClick($event)">
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="riGridOnRefresh($event)" [disabled]="this['pageParams'].isUpdateMode"></icabs-refresh>
+                    <icabs-pagination #riGridPagination [totalItems]="gridConfig.totalRecords" [itemsPerPage]="gridConfig.pageSize" (getCurrentPage)="getCurrentPage($event)"
+                        [currentPage]="gridConfig.currentPage" [disabled]="this['pageParams'].isUpdateMode"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10" [style.display]="isShowGrid ? '' : 'none'">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="riGridBodyOnDblClick($event)" (bodyKeyDown)="riGridBodyOnKeyDown($event)"
+                        (bodyClick)="riGridBodyOnClick($event)" (bodyColumnFocus)="riGridBodyColumnFocus($event)" (bodyColumnBlur)="riGridOnBlur($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer"></footer>
+    </form>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-prompt-modal class="routeAway" #promptModal="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitle"
+    [content]="promptContent" [config]="promptModalConfig"></icabs-prompt-modal>

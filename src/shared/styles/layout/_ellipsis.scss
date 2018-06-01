@@ -1,0 +1,15 @@
+/*** ellipsis ***/
+
+.ellipsis {
+    display: inline-block;
+    border: 1px solid #b7bfc7;
+    width: 26px;
+    height:27px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 25px;
+    cursor: pointer;
+    border-radius: 2px;
+    background: url("/assets/images/ellipsis-svg.svg") #d2dde6 no-repeat center;
+    background-size: 95%;
+}

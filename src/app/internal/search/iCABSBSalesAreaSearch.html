@@ -1,0 +1,21 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Sales Area Search' | translate }}
+            </h1>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-table #salesAreaSearchTable 
+                (selectedData)="selectedData($event)" 
+                [page]="page" 
+                [itemsPerPage]="itemsPerPage" [columns]="columns"
+                [paginationTop]="true" 
+                [displayError]="false" 
+                (onRefresh)="updateView()">
+            </icabs-table>
+        </div>
+    </div>
+</div>

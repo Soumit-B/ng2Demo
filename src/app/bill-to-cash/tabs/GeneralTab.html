@@ -1,0 +1,250 @@
+<div id="General" class="tab-pane fade in" [formGroup]="generalFormGroup">
+    <div class="row mt5">
+        <div class="col-sm-3">
+            <label class="col24">{{'Invoice Group Description' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col16">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceGroupDesc" formControlName="InvoiceGroupDesc">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2" [ngClass]="elementShowHide.InvoiceFee ? '' : 'hidden'">
+        <div class="col-sm-3">
+            <label class="col24">{{'Invoice Fee Code' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="2" class="form-control" id="InvoiceFeeCode" formControlName="InvoiceFeeCode" (change)="onInvoiceFeeChange($event)">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="InvoiceFeeDesc" formControlName="InvoiceFeeDesc" disabled="true">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [showCloseButton]="elementShowHide.InvoiceFeeEllipsisCloseButton" [childConfigParams]="ellipsisQueryParams.invoiceFee"
+                    [modalConfig]="modalConfig" [contentComponent]="invoiceFeeSearchComponent" (ellipsisData)="onInvoiceFeeDataReceived($event)"
+                    [showHeader]="elementShowHide.InvoiceFeeEllipsisHeader" [disabled]="elementStates.InvoiceFeeEllipsis || disableForm"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3" *ngIf="elementShowHide.PaymentType">
+            <label class="col24">{{'Payment Method' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="3" class="form-control" id="PaymentTypeCode" formControlName="PaymentTypeCode" (change)="onPaymentTypeCodeChange()">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="PaymentDesc" formControlName="PaymentDesc" disabled="true">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [disabled]="false" [childConfigParams]="ellipsisQueryParams.paymentTerm" [modalConfig]="modalConfig" [contentComponent]="paymentMethodSearchComponent"
+                    (ellipsisData)="onPaymentMethodDataReceived($event)"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Invoice Type' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col16">
+                <icabs-common-dropdown #InvoiceIssueTypeDropdown [inputParams]="paramsInvoiceTypes.inputParams" [displayFields]="paramsInvoiceTypes.displayFields"
+                    [isFirstItemSelected]="true" [isRequired]="true" (onDataReceived)="onInvoiceIssueTypeChange($event)"></icabs-common-dropdown>
+            </div>
+        </div>
+        <div class="col-sm-3 mt20" *ngIf="elementShowHide.OverridePrintOption">
+            <div class="col24">
+                <input type="checkbox" id="OverridePrintOption" formControlName="OverridePrintOption">
+                <label for="OverridePrintOption">{{'Hide Product Detail on Invoice' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Invoice Format' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="3" class="form-control" id="SystemInvoiceFormatCode" formControlName="SystemInvoiceFormatCode"
+                    (change)="onInvoiceFormatChange()">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="SystemInvoiceFormatDesc" formControlName="SystemInvoiceFormatDesc">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [showCloseButton]="showCloseButton" [showHeader]="showHeader" [childConfigParams]="ellipsisQueryParams.invoiceFormatLanguageSearch"
+                    [contentComponent]="invoiceFormatLanguageSearch" (ellipsisData)="onInvoiceFormatLanguageDataReceived($event)"
+                    [disabled]="generalFormGroup.controls['SystemInvoiceFormatCode'].disabled || disableForm"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Language Code' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="4" class="form-control" id="InvoiceLanguageCode" formControlName="InvoiceLanguageCode"
+                    (change)="onLanguageChange($event)">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="LanguageDescription" formControlName="LanguageDescription">
+            </div>
+            <div class="col2 hidden">
+                <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Currency Code' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="4" class="form-control" id="CurrencyCode" formControlName="CurrencyCode" (change)="onCurrencyChange($event)">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="CurrencyDesc" formControlName="CurrencyDesc">
+            </div>
+            <div class="col2 hidden">
+                <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Invoice Copies' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col12">
+                <input type="text" size="9" maxlength="1" class="form-control" id="InvoiceCopies" formControlName="InvoiceCopies">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Payment Term' | translate}}
+                <span class="mandatory">*</span>
+            </label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="3" class="form-control" id="PaymentTermCode" formControlName="PaymentTermCode" (change)="onPaymentTermChange($event)">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="PaymentTermDesc" formControlName="PaymentTermDesc">
+            </div>
+            <div class="col2">
+                <!--<icabs-ellipsis [disabled]="false"></icabs-ellipsis>-->
+                <icabs-ellipsis #paymentTermEllipsis [childConfigParams]="ellipsisQueryParams.inputParamsPaymentTermSearch" [modalConfig]="modalConfig"
+                    [contentComponent]="PaymentTermSearchComponent" (ellipsisData)="onPaymentTermReceived($event)" [showHeader]="showHeader"
+                    [showCloseButton]="showCloseButton" [disabled]="generalFormGroup.controls['PaymentTermCode'].disabled || disableForm"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'DDI Number' | translate}}</label>
+            <div class="col12">
+                <input type="text" size="9" maxlength="40" class="form-control" id="ExOAMandateReference" formControlName="ExOAMandateReference"
+                    (change)="onExOAMandateReferenceChange($event)">
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Collect From' | translate}}</label>
+            <div class="col8 pr5">
+                <input type="text" size="9" maxlength="9" class="form-control" id="CollectFrom" formControlName="CollectFrom" (change)="onCollectFormChange()">
+            </div>
+            <div class="col14 pr5">
+                <input type="text" size="9" maxlength="40" class="form-control" id="CollectFromName" formControlName="CollectFromName">
+            </div>
+            <div class="col2">
+                <icabs-ellipsis [childConfigParams]="ellipsisQueryParams.inputParamsCollectForm" [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent"
+                    (ellipsisData)="onAccountNumberReceived($event)" [showHeader]="showHeader" [disabled]="disableForm"></icabs-ellipsis>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-3">
+            <label class="col24">{{'Tax Registration Number' | translate}}</label>
+            <div class="col16">
+                <input type="text" size="9" maxlength="20" class="form-control" id="TaxRegistrationNumber" formControlName="TaxRegistrationNumber">
+            </div>
+        </div>
+    </div>
+    <div class="row mt5">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="PrintClientReference" formControlName="PrintClientReference">
+                <label for="PrintClientReference">{{'Print Client Reference' | translate}}</label>
+            </div>
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="PrintPurchaseOrderNo" formControlName="PrintPurchaseOrderNo">
+                <label for="PrintPurchaseOrderNo">{{'Print Purchase Order Number' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="PrintPremiseAddress" formControlName="PrintPremiseAddress">
+                <label for="PrintPremiseAddress">{{'Print Premises Address' | translate}}</label>
+            </div>
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="PrintProductDesc" formControlName="PrintProductDesc">
+                <label for="PrintProductDesc">{{'Print Product Description' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="OutsortInvoice" formControlName="OutsortInvoice" (change)="onOutsortInvoiceChange()">
+                <label for="OutsortInvoice">{{'Outsort Invoice' | translate}}</label>
+            </div>
+            <div class="col12">
+                <label class="col12">{{'Outsort Sequence' | translate}}</label>
+                <div class="col12">
+                    <input type="text" size="9" maxlength="10" class="form-control" id="OutsortInvoiceSequence" formControlName="OutsortInvoiceSequence">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="ScheduleRequired" formControlName="ScheduleRequired">
+                <label for="ScheduleRequired">{{'Schedule Required' | translate}}</label>
+            </div>
+            <div class="col12" *ngIf="elementShowHide.HideProductDetailOnInvoice">
+                <input type="checkbox" class="form-control" id="HideProductDetailOnInvoice" formControlName="HideProductDetailOnInvoice">
+                <label for="HideProductDetailonInvoice">{{'Hide Product Detail on Invoice' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="LiveInvoiceGroup" formControlName="LiveInvoiceGroup" (change)="onLiveInvoiceGroupChange()">
+                <label for="LiveInvoiceGroup">{{'Live Invoice Group' | translate}}</label>
+            </div>
+            <div class="col12" *ngIf="elementShowHide.GroupByVisits">
+                <input type="checkbox" class="form-control" id="GroupByVisits" formControlName="GroupByVisits">
+                <label for="GroupByVisits">{{'Group By Visits' | translate}}</label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-5">
+            <div class="col12">
+                <input type="checkbox" class="form-control" id="CombineInvoiceValueInd" formControlName="CombineInvoiceValueInd" (change)="onCombineInvoiceValueIndChange()">
+                <label for="CombineInvoiceValueInd">{{'Combine Invoice Value' | translate}}</label>
+            </div>
+            <div class="col12">
+                <input type="text" size="9" maxlength="100" class="form-control" id="CombineInvoiceValueDesc" formControlName="CombineInvoiceValueDesc">
+            </div>
+        </div>
+    </div>
+</div>

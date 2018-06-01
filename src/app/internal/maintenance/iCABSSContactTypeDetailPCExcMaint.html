@@ -1,0 +1,115 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageParams']['strDocTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeCode">{{ 'Contact Type Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContactTypeCode" size="10" class="form-control" formControlName="ContactTypeCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContactTypeSystemDesc" size="50" class="form-control" formControlName="ContactTypeSystemDesc" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContactTypeDetailCode">{{ 'Contact Type Detail Code' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContactTypeDetailCode" size="10" class="form-control" formControlName="ContactTypeDetailCode" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContactTypeDetailSystemDesc" size="50" class="form-control" formControlName="ContactTypeDetailSystemDesc"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="Postcode">{{ 'Exclude Postcode' | translate}}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col8 pr5">
+                        <input type="text" id="Postcode" size="10" maxlength="10" class="form-control" formControlName="Postcode" [icabsDirFocus]="isExcludePostcodeFocus"
+                            (change)="riMaintenanceAddVirtualTableCommit($event)" eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #postCodeSearchEllipsis [showCloseButton]="ellipsis.postCodeSearch.showCloseButton" [childConfigParams]="ellipsis.postCodeSearch.childConfigParams"
+                            [contentComponent]="ellipsis.postCodeSearch.component" [autoOpen]="ellipsis.postCodeSearch.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event)" [showHeader]="ellipsis.postCodeSearch.showHeader"
+                            [disabled]="ellipsis.postCodeSearch.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ExcludeState">{{ 'Exclude State' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" id="ExcludeState" size="40" maxlength="30" class="form-control" formControlName="ExcludeState" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #postCodeSearchEllipsis [showCloseButton]="ellipsis.postCodeSearch.showCloseButton" [childConfigParams]="ellipsis.postCodeSearch.childConfigParams"
+                            [contentComponent]="ellipsis.postCodeSearch.component" [autoOpen]="ellipsis.postCodeSearch.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event)" [showHeader]="ellipsis.postCodeSearch.showHeader"
+                            [disabled]="ellipsis.postCodeSearch.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ExcludeTown">{{ 'Exclude Town' | translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" id="ExcludeTown" size="40" maxlength="30" class="form-control" formControlName="ExcludeTown" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #postCodeSearchEllipsis [showCloseButton]="ellipsis.postCodeSearch.showCloseButton" [childConfigParams]="ellipsis.postCodeSearch.childConfigParams"
+                            [contentComponent]="ellipsis.postCodeSearch.component" [autoOpen]="ellipsis.postCodeSearch.autoOpenSearch"
+                            (ellipsisData)="setEllipsisReturnData($event)" [showHeader]="ellipsis.postCodeSearch.showHeader"
+                            [disabled]="ellipsis.postCodeSearch.disabled"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ExclusionTypeSel">{{ 'Exclusion Type' | translate}}</label>
+                    <div class="col8">
+                        <select id="ExclusionTypeSel" class="form-control" formControlName="ExclusionTypeSel" [icabsDirFocus]="isExclusionTypeSelfocus">
+                            <option value="1" [selected]="true">{{ 'Warning' | translate }}</option>
+                            <option value="2">{{ 'Error' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <input type="text" class="form-control hidden" id="ExclusionType" formControlName="ExclusionType" eTypeInteger>
+            <input type="text" class="form-control hidden" id="ContactTypeDetailPostcodeExcludeROWID" formControlName="ContactTypeDetailPostcodeExcludeROWID"
+                eTypeCode>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="button" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="save()">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}" (click)="cancel()">
+                <input type="button" class="btn btn-additional" *ngIf="this['pageParams']['showDelete']" value="{{'Delete' | translate}}"
+                    (click)="delete()">
+            </div>
+        </div>
+    </footer>
+</section>
+
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

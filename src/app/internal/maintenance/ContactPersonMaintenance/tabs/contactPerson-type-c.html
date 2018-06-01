@@ -1,0 +1,58 @@
+<!-- Tab 3 - Contact Roles -->
+
+<div id="grdContactRoles" class="tab-pane fade in active">
+    <form novalidate [formGroup]="contactRolesFormGroup">
+        <div class="row mt10">
+            <div class="col-sm-4">
+                <label class="col24">{{'Contact ID'| translate}}	</label>
+                <div class="col8 pr5">
+                    <input id="RolesContactPersonID" formControlName="RolesContactPersonID" size="8" maxlength="10" value="" readonly class="form-control">
+                </div>
+                <div class="col16">
+                    <input id="RolesContactPersonName" formControlName="RolesContactPersonName" size="36" maxlength="40" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-8" [hidden]="portfolioRoleLevelDropdown.selectedItem === 'ThisContact' || lRefreshContactRole === false">
+                <div class="col12 pr10">
+                    <label class="col24" id="tdLabelRolesPrimaryContact">{{'Primary Contact'| translate}}	</label>
+                    <div class="col8 pr5">
+                        <input id="RolesPrimaryContactPersonID" formControlName="RolesPrimaryContactPersonID" size="8" maxlength="10" value="" readonly
+                            class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input id="RolesPrimaryContactPersonName" formControlName="RolesPrimaryContactPersonName" size="36" maxlength="40" class="form-control">
+                    </div>
+                </div>
+                <div class="col12">
+                    <label class="col24">{{'Roles Applied To' | translate}}</label>
+                    <div class="col18 pr5">
+                        <icabs-dropdown-static #PortfolioRoleLevelSelect [defaultSelected]="true" [inputData]="portfolioRoles" (onSelect)="portfolioRoleLevelSelect_OnChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt20">
+        <div [hidden]="showContactRoleGrid" class="mb20">
+            <div class="row mt20">
+                <div class="col-sm-6">
+                    <icabs-refresh (onRefresh)="onRefresh()"></icabs-refresh>
+                    <icabs-pagination [currentPage]="currentPageContactRole" [itemsPerPage]="pageSizeContactRole" [totalItems]="gridTotalItemsContactRole"
+                        (getCurrentPage)="getCurrentPageContactRole($event)"></icabs-pagination>
+                </div>
+            </div>
+
+            <div class="row mt10" id="trContactRole">
+                <div class="col-sm-12" id="tblContactRole">
+                    <icabs-grid #riGridContactRole [itemsPerPage]="pageSizeContactRole" [maxColumns]="maxColumnsContactRole" [currentPage]="currentPageContactRole"
+                        (getCellData)="selectedRowFocusContactRole($event)" (selectedRowInfo)="contactRoleGrid_onDblclick($event)"
+                        (gridInfo)="gridInfoContactRole($event)"></icabs-grid>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="hidden">
+    <input id="SavePortfolioLevelKey" [ngModel]="savePortfolioLevelKey">
+    <input id="PortfolioLevelValue" [ngModel]="portfolioLevelValue">
+</div>

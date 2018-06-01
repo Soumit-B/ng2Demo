@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "module": "es6",
+        "moduleResolution": "node",
+        "noEmitHelpers": true,
+        "removeComments": true,
+        "sourceMap": false,
+        "target": "es5",
+        "types": [
+            "jasmine",
+            "node"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "tmp",
+        "target",
+        "aot",
+        "src/**/*.spec.ts",
+        "src/main.aot.ts",
+        "src/vendor.aot.ts"
+    ]
+}

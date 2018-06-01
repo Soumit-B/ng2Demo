@@ -1,0 +1,65 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>Account Diary</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">Account Number</label>
+                <div class="col8 pr5">
+                    <input id="AccountNumber" size="9" maxlength="9" value=""  class="form-control">
+                </div>
+                <div class="col14 pr5">
+                    <input id="AccountName" size="40" maxlength="40" value="" readonly="" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24">Invoice Group Number</label>
+                <div class="col8 pr5">
+                     <input id="InvoiceGroupNumber" size="9" maxlength="9" value=""  class="form-control">
+                </div>
+                <div class="col14 pr5">
+                    <input id="InvoiceGroupDesc" size="40" maxlength="40" value="" readonly="" class="form-control">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis></icabs-ellipsis>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                 <label class="col24">Filter</label>
+                <div class="col8 pr5">
+                    <icabs-dropdown id="AccountDiaryFilter"></icabs-dropdown>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh></icabs-refresh>
+                <icabs-pagination></icabs-pagination>
+            </div>
+            <div class="col-sm-12 mt10">
+                <icabs-grid></icabs-grid>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="screen-footer">
+
+    </footer>
+</section>

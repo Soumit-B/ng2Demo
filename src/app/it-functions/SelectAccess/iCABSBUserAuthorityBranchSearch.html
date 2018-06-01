@@ -1,0 +1,64 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'User Authority Branch Search' }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="UserCode">{{ 'User Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="UserCode" size="9" maxlength="8" formControlName="UserCode" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="UserCode" size="40" maxlength="40" formControlName="UserCode" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BusinessCode">{{ 'Business Code' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BusinessCode" size="9" maxlength="8" formControlName="BusinessCode" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BusinessCode" size="40" maxlength="40" formControlName="BusinessCode" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="FilterBy">{{ 'Filter By'}}</label>
+                    <div class="col8 pr5">
+                        <select class="form-control" formControlName="FilterBy" id="FilterBy">
+                            <option selected value="BranchNumber">BranchNumber</option>
+                            <option value="BranchNumber">BranchNumber</option>
+                        </select>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="FilterValue" size="40" maxlength="40" formControlName="FilterValue" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="button" id="btnSearch" class="btn btn-additional mr10" value="{{ 'Search' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-table></icabs-table>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>

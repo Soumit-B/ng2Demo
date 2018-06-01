@@ -1,0 +1,50 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Business' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BusinessDesc" formControlName="BusinessDesc" size="40" maxlength="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt7">
+                <div class="col-sm-4">
+                    <div class="col24 mt7">
+                        <input type="checkbox" id="activeOnly" size="1" formControlName="ActiveOnly">
+                        <label for="activeOnly">{{'Show Active Ranges Only' | translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="btnRefresh()"></icabs-refresh>
+                <icabs-pagination [totalItems]="totalRecords" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-3 pull-right">
+                <div class="col24">
+                    <select class="form-control" id="menu" formControlName="menu" (change)="menuOnchange($event.target.value)">
+                            <option selected value="">{{'Options'|translate}}</option>
+                            <option value="Add">{{'Add New Invoice Range'|translate}}</option>
+                        </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onDblClick($event)" (bodyColumnBlur)="onCellBlur($event)" (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+            </div>
+        </div>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

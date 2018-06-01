@@ -1,0 +1,22 @@
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" [config]="config" (onHidden)="onHidden($event)">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" [hidden]="!showHeader" [attr.data-hidden]="!showHeader">
+        <button type="button" [hidden]="!showCloseButton" [attr.data-hidden]="!showCloseButton" class="close" aria-label="Close" (click)="close()">&nbsp;
+          <!--<span >&times;</span>-->
+        </button>
+        <h4 class="modal-title">{{title}}</h4>
+      </div>
+      <div class="modal-body" [ngClass]="{ 'pt0': showHeader }">
+        {{content}}
+        <ng-content></ng-content>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-lg btn-secondary" [hidden]="!showCancel"  [attr.data-hidden]="!showCancel" data-dismiss="modal" (click)="cancel()">{{cancelText}}</button>
+        <button type="button" class="btn btn-lg btn-primary" [hidden]="!showOk"  [attr.data-hidden]="!showOk" (click)="hide()">{{okText}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

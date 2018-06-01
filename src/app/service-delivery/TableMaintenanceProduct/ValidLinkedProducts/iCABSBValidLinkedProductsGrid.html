@@ -1,0 +1,71 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" (blur)="onBlurProduct()" size="9"
+                            maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName="ProductDesc" size="30" maxlength="40" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.product.disabled" [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.product.isShowCloseButton"
+                            [showHeader]="ellipsisConfig.product.isShowHeader" [childConfigParams]="ellipsisConfig.product" [contentComponent]="ellipsisConfig.product.component"
+                            (ellipsisData)="onProductDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="isShowComponentTypeCode ? '' : 'hidden'">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Component Type'|translate}}</label>
+
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ComponentTypeCode" formControlName="ComponentTypeCode" (blur)="onBlurComponentTypeCode()"
+                            size="9" maxlength="6" eTypeCode>
+                    </div>
+                    <div class="col14 pr5 hidden">
+                        <input type="text" class="form-control" id="ComponentTypeDesc" formControlName="ComponentTypeDesc" size="30" maxlength="40"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.ComponentTypeCode.disabled" [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.ComponentTypeCode.isShowCloseButton"
+                            [showHeader]="ellipsisConfig.ComponentTypeCode.isShowHeader" [childConfigParams]="ellipsisConfig.ComponentTypeCode"
+                            [contentComponent]="ellipsisConfig.ComponentTypeCode.component" (ellipsisData)="onComponentTypeCodeDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <input type="button" class="form-control" (click)="onClickBtnAddLinked()" class="btn btn-primary" id="btnAddLinked" value="{{'Add Valid Linked Product'|translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination [totalItems]="totalRecords" *ngIf="totalRecords > 0" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGridSort($event)" (bodyDblClick)="riGridBodyOnDblClick($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

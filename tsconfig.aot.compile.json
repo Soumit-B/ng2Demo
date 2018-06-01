@@ -1,0 +1,82 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "declaration": false,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "pretty": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "noFallthroughCasesInSwitch": false,
+    "rootDir": "./src",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "dom",
+      "es2015"
+    ]
+  },
+  "angularCompilerOptions": {
+    "debug": true,
+    "skipMetadataEmit": true,
+    "genDir": "./aot",
+    "entryModule": "src/app.module#AppModule"
+  },
+  "compileOnSave": false,
+  "files": [
+    "src/app.module.ts",
+    "src/app/bill-to-cash/bill-to-cash.module.ts",
+    "src/app/contract-management/contract-management.module.ts",
+    "src/app/contract-management/account-admin.module.ts",
+    "src/app/contract-management/account-maintenance.module.ts",
+    "src/app/contract-management/areas.module.ts",
+    "src/app/contract-management/contract-admin.module.ts",
+    "src/app/contract-management/customer-info.module.ts",
+    "src/app/contract-management/general.module.ts",
+    "src/app/contract-management/group-account.module.ts",
+    "src/app/contract-management/premises-admin.module.ts",
+    "src/app/contract-management/premises-maintenance.module.ts",
+    "src/app/contract-management/product-admin.module.ts",
+    "src/app/contract-management/product-sale.module.ts",
+    "src/app/contract-management/reports.module.ts",
+    "src/app/contract-management/retention.module.ts",
+    "src/app/contract-management/service-cover-admin.module.ts",
+    "src/app/internal/service-cover-maintenance.module.ts",
+    "src/app/customer-contact-management/ccm.module.ts",
+    "src/app/extranets-or-connect/extranets-or-connect.module.ts",
+    "src/app/it-functions/it-functions.module.ts",
+    "src/app/people/people.module.ts",
+    "src/app/prospect-to-contract/prospect-to-contract.module.ts",
+    "src/app/service-delivery/service-delivery.module.ts",
+    "src/app/service-planning/service-planning.module.ts",
+    "src/app/internal/search.module.ts",
+    /*"src/app/internal/grid-search.module.ts",*/
+    "src/app/internal/grid-search-service.module.ts",
+    "src/app/internal/grid-search-sales.module.ts",
+    "src/app/internal/grid-search-application.module.ts",
+    /*"src/app/internal/maintenance.module.ts",*/
+    "src/app/internal/maintenance-service.module.ts",
+    "src/app/internal/maintenance-sales.module.ts",
+    "src/app/internal/maintenance-application.module.ts",
+    "src/main.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "tmp",
+    "target",
+    "aot",
+    "src/main.aot.ts",
+    "src/vendor.aot.ts",
+    "src/**/*.spec.ts"
+  ]
+}

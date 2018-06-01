@@ -1,0 +1,37 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'History Type Search' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10" [hidden]="hideInput">
+                <div class="col-sm-4">
+                    <div class="col8 pr10">
+                        <label class="col24">{{ 'Language Code' | translate }}</label>
+                        <div class="col24">
+                            <input class="form-control" type="text" id="LanguageCode" formControlName="LanguageCode">
+                        </div>
+                    </div>
+                    <div class="col14">
+                        <label class="col24">{{ 'Language Description' | translate }}</label>
+                        <div class="col24">
+                            <input class="form-control" type="text" id="LanguageDescription" formControlName="LanguageDescription">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-table #historyTypeLang (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                        [paginationTop]="true" [displayError]="false" [tableheader]="tableheading" (dataLoaded)="tableDataLoaded($event)"
+                        [doTranslate]="true"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

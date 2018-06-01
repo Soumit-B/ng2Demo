@@ -1,0 +1,306 @@
+<div class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1 class="page-header">
+                    {{ 'Service Cover Display Maintenance' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-5">
+                    <label class="col24" for="labelContract">{{ 'Contract' | translate }}</label>
+                    <div class="col4 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" size="9" [attr.maxlength]="9" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col18 pr5">
+                        <input id="ContractName" formControlName="ContractName" size="40" [attr.maxlength]="40" value="" readonly="" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Frequency' | translate }}</label>
+                    <div class="col16">
+                        <input id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" size="40" [attr.maxlength]="40" value="" readonly=""
+                            class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24">{{ 'Premises' | translate }}</label>
+                    <div class="col4 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" size="9" [attr.maxlength]="9" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col18 pr5">
+                        <input id="PremiseName" formControlName="PremiseName" size="30" [attr.maxlength]="40" value="" readonly="" class="form-control"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Next Invoice Date' | translate }}</label>
+                    <div class="col16">
+                        <input size="15" formControlName="NextInvoiceStartDate" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                        <icabs-datepicker id="NextInvoiceStartDate" [(dt)]="nextInvoiceStartDate" [isReadonly]="isNextInvoiceDateDisabled" [isDisabled]="isNextInvoiceDateDisabled"
+                            (onChange)="nextInvoiceDateSelectedValue($event)"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-5">
+                    <label class="col24">{{ 'Product' | translate }}</label>
+                    <div class="col4 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" size="9" [attr.maxlength]="9" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col18 pr5">
+                        <input id="ProductDesc" formControlName="ProductDesc" size="40" [attr.maxlength]="40" value="" readonly="" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Effective Date' | translate }}
+                        <span class="mandatory">*</span>
+                    </label>
+                    <div class="col16">
+
+                        <input size="15" formControlName="EffectiveDate" [attr.maxlength]="15" class="form-control hidden" eTypeDate>
+                        <icabs-datepicker id="EffectiveDate" [(dt)]="effectiveDate" [isReadonly]="isEffectiveDateDisabled" [isDisabled]="isEffectiveDateDisabled"
+                            (selectedValue)="effectiveDateSelectedValue($event)"></icabs-datepicker>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-6">
+                    <div class="col4">
+                    </div>
+                    <div class="col5 pr5">
+                        <label class="col24">{{ 'Material' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <label class="col24">{{ 'Labour' | translate }}</label>
+
+                    </div>
+                    <div class="col5 pr5">
+                        <label class="col24">{{ 'Replacement' | translate }}</label>
+                    </div>
+                    <div class="col5">
+                        <label class="col24">{{ 'Total' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col4">
+                        <label class="col24">{{ 'Filters' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <input id="MaterialsFilter" (change)="onCurrentFilterFocus($event, 'FILTERROWFIELD')" (blur)="selectCurrentFilterOnly($event, 'FILTERROWFIELD')"
+                            formControlName="MaterialsFilter" type="text" size="9" [attr.maxlength]="9" class="form-control"
+                            eTypeDecimal2>
+                    </div>
+
+                    <div class="col5 pr5">
+                        <input id="LabourFilter" (change)="onCurrentFilterFocus($event, 'FILTERROWFIELD')" (blur)="selectCurrentFilterOnly($event, 'FILTERROWFIELD')"
+                            formControlName="LabourFilter" type="text" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input id="ReplacementFilter" (change)="onCurrentFilterFocus($event, 'FILTERROWFIELD')" (blur)="selectCurrentFilterOnly($event, 'FILTERROWFIELD')"
+                            formControlName="ReplacementFilter" type="text" size="9" [attr.maxlength]="9" class="form-control"
+                            eTypeDecimal2>
+                    </div>
+                    <div class="col5">
+                        <input id="TotalFilter" (change)="onCurrentFilterFocus($event, 'FILTERROWFIELD')" (blur)="selectCurrentFilterOnly($event, 'FILTERROWFIELD')"
+                            formControlName="TotalFilter" type="text" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="col3">
+                        <button [disabled]="isUpdateButtonDisabled" *ngIf="isUpdateButtonVisible" id="btnUpdate" type="button" (click)="onUpdateClicked()"
+                            class="btn btn-primary">{{ 'Update' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col4">
+                        <label class="col24">{{ 'New Values' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewMaterialsValue"
+                            formControlName="NewMaterialsValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewLabourValue" formControlName="NewLabourValue"
+                            size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewReplacementValue"
+                            formControlName="NewReplacementValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                    <div class="col5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewTotalValue" formControlName="NewTotalValue"
+                            size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col4">
+                        <label class="col24">{{ '% Increase' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="MaterialsPercentInc"
+                            formControlName="MaterialsPercentInc" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="LabourPercentInc"
+                            formControlName="LabourPercentInc" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="ReplacementPercentInc"
+                            formControlName="ReplacementPercentInc" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="IncreasePercent"
+                            formControlName="IncreasePercent" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col4">
+                        <label class="col24">{{ '% Decrease' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="MaterialsPercentDec"
+                            formControlName="MaterialsPercentDec" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+
+                    </div>
+
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="LabourPercentDec"
+                            formControlName="LabourPercentDec" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="ReplacementPercentDec"
+                            formControlName="ReplacementPercentDec" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                    <div class="col5">
+                        <input (change)="onCurrentFilterFocus($event)" (blur)="selectCurrentFilterOnly($event)" type="text" id="DecreasePercent"
+                            formControlName="DecreasePercent" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col4">
+                        <label class="col24">{{ 'New Total' | translate }}</label>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event, 'TOTALROWFIELD')" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewMaterialsTotalValue"
+                            formControlName="NewMaterialsTotalValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event, 'TOTALROWFIELD')" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewLabourTotalValue"
+                            formControlName="NewLabourTotalValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+                    </div>
+                    <div class="col5 pr5">
+                        <input (change)="onCurrentFilterFocus($event, 'TOTALROWFIELD')" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewReplacementTotalValue"
+                            formControlName="NewReplacementTotalValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                    <div class="col5">
+                        <input (change)="onCurrentFilterFocus($event, 'TOTALROWFIELD')" (blur)="selectCurrentFilterOnly($event)" type="text" id="NewServiceCoverTotalValue"
+                            formControlName="NewServiceCoverTotalValue" size="9" [attr.maxlength]="9" class="form-control" eTypeDecimal2>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <hr class="mt15 mb15">
+            <icabs-refresh (onRefresh)="refresh()"></icabs-refresh>
+            <icabs-pagination #riGridPagination [totalItems]="totalItems" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            <div class="row">
+                <div class="col-sm-12">
+                    <icabs-grid (gridInfo)="getGridInfo($event)" [showTotalRow]="true" #riGridComponent [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage"
+                        [currentPage]="currentPage" [validateProperties]="validateProperties"></icabs-grid>
+
+                </div>
+            </div>
+
+            <hr class="mt15 mb15">
+
+            <div *ngIf="isDropDownsVisible" class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Cover Displays' | translate }}</label>
+                    <div class="col16">
+                        <input id="ServiceCoverDisplays" formControlName="ServiceCoverDisplays" size="40" [attr.maxlength]="40" value="" readonly=""
+                            class="form-control" eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Reason Code' | translate }}
+                        <span *ngIf="isReasonAndDetailCodeRequired" class="mandatory">*</span>
+                    </label>
+                    <div class="col16" id="reasonCode">
+                        <icabs-lostbusinesslanguagesearch #icabsLostBusinesLangSearch [inputParams]="lostBusinessLangSearchInputParams" (receivedlostbusinesslangsearch)="onLostBusinesslLangSearchDataReceived($event)">
+                        </icabs-lostbusinesslanguagesearch>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isDropDownsVisible" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Displays Affected' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="DisplaysAffected" formControlName="DisplaysAffected" size="40" [attr.maxlength]="40" value="" readonly=""
+                            class="form-control" eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Detail Code' | translate }}
+                        <span *ngIf="isReasonAndDetailCodeRequired" class="mandatory">*</span>
+                    </label>
+                    <div class="col16" id="detailCode">
+                        <icabs-lostbusinessdetails #icabsLostBusinessLang [inputParams]="lostBusinessInputParams" (receivedbranchsearch)="onLostBusinessDetailLangDataReceived($event)"></icabs-lostbusinessdetails>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </form>
+
+</div>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+<icabs-modal #messageModal [(showHeader)]="showMessageHeader">
+</icabs-modal>

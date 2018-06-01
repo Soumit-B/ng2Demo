@@ -1,0 +1,37 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Service Plan' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-10">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Branch Service Area' | translate}}</label>
+                    <div class="col4 pr5">
+                        <input type="text" id="BranchServiceAreaCode" class="form-control" size="2" maxlength="4" formControlName="BranchServiceAreaCode"
+                            [readonly]="txtReadonly" eTypeCode>
+                    </div>
+                    <div class="col10 pr5">
+                        <input type="text" id="EmployeeSurname" class="form-control" size="30" maxlength="40" formControlName="EmployeeSurname" [readonly]="txtReadonly">
+                    </div>
+                    <!--  <div class="col2">  //Not Required
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div> -->
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-table #servicePlanTable (onRefresh)="buildTable()" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+                        [rows]="rows" (selectedData)="selectedData($event)" [paginationTop]="true" [isRefreshDisabled]="isTableRefreshDisabled"></icabs-table>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

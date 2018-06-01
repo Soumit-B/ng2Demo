@@ -1,0 +1,80 @@
+<form novalidate [formGroup]="accountManagementFormGroup" (ngSubmit)="$event.preventDefault();">
+    <div id="grdAccountManagement">
+        <div class="row">
+            <div class="col-sm-3 mt5">
+                <label class="col24" for="Tier Code">{{'Tier Code' | translate }} </label>
+                <div class="col8 pr5">
+                    <input type="hidden" class="form-control" formControlName="TierCode" size="5" maxlength="8">
+                </div>
+                <div class="col14 pr5">
+                    <input type="hidden" class="form-control" formControlName="TierDescription" size="40" maxlength="40">
+                </div>
+                <div class="col22 pr5">
+                    <icabs-tiersearch [inputParams]="inputParamsTierSearch" [isDisabled]="isTierCodeDisabled" [active]="TierSearch" (receivedtiersearch)="onTIERSearchReceived($event)"></icabs-tiersearch>
+                </div>
+                <div class="col2">
+                    <!--   <icabs-ellipsis [autoOpen]="autoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputTearCode" [modalConfig]="modalConfig"
+                        [contentComponent]="employeeSearchComponent" (ellipsisData)="onTearCodeDataReceived($event, true)" [showHeader]="showHeader"
+                        (modalHidden)="modalHidden()" [searchModalRoute]="searchModalRoute" [disabled]="isTearCodeEllipsisDisabled"></icabs-ellipsis>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 mt2">
+                <label class="col24" for="Account Owner">{{'Account Owner' | translate }}<span id="spanAccountOwner" *ngIf="fieldRequired.isAccountOwnerRequired === true" class="mandatory">*</span> </label>
+                <div class="col6 pr5">
+                    <input type="text" class="form-control" formControlName="AccountOwner" size="5" maxlength="8" type="text" eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" class="form-control" formControlName="AccountOwnerSurname" size="40" maxlength="40" type="text">
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis #employeeSearchEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsEmployeeSearch"
+                        [modalConfig]="modalConfig" [contentComponent]="employeeSearchComponent" (ellipsisData)="onEmployeeDataReceived($event, true)"
+                        [showHeader]="showHeader" [disabled]="isEmployeeSearchEllipsisDisabled"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 mt2">
+                <label class="col24" for="Customer Category">{{'Customer Category' | translate }}<span id="spanCategoryCode" *ngIf="fieldRequired.isCategoryCodeRequired === true" class="mandatory">*</span> </label>
+                <div class="col24">
+                    <icabs-customer-categorysearch [inputParams]="dropdown.custCategory.params" [isRequired]="fieldRequired.isCategoryCodeRequired"
+                        [isTriggerValidate]="dropdown.custCategory.isTriggerValidate" [isDisabled]="dropdown.custCategory.isDisabled"
+                        [active]="dropdown.custCategory.active" [isFirstItemSelected]="false" (receivedCategorySearch)="onCategoryCodeDataReceived($event)"></icabs-customer-categorysearch>
+                    <input type="hidden" class="form-control" formControlName="CategoryCode" size="5" maxlength="3" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input type="hidden" class="form-control" formControlName="CategoryDesc" size="40" maxlength="40">
+                </div>
+                <div class="col2">
+                    <!--    <icabs-ellipsis [autoOpen]="autoOpen" [showCloseButton]="showCloseButton" [childConfigParams]="inputCategoryCode" [modalConfig]="modalConfig"
+                    [contentComponent]="categoryCodeComponent" (ellipsisData)="onCategoryCodeDataReceived($event, true)" [showHeader]="showHeader"
+                    (modalHidden)="modalHidden()" [searchModalRoute]="searchModalRoute" [disabled]="isCategoryCodeEllipsisDisabled"></icabs-ellipsis>  -->
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt15">
+
+        <div class="row mt15">
+            <div class="col-sm-6">
+                <icabs-refresh (onRefresh)="refresh()" *ngIf="isRefreshEnable === true"> </icabs-refresh>
+                <icabs-pagination #accountReviewOwnerPagination *ngIf="(totalRecords > 0) && (isRefreshEnable === true)" [totalItems]="totalRecords"
+                    [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+            </div>
+            <div class="col-sm-6 text-right">
+                <input class="btn btn-sm btn-primary" type="button" value="{{'Add' | translate }}" formControlName="cmdAddOwner" (click)="onCmdAddOwnerClick()">
+            </div>
+        </div>
+
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #accountReviewOwnerGrid [maxColumns]="maxColumn" (sortInfo)="sortGrid($event)" [sortIndex]="gridSortHeaders"
+                    [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)"
+                    [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,44 @@
+<!-- Page Content -->
+<div class="container-fluid  custom-container" >
+    <div class="row">
+         <div class="col-sm-12 page-title">
+      <h1>
+        {{'Language Details' | translate }}
+      </h1>
+    </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt2" *ngIf="grdLanguageDetail === true">
+            <div class="col-sm-3">
+              <label class="col24">{{'Language Code' | translate }}</label>
+              <div class="col8 pr5">
+                <input id="LanguageCode" formControlName="LanguageCode" maxlength="3" class="form-control" type="text" (blur)="onChangeCode($event)" >
+              </div>
+              <div class="col16 pr5">
+                <input id="LanguageDescription" formControlName="LanguageDescription" maxlength="20" class="form-control" type="text">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="col24">{{'Business Origin Code' | translate }}</label>
+              <div class="col8 pr5">
+                <input id="BusinessOriginCode" formControlName="BusinessOriginCode" maxlength="2" class="form-control" type="text" (blur)="onChangeCode($event)" >
+              </div>
+              <div class="col16 pr5">
+                <input id="BusinessOriginSystemDesc" formControlName="BusinessOriginSystemDesc" maxlength="40" class="form-control" type="text">
+              </div>
+            </div>
+          </div>
+          
+        <hr class="mt15 mb15">
+
+        <div class="row mt2">
+            <div class="col-sm-12">
+                <icabs-table #languageSearchTable [paginationTop]="false" (selectedData)="selectedData($event)" [page]="page" [itemsPerPage]="itemsPerPage"
+                    [columns]="columns" (onRefresh)="onRefresh()">
+                </icabs-table>
+            </div>
+        </div>
+        <hr class="mt15 mb15">      
+       
+    </form>
+</div>

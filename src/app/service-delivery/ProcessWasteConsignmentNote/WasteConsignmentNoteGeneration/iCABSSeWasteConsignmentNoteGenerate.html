@@ -1,0 +1,72 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ 'Generate Waste Consignment Notes' | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Branch'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="BranchName" formControlName="BranchName" size="20" maxlength="38">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col8 pr5">
+                        <label class="col24">{{'From'|translate}}</label>
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                    <div class="col8">
+                        <label class="col24">{{'To'|translate}}</label>
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Branch Service Areas'|translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="BranchServiceAreaList" formControlName="BranchServiceAreaList" size="40" maxlength="10">
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="GenerateAll" formControlName="GenerateAll">
+                        <label for="GenerateAll">{{'Generate All'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <input type="button" class="btn btn-additional" value="{{'Generate Consignment Notes'|translate}}">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <input type="checkbox" class="form-control" id="UsePrintTool" formControlName="UsePrintTool">
+                        <label for="UsePrintTool">{{'Use Print Tool'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

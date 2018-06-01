@@ -1,0 +1,13 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Campaign Search' | translate}}
+            </h1>
+        </div>
+    </div>
+    <div class="row mt10">
+        <icabs-table #resultTable (selectedData)="selectedData($event)" [tableheader]="tableheader" [page]="page" [itemsPerPage]="itemsPerPage" [columns]="columns"
+            [paginationTop]="true" [doTranslate]="true" [displayError]="false" (onRefresh)="refresh()"></icabs-table>
+    </div>
+</div>

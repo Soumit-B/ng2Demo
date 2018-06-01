@@ -1,0 +1,600 @@
+<section class="container-fluid custom-container">
+    <div class="row back-lint-cont">
+    </div>
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Advantage Premises Maintenance' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Premises Ref' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="dlExtRef" eTypeTextFree formControlName="dlExtRef" size="30" [attr.maxlength]="30" value="" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Type' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractTypeCode" eTypeCode formControlName="ContractTypeCode" size="1" value="" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3 col-sm-offset-3">
+                    <label class="col24">{{ 'Status' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="dlStatusCode" eTypeCode formControlName="dlStatusCode" size="1" [attr.maxlength]="2" value="" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="dlStatusDesc" eTypeTextFree formControlName="dlStatusDesc" size="10" value="" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}" (click)="riTab.TabFocus(1)" id="grdAddress"><a class="nav-link" [ngClass]="{'active': tab.tab1.active}"><span>{{'Address' | translate}}</span></a></li>
+                        <li class="nav-item" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}" (click)="riTab.TabFocus(2); BuildGrid()"
+                            id="grdSRA"><a class="nav-link" [ngClass]="{'active': tab.tab2.active}"><span>{{'Risk Assessment Grid' | translate}}</span></a></li>
+                        <li class="nav-item" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}" (click)="riTab.TabFocus(3)" id="grdSRAText"><a class="nav-link" [ngClass]="{'active': tab.tab3.active}"><span>{{'Risk Assessment Text' | translate}}</span></a></li>
+                        <li class="nav-item" [ngClass]="{'active': tab.tab4.active, 'hidden': !tab.tab4.visible}" (click)="riTab.TabFocus(4)" id="grdTimeWindow"><a class="nav-link" [ngClass]="{'active': tab.tab4.active}"><span>{{'Time Windows' | translate}}</span></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab1.active, 'hidden': !tab.tab1.visible}">
+                            <div id="grdOrderHistory">
+                                <div class="row mt10">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Name' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseName']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseName" eTypeText formControlName="PremiseName" size="40" [attr.maxlength]="40" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.tdContractCommenceDate}">
+                                        <label class="col24" id="tdContractCommenceDateLabel"><span class="mandatory" *ngIf="controls[controlsMap['ContractCommenceDate']].required">*</span>{{'Contract Commence' | translate}}</label>
+                                        <div class="col12">
+                                            <icabs-datepicker #ContractCommenceDate [dt]='pageParams.dtContractCommenceDate?.value' [isDisabled]="pageParams.dtContractCommenceDate?.disabled"
+                                                [isRequired]="this['utils'].isRequired(uiForm.controls.ContractCommenceDate)"
+                                                (selectedValue)="selDate($event.value, 'ContractCommenceDate', $event)" [validate]="pageParams.dtContractCommenceDate?.validate"></icabs-datepicker>
+                                            <input id="ContractCommenceDate" type="text" class="form-control hidden" eTypeDate formControlName="ContractCommenceDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 1' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseAddressLine1']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseAddressLine1" eTypeText formControlName="PremiseAddressLine1" size="40" [attr.maxlength]="pageParams.MaximumAddressLength"
+                                                value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.tdJobCommenceDate}">
+                                        <label class="col24" id="tdJobCommenceDateLabel"><span class="mandatory" *ngIf="controls[controlsMap['JobCommenceDate']].required">*</span>{{'Job Commence' | translate}}</label>
+                                        <div class="col12" id="tdJobCommenceDate">
+                                            <icabs-datepicker #JobCommenceDate [dt]='pageParams.dtJobCommenceDate?.value' [isDisabled]="pageParams.dtJobCommenceDate?.disabled"
+                                                [isRequired]="this['utils'].isRequired(uiForm.controls.JobCommenceDate)" (selectedValue)="selDate($event.value, 'JobCommenceDate', $event)"
+                                                [validate]="pageParams.dtJobCommenceDate?.validate"></icabs-datepicker>
+                                            <input id="JobCommenceDate" type="text" class="form-control hidden" eTypeDate formControlName="JobCommenceDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Address Line 2' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseAddressLine2']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseAddressLine2" eTypeText formControlName="PremiseAddressLine2" size="40" [attr.maxlength]="pageParams.MaximumAddressLength"
+                                                value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.tdJobExpiryDate}">
+                                        <label class="col24" id="tdJobExpiryDateLabel"><span class="mandatory" *ngIf="controls[controlsMap['JobExpiryDate']].required">*</span>{{'Job Expiry' | translate}}</label>
+                                        <div class="col12" id="tdJobExpiryDate">
+                                            <icabs-datepicker #JobExpiryDate [dt]='pageParams.dtJobExpiryDate?.value' [isDisabled]="pageParams.dtJobExpiryDate?.disabled"
+                                                [isRequired]="this['utils'].isRequired(uiForm.controls.JobExpiryDate)" (selectedValue)="selDate($event.value, 'JobExpiryDate', $event)"
+                                                [validate]="pageParams.dtJobExpiryDate?.validate"></icabs-datepicker>
+                                            <input id="JobExpiryDate" type="text" class="form-control hidden" eTypeDate formControlName="JobExpiryDate">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" id="trPremiseAddressLine3" [ngClass]="{'hidden': uiDisplay.trPremiseAddressLine3}">
+                                        <label class="col24">{{'Address Line 3' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseAddressLine3']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseAddressLine3" eTypeText formControlName="PremiseAddressLine3" size="40" [attr.maxlength]="pageParams.MaximumAddressLength"
+                                                value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Town' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseAddressLine4']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseAddressLine4" eTypeText formControlName="PremiseAddressLine4" size="10" [attr.maxlength]="pageParams.MaximumAddressLength"
+                                                value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'County' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseAddressLine5']].required">*</span></label>
+                                        <div class="col24">
+                                            <input id="PremiseAddressLine5" eTypeText formControlName="PremiseAddressLine5" size="40" [attr.maxlength]="pageParams.MaximumAddressLength"
+                                                value="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Postcode' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremisePostcode']].required">*</span></label>
+                                        <div class="col12">
+                                            <input id="PremisePostcode" eTypeCode formControlName="PremisePostcode" size="15" [attr.maxlength]="15" value="" class="form-control" (blur)="PremisePostcode_onfocusout()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt10">
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.cmdGetAddress}">
+                                        <input type="button" id="cmdGetAddress" formControlName="cmdGetAddress" value="{{'Get Address' | translate}}" class="btn btn-primary"
+                                            (click)="cmdGetAddress_onclick()">
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15" [ngClass]="{'hidden': !uiDisplay.trHR1}">
+                                <div class="row " id="trGPSRouting1">
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.trGPSRouting1}">
+                                        <label class="col24">{{'GPS Coordinate X' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['GPSCoordinateX']].required">*</span></label>
+                                        <div class="col8 pr5">
+                                            <input id="GPSCoordinateX" eTypeText formControlName="GPSCoordinateX" size="8" [attr.maxlength]="20" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.trGPSRouting1}">
+                                        <div class="col24 mt20">
+                                            <input type="button" id="cmdGeocode" formControlName="cmdGeocode" value="{{'Geocode' | translate}}" class="btn btn-primary"
+                                                (click)="cmdGeocode_OnClick()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.trGPSRouting1}">
+                                        <label class="col24">{{'Coordinate Y' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['GPSCoordinateY']].required">*</span></label>
+                                        <div class="col8 pr5">
+                                            <input id="GPSCoordinateY" eTypeText formControlName="GPSCoordinateY" size="8" [attr.maxlength]="20" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.trGPSRouting2}">
+                                        <label class="col24">{{'Source' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['SelRoutingSource']].required">*</span></label>
+                                        <div class="col12">
+                                            <select tabindex="16" id="SelRoutingSource" formControlName="SelRoutingSource" class="form-control">
+                                                <option value="">{{'None' | translate}}</option>
+                                                <option value="T">{{'Third Party' | translate}}</option>
+                                                <option value="M">{{'Manual' | translate}}</option>
+                                                <option value="P">{{'PDA' | translate}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trGPSRouting2" [ngClass]="{'hidden': !uiDisplay.trGPSRouting2}">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Score' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['RoutingScore']].required">*</span></label>
+                                        <div class="col8 pr5" id="tdGPSScore">
+                                            <input id="RoutingGeonode" formControlName="RoutingGeonode" size="8" [attr.maxlength]="20" class="form-control hidden">
+                                            <input id="RoutingScore" eTypeInteger formControlName="RoutingScore" size="8" [attr.maxlength]="3" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="mt15 mb15" [ngClass]="{'hidden': !uiDisplay.trHR2}">
+                                <div class="row ">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Contact Name' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactName']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PremiseContactName" eTypeText formControlName="PremiseContactName" size="40" [attr.maxlength]="40" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Position' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactPosition']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PremiseContactPosition" eTypeText formControlName="PremiseContactPosition" size="30" [attr.maxlength]="30" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Landline Telephone' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactTelephone']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PremiseContactTelephone" eTypeText formControlName="PremiseContactTelephone" size="20" [attr.maxlength]="20" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Mobile Number' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactMobile']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PremiseContactMobile" eTypeText formControlName="PremiseContactMobile" size="20" [attr.maxlength]="20" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Fax' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactFax']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PremiseContactFax" eTypeText formControlName="PremiseContactFax" size="20" [attr.maxlength]="20" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Email' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PremiseContactEmail']].required">*</span></label>
+                                        <div class="col24">
+                                            <input type="text" id="PremiseContactEmail" eTypeTextFree formControlName="PremiseContactEmail" size="40" [attr.maxlength]="50" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Client Reference' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['ClientReference']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="ClientReference" eTypeTextFree formControlName="ClientReference" size="20" [attr.maxlength]="20" class="form-control" (blur)="ClientReference_onfocusout()">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Purchase Order No' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PurchaseOrderNo']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="PurchaseOrderNo" eTypeTextFree formControlName="PurchaseOrderNo" size="20" [attr.maxlength]="20" class="form-control" (blur)="PurchaseOrderNo_onfocusout()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'PO Expiry Date' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['POExpiryDate']].required">*</span></label>
+                                        <div class="col12">
+                                            <icabs-datepicker #POExpiryDate [dt]='pageParams.dtPOExpiryDate?.value' [isDisabled]="pageParams.dtPOExpiryDate?.disabled"
+                                                [isRequired]="this['utils'].isRequired(uiForm.controls.POExpiryDate)" (selectedValue)="selDate($event.value, 'POExpiryDate', $event)"
+                                                [validate]="pageParams.dtPOExpiryDate?.validate"></icabs-datepicker>
+                                            <input id="POExpiryDate" type="text" class="form-control hidden" eTypeDate formControlName="POExpiryDate">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'PO Expiry Value' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['POExpiryValue']].required">*</span></label>
+                                        <div class="col16">
+                                            <input type="text" id="POExpiryValue" eTypeCurrency formControlName="POExpiryValue" size="20" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'Customer Type' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['CustomerTypeCode']].required">*</span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="CustomerTypeCode" eTypeCode formControlName="CustomerTypeCode" size="12" [attr.maxlength]="10" class="form-control"
+                                                (keydown)="onKeydownFn($event)" (change)="onChangeFn($event)" transform="caps"
+                                                (blur)="fieldValidateTransform($event)">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="CustomerTypeDesc" eTypeText formControlName="CustomerTypeDesc" size="25" [attr.maxlength]="25" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #customerTypeEllipsis [disabled]="uiForm.controls.CustomerTypeCode?.disabled" [showCloseButton]="ellipsis.customerTypeEllipsis.showCloseButton"
+                                                [showHeader]="ellipsis.customerTypeEllipsis.showHeader" [childConfigParams]="ellipsis.customerTypeEllipsis.childparams"
+                                                [contentComponent]="ellipsis.customerTypeEllipsis.component" (ellipsisData)="customerTypeEllipsisDataSel($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-sm-3" id="trInvoiceGroupNumber" [ngClass]="{'hidden': !uiDisplay.trInvoiceGroupNumber}">
+                                        <label class="col24">{{'Invoice Group Number' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['InvoiceGroupNumber']].required">*</span></label>
+                                        <div class="col8 pr5">
+                                            <input type="text" id="InvoiceGroupNumber" eTypeCode formControlName="InvoiceGroupNumber" size="8" [attr.maxlength]="8" class="form-control"
+                                                (keydown)="onKeydownFn($event)" (change)="onChangeFn($event)">
+                                        </div>
+                                        <div class="col14 pr5">
+                                            <input type="text" id="InvoiceGroupDesc" eTypeTextFree formControlName="InvoiceGroupDesc" size="25" [attr.maxlength]="25" class="form-control">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis #invoiceGrpNumberEllipsis [disabled]="uiForm.controls.InvoiceGroupNumber?.disabled" [showCloseButton]="ellipsis.invoiceGrpNumberEllipsis.showCloseButton"
+                                                [showHeader]="ellipsis.invoiceGrpNumberEllipsis.showHeader" [childConfigParams]="ellipsis.invoiceGrpNumberEllipsis.childparams"
+                                                [contentComponent]="ellipsis.invoiceGrpNumberEllipsis.component" (ellipsisData)="invoiceGrpNumberEllipsisDataSel($event)"></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7" [ngClass]="{'hidden': !uiDisplay.trPNOLFlags1}">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" id="PNOL" eTypeCheckBox formControlName="PNOL" class="form-control" (change)="PNOL_OnClick()">
+                                            <label class="" for="PNOL">{{ 'PestNetOnline' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt2" id="trPNOLFlags2" [ngClass]="{'hidden': !uiDisplay.trPNOLFlags2}">
+                                    <div class="col-sm-3">
+                                        <label class="col24">{{'PestNet Site Reference' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PNOLSiteRef']].required">*</span></label>
+                                        <div class="col22 pr5">
+                                            <input type="text" id="PNOLSiteRef" eTypeCode formControlName="PNOLSiteRef" size="45" [attr.maxlength]="50" class="form-control" (keydown)="onKeydownFn($event)"
+                                                (change)="onChangeFn($event)">
+                                        </div>
+                                        <div class="col2">
+                                            <icabs-ellipsis 
+                                                #siteReferenceEllipsis 
+                                                [disabled]="uiForm.controls.PNOLSiteRef?.disabled" 
+                                                [showCloseButton]="ellipsis.siteReferenceEllipsis.showCloseButton"
+                                                [showHeader]="ellipsis.siteReferenceEllipsis.showHeader" 
+                                                [childConfigParams]="ellipsis.siteReferenceEllipsis.childparams"
+                                                [contentComponent]="ellipsis.siteReferenceEllipsis.component" 
+                                                (ellipsisData)="siteReferenceEllipsisDataSel($event)"
+                                            ></icabs-ellipsis>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.trPNOLFlags1}">
+                                        <div [ngClass]="{'hidden': !uiDisplay.trPNOLLevel}">
+                                            <label class="col24">{{'Level' | translate}}<span class="mandatory" *ngIf="controls[controlsMap['PNOLiCABSLevel']].required">*</span></label>
+                                            <div class="col8 pr5">
+                                                <input type="text" id="PNOLiCABSLevel" eTypeCode formControlName="PNOLiCABSLevel" size="8" class="form-control" (keydown)="onKeydownFn($event)"
+                                                    (change)="onChangeFn($event)">
+                                            </div>
+                                            <div class="col14 pr5">
+                                                <input type="text" id="PNOLDescription" eTypeTextFree formControlName="PNOLDescription" size="25" [attr.maxlength]="25" class="form-control">
+                                            </div>
+                                            <div class="col2">
+                                                <icabs-ellipsis #pnolLevelEllipsis [disabled]="uiForm.controls.PNOLiCABSLevel?.disabled" [showCloseButton]="ellipsis.pnolLevelEllipsis.showCloseButton"
+                                                    [showHeader]="ellipsis.pnolLevelEllipsis.showHeader" [childConfigParams]="ellipsis.pnolLevelEllipsis.childparams"
+                                                    [contentComponent]="ellipsis.pnolLevelEllipsis.component" (ellipsisData)="pnolLevelEllipsisDataSel($event)"></icabs-ellipsis>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt7">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="checkbox" id="WasteFeeInd" eTypeCheckBox formControlName="WasteFeeInd" class="form-control">
+                                            <label class="" for="WasteFeeInd">{{ 'Waste Transfer Fee' | translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab2.active, 'hidden': !tab.tab2.visible}">
+                            <div id="grdSRA">
+                                <div class="row mt10">
+                                    <div class="col-sm-12">
+                                        <icabs-refresh (click)="refreshGrid()"></icabs-refresh>
+                                        <icabs-pagination #GridPagination *ngIf="totalRecords> 0" [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" [currentPage]="page"
+                                            (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                                    </div>
+                                    <div class="col-sm-12 mt10">
+                                        <icabs-grid #Grid [maxColumns]="maxColumn" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" [sortHeaders]="gridSortHeaders"
+                                            (gridInfo)="getGridInfo($event)" (sortInfo)="sortGrid($event)" (selectedRowInfo)="onGridRowClick($event)"></icabs-grid>
+                                    </div>
+                                </div>
+                                <div class="row mt10" [ngClass]="{'hidden': !uiDisplay.CmdGenerateSRAText}">
+                                    <div class="col-sm-3">
+                                        <div class="col24">
+                                            <input type="button" id="CmdGenerateSRAText" formControlName="CmdGenerateSRAText" value="{{'Generate SRA Text' | translate}}"
+                                                class="btn btn-primary" (click)="CmdGenerateSRAText_onClick()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab3.active, 'hidden': !tab.tab3.visible}">
+                            <div id="grdSRAText">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <textarea id="PremiseSpecialInstructions" eTypeTextFree formControlName="PremiseSpecialInstructions" [attr.maxlength]="500" size="500" rows="6"
+                                            cols="10" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" [ngClass]="{'active': tab.tab4.active, 'hidden': !tab.tab4.visible}">
+                            <div id="grdTimeWindow">
+                                <div class="row mt10">
+                                    <div class="col-sm-9">
+                                        <table class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="2">{{'Start' | translate}}</th>
+                                                    <th colspan="2">{{'End' | translate}}</th>
+                                                    <th colspan="2">{{'Start' | translate}}</th>
+                                                    <th colspan="2">{{'End' | translate}}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ 'Sunday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh01" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm01" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh01" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem01" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh08" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm08" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh08" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem08" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Monday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh02" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm02" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh02" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem02" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh09" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm09" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh09" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem09" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Tuesday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh03" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm03" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh03" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem03" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh10" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm10" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh10" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem10" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Wednesday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh04" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm04" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh04" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem04" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh11" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm11" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh11" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem11" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Thursday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh05" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm05" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh05" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem05" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh12" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm12" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh12" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem12" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Friday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh06" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm06" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh06" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem06" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh13" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm13" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh13" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem13" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{{ 'Saturday' | translate}}</td>
+                                                    <td><select id="twsh07" formControlName="twsh07" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm07" formControlName="twsm07" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh07" formControlName="tweh07" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem07" formControlName="twem07" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsh14" formControlName="twsh14" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twsm14" formControlName="twsm14" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twsm" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="tweh14" formControlName="tweh14" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.tweh" [value]="item.value">{{item.label}}</option></select></td>
+                                                    <td><select id="twem14" formControlName="twem14" (change)="CheckWindow()"
+                                                            class="col24"><option *ngFor="let item of dropDown.twem" [value]="item.value">{{item.label}}</option></select></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <hr class="mt10">
+            <div class="row mt10">
+                <div class="col-sm-6">
+                    <input type="button" id="dummy" class="btn dummy" value="" (focus)="focusSave($event)">
+                    <input type="button" class="btn btn-primary" id="save" value="{{'Save' | translate}}" (click)="save()">
+                    <input type="button" class="btn btn-secondary" id="cancel" value="{{'Cancel' | translate}}" (click)="cancel()">
+                    <input type="button" class="btn btn-additional" id="delete" value="{{'Delete' | translate}}" (click)="delete()">
+                </div>
+                <div class="col-sm-3" [ngClass]="{'hidden': !uiDisplay.tdViewOriginal}">
+                    <input type="checkbox" id="ViewOriginal" formControlName="ViewOriginal" class="form-control" (change)="ViewOriginal_OnClick()">
+                    <label class="" for="ViewOriginal">{{ 'View Original' | translate }}</label>
+                </div>
+                <div class="col-sm-3 pull-right">
+                    <div class="col24">
+                        <select id="menu" eTypeText formControlName="menu" class="form-control" (change)="menu_onchange($event.target.value)">
+                            <option value="Options">{{'Options' | translate}}</option>
+                            <option *ngFor="let item of dropDown.menu" [value]="item.value">{{item.label | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="hidden">
+            <input id="dlBatchRef" eTypeTextFree formControlName="dlBatchRef">
+            <input id="dlContractRef" formControlName="dlContractRef">
+            <input id="dlPremiseRef" call riExchange.Functions.Request.PostDataAdd("dlPremiseRowID",riMaintenance.GetRowID("dlPremise"),  formControlName="dlPremiseRef">
+            <input id="dlRecordType" value="CO" eTypeTextFree formControlName="dlRecordType">
+            <input id="dlPremiseROWID" formControlName="dlPremiseROWID">
+            <input id="dlRejectionCode" eTypeCode formControlName="dlRejectionCode">
+            <input id="dlRejectionDesc" eTypeTextFree formControlName="dlRejectionDesc">
+            <input id="BusinessCode" eTypeCode formControlName="BusinessCode">
+            <input id="CompanyCode" formControlName="CompanyCode">
+            <input id="Misc" formControlName="Misc">
+            <input id="SubSystem" formControlName="SubSystem">
+            <input id="UpdateableInd" type="checkbox" eTypeCheckBox formControlName="UpdateableInd">
+            <input id="AutoCloseWindow" type="checkbox" formControlName="AutoCloseWindow">
+            <input id="PNOLSetupChargeRequired" type="checkbox" formControlName="PNOLSetupChargeRequired">
+            <input id="dlMasterExtRef" eTypeTextFree formControlName="dlMasterExtRef">
+            <input id="InitialdlMasterExtRef" formControlName="InitialdlMasterExtRef">
+            <input id="QuoteTypeCode" formControlName="QuoteTypeCode">
+            <input id="DisQuoteTypeCode" formControlName="DisQuoteTypeCode">
+            <input id="AccountNumber" eTypeCode formControlName="AccountNumber">
+            <input id="AccountName" eTypeTextFree formControlName="AccountName">
+            <input id="ContractName" eTypeText formControlName="ContractName">
+            <input id="RoutingSource" eTypeText formControlName="RoutingSource">
+            <div *ngFor="let item of '01,02,03,04,05,06,07,08,09,10,11,12,13,14'.split(',')">
+                <input id="WindowStarth{{item}}" formControlName="WindowStarth{{item}}">
+                <input id="WindowStartm{{item}}" formControlName="WindowStartm{{item}}">
+                <input id="WindowEndh{{item}}" formControlName="WindowEndh{{item}}">
+                <input id="WindowEndm{{item}}" formControlName="WindowEndm{{item}}">
+            </div>
+        </div>
+    </form>
+</section>
+<icabs-modal #messageModal [showCloseButton]="true" (modalClose)="closeModal()" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+<icabs-prompt-modal #promptModal="child" [showHeader]="false" [title]="promptTitle" [content]="promptContent" (saveEmit)="confirmed($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

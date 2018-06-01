@@ -1,0 +1,11 @@
+<div class="container login-bg center-align">
+    <div class="login-panel">
+        <img class="img-responsive margin-auto" alt="Rentokil Initial plc - link to home page" src="/assets/images/login-logo.png" />
+        <form class="form-signin">
+            <span id="reauth-email"></span>
+            <button class="btn btn-lg btn-primary btn-block btn-signin login-btn" id="login" type="submit" (click)="signIn($event);" [disabled]='!loginEnable'>LOGIN</button>
+        </form>
+    </div>
+</div>
+<icabs-modal #childModal="child" [(showHeader)]="showHeader" [config]="{backdrop: 'static'}"></icabs-modal>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

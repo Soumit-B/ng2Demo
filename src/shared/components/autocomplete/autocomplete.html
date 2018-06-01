@@ -1,0 +1,13 @@
+<div class="autocomplete-holder">
+    <input type="search" class="form-control" [(ngModel)]="searchStr" (blur)="hideDropdownList()" (keydown)="keydownHandler($event)" (keyup)="keyupHandler($event)"
+        (ngModelChange)="inputChangeHandler($event)" [attr.name]="inputName" [attr.placeholder]="placeholder" [tabindex]="fieldTabindex"
+        [autofocus]="autofocus" autocomplete="off" autocorrect="off" autocapitalize="off" />
+    <div class="autocomplete-dropdown" *ngIf="showDropdown">
+        <div class="autocomplete-searching" *ngIf="isSearching">{{textSearching}}</div>
+        <div class="autocomplete-searching" *ngIf="!isSearching && (!results || results.length == 0)">{{textNoResults}}</div>
+        <div class="autocomplete-row" *ngFor="let result of results; let rowIndex=index" [ngClass]="{'autocomplete-selected-row': rowIndex == currentIndex}"
+            (mousedown)="selectResult(result)" (mouseenter)="hoverRow(rowIndex)">
+            <span class="autocomplete-title">{{result.title}}</span>
+        </div>
+    </div>
+</div>

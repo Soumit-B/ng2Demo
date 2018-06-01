@@ -1,0 +1,65 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="BusinessDesc">{{ 'Business' | translate}}</label>
+                        <input id="BusinessDesc" class="form-control" formControlName="BusinessDesc" type="text" size="49" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="BranchNumber">{{ 'Branch' | translate}}</label>
+                        <input id="BranchNumber" class="form-control" formControlName="BranchNumber" type="text" size="38" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area Code' | translate}}</label>
+                    <div class="col6 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="6" maxlength="4">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BranchServiceAreaDesc" class="form-control" formControlName="BranchServiceAreaDesc" type="text" size="38" maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="DateFrom">{{ 'Date From' | translate}}</label>
+                        <icabs-datepicker id="DateFrom"></icabs-datepicker>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="DateTo">{{ 'To' | translate}}</label>
+                        <icabs-datepicker id="DateTo"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-additioanl mr5" value="{{'Submit Report Generation' | translate}}">
+                <input type="button" class="btn btn-additioanl" value="{{'Export Weekly Plan' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

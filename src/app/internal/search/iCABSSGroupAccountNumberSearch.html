@@ -1,0 +1,58 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Group Account Search' | translate}}
+            </h1>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <label class="col24">{{ 'Filter By' | translate}}</label>
+        </div>
+        <div class="col-sm-3">
+            <div class="col24">
+                <select class="form-control" (change)="getFiterValue($event.target.value)" [(ngModel)]="FilterSelect" name="FilterSelect">
+						<option></option>
+						<option value="GroupAccountNumber">{{ 'Group Account Number' | translate}}</option>
+						<option value="GroupName">{{'Group Name' | translate }}</option>
+					</select>
+            </div>
+        </div>
+        <div *ngIf="filterValue=='GroupAccountNumber'" class="col-sm-3 GroupAccountNumber ">
+            <input type="text" class="form-control" maxlength="10" [(ngModel)]="FilterInput">
+        </div>
+        <div *ngIf="filterValue=='GroupName'" class="col-sm-3 GroupName">
+            <input type="text" class="form-control" maxlength="30" [(ngModel)]="FilterInputCheck" eTypeText>
+        </div>
+        <!--<div class="col-sm-4 col-sm-6 form-item">
+                        <input type="submit" (click)="$event.preventDefault();refresh()" name="search" value="{{'Search' | translate }}" class="btn btn-lg btn-primary">
+                    </div>-->
+
+        <div class="col-sm-3">
+            <div class="col12 pr10">
+                <input type="submit" (click)="$event.preventDefault();refresh()" name="search" value="{{ 'Search' | translate }}" class="btn btn-primary">
+            </div>
+            <div class="col12">
+                <input type="button" name="Add New" value="{{'Add New' | translate}}" class="btn btn-secondary" [ngClass]="!showAddNew ? 'hidden': ''"
+                    (click)="onAddNew()">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6">
+            <icabs-table #GroupAccountTable (selectedData)="selectedData($event)" [page]="page" [tableheader]="tableheader" [itemsPerPage]="itemsPerPage"
+                [columns]="columns" (onRefresh)="refresh()" [doTranslate]="true"></icabs-table>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-3 pull-right" *ngIf="showOption === true">
+            <select class="form-control" (change)="onChange($event.target.value)">
+				<option>{{ 'Option' | translate}}</option>
+				<option value="#">{{ 'New Group Account' | translate}}</option>
+			</select>
+        </div>
+    </div>
+</div>

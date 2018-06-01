@@ -1,0 +1,226 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Service Cover Deletion Maintenance' | translate }} </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" formControlName="ContractNumber" size="10" [attr.maxlength]="8">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ContractName" formControlName="ContractName" size="30" [attr.maxlength]="30">
+                    </div>
+                     <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Neg Branch'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="NegBranchNumber" formControlName="NegBranchNumber" size="10" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BranchName" formControlName="BranchName" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Premises Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" formControlName="PremiseNumber" size="10" [attr.maxlength]="5">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="PremiseName" formControlName="PremiseName" size="30" [attr.maxlength]="30">
+                    </div>
+                     <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product Code'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ProductCode" formControlName="ProductCode" size="10" [attr.maxlength]="6">
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" class="form-control" id="ProductDesc" formControlName="ProductDesc" size="30" [attr.maxlength]="30">
+                    </div>
+                     <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Status'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" class="form-control" id="Status" formControlName="Status" size="12" [attr.maxlength]="12">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Visit Frequency'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="ServiceVisitFrequency" formControlName="ServiceVisitFrequency" size="10" [attr.maxlength]="8">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Value'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="ServiceAnnualValue" formControlName="ServiceAnnualValue" size="20" [attr.maxlength]="23">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Service Quantity'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="ServiceQuantity" formControlName="ServiceQuantity" size="5" [attr.maxlength]="5">
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Commence Date'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="ServiceCommenceDate" formControlName="ServiceCommenceDate" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Invoice Anniversary Date'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="InvoiceAnnivDate" formControlName="InvoiceAnnivDate" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+             <div class="row mt2">
+                 <div class="col-sm-4">
+                    <label class="col24">{{'Invoice Frequency'|translate}}</label>
+                    <div class="col8 pr5">
+                      <input type="text" class="form-control" id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode" size="5" [attr.maxlength]="5">
+                    </div>
+                    <div class="col16">
+                      <input type="text" class="form-control" id="InvoiceFrequencyDesc" formControlName="InvoiceFrequencyDesc" size="20" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Lost Business'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="LostBusinessCode" formControlName="LostBusinessCode" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Detail'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="LostBusinessDetailCode" formControlName="LostBusinessDetailCode" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Effect Date'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="InactiveEffectDate" formControlName="InactiveEffectDate" size="10" [attr.maxlength]="10">
+                    </div>
+                </div>
+            </div>
+             <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Commission Employee'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="CommissionEmployeeCode" formControlName="CommissionEmployeeCode" size="10" [attr.maxlength]="10">
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="EmployeeSurname" formControlName="EmployeeSurname" size="30" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24">{{'Reason'|translate}}</label>
+                    <div class="col12">
+                        <input type="text" class="form-control" id="SalesEmployeeText" formControlName="SalesEmployeeText" size="30" [attr.maxlength]="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Text'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" class="form-control" id="InactiveServiceCoverText" formControlName="InactiveServiceCoverText" size="40" [attr.maxlength]="50">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Removal Visit Narrative Code'|translate}}</label>
+                    <div class="col22 pr5">
+                        <input type="text" class="form-control" id="VisitNarrativeCode" formControlName="VisitNarrativeCode" size="40" [attr.maxlength]="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Removal Visit Notes'|translate}}</label>
+                    <div class="col24">
+                       <textarea class="form-control" id="RemovalVisitText" formControlName="RemovalVisitText"></textarea>
+                    </div>
+                </div>
+            </div>
+             <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                       <input type="checkbox" class="form-control" id="CreateContact" formControlName="CreateContact">
+                        <label for="CreateContact">{{'Contact Management'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <div class="col24">
+                       <input type="checkbox" class="form-control" id="CancelProRataChargeInd" formControlName="CancelProRataChargeInd">
+                        <label for="CancelProRataChargeInd">{{'Cancel Pro Rata Charges'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <hr class="mt15 mb15">
+        <footer class="screen-footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="button" class="btn btn-primary mr10" value="{{ 'Save' | translate }}">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+                </div>
+                <div class="col-sm-2">
+                    <div class="col24 pull-right">
+                        <select class="form-control" id="menu" formControlName="menu">             
+                            <option selected value="">{{'Options'|translate}}</option>
+                            <option value="ServiceCover">{{'Service Cover'|translate}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>

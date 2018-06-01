@@ -1,0 +1,152 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Account Review Owner Maintenance' | translate}}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label id="SpanAccountReviewPortfolioOwnerID" class="col24">{{ 'Review ID' | translate}}  <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <input formControlName="AccountReviewPortfolioOwnerID" class="form-control" size="9" maxlength="9" disabled eTypeCode>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label id="SpanAccountNumber" class="col24">{{ 'Account Number' | translate}}  <span class="mandatory">*</span></label>
+                <div class="col6 pr5">
+                    <input class="form-control" formControlName="AccountNumber" size="9" maxlength="10" eTypeCode>
+                </div>
+                <div class="col18">
+                    <input class="form-control" formControlName="AccountName" size="40" maxlength="40" eTypeTextFree>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label id="SpanContractNumber" class="col24">{{ 'Contract Number' | translate}} </label>
+                <div class="col6 pr5">
+                    <input class="form-control" formControlName="ContractNumber" [icabsDirFocus]="setFocusContractNumber" size="9" maxlength="8"
+                        (blur)="inputField_OnChange($event, 'Contract')" eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input class="form-control" formControlName="ContractName" size="40" maxlength="40" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="ellipsisConfig.contract.disabled" [showCloseButton]="ellipsisConfig.contract.showCloseButton"
+                        [showHeader]="ellipsisConfig.contract.showHeader" [childConfigParams]="ellipsisConfig.contract" [contentComponent]="ellipsisConfig.contract.component"
+                        (ellipsisData)="inputField_OnChange($event, 'Contract')"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label id="SpanPremiseNumber" class="col24">{{ 'Premises Number' | translate}}  </label>
+                <div class="col6 pr5">
+                    <input type="text" formControlName="PremiseNumber" size="9" maxlength="10" class="form-control" (blur)="inputField_OnChange($event, 'Premise')"
+                        eTypeInteger>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" formControlName="PremiseName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="ellipsisConfig.premise.disabled" [showCloseButton]="ellipsisConfig.premise.showCloseButton" [showHeader]="ellipsisConfig.premise.showHeader"
+                        [childConfigParams]="ellipsisConfig.premise" [contentComponent]="ellipsisConfig.premise.component" (ellipsisData)="inputField_OnChange($event, 'Premise')"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label id="SpanEmployeeCode" class="col24">{{ 'Review Owner Employee' | translate}}  <span class="mandatory">*</span></label>
+                <div class="col6 pr5">
+                    <input type="text" formControlName="EmployeeCode" [icabsDirFocus]="setFocusEmployeeCode" size="9" maxlength="8" class="form-control"
+                        (blur)="inputField_OnChange($event, 'Employee')" eTypeCode>
+                </div>
+                <div class="col16 pr5">
+                    <input type="text" formControlName="EmployeeSurname" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [disabled]="ellipsisConfig.employee.disabled" [showCloseButton]="ellipsisConfig.employee.showCloseButton"
+                        [showHeader]="ellipsisConfig.employee.showHeader" [childConfigParams]="ellipsisConfig.employee" [contentComponent]="ellipsisConfig.employee.component"
+                        (ellipsisData)="inputField_OnChange($event, 'Employee')"></icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label id="SpanReviewCycleMonths" class="col24">{{ 'Review Cycle (Months)' | translate}} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <input formControlName="ReviewCycleMonths" size="9" maxlength="3" class="form-control" eTypeInteger>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <div class="col24 mt10">
+                    <input id="SuspendReviewInd" formControlName="SuspendReviewInd" type="checkbox" class="form-control">
+                    <label for="SuspendReviewInd">{{ 'Suspend Review Ind' | translate}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label id="SpanNextReviewDate" class="col24">{{ 'Next Review Date' | translate}} <span class="mandatory">*</span></label>
+                <div class="col16">
+                    <icabs-datepicker #datepicker [clearDate]="true" [isRequired]="true" [dt]="dtNextReviewDate" [isReadonly]="false" (onChange)="updateDatePickerValue($event)"></icabs-datepicker>
+                    <input id="NextReviewDate" formControlName="NextReviewDate" type="text" class="form-control hidden" eTypeDate>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label id="spanAccountReviewNotes" class="col24">{{ 'Account Review Notes' | translate}} </label>
+                <div class="col24">
+                    <textarea formControlName="AccountReviewNotes" style="height: 65px" rows="15" cols="80" class="form-control" eTypeTextFree></textarea>
+</div>
+</div>
+</div>
+<div class="row mt2">
+    <div class="col-sm-3">
+        <label id="SpanNumberReviews" class="col24">{{ 'Completed Reviews' | translate}} </label>
+        <div class="col16">
+            <input formControlName="NumberReviews" size="9" maxlength="9" value="" class="form-control" eTypeInteger>
+        </div>
+    </div>
+</div>
+
+<div class="row mt2">
+    <div class="col-sm-3">
+        <label id="SpanFirstReview" class="col24">{{ 'First Reviewed' | translate}} </label>
+        <div class="col16">
+            <input formControlName="FirstReview" size="9" maxlength="9" value="" class="form-control" eTypeDate>
+        </div>
+    </div>
+</div>
+<div class="row mt2">
+    <div class="col-sm-3">
+        <label id="SpanLastReview" class="col24">{{ 'Last Reviewed' | translate}} </label>
+        <div class="col16">
+            <input formControlName="LastReview" size="9" maxlength="9" value="" class="form-control" eTypeDate>
+        </div>
+    </div>
+</div>
+<hr class="mt15 mb15">
+<div class="row mt5">
+    <div class="col-sm-12">
+        <button class="btn btn-primary" (click)="onSubmit()">{{ 'Save' | translate}} </button>
+        <input class="btn btn-secondary" type="button" value="{{ 'Cancel' | translate}} " (click)="onAbandon()">
+        <input class="btn btn-primary" [disabled]="this['parentMode'] === 'add'" type="button" value="{{ 'Delete' | translate}} "
+            (click)="btnDelete_onClick()">
+    </div>
+</div>
+</form>
+</div>
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

@@ -1,0 +1,136 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="5" [attr.maxlength]="5" formControlName="BranchServiceAreaCode" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BranchServiceAreaDesc" size="40" [attr.maxlength]="40" formControlName="BranchServiceAreaDesc" class="form-control"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanNumber">{{ 'Service Plan' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanNumber" size="10" [attr.maxlength]="10" formControlName="ServicePlanNumber" class="form-control right"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanStartDate">{{ 'Start Date' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanStartDate" size="10" [attr.maxlength]="10" formControlName="ServicePlanStartDate" class="form-control center"
+                            eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanNoOfCalls">{{ 'Number Of Premises' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanNoOfCalls" size="6" [attr.maxlength]="6" formControlName="ServicePlanNoOfCalls" class="form-control right"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanEndDate">{{ 'End Date' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanEndDate" size="10" [attr.maxlength]="10" formControlName="ServicePlanEndDate" class="form-control center"
+                            eTypeDate>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanTime">{{ 'Time' | translate }}</label>
+                    <div class="col12 pr5" *ngIf="false">
+                        <input type="text" id="ServicePlanTime" size="6" [attr.maxlength]="6" formControlName="ServicePlanTime" class="form-control" eTypeText>
+                    </div>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanTimeString" size="6" [attr.maxlength]="6" formControlName="ServicePlanTimeString" class="form-control right"
+                            eTypeTime>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServiceWeekNumber">{{ 'Week Number' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServiceWeekNumber" size="2" [attr.maxlength]="2" formControlName="ServiceWeekNumber" class="form-control right"
+                            eTypeInteger>
+                    </div>
+                </div>
+                <div class="col-sm-4" *ngIf="this['pageParams'].vEnableInstallsRemovals">
+                    <label class="col24" for="ServicePlanNoOfExchanges">{{ 'Number Of Units' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanNoOfExchanges" size="6" [attr.maxlength]="6" formControlName="ServicePlanNoOfExchanges" class="form-control right"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanStatusOriginal">{{ 'Current Status' | translate }}</label>
+                    <div class="col24">
+                        <input type="text" id="ServicePlanStatusOriginal" size="30" [attr.maxlength]="40" formControlName="ServicePlanStatusOriginal" class="form-control"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanNettValue">{{ 'Nett Value' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ServicePlanNettValue" size="6" [attr.maxlength]="6" formControlName="ServicePlanNettValue" class="form-control right"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ServicePlanStatusCode">{{ 'Set To' | translate }}</label>
+                    <div class="col8 pr5" *ngIf="false">
+                        <input type="text" id="ServicePlanStatusCode" size="9" [attr.maxlength]="9" formControlName="ServicePlanStatusCode" class="form-control"
+                            eTypeCode>
+                    </div>
+                    <div class="col24">
+                        <input type="text" id="ServicePlanStatusDesc" size="30" [attr.maxlength]="40" formControlName="ServicePlanStatusDesc" class="form-control"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt20" *ngIf="this['pageParams'].vResetPlanVisitsToInPlanning">
+                    <input type="checkbox" id="ResetPlanVisitsToInPlanningInd" class="form-control" formControlName="ResetPlanVisitsToInPlanningInd">
+                    <label class="col24" for="ResetPlanVisitsToInPlanningInd">{{ 'Reset Planned Visits To "In Planning"' | translate }}</label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4" *ngIf="false">
+                    <label class="col24" for="ReportNumber">{{ 'Report Number' | translate }}</label>
+                    <div class="col8">
+                        <input type="text" id="ReportNumber" size="9" [attr.maxlength]="9" formControlName="ReportNumber" class="form-control" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt15">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="onSubmit($event)" [disabled]="pageVariables.disableSave">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="onCancel($event)" [disabled]="pageVariables.disableCancel">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

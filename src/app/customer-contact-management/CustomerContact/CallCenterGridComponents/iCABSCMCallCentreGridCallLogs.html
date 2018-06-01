@@ -1,0 +1,151 @@
+<form novalidate [formGroup]="formGroup">
+    <div id="Logs" class="mt10">
+        <div class="row mt2">
+            <div class="col-sm-3">
+                <label class="col24" for="CallLogSelectedContractPremise">{{ 'Selected Contract/Premises' | translate }}</label>
+                <div class="col17 pr5">
+                    <input type="text" id="CallLogSelectedContractPremise" name="CallLogSelectedContractPremise" formControlName="CallLogSelectedContractPremise" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                </div>
+                <div class="col3">
+                    <input id="CmdCallLogClearSelected" name="CmdCallLogClearSelected" formControlName="CmdCallLogClearSelected" (click)="cmdCallLogClearSelectedOnClick($event)" type="button" class="btn btn-primary" value="{{ 'Clear' | translate }}">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="col8 pr5 mt20">
+                    <select class="form-control" id="CallLogSearchOn" formControlName="CallLogSearchOn" (keydown)="callLogSearchOnKeyDown($event)" (change)="callLogSearchOnChange($event)">
+                        <option value="all" selected>{{ 'All' | translate }}</option>
+                        <option value="CallRef">{{ 'Log Reference' | translate }}</option>
+                        <option value="TicketRef">{{ 'Ticket Reference (Customer)' | translate }}</option>
+                        <option value="OpenOnly">{{ 'Open' | translate }}</option>
+                        <option value="openoverdue">{{ 'Open And Overdue' | translate }}</option>
+                        <option value="opencallouts">{{ 'Open Callouts' | translate }}</option>
+                        <option value="opencomplaints">{{ 'Open Complaints' | translate }}</option>
+                        <option value="closed31days">{{ 'Closed Tickets &#60; 31 Days' | translate }}</option>
+                        <option value="ClosedOnly">{{ 'Closed' | translate }}</option>
+                    </select>
+                </div>
+                <div class="col8 pr5 mt20">
+                    <input type="text" (keydown)="callLogSearchValueOnKeyDown($event)" id="CallLogSearchValue" name="CallLogSearchValue" formControlName="CallLogSearchValue" size="20" maxlength="50" class="form-control">
+                </div>
+                <div class="col8">
+                    <label class="col24">{{ 'From' | translate }}</label>
+                    <icabs-datepicker [dt]='dateObjects.CallLogDate' [isDisabled]="!dateObjectsEnabled.CallLogDate" (selectedValue)="callLogDateSelectedValue($event)" [uiFormGroup]="formGroup" [controlName]="'CallLogDate'"></icabs-datepicker>
+                </div>
+            </div>
+        </div>
+        <div class="row mt20">
+            <div class="col-sm-6">
+                <icabs-refresh (click)="refresh()"></icabs-refresh>
+                <icabs-pagination *ngIf="totalRecords > 0" [totalItems]="totalRecords" [itemsPerPage]="pageSize" (getCurrentPage)="getCurrentPage($event)" [currentPage]="paginationCurrentPage"></icabs-pagination>
+            </div>
+        </div>
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <icabs-grid #logsGrid [maxColumns]="maxColumns" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage" (gridInfo)="getGridInfo($event)" (selectedRowInfo)="onGridRowClick($event)" (getCellData)="onGridCellClick($event)" [sortIndex]="gridSortHeaders" (sortInfo)="sortGrid($event)" [showTick]="true" [validateProperties]="validateProperties"></icabs-grid>
+            </div>
+        </div>
+        <div *ngIf="fieldVisibility.CallLogsForm">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="CallLogUserName">{{ 'Call Taken By' | translate }}</label>
+                    <div class="col24">
+                        <input id="CallLogUserName" name="CallLogUserName" formControlName="CallLogUserName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="CallLogCreatedDate">{{ 'Date' | translate }}</label>
+                        <div class="col24">
+                            <input id="CallLogCreatedDate" formControlName="CallLogCreatedDate" size="9" maxlength="9" class="form-control" eTypeTextFree>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" id="CallLogCreatedTime">{{ 'Time' | translate }}</label>
+                        <div class="col24">
+                            <input id="CallLogCreatedTime" name="CallLogCreatedTime" formControlName="CallLogCreatedTime" size="5" maxlength="5" class="form-control" eTypeTextFree>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContractNumber">{{ 'Contract' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="TicketContractNumber" name="TicketContractNumber" formControlName="TicketContractNumber" size="10" maxlength="10" value="" class="form-control" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input id="TicketContractName" name="TicketContractName" formControlName="TicketContractName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketPremiseNumber">{{ 'Premises' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="TicketPremiseNumber" name="TicketPremiseNumber" formControlName="TicketPremiseNumber" size="10" maxlength="10" class="form-control" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input id="TicketPremiseName" name="TicketPremiseName" formControlName="TicketPremiseName" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketProductCode">{{ 'Product' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="TicketProductCode" name="TicketProductCode" formControlName="TicketProductCode" size="10" maxlength="10" value="" class="form-control" eTypeTextFree>
+                    </div>
+                    <div class="col16">
+                        <input id="TicketProductDesc" name="TicketProductDesc" formControlName="TicketProductDesc" size="40" maxlength="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketPostcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col16">
+                        <input id="TicketPostcode" name="TicketPostcode" formControlName="TicketPostcode" size="10" maxlength="10" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactName">{{ 'Contact Name' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactName" name="TicketContactName" formControlName="TicketContactName" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactPosition">{{ 'Position' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactPosition" name="TicketContactPosition" formControlName="TicketContactPosition" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactTelephone">{{ 'Telephone' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactTelephone" name="TicketContactTelephone" formControlName="TicketContactTelephone" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactMobile">{{ 'Mobile' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactMobile" name="TicketContactMobile" formControlName="TicketContactMobile" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactEmail">{{ 'Email' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactEmail" name="TicketContactEmail" formControlName="TicketContactEmail" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="TicketContactFax">{{ 'Fax' | translate }}</label>
+                    <div class="col24">
+                        <input id="TicketContactFax" name="TicketContactFax" formControlName="TicketContactFax" size="40" class="form-control" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,75 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ contractTypeTexts.title | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{ contractTypeTexts.label | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="9" class="form-control" id="ContractNumber" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="ContractName" formControlName="ContractName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldsVisibility.account">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="9" class="form-control" id="AccountNumber" formControlName="AccountNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="AccountName" formControlName="AccountName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldsVisibility.premise">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="9" class="form-control" placeholder="" id="PremiseNumber" formControlName="PremiseNumber"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="PremiseName" formControlName="PremiseName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="fieldsVisibility.product">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" maxlength="9" class="form-control" placeholder="" id="ProductCode" formControlName="ProductCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="40" maxlength="40" class="form-control" placeholder="" id="ProductDesc" formControlName="ProductDesc"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-9">
+                    <label class="col24">{{'Detail' | translate}}</label>
+                    <textarea class="form-control" rows="14" cols="55" id="ContractHistoryNarrative" formControlName="ContractHistoryNarrative"
+                        eTypeText></textarea>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+        </footer>
+    </form>
+</section>
+
+<icabs-modal #errorModal="child" [showHeader]="true" [content]="messageContentError">
+</icabs-modal>

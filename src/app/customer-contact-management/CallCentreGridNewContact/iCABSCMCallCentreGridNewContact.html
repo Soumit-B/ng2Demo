@@ -1,0 +1,346 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5" id="divMain">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Account' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="9" eTypeTextFree>
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="AccountProspectName" formControlName="AccountProspectName" class="form-control" type="text" size="33" eTypeTextFree>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label *ngIf="this.fieldHidden.tdSelectedTicketNumberLabel" class="col24">{{ 'Ticket' | translate }}</label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.tdSelectedTicketNumber" id="SelectedTicketNumber" formControlName="SelectedTicketNumber" class="form-control"
+                            type="text" size="10" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-3">
+                    <label *ngIf="this.fieldHidden.tdCurrentCallLogIDLabel" class="col24">{{ 'Log Ref' | translate }}</label>
+                    <div *ngIf="this.fieldHidden.tdCurrentCallLogID" class="col16">
+                        <input id="CurrentCallLogID" formControlName="CurrentCallLogID" class="form-control" type="text" size="10" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div *ngIf="this.fieldHidden.trTransactionDetails" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24"><strong>{{ 'Transaction Details' | translate }}</strong></label>
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trTransactionContractNumber" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contract Number' | translate }}<span *ngIf="this.mandatoryShow.ContractNumber" class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input icabsZeroPad eTypeTextFree id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="10"
+                            (blur)="onTransactionDetailsChange($event, 'contract')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input icabsZeroPad eTypeTextFree id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40">
+                    </div>
+                    <div class="col2 ">
+                        <icabs-ellipsis #ellipsisContractNumber [disabled]="ellipsisConfig.contract.disabled" [autoOpen]="ellipsisConfig.contract.autoOpen"
+                            [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.contract.showCloseButton" [showHeader]="ellipsisConfig.contract.showHeader"
+                            [childConfigParams]="ellipsisConfig.contract" [contentComponent]="ellipsisConfig.contract.component"
+                            (ellipsisData)="onContractDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input *ngIf="this.fieldHidden.tdcmdSelectContract" (click)="onCmdSelectContractClick();" type="button" class="btn btn-primary"
+                        value="{{ 'Get Contract' | translate }}">
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trTransactionPremiseNumber" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Premises Number' | translate }}<span *ngIf="this.mandatoryShow.PremiseNumber" class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input eTypeTextFree id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" size="10" (blur)="onTransactionDetailsChange($event, 'premise')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input eTypeTextFree id="PremiseName" formControlName="PremiseName" class="form-control" type="text" size="40">
+                    </div>
+                    <div class="col2 ">
+                        <icabs-ellipsis #ellipsisPremiseNumber [disabled]="ellipsisConfig.premise.disabled" [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.premise.showCloseButton"
+                            [showHeader]="ellipsisConfig.premise.showHeader" [childConfigParams]="ellipsisConfig.premise.childConfigParams"
+                            [contentComponent]="ellipsisConfig.premise.component" (ellipsisData)="onPremiseDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input (click)="this.onCmdSelectPremiseClick()" *ngIf="this.fieldHidden.tdcmdSelectPremise" type="button" class="btn btn-primary"
+                        value="{{ 'Get Premises' | translate }}">
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trTransactionProductCode" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Product Code' | translate }}<span *ngIf="this.mandatoryShow.ProductCode" class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input eTypeTextFree id="ProductCode" formControlName="ProductCode" class="form-control" type="text" size="10" (blur)="onTransactionDetailsChange($event, 'product')">
+                    </div>
+                    <div class="col14 pr5">
+                        <input eTypeTextFree id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" size="40">
+                    </div>
+                    <div class="col2 ">
+                        <icabs-ellipsis #ellipsisProductCode [disabled]="ellipsisConfig.product.disabled" [showCloseButton]="ellipsisConfig.product.showCloseButton"
+                            [showHeader]="ellipsisConfig.product.showHeader" [childConfigParams]="ellipsisConfig.product.childConfigParams"
+                            [contentComponent]="ellipsisConfig.product.component" (ellipsisData)="onProductDataReceived($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input (click)="this.onCmdSelectProductClick()" *ngIf="this.fieldHidden.tdcmdSelectProduct" type="button" class="btn btn-primary"
+                        value="{{ 'Get Product' | translate }}">
+                </div>
+            </div>
+            <hr *ngIf="this.fieldHidden.trContractSeperatorBottom" class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label *ngIf="this.fieldHidden.tdContactLabelStandard" class="col24"><strong>{{ 'Contact Details ( Existing Account )' | translate }}</strong></label>
+                    <label *ngIf="this.fieldHidden.tdContactLabelNew" class="col24"><strong>{{ 'Contact Details ( New Account )' | translate }}</strong></label>
+                    <label *ngIf="this.fieldHidden.tdContactLabelFromTicket" class="col24"><strong>{{ 'Contact Details ( Defaulted From Selected Ticket )' | translate }}</strong></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Contact' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col13 pr5">
+                        <input (change)="onCallContactNameChange()" *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree #CallContactName
+                            id="CallContactName" formControlName="CallContactName" class="form-control" type="text" size="30"
+                            maxlength="40">
+                        <input (change)="onCallContactNameChange()" *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText #CallContactName id="CallContactName"
+                            formControlName="CallContactName" class="form-control" type="text" size="30" maxlength="40">
+                    </div>
+                    <input (click)="this.onCmdContactsClick()" *ngIf="this.fieldHidden.cmdContacts" id="cmdContacts" type="button" class="btn btn-primary"
+                        value="{{ 'Contact Details' | translate }}">
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input *ngIf="this.fieldHidden.tdcmdContactAcct" type="button" class="btn btn-primary" value="{{ this.cmdContactAcct | translate }}">
+                    <input *ngIf="this.fieldHidden.tdCmdContactTicket" type="button" class="btn btn-primary" value="{{ 'From Ticket' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Position' | translate }}<span class="mandatory">*</span>
+                </label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallContactPosition" formControlName="CallContactPosition"
+                            class="form-control" type="text" size="30" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallContactPosition" formControlName="CallContactPosition"
+                            class="form-control" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input *ngIf="this.fieldHidden.tdcmdContactPrem" type="button" class="btn btn-primary" value="{{ 'From Premises' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Telephone' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input eTypeTextFree #CallContactTelephone id="CallContactTelephone" formControlName="CallContactTelephone" class="form-control"
+                            type="text" size="20" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Mobile' | translate }}<span *ngIf="this.mandatoryShow.CallContactMobile" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input eTypeTextFree #CallContactMobile id="CallContactMobile" formControlName="CallContactMobile" class="form-control" type="text"
+                            size="20" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Fax' | translate }}</label>
+                    <div class="col16">
+                        <input eTypeTextFree #CallContactFax id="CallContactFax" formControlName="CallContactFax" class="form-control" type="text"
+                            size="20" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Email' | translate }}<span *ngIf="this.mandatoryShow.CallContactEmail" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input eTypeTextFree #CallContactEmail id="CallContactEmail" formControlName="CallContactEmail" class="form-control" type="text"
+                            size="20" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div *ngIf="this.fieldHidden.trCallAddressName" class="col-sm-3">
+                    <label class="col24">{{ 'Name' | translate }}<span *ngIf="this.mandatoryShow.CallAddressName" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressName" formControlName="CallAddressName"
+                            class="form-control" type="text" size="40" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressName" formControlName="CallAddressName" class="form-control"
+                            type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Customer Ref' | translate }}</label>
+                    <div class="col16">
+                        <input eTypeTextFree id="CallTicketReference" formControlName="CallTicketReference" class="form-control" type="text" size="20"
+                            maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trCallAddressLine1" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Address Line 1' | translate }}<span *ngIf="this.mandatoryShow.CallAddressLine1" class="mandatory">*</span></label>
+                    <div class="col13 pr5">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressLine1" formControlName="CallAddressLine1"
+                            class="form-control" type="text" size="30" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressLine1" formControlName="CallAddressLine1"
+                            class="form-control" type="text" size="30" maxlength="40">
+                    </div>
+                    <icabs-ellipsis #getAddressEllipsis [hideIcon]="this.fieldHidden.getAddressEllipsis" [disabled]="ellipsisConfig.getAddressEllipsis.disabled"
+                        [autoOpen]="ellipsisConfig.getAddressEllipsis.autoOpen" [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.getAddressEllipsis.showCloseButton"
+                        [showHeader]="ellipsisConfig.getAddressEllipsis.showHeader" [childConfigParams]="ellipsisConfig.getAddressEllipsis"
+                        [contentComponent]="ellipsisConfig.getAddressEllipsis.component" (ellipsisData)="this.onCmdGetAddressDataReturn($event)"></icabs-ellipsis>
+                    <input (click)="this.onCmdGetAddressClick()" [disabled]="fieldDisable.cmdGetAddress" *ngIf="this.fieldHidden.cmdGetAddress"
+                        type="button" id="cmdGetAddress" class="btn btn-primary" value="{{ 'Get Address' | translate }}">
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trCallAddressLine2" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Address Line 2' | translate }}</label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressLine2" formControlName="CallAddressLine2"
+                            class="form-control" type="text" size="40" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressLine2" formControlName="CallAddressLine2"
+                            class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trCallAddressLine3" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Address Line 3' | translate }}<span *ngIf="this.mandatoryShow.CallAddressLine3" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressLine3" formControlName="CallAddressLine3"
+                            class="form-control" type="text" size="40" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressLine3" formControlName="CallAddressLine3"
+                            class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trCallAddressLine4" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Town' | translate }}<span *ngIf="this.mandatoryShow.CallAddressLine4" class="mandatory" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressLine4" formControlName="CallAddressLine4"
+                            class="form-control" type="text" size="30" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressLine4" formControlName="CallAddressLine4"
+                            class="form-control" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="this.fieldHidden.trCallAddressLine5" class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Country' | translate }}<span *ngIf="this.mandatoryShow.CallAddressLine5" class="mandatory" class="mandatory">*</span></label>
+                    <div class="col16">
+                        <input *ngIf="this.fieldHidden.isFirstLetterCapital" eTypeTextFree id="CallAddressLine5" formControlName="CallAddressLine5"
+                            class="form-control" type="text" size="40" maxlength="40">
+                        <input *ngIf="!this.fieldHidden.isFirstLetterCapital" eTypeText id="CallAddressLine5" formControlName="CallAddressLine5"
+                            class="form-control" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Postcode' | translate }}<span *ngIf="this.mandatoryShow.CallContactPostcode" class="mandatory">*</span></label>
+                    <div class="col16 pr5">
+                        <input eTypeCode id="CallContactPostcode" formControlName="CallContactPostcode" class="form-control" type="text" size="40"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <div *ngIf="this.isLSCEnableHopewiserPAF || this.isLSCEnableDatabasePAF" class="ellipsis" (click)="this.onCmdCallContactPostcodeClick()"></div>
+                    </div>
+                    <icabs-ellipsis #aupPostcodeSearchEllipsis [hideIcon]="this.fieldHidden.aupPostcodeSearchEllipsis" [disabled]="ellipsisConfig.aupPostcodeSearchEllipsis.disabled"
+                        [autoOpen]="ellipsisConfig.aupPostcodeSearchEllipsis.autoOpen" [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.aupPostcodeSearchEllipsis.showCloseButton"
+                        [showHeader]="ellipsisConfig.aupPostcodeSearchEllipsis.showHeader" [childConfigParams]="ellipsisConfig.aupPostcodeSearchEllipsis.childConfigParams"
+                        [contentComponent]="ellipsisConfig.aupPostcodeSearchEllipsis.component" (ellipsisData)="this.onCmdCallContactPostcodeDataReturn($event)"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="this.fieldHidden.notificationCloseTypeSelect">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Notify Call Closure' | translate }}</label>
+                    <div class="col24">
+                        <select eTypeTextFree (change)="this.onNotificationCloseTypeSelectChange()" class="form-control" formControlName="NotificationCloseTypeSelect"
+                            id="NotificationCloseTypeSelect">
+                           <option value="0" selected>{{ 'No' | translate}}</option>
+                           <option value="1">{{'Via Email' | translate}}</option>
+                           <option value="2">{{'Via SMS' | translate}}</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24"><strong>{{ 'Log And Ticket Details' | translate }}</strong></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Ticket Type' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #ContactTypeCodeSelect class="" [inputData]="this.ttContactType" (onSelect)="onContactTypeCodeSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div *ngIf='this.fieldHidden.tdDisputedInvoices' class="col-sm-3 mt20">
+                    <input (click)="this.onCmdDisputedInvoicesClick()" type="button" class="btn btn-primary" value="{{ 'Select Disputed Invoices' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Detail' | translate }}</label>
+                    <div class="col20">
+                        <icabs-dropdown-static #ContactTypeDetailCodeSelect class="" [inputData]="this.contactTypeDetailCodeSelectList" (onSelect)="onContactTypeDetailCodeSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20">
+                    <input id="cmdClearTicketType" (click)="this.onCmdClearTicketTypeClick()" type="button" class="btn btn-primary" value="{{ 'Clear Details' | translate }}">
+                    <input id="cmdDefaultTicketType" (click)="this.onCmdDefaultTicketTypeClick()" type="button" class="btn btn-primary" value="{{ 'Default Details' | translate }}">
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Summary' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24 pr5">
+                        <input (change)="this.onCallNotepadSummaryChange()" eTypeTextFree id="CallNotepadSummary" formControlName="CallNotepadSummary"
+                            class="form-control" type="text" size="30" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-6">
+                    <label class="col24">{{ 'Details' | translate }}</label>
+                    <textarea eTypeTextFree id="CallNotepad" formControlName="CallNotepad" class="form-control" type="text" rows="5" cols="80"></textarea>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt20">
+            <div class="col-sm-12">
+                <input type="button" (click)="this.onCmdClearAcctClick()" *ngIf="this.fieldHidden.cmdClearAcct" id="cmdClearAcct" class="btn btn-primary"
+                    value="{{ this.cmdClearAcct | translate }}">
+                <input type="button" id="cmdCreate" (click)="onCmdCreateClick($event)" class="btn btn-primary" value="{{ this.cmdCreate | translate }}">
+            </div>
+        </div>
+    </footer>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+</section>

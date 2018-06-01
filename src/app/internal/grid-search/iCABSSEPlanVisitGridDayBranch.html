@@ -1,0 +1,124 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Branch Summary Workload' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchNumber">{{ 'Branch' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchNumber" size="6" [attr.maxlength]="6" formControlName="BranchNumber" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="BranchName" size="30" [attr.maxlength]="40" formControlName="BranchName" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Service Due Date' | translate }}</label>
+                    <div class="col16">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="BranchServiceAreaCode" size="7" [attr.maxlength]="4" formControlName="BranchServiceAreaCode" class="form-control">
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="EmployeeSurname" size="40" [attr.maxlength]="40" formControlName="EmployeeSurname" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="SelectedMonth">{{ 'Service Due Month' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="SelectedMonth" size="2" [attr.maxlength]="2" formControlName="SelectedMonth" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="Postcode">{{ 'Postcode' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="Postcode" size="6" [attr.maxlength]="6" formControlName="Postcode" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="SelectedYear">{{ 'Year' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="SelectedYear" size="4" [attr.maxlength]="4" formControlName="SelectedYear" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="Town">{{ 'Town' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="Town" size="30" [attr.maxlength]="40" formControlName="Town" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaPlan">{{ 'To Service Area' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="BranchServiceAreaPlan" size="4" [attr.maxlength]="4" formControlName="BranchServiceAreaPlan" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ProductServiceGroupString">{{ 'Product Service Groups' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="ProductServiceGroupString" size="30" [attr.maxlength]="30" formControlName="ProductServiceGroupString" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Destination Date' | translate }}</label>
+                    <div class="col16">
+                        <icabs-datepicker></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="VisitFrequencyFilter">{{ 'Visit Frequency' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="VisitFrequencyFilter" size="6" [attr.maxlength]="6" formControlName="VisitFrequencyFilter" class="form-control">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="GridPageSize">{{ 'Display Number Of Lines' | translate }}</label>
+                    <div class="col16">
+                        <input type="text" id="GridPageSize" size="2" [attr.maxlength]="2" formControlName="GridPageSize" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractTypeFilter">{{ 'Contract Type' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown></icabs-dropdown>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-4">
+                    <icabs-refresh></icabs-refresh>
+                    <icabs-pagination></icabs-pagination>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 mt10">
+                    <icabs-grid-advanced></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>

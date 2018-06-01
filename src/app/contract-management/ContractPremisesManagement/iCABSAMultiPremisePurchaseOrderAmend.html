@@ -1,0 +1,85 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1> {{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-5">
+                    <div class="col6 pr5">
+                        <label class="col24" for="spanContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">*</span></label>
+                        <div class="col24">
+                            <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" (change)="onContractNumberChange($event)"
+                                size="8" maxlength="8" icabsZeroPad eTypeCode>
+                        </div>
+                    </div>
+                    <div class="col16">
+                        <label class="col24" for="spanContractName">{{ 'Name' | translate }}</label>
+                        <div class="col20 pr5">
+                            <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40" maxlength="40" eTypeText>
+                        </div>
+                        <div class="col2">
+                            <icabs-ellipsis [showCloseButton]="true" [childConfigParams]="inputParamsContractSearch" [contentComponent]="contractSearchComponent"
+                                [showHeader]="true" (ellipsisData)="setContractNameAndAccountNumber($event)" [autoOpen]="autoOpen"
+                                [modalConfig]="modalConfig"></icabs-ellipsis>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="spanAccountNumber">{{ 'Account Number' | translate }}</label>
+                    <div class="col24">
+                        <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" size="8" maxlength="9" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15">
+            <div class="row mt10">
+                <div class="col-sm-3 mt5">
+                    <input id="chkChangeAll" type="checkbox" class="form-control" formControlName="chkChangeAll" Name="chkChangeAll" value=""
+                        (click)="toggleChangeAll($event)">
+                    <label for="chkChangeAll">{{ 'Change All' | translate }}<span class="mandatory">*</span></label>
+                </div>
+            </div>
+            <div class="row mt7">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanFromPurchaseOrderNo">{{ 'Existing Purchase Order Number' | translate }}<span class="mandatory" *ngIf="fromPurchaseOrderNoRequired">*</span></label>
+                    <div class="col24">
+                        <input id="FromPurchaseOrderNo" formControlName="FromPurchaseOrderNo" class="form-control" type="text" size="30" maxlength="30"
+                            (change)="trimInputField('FromPurchaseOrderNo')" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="spanToPurchaseOrderNo">{{ 'New Purchase Order Number' | translate }}<span class="mandatory">*</span></label>
+                    <div class="col24">
+                        <input id="ToPurchaseOrderNo" formControlName="ToPurchaseOrderNo" class="form-control" type="text" size="30" maxlength="30"
+                            (change)="trimInputField('ToPurchaseOrderNo')" eTypeTextFree>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <hr class="mt15">
+        <footer class="screen-footer">
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <input type="submit" class="btn btn-primary mr5" value="{{ 'Save' | translate }}" (click)="savePurchaseOrder()">
+                    <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}" (click)="cancelPurchaseOrder()">
+                </div>
+            </div>
+        </footer>
+    </form>
+</section>
+
+<icabs-prompt-modal #promptModalForSave="child" [showHeader]="true" [showCloseButton]="true" [title]="promptTitleSave" [content]="promptContentSave"
+    [config]="modalConfig" (saveEmit)="promptContentSaveData($event)"></icabs-prompt-modal>
+
+<icabs-modal #messageModal="child" [showHeader]="true" [content]="messageContentSave">
+</icabs-modal>
+
+<icabs-modal #errorModal="child" [showHeader]="true" [content]="messageContentError">
+</icabs-modal>

@@ -1,0 +1,198 @@
+<!-- Page Content -->
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{ 'Move Account' | translate }}
+                <span class="font-sm inline-block pl20">
+				</span>
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="accountMoveFormGroup" (ngSubmit)="onSubmit(accountMoveFormGroup.value, accountMoveFormGroup.valid, $event)">
+        <div class="row mt5">
+            <div class="col-sm-4">
+                <label class="col24" for="formContractNumber">{{ 'Contract Number' | translate }}<span class="mandatory">* </span></label>
+                <div class="col8 pr5">
+                    <input id="formContractNumber" #formContractNumber type="text" class="form-control" formControlName="formContractNumber"
+                        [attr.maxlength]="8" (change)="onBlur($event)" eTypeCode>
+                </div>
+                <div class="col14 pr5">
+                    <input id="fromContractName" #fromContractName disabled="" type="text" class="form-control" formControlName="fromContractName"
+                        [attr.maxlength]="40" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [(autoOpen)]="autoOpenFrom" [ellipsisIdentifier]="fromIdentifier" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsContract"
+                        [modalConfig]="modalConfig" [contentComponent]="contractSearchComponent" (ellipsisData)="onDataReceived($event, true)"
+                        [showHeader]="showHeader"></icabs-ellipsis>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" for="fromAccountNumber">{{ 'Account Number' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="fromAccountNumber" class="form-control" [attr.maxlength]="9" formControlName="fromAccountNumber" eTypeText>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="col24">{{ 'Commence Date' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractCommenceDate" class="form-control" disabled="" formControlName="ContractCommenceDate" [attr.maxlength]="40" eTypeDate>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" for="FromAccountAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                <div class="col24">
+                    <input type="text" #FromAccountAddressLine1 id="FromAccountAddressLine1" disabled="" class="form-control" formControlName="FromAccountAddressLine1"
+                        [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="ContractAnnualValue">{{ 'Annual Value' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="ContractAnnualValue" class="form-control" disabled="" formControlName="ContractAnnualValue" [attr.maxlength]="10" eTypeCurrency>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" for="FromAccountAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="FromAccountAddressLine2" class="form-control" disabled="" formControlName="FromAccountAddressLine2" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="NegBranchNumber">{{ 'Neg Branch' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="NegBranchNumber" class="form-control" disabled="" formControlName="NegBranchNumber" [attr.maxlength]="5" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" for="FromAccountAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="FromAccountAddressLine3" class="form-control" disabled="" formControlName="FromAccountAddressLine3" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="CurrentPremises">{{ 'Current Premises' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="CurrentPremises" class="form-control" disabled="" formControlName="CurrentPremises" [attr.maxlength]="4" eTypeInteger>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label class="col24" for="FromAccountAddressLine4">{{ 'Town' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="FromAccountAddressLine4" disabled="" class="form-control" formControlName="FromAccountAddressLine4" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4 col-md-offset-4">
+                <label class="col24" id="FromAccountAddressLine5">{{ 'County' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="FromAccountAddressLine5" disabled="" class="form-control" formControlName="FromAccountAddressLine5" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4 col-md-offset-4">
+                <label class="col24" for="FromAccountPostcode">{{ 'Postcode' | translate }}</label>
+                <div class="col24">
+                    <input type="text" id="FromAccountPostcode" disabled="" class="form-control" formControlName="FromAccountPostcode" [attr.maxlength]="15" eTypeText>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="col24" for="toAccountNumber">{{ 'Move To Account Number' | translate }}<span class="mandatory">* </span></label>
+                <div class="col8 pr5">
+                    <input id="toAccountNumber" #toAccountNumber type="text" class="form-control" formControlName="toAccountNumber" [attr.maxlength]="9" (change)="onBlur($event)" eTypeText>
+                </div>
+                <div class="col14 pr5">
+                    <input id="toAccountName" #toAccountName disabled="" type="text" class="form-control" formControlName="toAccountName" [attr.maxlength]="40" eTypeText>
+                </div>
+                <div class="col2">
+                    <icabs-ellipsis [(autoOpen)]="autoOpenTo" [ellipsisIdentifier]="toIdentifier" [showCloseButton]="showCloseButton" [childConfigParams]="inputParamsAccount"
+                        [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onDataReceivedTo($event, true)"
+                        [showHeader]="showHeader">
+                        </icabs-ellipsis>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-4">
+                <label class="col24" for="ToAccountAddressLine1">{{ 'Address Line 1' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountAddressLine1" class="form-control" formControlName="ToAccountAddressLine1" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="ToAccountAddressLine2">{{ 'Address Line 2' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountAddressLine2" class="form-control" formControlName="ToAccountAddressLine2" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="ToAccountAddressLine3">{{ 'Address Line 3' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountAddressLine3" class="form-control" formControlName="ToAccountAddressLine3" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="ToAccountAddressLine4">{{ 'Town' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountAddressLine4" class="form-control" formControlName="ToAccountAddressLine4" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" id="ToAccountAddressLine5">{{ 'County' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountAddressLine5" class="form-control" formControlName="ToAccountAddressLine5" [attr.maxlength]="40" eTypeText>
+                </div>
+            </div>
+        </div>
+        <div class="row mt2">
+            <div class="col-sm-4">
+                <label class="col24" for="ToAccountPostcode">{{ 'Postcode' | translate }}</label>
+                <div class="col24">
+                    <input type="text" disabled="" id="ToAccountPostcode" class="form-control" formControlName="ToAccountPostcode" [attr.maxlength]="15" eTypeText>
+                </div>
+            </div>
+        </div>
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-6">
+                <input class="btn btn-sm btn-primary mr10" type="submit" [value]="'Save' | translate" [disabled]="!accountMoveFormGroup.valid">
+                <input class="btn btn-sm btn-secondary" type="button" [value]="'Cancel' | translate" (click)="disableForm()">
+            </div>
+        </div>
+    </form>
+</div>
+
+<icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+</icabs-modal>
+
+<icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+</icabs-modal>
+
+<icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+    (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+    <icabs-routeaway #routeAwayComponent ></icabs-routeaway>

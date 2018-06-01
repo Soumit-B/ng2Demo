@@ -1,0 +1,103 @@
+{
+  "records": [
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012100",
+      "ProRataChargeStatusCode": "A",
+      "LanguageCode": "ENG",
+      "ProRataChargeStatusDesc": "Awaiting Approval",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012101",
+      "ProRataChargeStatusCode": "A",
+      "LanguageCode": "GER",
+      "ProRataChargeStatusDesc": "Awaiting Approval",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012102",
+      "ProRataChargeStatusCode": "C",
+      "LanguageCode": "",
+      "ProRataChargeStatusDesc": "Cancelled",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012103",
+      "ProRataChargeStatusCode": "C",
+      "LanguageCode": "ENG",
+      "ProRataChargeStatusDesc": "Cancelled",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012104",
+      "ProRataChargeStatusCode": "C",
+      "LanguageCode": "GER",
+      "ProRataChargeStatusDesc": "Cancelled",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012105",
+      "ProRataChargeStatusCode": "P",
+      "LanguageCode": "",
+      "ProRataChargeStatusDesc": "Produced",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012106",
+      "ProRataChargeStatusCode": "P",
+      "LanguageCode": "ENG",
+      "ProRataChargeStatusDesc": "Produced",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012107",
+      "ProRataChargeStatusCode": "P",
+      "LanguageCode": "GER",
+      "ProRataChargeStatusDesc": "Produced",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012108",
+      "ProRataChargeStatusCode": "W",
+      "LanguageCode": "",
+      "ProRataChargeStatusDesc": "Waiting",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x0000000000012109",
+      "ProRataChargeStatusCode": "W",
+      "LanguageCode": "ENG",
+      "ProRataChargeStatusDesc": "Waiting",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttProRataChargeStatusLang": "0x000000000001210a",
+      "ProRataChargeStatusCode": "W",
+      "LanguageCode": "GER",
+      "ProRataChargeStatusDesc": "Waiting",
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    }
+  ]
+}

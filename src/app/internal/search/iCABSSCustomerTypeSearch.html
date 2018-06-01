@@ -1,0 +1,43 @@
+<section class="container-fluid custom-container row">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Customer Type Code/Description Search' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <section class="screen-body">
+        <form novalidate [formGroup]="this['uiForm']">
+            <div class="row mt5">
+                <div class="col-sm-6">
+                    <div class="col6 pr5">
+                        <select id="CustomerTypeSearchType" class="form-control" formControlName="CustomerTypeSearchType" (change)="UpdateHTML()">
+                        <option value="Description" selected>{{ 'Description' | translate }}</option>
+                        <option value="Code">{{ 'Code' | translate }}</option>
+                    </select>
+                    </div>
+                    <div class="col12 pr5">
+                        <input #inputField id="CustomerTypeSearchValue" type="text" [size]="inputFieldSize" [maxlength]="inputFieldSize" formControlName="CustomerTypeSearchValue"
+                            class="form-control">
+                    </div>
+                    <div class="col4">
+                        <input type="button" id="cmdSearch" (click)="buildTable()" class="btn btn-primary mr10" value="{{'Search' | translate}}">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                </div>
+                <div class="col-sm-12 mt10">
+                    <icabs-table #customerTypeSearch (selectedData)="selectedData($event)" [columns]="columns" [paginationTop]="true" [displayError]="false"
+                        [tableheader]="tableheading" (onRefresh)="buildTable()">></icabs-table>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <footer class="screen-footer">
+
+    </footer>
+</section>

@@ -1,0 +1,45 @@
+<div class="container-fluid custom-container">
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1 class="page-header">
+                {{ 'API Details' | translate }}
+            </h1>
+        </div>
+    </div>
+    <form novalidate [formGroup]="this['uiForm']">
+
+        <div class="row mt5">
+            <div class="col-sm-3">
+                <label class="col24">{{ 'API Code' | translate }}</label>
+                <div class="col8 pr5">
+                    <input id="APICode" size="9" maxlength="9" formControlName="APICode" class="form-control" eTypeCode>
+                </div>
+                <div class="col16">
+                    <input id="APICodeDesc" size="40" maxlength="40" formControlName="APICodeDesc" class="form-control" [disabled]="true">
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="col10 mt20">
+                    <input id="cmdAddRecord" type="button" class="btn btn-primary" value="{{'Add Record' | translate}}" (click)="onButtonClick()">
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr class="mt15 mb15">
+        <div class="row">
+            <div class="col-sm-3">
+                <icabs-table #apiRateSearchTable (selectedData)="onSelect($event)" [columns]="columns" [paginationTop]="true" [displayError]="false"
+                    [tableheader]="tableheader" (dataLoaded)="tableDataLoaded($event)" (click)="refresh()"></icabs-table>
+            </div>
+        </div>
+    </form>
+
+</div>
+<icabs-modal #errorModal="child">
+</icabs-modal>
+
+<icabs-modal #messageModal>
+</icabs-modal>

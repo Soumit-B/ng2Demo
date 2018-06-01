@@ -1,0 +1,51 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Service Area' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="7" maxlength="5">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="BranchServiceAreaDesc" class="form-control" formControlName="BranchServiceAreaDesc" type="text" size="40" maxlength="40">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductServiceGroupCode">{{ 'Product Group' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col6 pr5">
+                        <input id="ProductServiceGroupCode" class="form-control" formControlName="ProductServiceGroupCode" type="text" size="7" maxlength="2">
+                    </div>
+                    <div class="col16 pr5">
+                        <input id="ProductServiceGroupDesc" class="form-control" formControlName="ProductServiceGroupDesc" type="text" size="43"
+                            maxlength="40">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

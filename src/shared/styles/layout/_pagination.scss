@@ -1,0 +1,129 @@
+/* Pagination */
+
+.pagination {
+    border-radius: 0;
+    text-align: right;
+}
+ul.pagination {
+    border: 1px solid #acc0cf;
+    border-radius: 2px;
+    float: left;
+    border-top-left-radius:0;
+    border-bottom-left-radius:0;
+}
+
+.pagination>li:first-child>a,
+.pagination>li:first-child>span,
+.pagination>li:last-child>a,
+.pagination>li:last-child>span {
+    border-radius: 0;
+}
+
+.pagination>li>a,
+.pagination>li>span,
+.pagination>li>a:hover,
+.pagination>li>span:hover {
+    color: $paginationTextColor;
+    background-color: $paginationBackgroundColor;
+    
+}
+
+.pagination>li>a
+{
+    height: $paginationHeight;
+    line-height: 23px;
+    padding: 0px 10px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    border-left: 1px solid #acc0cf;
+   
+}
+.pagination>li:first-child a
+{
+    border-left:none;
+}
+
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: $paginationActiveBackgroundColor;
+    border-color: $paginationActiveBorderColor;
+    color: $paginationActiveTextColor;
+}
+
+.pagination>.disabled>a,
+.pagination>.disabled>span,
+.pagination>.disabled>a:hover,
+.pagination>.disabled>span:hover,
+.pagination>.disabled>a:focus,
+.pagination>.disabled>span:focus {
+    background-color: $paginationDisabledBackgroundColor;
+    border-color: $paginationDisabledBorderColor;
+    color: $paginationDisabledTextColor;
+    opacity: 0.5;
+}
+
+.pagination{
+.pagination-prev>a,
+.pagination-prev>a:hover {
+    background: url("/assets/images/pagination-left-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 35%;
+    color: transparent;
+}
+.pagination-prev.disabled>a,
+.pagination-prev.disabled>a:hover {
+    background: url("/assets/images/pagination-left-disable-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 35%;
+    color: transparent;
+}
+.pagination-next>a,
+.pagination-next>a:hover {
+    background: url("/assets/images/pagination-right-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 35%;
+    color: transparent;
+}
+.pagination-next.disabled>a,
+.pagination-next.disabled>a:hover {
+    background: url("/assets/images/pagination-right-disable-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 35%;
+    color: transparent;
+}
+
+.pagination-first>a,
+.pagination-first>a:hover {
+    background: url("/assets/images/pagination-first-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 60%;
+    color: transparent;
+}
+.pagination-first.disabled>a,
+.pagination-first.disabled>a:hover {
+    background: url("/assets/images/pagination-first-disable-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 45%;
+    color: transparent;
+}
+.pagination-last>a,
+.pagination-last>a:hover {
+    background: url("/assets/images/pagination-last-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 60%;
+    color: transparent;
+}
+.pagination-last.disabled>a,
+.pagination-last.disabled>a:hover {
+    background: url("/assets/images/pagination-last-disable-arrow.svg") no-repeat;
+    background-position: center;
+    background-size: 45%;
+    color: transparent;
+}
+}

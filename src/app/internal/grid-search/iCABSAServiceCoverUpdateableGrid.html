@@ -1,0 +1,135 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Contract Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ContractNumber" size="8" [attr.maxlength]="8" formControlName="ContractNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="ContractName" [attr.maxlength]="40" formControlName="ContractName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Invoice Frequency' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="InvoiceFrequencyCode" size="2" [attr.maxlength]="2" formControlName="InvoiceFrequencyCode" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Account Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="AccountNumber" size="8" [attr.maxlength]="9" formControlName="AccountNumber" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="AccountName" [attr.maxlength]="40" formControlName="AccountName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Neg Branch' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="NegBranchNumber" size="2" [attr.maxlength]="5" formControlName="NegBranchNumber" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="NegBranchName" [attr.maxlength]="30" formControlName="NegBranchName" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Premises Number' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="PremiseNumber" size="8" [attr.maxlength]="5" formControlName="PremiseNumber" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="PremiseName" [attr.maxlength]="40" formControlName="PremiseName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Anniversary Date' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="InvoiceAnnivDate" size="10" [attr.maxlength]="10" formControlName="InvoiceAnnivDate" eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Service Branch' | translate}}</label>
+                    </div>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="ServiceBranchNumber" size="2" [attr.maxlength]="5" formControlName="ServiceBranchNumber" eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="BranchName" [attr.maxlength]="30" formControlName="BranchName" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" *ngIf="tdAnnualValue">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label>{{'Annual Value' | translate}}</label>
+                    </div>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="PremiseAnnualValue" size="20" [attr.maxlength]="23" formControlName="PremiseAnnualValue" eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3 mt20">
+                    <icabs-refresh (click)="refresh()" [disabled] = "isRefreshDisabled"></icabs-refresh>
+                    <icabs-pagination [ngClass]="isHidePagination ? 'hidden' : ''" [totalItems]="gridParams.totalRecords"
+                        [itemsPerPage]="gridParams.itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+                <div class="col-sm-2">
+                    <div class="col24">
+                        <label>{{'Status' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <select class="form-control" formControlName="StatusSearchType" (change)="statusSearchTypeOnchange()">
+                            <option *ngFor="let item of statusSearchTypeoDropdownValues" [value]="item.value">
+                                {{item.text  | translate}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <div class="col24">
+                        <label>{{'Options' | translate}}</label>
+                    </div>
+                    <div class="col24">
+                        <icabs-dropdown-static #menu [inputData]="menuSelectList" (onSelect)="menuOnchange($event)"></icabs-dropdown-static>
+                    </div>                  
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid (headerClick)="riGridSort($event)" (TRDblClick)="riGridBodyOnDblClick($event)" (bodyColumnBlur)="onCellBlur($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

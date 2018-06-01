@@ -1,0 +1,169 @@
+{
+  "pageData": {
+    "pageNumber": 1,
+    "lastPageNumber": 1
+  },
+  "header": {
+    "title": [
+      {
+        "title": "Prospect Conversion",
+        "textColor": "",
+        "toolTip": ""
+      }
+    ],
+    "cells": [
+      {
+        "text": "Prospect",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Converted To",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Converted date",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Converted Sales Employee",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Converted value",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Contract Type",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      },
+      {
+        "text": "Quote number",
+        "textColor": "",
+        "backgroundColor": "",
+        "toolTip": "",
+        "colSpan": 1
+      }
+    ]
+  },
+  "body": {
+    "cells": [
+      {
+        "rowID": "01",
+        "text": "01",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "Branch",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "Business Support Services",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "0,00",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "0,00",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "0,00",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "0,00",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      },
+      {
+        "rowID": "",
+        "text": "0,00",
+        "textColor": "",
+        "borderColor": "",
+        "backgroundColor": "",
+        "cellColor": "",
+        "additionalData": "",
+        "drillDown": false,
+        "toolTip": "",
+        "colSpan": 1,
+        "imageWidth": null,
+        "imageHeight": null
+      }
+    ]
+  },
+  "footer": null
+}

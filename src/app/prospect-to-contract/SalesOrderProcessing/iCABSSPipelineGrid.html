@@ -1,0 +1,200 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Employee' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" (change)="getEmployeeName()" type="text" id="EmployeeCode" formControlName="EmployeeCode" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input class="form-control" type="text" id="EmployeeSurname" formControlName="EmployeeSurname" eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [disabled]="ellipsisConfig.employee.disabled" [(showHeader)]="ellipsisConfig.employee.showHeader" [(showCloseButton)]="ellipsisConfig.employee.showCloseButton"
+                            [(childConfigParams)]="ellipsisConfig.employee.childConfigParams" [(contentComponent)]="ellipsisConfig.employee.contentComponent"
+                            (ellipsisData)="onEllipsisDataReceived($event, viewBySelected)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Show' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #InclusionTypeSelectDropdown class="" [inputData]="this['pageParams']['MenuOptionListInclusionType']"
+                            (onSelect)="InclusionTypeSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+
+                </div>
+                <div class="col-sm-3" [hidden]="this['pageParams']['fieldHidden'].fromToDate">
+                    <div class="col12 pr5">
+                        <label class="col24">{{'From' | translate }}</label>
+                        <div class="col24">
+                            <input size="15" id="FromDate" formControlName="FromDate" [attr.maxlength]="15" class="form-control hidden">
+                            <icabs-datepicker [isDisabled]="dateDisable" #pipelineFromDatePicker [clearDate]="false" [dt]='fromDate' (selectedValue)="FromDateSelectedValue($event)"
+                                id="pipelineFromDatePicker"></icabs-datepicker>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24">{{'To' | translate }}</label>
+                        <div class="col24">
+                            <input size="15" id="ToDate" formControlName="ToDate" [attr.maxlength]="15" class="form-control hidden">
+                            <icabs-datepicker [isDisabled]="dateDisable" #pipelineToDatePicker [clearDate]="false" [dt]='toDate' (selectedValue)="ToDateSelectedValue($event)"
+                                id="pipelineToDatePicker"></icabs-datepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Status' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #StatusSelectDropdown class="" [inputData]="this['pageParams']['ProspectStatus']" (onSelect)="StatusSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Origin' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #originSelectDropdown class="" [inputData]="this['pageParams']['ProspectOrigin']" (onSelect)="OriginSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="col24">
+                        <label class="col12">{{'Diary Filter' | translate }}</label>
+                        <label class="col12" [hidden]="this['pageParams']['fieldHidden'].tdDiaryDate">{{'Date' | translate }}</label>
+                    </div>
+                    <div class="col12 pr5">
+                        <div class="col24">
+                            <icabs-dropdown-static id="SelectFilter" #SelectFilterDropdown class="" [inputData]="this['pageParams']['SelectFilterOptionListMenu']"
+                                (onSelect)="SelectFilterChange($event)"></icabs-dropdown-static>
+                        </div>
+                    </div>
+                    <div [hidden]="this['pageParams']['fieldHidden'].tdDiaryDate" class="col6">
+                        <input size="15" id="DiaryDate" formControlName="DiaryDate" [attr.maxlength]="15" class="form-control hidden">
+                        <icabs-datepicker [isRequired]="true" [isDisabled]="dateDisable" #DiaryDatePicker [clearDate]="false" [dt]='dtDiaryDate'
+                            (selectedValue)="DiaryDateSelectedValue($event)" id="DiaryDatePicker"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Market Segment' | translate }}</label>
+                    <div class="col24">
+                        <icabs-dropdown-static #marketSelectDropdown class="" [inputData]="this['pageParams']['Marketselect']" (onSelect)="marketSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5">
+                <div class="col-xs-12">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #postCodePagination *ngIf="totalRecords > 0" [currentPage]="pageCurrent" [totalItems]="totalRecords" [itemsPerPage]="pageSize"
+                        (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <!--<icabs-grid #postCodeGrid (gridInfo)="getGridInfo($event)" [maxColumns]="maxColumn" [itemsPerPage]="pageSize" [currentPage]="currentPage"
+                        (selectedRowInfo)="onGridRowDblClick($event)" (getCellData)="getCellData($event)"></icabs-grid>-->
+                    <icabs-grid-advanced #riGrid (bodyKeyDown)="riGrid_BodyOnKeyDown($event)" (bodyClick)="riGrid_BodyOnClick($event)" (bodyDblClick)="riGrid_BodyOnDblClick($event)"
+                        (headerClick)="riGrid_Sort($event)" (onSuccess)="riGrid_AfterExecute()" (bodyColumnBlur)="riGrid_OnBlur()"></icabs-grid-advanced>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24" for="ContractNumber">{{ 'Selected' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input class="form-control" type="text" id="PassProspectNumber" formControlName="PassProspectNumber" eTypeText>
+                    </div>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="PassProspectName" formControlName="PassProspectName" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-sm-offset-6">
+                    <div class="col16 pull-right">
+                        <icabs-dropdown-static id="menu" #menuSelectDropdown class="" [inputData]="this['pageParams']['MenuOptionListMenu']" (onSelect)="menuSelectChange($event)"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectContactName" formControlName="ProspectContactName" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Phone' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectContactPhone" formControlName="ProspectContactPhone" eTypeText>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Mobile' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectContactMobile" formControlName="ProspectContactMobile" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Source' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectTypeDesc" formControlName="ProspectTypeDesc" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Type' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectSourceDesc" formControlName="ProspectSourceDesc" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Appointment' | translate }}</label>
+                    <div class="col16">
+                        <input class="form-control" type="text" id="ProspectAppointmentDetails" formControlName="ProspectAppointmentDetails" eTypeText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Notes' | translate }}</label>
+                    <div class="col24">
+                        <textarea class="form-control" rows="8" id="ProspectNotes" formControlName="ProspectNotes" eTypeText></textarea>
+                    </div>
+                </div>
+                <div *ngIf="cmdSelectReview" class="col-sm-3 mt20">
+                    <input (click)="cmdSelectReviewOnClick()" type="button" id="cmdSelectReview" class="btn btn-primary" value="{{ 'Contact Centre Review' | translate }}">
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-prompt-modal #promptModal="child" [showHeader]="true" [title]="promptTitle" [content]="promptContent" (saveEmit)="riExchange_UpdateHTMLDocument()"></icabs-prompt-modal>
+<icabs-prompt-modal #promptAppointmentModal="child" [(showHeader)]="showAppointmentHeader" [title]="promptAppointmentTitle"
+    [content]="promptAppointmentContent" (saveEmit)="promptConfirm('close')"></icabs-prompt-modal>
+<icabs-prompt-modal #promptDiaryAppointmentModal="child" [(showHeader)]="showAppointmentHeader" [title]="promptDiaryAppointmentTitle"
+    [content]="promptDiaryAppointmentContent" (saveEmit)="promptConfirm('diary')"></icabs-prompt-modal>
+<icabs-modal #errorModal="child" [showHeader]="true"></icabs-modal>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

@@ -1,0 +1,434 @@
+{
+  "records": [
+    {
+      "ttContractDuration": "0x0000000000012900",
+      "BusinessCode": "D",
+      "ContractDurationCode": 1,
+      "ContractDurationDesc": "1 Month",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012901",
+      "BusinessCode": "D",
+      "ContractDurationCode": 3,
+      "ContractDurationDesc": "3 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012902",
+      "BusinessCode": "D",
+      "ContractDurationCode": 4,
+      "ContractDurationDesc": "4 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012903",
+      "BusinessCode": "D",
+      "ContractDurationCode": 6,
+      "ContractDurationDesc": "6 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012904",
+      "BusinessCode": "D",
+      "ContractDurationCode": 7,
+      "ContractDurationDesc": "7 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012905",
+      "BusinessCode": "D",
+      "ContractDurationCode": 8,
+      "ContractDurationDesc": "8 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012906",
+      "BusinessCode": "D",
+      "ContractDurationCode": 9,
+      "ContractDurationDesc": "9 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012907",
+      "BusinessCode": "D",
+      "ContractDurationCode": 10,
+      "ContractDurationDesc": "10 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012908",
+      "BusinessCode": "D",
+      "ContractDurationCode": 12,
+      "ContractDurationDesc": "12 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012909",
+      "BusinessCode": "D",
+      "ContractDurationCode": 18,
+      "ContractDurationDesc": "18 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290a",
+      "BusinessCode": "D",
+      "ContractDurationCode": 22,
+      "ContractDurationDesc": "22 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290b",
+      "BusinessCode": "D",
+      "ContractDurationCode": 24,
+      "ContractDurationDesc": "24 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290c",
+      "BusinessCode": "D",
+      "ContractDurationCode": 30,
+      "ContractDurationDesc": "30 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290d",
+      "BusinessCode": "D",
+      "ContractDurationCode": 36,
+      "ContractDurationDesc": "36 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290e",
+      "BusinessCode": "D",
+      "ContractDurationCode": 48,
+      "ContractDurationDesc": "48 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001290f",
+      "BusinessCode": "D",
+      "ContractDurationCode": 60,
+      "ContractDurationDesc": "60 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012910",
+      "BusinessCode": "K",
+      "ContractDurationCode": 1,
+      "ContractDurationDesc": "1 Month",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012911",
+      "BusinessCode": "K",
+      "ContractDurationCode": 3,
+      "ContractDurationDesc": "3 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012912",
+      "BusinessCode": "K",
+      "ContractDurationCode": 6,
+      "ContractDurationDesc": "6 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012913",
+      "BusinessCode": "K",
+      "ContractDurationCode": 9,
+      "ContractDurationDesc": "9 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012914",
+      "BusinessCode": "K",
+      "ContractDurationCode": 10,
+      "ContractDurationDesc": "10 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012915",
+      "BusinessCode": "K",
+      "ContractDurationCode": 12,
+      "ContractDurationDesc": "12 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012916",
+      "BusinessCode": "K",
+      "ContractDurationCode": 18,
+      "ContractDurationDesc": "18 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012917",
+      "BusinessCode": "K",
+      "ContractDurationCode": 20,
+      "ContractDurationDesc": "20 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012918",
+      "BusinessCode": "K",
+      "ContractDurationCode": 22,
+      "ContractDurationDesc": "22 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012919",
+      "BusinessCode": "K",
+      "ContractDurationCode": 24,
+      "ContractDurationDesc": "24 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291a",
+      "BusinessCode": "K",
+      "ContractDurationCode": 30,
+      "ContractDurationDesc": "30 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291b",
+      "BusinessCode": "K",
+      "ContractDurationCode": 36,
+      "ContractDurationDesc": "36 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291c",
+      "BusinessCode": "K",
+      "ContractDurationCode": 48,
+      "ContractDurationDesc": "48 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291d",
+      "BusinessCode": "K",
+      "ContractDurationCode": 60,
+      "ContractDurationDesc": "60 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291e",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 1,
+      "ContractDurationDesc": "1 Month",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001291f",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 3,
+      "ContractDurationDesc": "3 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012920",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 6,
+      "ContractDurationDesc": "6 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012921",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 9,
+      "ContractDurationDesc": "9 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012922",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 10,
+      "ContractDurationDesc": "10 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012923",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 12,
+      "ContractDurationDesc": "12 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012924",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 18,
+      "ContractDurationDesc": "18 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012925",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 22,
+      "ContractDurationDesc": "22 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012926",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 24,
+      "ContractDurationDesc": "24 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012927",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 30,
+      "ContractDurationDesc": "30 Months",
+      "ValidForNewContract": false,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012928",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 36,
+      "ContractDurationDesc": "36 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x0000000000012929",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 48,
+      "ContractDurationDesc": "48 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    },
+    {
+      "ttContractDuration": "0x000000000001292a",
+      "BusinessCode": "Z",
+      "ContractDurationCode": 60,
+      "ContractDurationDesc": "60 Months",
+      "ValidForNewContract": true,
+      "RecordID": null,
+      "DateStamp": null,
+      "TimeStamp": 0
+    }
+  ]
+}

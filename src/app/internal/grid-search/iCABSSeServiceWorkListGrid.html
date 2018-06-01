@@ -1,0 +1,176 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{'Service Area'| translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" class="form-control" id="BranchServiceAreaCode" size="7" [attr.maxlength]="4" formControlName="BranchServiceAreaCode"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" class="form-control" id="EmployeeSurname" size="25" [attr.maxlength]="35" formControlName="EmployeeSurname"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="col12 pr5">
+                        <label class="col24" for="StartDate">{{'Plan From'| translate}}</label>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="StartDate" size="10" [attr.maxlength]="10" formControlName="StartDate" eTypeDate>
+                        </div>
+                    </div>
+                    <div class="col12">
+                        <label class="col24" for="EndDate">{{'To'| translate}}</label>
+                        <div class="col16">
+                            <input type="text" class="form-control" id="EndDate" size="10" [attr.maxlength]="10" formControlName="EndDate" eTypeDate>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="systemChars.vEnablePostcodeDefaulting">
+                    <label class="col24" for="PostcodeFilter">{{'Postcode'| translate}}</label>
+                    <div class="col10">
+                        <input type="text" class="form-control" id="PostcodeFilter" [attr.maxlength]="10" size="10" formControlName="PostcodeFilter"
+                            eTypeCode>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="WeekNumber">{{'Week'| translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="WeekNumber" size="2" [attr.maxlength]="2" formControlName="WeekNumber" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt12">
+                <div class="col-sm-3">
+                    <div class="col10 mt20">
+                        <select id="VisitTypeFilter" formControlName="VisitTypeFilter" class="form-control">
+                            <option *ngFor="let item of visitTypeFilter" value="{{item[0]}}">{{item[1] | translate}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="ServicePlanNumber">{{'Service Plan Number'| translate}}</label>
+                    <div class="col8">
+                        <input type="text" class="form-control" id="ServicePlanNumber" [attr.maxlength]="10" size="10" formControlName="ServicePlanNumber"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt12">
+                <div class="col-sm-3">
+                    <div class="col10 mt20">
+                        <select id="SummaryDetail" formControlName="SummaryDetail" class="form-control" (change)="riGrid.Clear()">
+                            <option value="Summary">{{ 'Summary View' | translate}}</option>
+                            <option value="Detail">{{ 'Detail View' | translate }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="GridPageSize">{{'Display'| translate}}</label>
+                    <div class="col24">
+                        <div class="col16 pr5">
+                            <input type="text" class="form-control" id="GridPageSize" [attr.maxlength]="2" size="2" formControlName="GridPageSize" eTypeInteger>
+                        </div>
+                        <label class="col8">Lines</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-6">
+                    <icabs-refresh (click)="btnRefresh()"></icabs-refresh>
+                    <icabs-pagination [totalItems]="totalRecords" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (onSuccess)="riGridAfterExecute()" (bodyDblClick)="onDblClick($event)" (headerClick)="riGridSort($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-6 pull-right">
+                    <div class="col24">
+                        <div class="col4 pl5 pull-right">
+                            <label class="col24" for="SubtotalNettValue">{{'Nett Value'| translate}}</label>
+
+                            <input type="text" class="form-control" id="SubtotalNettValue" [attr.maxlength]="15" size="15" formControlName="SubtotalNettValue"
+                                eTypeCurrency>
+
+                        </div>
+                        <div class="col5 pl5 pull-right">
+                            <label class="col24" for="SubtotalTime">{{'Time'| translate}}</label>
+
+                            <input type="text" class="form-control" id="SubtotalTime" [attr.maxlength]="6" size="6" formControlName="SubtotalTime" eTypeText>
+
+                        </div>
+                        <div class="col5 pl5 pull-right" *ngIf="systemChars.vEnableWED">
+                            <label class="col24" for="SubtotalWED">{{'W.E.D'| translate}}</label>
+
+                            <input type="text" class="form-control" id="SubtotalWED" [attr.maxlength]="6" size="6" formControlName="SubtotalWED" eTypeDecimal1>
+
+                        </div>
+                        <div class="col5 pl5 pull-right" *ngIf="systemChars.vEnableInstallsRemovals">
+                            <label class="col24" for="SubtotalNoOfExchanges">{{'Units'| translate}}</label>
+
+                            <input type="text" class="form-control" id="SubtotalNoOfExchanges" [attr.maxlength]="6" size="6" formControlName="SubtotalNoOfExchanges"
+                                eTypeInteger>
+
+                        </div>
+                        <div class="col5 pull-right">
+                            <label class="col24" for="SubtotalNoOfCalls">{{'Filtered Visits'| translate}}</label>
+
+                            <input type="text" class="form-control" id="SubtotalNoOfCalls" [attr.maxlength]="6" size="6" formControlName="SubtotalNoOfCalls"
+                                eTypeInteger>
+
+                        </div>
+                    </div>
+                    <div class="col24">
+                        <div class="col4 pl5 pull-right">
+                            <label class="col24" for="TotalNettValue">{{'Nett Value'| translate}}</label>
+                            <div class="col24">
+                                <input type="text" class="form-control" id="TotalNettValue" [attr.maxlength]="15" size="15" formControlName="TotalNettValue"
+                                    eTypeCurrency>
+                            </div>
+                        </div>
+                        <div class="col5 pl5 pull-right">
+                            <label class="col24" for="TotalTime">{{'Time'| translate}}</label>
+
+                            <input type="text" class="form-control" id="TotalTime" [attr.maxlength]="6" size="6" formControlName="TotalTime" eTypeText>
+
+                        </div>
+                        <div class="col5 pl5 pull-right" *ngIf="systemChars.vEnableWED">
+                            <label class="col24" for="TotalWED">{{'W.E.D'| translate}}</label>
+
+                            <input type="text" class="form-control" id="TotalWED" [attr.maxlength]="6" size="6" formControlName="TotalWED" eTypeDecimal1>
+
+                        </div>
+                        <div class="col5 pl5 pull-right" *ngIf="systemChars.vEnableInstallsRemovals">
+                            <label class="col24" for="TotalNoOfExchanges">{{'Units'| translate}}</label>
+
+                            <input type="text" class="form-control" id="c" [attr.maxlength]="6" size="6" formControlName="TotalNoOfExchanges" eTypeInteger>
+
+                        </div>
+                        <div class="col5 pull-right">
+                            <label class="col24" for="TotalNoOfCalls">{{'Total Visits'| translate}}</label>
+
+                            <input type="text" class="form-control" id="TotalNoOfCalls" [attr.maxlength]="6" size="6" formControlName="TotalNoOfCalls"
+                                eTypeInteger>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

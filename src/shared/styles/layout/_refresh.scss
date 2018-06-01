@@ -1,0 +1,18 @@
+/* Refresh */
+
+.custom-refresh li a {
+    background: url("/assets/images/refresh.svg") no-repeat;
+    background-position: center center;
+    background-size: 70%;
+    height: 23px;
+    // width: 2.4em;
+    // top: -1px;
+    padding: 0px 10px;
+}
+
+.pagination.custom-refresh {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}

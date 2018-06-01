@@ -1,0 +1,95 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="section-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Contract' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ContractNumber" class="form-control" formControlName="ContractNumber" size="9" [attr.maxlength]="8"
+                            eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ContractName" class="form-control" formControlName="ContractName" size="30" [attr.maxlength]="40"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Year' | translate }}</label>
+                    <div class="col16">
+                        <icabs-dropdown-static #yearSelectDropdown id="SelectedYear" [inputData]="yearData"></icabs-dropdown-static>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Premises' | translate }}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="PremiseNumber" class="form-control" formControlName="PremiseNumber" size="9" [attr.maxlength]="7"
+                            eTypeInteger>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="PremiseName" class="form-control" formControlName="PremiseName" size="30" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Entered' | translate }}</label>
+                    <div class="col16">
+                        <input id="TotalClosed" class="form-control" formControlName="TotalClosed" size="6" eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Product' |translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" class="form-control" formControlName="ProductCode" size="9" [attr.maxlength]="6" eTypeCode>
+                    </div>
+                    <div class="col16">
+                        <input type="text" id="ProductDesc" class="form-control" formControlName="ProductDesc" size="30" [attr.maxlength]="40" eTypeText>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer" *ngIf="uiDisplay.isButtonsEnable">
+            <div class="row mt15">
+                <div class="col-sm-12">
+                    <input type="button" class="btn btn-primary mr10" value="{{'Save'|translate}}">
+                    <input type="button" class="btn btn-secondary" value="{{'Cancel'|translate}}">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <hr class="mt15 mb15">
+    <div class="row">
+        <div class="col-sm-12">
+            <icabs-refresh (click)="refresh()"></icabs-refresh>
+            <icabs-pagination #serviceCoverClosedDateGridPagination [totalItems]="gridParams.totalRecords" [currentPage]="gridParams.pageCurrent"
+                [itemsPerPage]="gridParams.itemsPerPage"></icabs-pagination>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12">
+            <icabs-grid-advanced #riGrid (onSuccess)="riGrid_AfterExecute()">
+            </icabs-grid-advanced>
+        </div>
+    </div>
+    <div class="row mt10">
+        <div class="col-sm-12 text-center">
+            <label class="pr5">{{'Legend' | translate}}: </label>
+            <div class="inline-block pr10" *ngFor="let l of uiDisplay.legend">
+                <div class="legend inline-block mr5" [style.background-color]="l.color"></div>
+                <label>{{l.label | translate}}</label>
+            </div>
+        </div>
+    </div>
+</section>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>

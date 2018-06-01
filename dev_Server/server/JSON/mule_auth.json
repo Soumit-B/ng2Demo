@@ -1,0 +1,19 @@
+{
+  "iss": "accounts.google.com",
+  "iat": "1481611315",
+  "exp": "1481614915",
+  "at_hash": "VELbslUvUkV4rIEA1N7Yjw",
+  "aud": "206121030993-gre8ubt0pecbldcgvechb192a44a9hh2.apps.googleusercontent.com",
+  "sub": "104385808439678023743",
+  "email_verified": "true",
+  "azp": "206121030993-gre8ubt0pecbldcgvechb192a44a9hh2.apps.googleusercontent.com",
+  "hd": "rentokil-initial.com",
+  "email": "tamal.bhattacharya@rentokil-initial.com",
+  "name": "Tamal Bhattacharya",
+  "picture": "https://lh5.googleusercontent.com/-AHUddhO8OWk/AAAAAAAAAAI/AAAAAAAAAAo/u9enAL5Gnk0/s96-c/photo.jpg",
+  "given_name": "Tamal",
+  "family_name": "Bhattacharya",
+  "locale": "en-GB",
+  "alg": "RS256",
+  "kid": "8589ac5c2a012ff35dbbbbc6b0872790c8323c1c"
+}

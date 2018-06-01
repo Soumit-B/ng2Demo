@@ -1,0 +1,76 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductServiceGroupCode">{{ 'Product Service Group Code' | translate}}<span class="mandatory">*</span></label>
+                    <icabs-sbproductservice-groupsearch #productservice [inputParams]="productGroupServiceSearchParams" [hidden]="isAddMode"
+                        [active]="selectedActive" (receivedProductServiceGroupSearch)="onProductGroupDataReceived($event)" (getDefaultInfo)="getDefaultInfo($event)"></icabs-sbproductservice-groupsearch>
+                        <div class="col24" [hidden]="!isAddMode">
+                            <div class="col8 pr5">
+                                <input type="text" #productServiceGroupCode id="ProductServiceGroupCode" size="6" [attr.maxlength]="6" class="form-control"
+                                    formControlName="ProductServiceGroupCode" [ngClass]="{ 'red-bdr': isValidateProductCode}"
+                                    (change)="onProductCodeFieldChange($event)" eTypeCode>
+                            </div>
+                            <div class="col16">
+                                <input type="text" id="ProductServiceGroupDesc" size="40" maxlength="40" class="form-control" formControlName="ProductServiceGroupDesc"
+                                    [ngClass]="{ 'red-bdr': isValidateProductDesc}" (change)="onProductDescFieldChange($event)"
+                                    eTypeText>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col24">
+                        <label class="col24" for="ProductServiceTemplate">{{ 'Product Service Group Template' | translate}}</label>
+                        <textarea id="ProductServiceTemplate" class="form-control" formControlName="ProductServiceTemplate" size="10" maxlength="500"
+                            rows="15" eTypeText></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <label class="col24" for="SelFontColour">{{ 'Fore Colour' | translate}}</label>
+                        <select class="form-control" [ngClass]="selectedFontColor" formControlName="SelFontColour" (change)="onSelFontColourOptionsChange($event.target.value)">
+                            <option *ngFor="let foreColor of selColourOptions" [ngClass]="getFontClass(foreColor.value)" value="{{foreColor.value}}">{{foreColor.text | translate}}</option>
+                                </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <div class="col12">
+                        <label class="col24" for="SelBackgroundColour">{{ 'Background Colour' | translate}}</label>
+                        <select class="form-control" [ngClass]="selectedSelBackColor" formControlName="SelBackgroundColour" (change)="onSelBackgroundColourOptionsChange($event.target.value)">
+                            <option *ngFor="let backColor of selColourOptions"  [ngClass]="getBGClass(backColor.value)" value="{{backColor.value}}">{{backColor.text | translate}}</option>
+                                </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <hr class="mt15 mb15">
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-primary mr5" value="{{'Add' | translate}}" (click)="onAddClick()" *ngIf="pageParams.isAddhide">
+                <input type="button" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="saveData()">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}" (click)="onCancelClick()">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate }}" (click)="deleteData()" *ngIf="this['pageParams'].isDeleteDisabled">
+            </div>
+        </div>
+    </footer>
+    <icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
+    <icabs-routeaway #routeAwayComponent></icabs-routeaway>
+</section>

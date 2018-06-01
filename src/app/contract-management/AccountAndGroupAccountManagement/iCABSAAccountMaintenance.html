@@ -1,0 +1,128 @@
+<div class="container-fluid custom-container">
+    <!--<div class="back-lint-cont">
+</div>-->
+    <div class="row">
+        <div class="col-sm-12 page-title mt10">
+            <h1>
+                {{'Account Maintenance' | translate }}
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Projects Row -->
+    <form novalidate [formGroup]="accountFormGroup" (ngSubmit)="onSubmit(accountFormGroup.value, accountFormGroup.valid, $event)">
+        <div #topContainer>
+            <div class="flag-fixed">
+                <ul>
+                    <li *ngIf="fieldVisibility.tdBadDebtAccount">
+                        <img src="/assets/images/cross-icon.png" title="Bad Debt Account" id="BadDebtAccountText" /><strong>{{ 'Bad Debt Account' | translate }}</strong>
+                    </li>
+                    <li *ngIf="fieldVisibility.tdPNOL === true">
+                        <img src="/assets/images/cross-icon.png" title="PNOL" id="PNOLText" /><strong>{{ 'PNOL' | translate }}</strong>
+                    </li>
+                </ul>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div class="col8">
+                        <label class="col24" id="spanAccountNumber" for="AccountNumber">{{'Account Number' | translate }}<span *ngIf="fieldRequired.isAccountNumberRequired === true" class="mandatory">*</span> </label>
+                        <div class="col18 pr5">
+                            <input #AccountNumber id="AccountNumber" type="text" class="form-control" placeholder="" formControlName="AccountNumber"
+                                [attr.maxlength]="9" (keydown.PageDown)="onKeyDown($event)" (blur)="onBlur($event)">
+                        </div>
+                        <div class="col4">
+                            <icabs-ellipsis [autoOpen]="autoOpenSearch" #accountNumberEllipsis [showCloseButton]="showCloseButton" [childConfigParams]="inputParams"
+                                [modalConfig]="modalConfig" [contentComponent]="accountSearchComponent" (ellipsisData)="onAccountMaintenanceDataReceived($event, true)"
+                                [showHeader]="showHeader" (modalHidden)="modalHidden()" [searchModalRoute]="searchModalRoute"
+                                [disabled]="isAccountNumberEllipsisDisabled"></icabs-ellipsis>
+                        </div>
+                    </div>
+                    <div class="col16">
+                        <label class="col24" id="spanAccountName" for="AccountName">{{'Name' | translate }}<span *ngIf="fieldRequired.isAccountNameRequired === true" class="mandatory">*</span> </label>
+                        <div class="col24">
+                            <input type="text" #AccountName id="AccountName" formControlName="AccountName" class="form-control" placeholder="" size="40"
+                                [attr.maxlength]="sysCharParams['vSCEnableMaxAddressValue'] || 40" (change)="onAccountNameChange()"
+                                (blur)="onBlur($event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+
+                    <div class="col18 pr5" id="divAccountOwningBranch" *ngIf="fieldVisibility.AccountOwningBranch === true">
+                        <label class="col24" id="tdAccountOwningBranchLabel" for="AccountOwningBranch">{{'Account Owning Branch' | translate }} <span *ngIf="fieldRequired.isAccountOwningBranchRequired === true" class="mandatory">*</span></label>
+                        <input type="hidden" id="AccountOwningBranch" formControlName="AccountOwningBranch" class="form-control" placeholder="" size="6"
+                            [attr.maxlength]="6">
+                        <icabs-branchsearch #AccountOwningBranch [inputParams]="dropdown.AccountOwningBranch.params" (receivedbranchsearch)="AccountOwningBranchOnChange($event)"
+                            [active]="dropdown.AccountOwningBranch.active" [isDisabled]="dropdown.AccountOwningBranch.disabled"
+                            [isRequired]="fieldRequired.isAccountOwningBranchRequired"></icabs-branchsearch>
+                    </div>
+                    <div class="col6 mt23" *ngIf="fieldVisibility.tdCustomerInfo === true">
+                        <button class="btn btn-sm btn-primary" id="tdCustomerInfo" value="CustomerInfo" (click)="onCmdCustomerInformationClick($event)">{{'Customer Information' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt30">
+                <div class="col-sm-12">
+                    <div class="col24">
+                        <icabs-tabs #AccountMaintenanceTabs [tabs]="tabs" [componentList]="componentList" (onTabSelect)="onSelectTab($event)"></icabs-tabs>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt20 mb20">
+            <div class="row mb20" id="grdMaintenanceControl">
+                <div class="col-sm-6">
+                    <div *ngIf="(showControlBtn === true)">
+                        <input class="btn btn-primary mr5" type="submit" (click)="onSubmit(accountFormGroup.value, accountFormGroup.valid, $event)"
+                            value="{{'Save' | translate}}" [disabled]="!saveBtn" (keyup)="onSaveFocus($event)">
+                        <input class="btn btn-secondary mr5" type="button" value="{{'Cancel' | translate}}" (click)="onCancel($event)" [disabled]="!saveBtn">
+                    </div>
+                </div>
+                <div class="col-sm-3 pull-right" id="MenuControl" *ngIf="fieldVisibility.menuControl === true">
+                    <select [(ngModel)]="options" [disabled]="(!updateMode)" [ngModelOptions]="{standalone: true}" class="form-control" (change)="optionsChange($event.target.value)"
+                        name="options">
+                        <optgroup *ngFor="let item of optionsList" label="{{item.title | translate}}">
+                            <option *ngFor="let child of item.list" [ngValue]="child.value" [selected]="child.value == ''">
+                                {{child.text | translate}}
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="hidden">
+                <input formControlName="ErrorMessageDesc" type="text">
+                <input formControlName="CustomerInfoAvailable" type="checkbox">
+                <input formControlName="CallLogID" type="text">
+                <input formControlName="WindowClosingName" type="text">
+                <input formControlName="ClosedWithChanges" type="text">
+                <input formControlName="SelectedOwner" type="text">
+                <input formControlName="PNOL" type="checkbox">
+                <input formControlName="MandateTypeCode" type="text">
+                <input formControlName="PageError" type="text">
+            </div>
+        </div>
+    </form>
+    <icabs-ellipsis #contractNumberEllipsis [disabled]="ellipsisConfig.contract.disabled" [autoOpen]="ellipsisConfig.contract.autoOpen"
+        [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.contract.showCloseButton" [showHeader]="ellipsisConfig.contract.showHeader"
+        [childConfigParams]="ellipsisConfig.contract.childConfigParams" [contentComponent]="ellipsisConfig.contract.component"
+        [hideIcon]="true" (ellipsisData)="onContractDataReceived($event)"></icabs-ellipsis>
+
+    <icabs-ellipsis #postcodeSearchEllipsis [disabled]="ellipsisConfig.postcodeSearch.disabled" [autoOpen]="ellipsisConfig.postcodeSearch.autoOpen"
+        [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.postcodeSearch.showCloseButton" [showHeader]="ellipsisConfig.postcodeSearch.showHeader"
+        [childConfigParams]="ellipsisConfig.postcodeSearch.childConfigParams" [contentComponent]="ellipsisConfig.postcodeSearch.component"
+        [hideIcon]="true" (ellipsisData)="onPostcodeSearchDataReceived($event)"></icabs-ellipsis>
+
+    <icabs-ellipsis #riPostcodeSearchEllipsis [disabled]="ellipsisConfig.riPostcodeSearch.disabled" [autoOpen]="ellipsisConfig.riPostcodeSearch.autoOpen"
+        [modalConfig]="modalConfig" [showCloseButton]="ellipsisConfig.riPostcodeSearch.showCloseButton" [showHeader]="ellipsisConfig.riPostcodeSearch.showHeader"
+        [childConfigParams]="ellipsisConfig.riPostcodeSearch.childConfigParams" [contentComponent]="ellipsisConfig.riPostcodeSearch.component"
+        [hideIcon]="true" (ellipsisData)="onRiPostcodeSearchDataReceived($event)"></icabs-ellipsis>
+    <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+    </icabs-modal>
+    <icabs-modal #messageModal="child" [(showHeader)]="showMessageHeader">
+    </icabs-modal>
+    <icabs-spinner [isRunning]="isRequesting"></icabs-spinner>
+    <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+        (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+</div>
+<!--<icabs-footer></icabs-footer>-->
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>

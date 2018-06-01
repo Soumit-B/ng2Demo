@@ -1,0 +1,323 @@
+.nav-container {
+    background: #2a3b44;
+    position: absolute;
+    top: 0;
+    width: 70%;
+    z-index: 9999;
+}
+
+.main-nav {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin: 0 -15px;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        >li {
+            border-bottom: 1px solid #495c66;
+            padding: 0 30px;
+            margin: 0 -15px;
+            .feature-wrapper {
+                display: none;
+                .modulename {
+                    display: none;
+                }
+                .feature-title {
+                    color: #b8d0de;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+                .feature {
+                    border-bottom: none;
+                    border-top: 1px solid #495c66;
+                    line-height: 40px;
+                    //padding: 0 15px;
+                }
+            }
+            .domain-title .glyphicon {
+                float: right;
+                margin-top: 10px;
+                color: #b8d0de;
+            }
+            .domain-title .glyphicon-menu-down:before {
+                content: "\e258";
+            }
+        }
+        .domain.active {
+            .feature-wrapper {
+                display: block;
+                background: #344a55;
+                margin: 0 -15px;
+                .feature-title:before {
+                    font-family: 'Glyphicons Halflings';
+                    content: "\e258";
+                    float: right;
+                }
+            }
+            .domain-title .glyphicon {
+                display: none;
+            }
+        }
+        .domain.show {
+            .feature-wrapper {
+                display: block;
+            }
+        }
+        li.domain {
+            >a {
+                width: 100%;
+                color: #fff;
+                line-height: 40px;
+                text-decoration: none;
+                display: inline-block;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.openFeature {
+    .main-nav ul {
+        li.domain {
+            display: none;
+        }
+        li.domain.active {
+            display: block;
+            .domain-title {
+                font-size: 15px;
+            }
+        }
+    }
+    .menu-control .menu-back {
+        display: inline;
+    }
+}
+
+.main-nav ul>li .feature-wrapper .feature.active {
+    .feature-title {
+        font-size: 16px;
+        color: #fff;
+    }
+    .feature-title:before {
+        content: "\e259";
+    }
+    .modulename {
+        display: block;
+        .module-title {
+            border-bottom: none;
+            line-height: normal;
+            margin: 0 -15px;
+            padding-bottom: 15px;
+            a {
+                color: #b8d0de;
+            }
+        }
+    }
+}
+
+.custom-container {
+    padding-top: 86px;
+}
+
+//hamburger
+.navbar-header {
+    .navbar-toggle {
+        float: left;
+        margin: 5px 0;
+    }
+    .icon-bar {
+        background-color: #333;
+    }
+}
+
+.menu-control {
+    height: 30px;
+    line-height: 30px;
+    a {
+        color: #40b9ff;
+        text-decoration: none;
+    }
+    .menu-back {
+        font-size: 15px;
+        display: none;
+    }
+    .menu-close {
+        img {
+            height: 15px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    //sm
+    .nav-container {
+        background: #007dc5;
+        position: static;
+        width: auto;
+    }
+    .main-nav {
+        overflow: visible;
+        margin: 0;
+        >ul {
+            >li {
+                float: left;
+                height: 40px;
+                width: auto;
+                border-bottom: none;
+                padding: 0 10px;
+                margin: 0;
+                .feature-wrapper {
+                    top: 72px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    //height: 100%;
+                    width: 100%;
+                    //max-height: 400px;
+                    position: absolute;
+                    width: 100%;
+                    left: 0px;
+                    background: #ededed;
+                    padding: 15px 10px 10px 10px;
+                    display: none;
+                    -webkit-box-shadow: 0px 12px 8px -9px rgba(96, 96, 96, 0.5);
+                    -moz-box-shadow: 0px 12px 8px -9px rgba(96, 96, 96, 0.5);
+                    box-shadow: 0px 12px 8px -9px rgba(96, 96, 96, 0.5);
+                    li.feature {
+                        float: left;
+                        width: 33.33%;
+                        padding-bottom: 25px;
+                        padding-right: 10px;
+                        padding-left: 0;
+                        border: none;
+                        line-height: normal;
+                        margin: 0;
+                        .feature-title {
+                            font-weight: bold;
+                            color: #000;
+                            white-space: normal;
+                        }
+                        .modulename {
+                            display: block;
+                        }
+                    }
+                    li.feature:nth-child(3n) + li {
+                        clear: both;
+                    }
+                }
+                .domain-title .glyphicon {
+                    float: none;
+                    color: #fff;
+                    width: 8px;
+                    height: 5px;
+                    font-size: 7px;
+                    top: 0;
+                }
+                .module-title {
+                    height: auto;
+                    border-bottom: none;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+            .feature-title:before {
+                display: none;
+            }
+            li.domain {
+                a {
+                    text-transform: none;
+                }
+            }
+            li.domain:hover {
+                background: #ededed;
+                a {
+                    color: #000;
+                    text-decoration: none;
+                }
+                /*.feature-wrapper {
+                    display: block;
+                }*/
+                .glyphicon {
+                    color: #000;
+                }
+                .glyphicon-menu-down:before {
+                    content: "\e114";
+                }
+            }
+            li.show {
+                background: #ededed;
+                a {
+                    color: #000;
+                    text-decoration: none;
+                }
+                .glyphicon {
+                    color: #000;
+                }
+                .glyphicon-menu-down:before {
+                    content: "\e114";
+                }
+            }
+        }
+    }
+    .custom-container {
+        padding-top: 146px;
+    }
+    /* Scroll bar */
+    .feature-wrapper::-webkit-scrollbar, .modal-open .modal::-webkit-scrollbar {
+        width: 11px;
+        /* for vertical scrollbars */
+        height: 6px;
+        /* for horizontal scrollbars */
+        background: rgba(0, 0, 0, 0.1);
+    }
+    //.feature-wrapper::-webkit-scrollbar-track {}
+    .feature-wrapper::-webkit-scrollbar-thumb, .modal-open .modal::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 125, 198, 0.8);
+        border-radius: 10px;
+        max-height: 10px;
+    }
+    .feature-wrapper::-webkit-scrollbar-corner, .modal-open .modal::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}
+
+@media (min-width: 992px) {
+    //md
+}
+
+@media (min-width: 1200px) {
+    //lg
+    .main-nav {
+        display: table;
+        width: 90%;
+        >ul {
+            display: table-row;
+            >li {
+                display: table-cell;
+                float: none;
+                padding: 0;
+                min-width: 70px;
+                text-align: center;
+                .feature-wrapper {
+                    top: 40px;
+                    text-align: left;
+                }
+            }
+        }
+    }
+    .custom-container {
+        padding-top: 113px;
+    }
+    .main-nav ul li .feature-wrapper {
+        li.feature {
+            width: 16.66%;
+        }
+        li.feature:nth-child(3n) + li {
+            clear: none;
+        }
+        li.feature:nth-child(6n) + li {
+            clear: both;
+        }
+    }
+}

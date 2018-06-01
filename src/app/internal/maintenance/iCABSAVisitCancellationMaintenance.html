@@ -1,0 +1,68 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24" for="CanPlanVisits">{{ 'Cancelled Planned Visits' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="CanPlanVisits" class="form-control" formControlName="CanPlanVisits" type="text" size="5" maxlength="5">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <label class="col24" for="SelReason">{{ 'Reason' | translate}}</label>
+                        <select id="menu" class="form-control" formControlName="SelReason">
+                    </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="Password">{{ 'Password' | translate}}</label>
+                    <div class="col8">
+                        <input id="Password" class="form-control" formControlName="Password" type="Password" size="16" maxlength="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24" for="BranchServiceAreaCode">{{ 'Place In Service Area' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="BranchServiceAreaCode" class="form-control" formControlName="BranchServiceAreaCode" type="text" size="10" maxlength="10">
+                    </div>
+                    <div class="col14 pr5">
+                        <input id="EmployeeSurname" class="form-control" formControlName="EmployeeSurname" type="text" size="20" maxlength="20">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input type="checkbox" class="form-control" id="ResetPlansToInPlanning" formControlName="ResetPlansToInPlanning">
+                    <label class="col24" for="ResetPlansToInPlanning">{{'Reset Planned Visits To "In Planning"'|translate}}</label>
+                </div>
+            </div>
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row mt10">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}">
+                <input type="button" class="btn btn-secondary" value="{{'Cancel' | translate}}">
+            </div>
+        </div>
+    </footer>
+</section>

@@ -1,0 +1,67 @@
+<section class="container-fluid custom-container">
+	<header class="screen-header">
+		<div class="row">
+			<div class="col-sm-12 page-title mt10">
+				<h1>{{ this['pageTitle'] | translate }}</h1>
+			</div>
+		</div>
+	</header>
+	<form novalidate [formGroup]="this['uiForm']">
+		<section class="screen-body">
+			<div class="row mt5">
+				<div class="col-sm-4">
+					<label class="col24" for="BusinessDesc">{{'Business'|translate}}</label>
+					<div class="col24">
+						<input type="text" class="form-control" id="BusinessDesc" formControlName="BusinessDesc" size="40" maxlength="40" eTypeText>
+					</div>
+				</div>
+			</div>
+			<div class="row mt10">
+				<div class="col-sm-4">
+					<div class="col24">
+						<input type="checkbox" class="form-control" id="ActiveOnly" formControlName="ActiveOnly">
+						<label for="ActiveOnly">{{'Show Active Only'|translate}}</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mt2">
+				<div class="col-sm-4">
+					<label class="col24" for="LostBusinessSearchType">{{'Filter By'|translate}}</label>
+					<div class="col12 pr5">
+						<select class="form-control" id="LostBusinessSearchType" formControlName="LostBusinessSearchType">
+                            <option value="LostBusinessCode" selected>{{'Lost Business Code'|translate}}</option>
+                            <option value="LostBusinessDescription">{{'Lost Business Description'|translate}}</option>
+                            <option value="LostBusinessDetailCode">{{'Lost Business Detail Code'|translate}}</option>
+                            <option value="LostBusinessDetailDescription">{{'Lost Business Detail Description'|translate}}</option>
+                        </select>
+					</div>
+					<div class="col12">
+						<input type="text" class="form-control" id="LostBusinessSearchValue" formControlName="LostBusinessSearchValue" size="20"
+						 maxlength="20">
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="col12 mt20">
+						<select class="form-control" id="menu" formControlName="menu" (change)="menuOnchange($event.target.value)">
+                            <option selected value="">{{'Options'|translate}}</option>
+                            <option value="Add">{{'Add New Lost Business Detail'|translate}}</option>
+                        </select>
+					</div>
+				</div>
+			</div>
+			<hr class="mt15 mb15">
+			<div class="row">
+				<div class="col-sm-6">
+					<icabs-refresh (click)="btnRefresh()"></icabs-refresh>
+					<icabs-pagination [totalItems]="totalRecords" [currentPage]="currentPage" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+				</div>
+			</div>
+			<div class="row mt10">
+				<div class="col-sm-12">
+					<icabs-grid-advanced #riGrid id="riGrid" (bodyDblClick)="onDblClick($event)" (headerClick)="riGrid_Sort($event)"></icabs-grid-advanced>
+				</div>
+			</div>
+		</section>
+	</form>
+</section>
+<icabs-spinner [isRunning]="isRequesting"></icabs-spinner>

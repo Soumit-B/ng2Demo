@@ -1,0 +1,223 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{this['pageTitle']|translate}}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']" (ngSubmit)="onSubmit( uiForm, $event )">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24">{{'Contract Number'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" size="8" [attr.maxlength]="8" class="form-control" placeholder="" id="ContractNumber" formControlName="ContractNumber"
+                            (blur)="onContractNumberTabOut($event)" icabsZeroPad eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractName" formControlName="ContractName"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpen" [modalConfig]="modalConfig" [showCloseButton]="true" [childConfigParams]="contractSearchParams"
+                            [contentComponent]="contractSearchComponent" (ellipsisData)="onContractDataReceived($event)" [showHeader]="true"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Status'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="20" [attr.maxlength]="20" class="form-control" placeholder="" id="Status" formControlName="Status" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Number'|translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" placeholder="" id="AccountNumber" formControlName="AccountNumber"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="AccountName" formControlName="AccountName"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 1'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractAddressLine1" formControlName="ContractAddressLine1"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Negotiating Branch'|translate}}</label>
+                    <div class="col10">
+                        <select class="form-control" formControlName="BranchOption">
+  <option *ngFor="let branch of BranchOption" [selected]="branch.value===NegBranchNumber" value="{{branch.value}}" >{{branch.text}}</option>
+                       </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 2'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractAddressLine2" formControlName="ContractAddressLine2"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="annumalValuehide">
+                    <label class="col24">{{'Value'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="20" [attr.maxlength]="20" class="form-control" placeholder="" id="ContractAnnualValue" formControlName="ContractAnnualValue"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Account Address Line 3'|translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractAddressLine3" formControlName="ContractAddressLine3"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24">{{'Commence Date'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="10" [attr.maxlength]="10" class="form-control" placeholder="" id="ContractCommenceDate" formControlName="ContractCommenceDate"
+                            eTypeDate>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Town'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractAddressLine4" formControlName="ContractAddressLine4"
+                            eTypeText>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="contractDurationHide">
+                    <label class="col24">{{'Contract Duration'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" placeholder="" id="ContractDurationCode" formControlName="ContractDurationCode"
+                            eTypeInteger>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Country'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractAddressLine5" formControlName="ContractAddressLine5"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Post Code'|translate}}</label>
+                    <div class="col14">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="ContractPostcode" formControlName="ContractPostcode"
+                            eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Invoice Frequency'|translate}}<span class="mandatory">*</span> </label>
+                    <div class="col8 pr5">
+                        <input type="text" size="9" [attr.maxlength]="9" class="form-control" placeholder="" id="InvoiceFrequencyCode" formControlName="InvoiceFrequencyCode"
+                            (blur)="onInvoiceFrequencyCodeTabOut($event)" [ngClass]="{ 'red-bdr': invoiceFreqValidation}" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" size="40" [attr.maxlength]="40" class="form-control" placeholder="" id="InvoiceFrequencyDesc" formControlName="InvoiceFrequencyDesc"
+                            eTypeText>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis [autoOpen]="autoOpenSearch" [title]="modalTitle" [childConfigParams]="inputParamsfreqSearch" [contentComponent]="invoiceFreqComponent"
+                            [showHeader]="showHeader" (ellipsisData)="onInvoiceFreq($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+                <div class="col-sm-3 mt20" *ngIf="invoiceFreqValue">
+                    <div class="col24">
+                        <input type="checkbox" size="2" [attr.maxlength]="2" id="InvoiceFrequencyChargeInd" formControlName="InvoiceFrequencyChargeInd"
+                            (change)="InvoiceFrequencyChargeIndChange($event)">
+                            <label for="InvoiceFrequencyChargeInd">{{'Invoice Frequency Charge'|translate}}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <div class="col24">
+                        <input type="checkbox" size="2" [attr.maxlength]="2" id="AdvanceInvoiceInd" formControlName="AdvanceInvoiceInd" (change)="AdvanceInvoiceIndChange($event)">
+                        <label for="AdvanceInvoiceInd">{{'Advance Invoicing'|translate}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-3" *ngIf="invoiceFreqValue && invoiceFreqValueHide">
+                    <div class="col14">
+                        <input type="text" size="20" [attr.maxlength]="20" class="form-control" placeholder="" id="InvoiceFrequencyChargeValue" formControlName="InvoiceFrequencyChargeValue"
+                            eTypeCurrency>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Anniversary Date'|translate}}<span class="mandatory">*</span></label>
+                    <div class="col14">
+                        <!--<icabs-datepicker #invoiceAnniDate id="InvoiceAnnivDate" [dt]='InvoiceAnnivDate' (selectedValue)="InvoiceAnnivDateSelectedValue($event)"></icabs-datepicker>-->
+                        <icabs-datepicker formControlName="InvoiceAnnivDate" (onChange)="InvoiceAnnivDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3" *ngIf="contractDurationHide">
+                    <label class="col24">{{'Contract Expiry Date'|translate}}</label>
+                    <div class="col14">
+                        <!--<icabs-datepicker #ContractExpiryDatePicker id="ContractExpiryDatePicker" [dt]="ContractExpiryDatePicker" (selectedValue)="ContractExpiryDateSelectedValue($event)"></icabs-datepicker>-->
+                        <icabs-datepicker formControlName="ContractExpiryDatePicker" (onChange)="ContractExpiryDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Effective Date'|translate}}<span class="mandatory">*</span></label>
+                    <input size="15" formControlName="LastChangeEffectiveDate" [attr.maxlength]="15" class="form-control hidden">
+                    <div class="col14">
+                        <!--<icabs-datepicker #lastChangeEffectiveDate [isRequired]="true" [dt]="LastChangeEffectDatePicker" id="LastChangeEffectDate"
+                            (selectedValue)="LastChangeEffectDateSelectedValue($event)"></icabs-datepicker>-->
+                        <icabs-datepicker formControlName="LastChangeEffectDate" (onChange)="LastChangeEffectDateSelectedValue($event)" [isDirectiveBased]="false"></icabs-datepicker>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="screen-footer">
+            <div class="row mt10">
+                <div class="col-sm-3">
+                    <input class="btn btn-primary mr5" type="submit" value="{{'Save' | translate}}">
+                    <input class="btn btn-secondary" type="button" value="{{'Cancel' | translate}}" (click)="onCancelClick($event)">
+                </div>
+            </div>
+        </footer>
+    </form>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-prompt-modal #promptModal="child" [(showHeader)]="showMessageHeader" [title]="promptTitle" [content]="promptContent"
+                (saveEmit)="promptSave($event)"></icabs-prompt-modal>
+        </div>
+    </div>
+    <div class="row mt2">
+        <div class="col-sm-12">
+            <icabs-modal #errorModal="child" [(showHeader)]="showErrorHeader">
+            </icabs-modal>
+        </div>
+    </div>
+</section>

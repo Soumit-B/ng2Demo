@@ -1,0 +1,112 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ this['pageTitle'] | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <div [ngClass]="!trAccount ? 'hidden' : ''">
+                        <label class="col24" for="AccountNumber">{{ 'Account Number' | translate }}</label>
+                        <div class="col6 pr5">
+                            <input id="AccountNumber" formControlName="AccountNumber" class="form-control" type="text" eTypeCode>
+                        </div>
+                        <div class="col15">
+                            <input id="AccountName" formControlName="AccountName" class="form-control" type="text" eTypeText>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3" [ngClass]="!trShowAll ? 'hidden' : ''">
+                    <div class="col24">
+                        <input type="checkbox" (change)="onCheckboxChange($event)" id="ShowAll" class="form-control" formControlName="ShowAll">
+                        <label for="ShowAll">{{ 'Show All' | translate }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!trInvoiceGroup ? 'hidden' : ''">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Invoice Group Number' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="InvoiceGroupNumber" formControlName="InvoiceGroupNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col15">
+                        <input id="InvoiceGroupDesc" formControlName="InvoiceGroupDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!trContract ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <label class="col24" for="tdContractNumberLabel">{{ this.tdContractNumberLabel | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col15">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!trPremise ? 'hidden' : ''">
+                <div class="col-sm-3">
+                    <label class="col24">{{ 'Premises Number' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col15">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2" [ngClass]="!trProduct ? 'hidden' : ''">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Product Code' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col15">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Company Code' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="CompanyCode" formControlName="CompanyCode" class="form-control" eTypeCode>
+                    </div>
+                    <div class="col15">
+                        <input id="CompanyDesc" formControlName="CompanyDesc" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24">{{ 'Invoice Number' | translate }}</label>
+                    <div class="col6 pr5">
+                        <input id="InvoiceNumber" formControlName="InvoiceNumber" class="form-control" eTypeInteger>
+                    </div>
+                    <div class="col15">
+                        <input id="InvoiceName" formControlName="InvoiceName" class="form-control" type="text" eTypeText>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row">
+                <div class="col-sm-3">
+                    <icabs-refresh (click)="refresh()"></icabs-refresh>
+                    <icabs-pagination #contractInvoiceDetailPagination [totalItems]="totalRecords" [itemsPerPage]="itemsPerPage" (getCurrentPage)="getCurrentPage($event)"></icabs-pagination>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid id="riGrid" (headerClick)="riGrid_Sort($event)" (bodyClick)="onCellClick($event)" (bodyDblClick)="onGridRowClick($event)"
+                        (bodyColumnBlur)="onCellClickBlur($event)" (bodyKeyUp)="onCellKeyDown($event)"></icabs-grid-advanced>
+                </div>
+            </div>
+            <input id="SelectedInvoice" formControlName="SelectedInvoice" class="form-control hidden">
+        </section>
+    </form>
+</section>

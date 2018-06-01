@@ -1,0 +1,370 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form>
+        <section class="screen-body">
+            <div class="row mt10">
+                <div class="col-sm-4">
+                    <label class="col24" for="ContractNumber">{{'Contract Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ContractNumber" formControlName="ContractNumber" class="form-control" type="text" size="7" [attr.maxlength]="8">
+                    </div>
+                    <div class="col16">
+                        <input id="ContractName" formControlName="ContractName" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Reason">{{'Reason' | translate}}</label>
+                    <div class="col16">
+                        <input id="Reason" formControlName="Reason" class="form-control" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="PremiseNumber">{{'Premises Number' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="PremiseNumber" formControlName="PremiseNumber" class="form-control" type="text" size="7" [attr.maxlength]="5">
+                    </div>
+                    <div class="col16">
+                        <input id="PremiseName" formControlName="PremiseName" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Employee">{{'Employee' | translate}}</label>
+                    <div class="col16">
+                        <input id="Employee" formControlName="Employee" class="form-control" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{'Product Code' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input id="ProductCode" formControlName="ProductCode" class="form-control" type="text" size="7" [attr.maxlength]="6">
+                    </div>
+                    <div class="col16">
+                        <input id="ProductDesc" formControlName="ProductDesc" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Processed">{{'Processed' | translate}}</label>
+                    <div class="col16">
+                        <input id="Processed" formControlName="Processed" class="form-control" type="text" size="30" [attr.maxlength]="30">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="AnnualValueChange">{{'Transaction Value' | translate}}</label>
+                    <div class="col16">
+                        <input id="AnnualValueChange" formControlName="AnnualValueChange" class="form-control" type="text" size="15" [attr.maxlength]="15">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="col24" for="Effective">{{'Effective' | translate}}</label>
+                    <div class="col16">
+                        <input id="Effective" formControlName="Effective" class="form-control" type="text" size="15" [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="SalesStatsValue">{{'Sales Stats Value' | translate}}</label>
+                    <div class="col16">
+                        <input id="SalesStatsValue" formControlName="SalesStatsValue" class="form-control" type="text" size="15" [attr.maxlength]="15">
+                    </div>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+            <div class="row ">
+                <div class="col-sm-6">
+                    <div class="col14">
+                        <icabs-refresh></icabs-refresh>
+                        <icabs-pagination></icabs-pagination>
+                    </div>
+                    <div class="col4">
+                        <input type="button" formControlName="btnAdjustment" class="btn btn-additional" value="{{ 'New Adjustment' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt10">
+                <div class="col-sm-12">
+                    <icabs-grid-advanced #riGrid></icabs-grid-advanced>
+                </div>
+            </div>
+            <div class="hidden">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>{{ 'Sales Stats Adjustments' | translate}}</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col1"></div>
+                        <div class="col12 pr5">
+                            <label class="col24" for="SalesStatsValue ">{{'Sales Stats Value' | translate}}</label>
+                            <select id="menu" class="form-control">
+                             <option value = "Option" selected>{{'Option' | translate}}</option>
+                             <option value = "Percent">{{'Percent' | translate}}</option>
+                             <option value = "Value">{{'Value' | translate}}</option>
+                         </select>
+                        </div>
+                        <div class="col8">
+                            <label class="col24" for="LeftToAllocate ">{{'Starting Value' | translate}}</label>
+                            <input id="LeftToAllocate" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col1 mt20">
+                        </div>
+                        <div class="col4 pr5">
+                            <label class="col24" for="LeftToAllocate ">{{'Employee' | translate}}</label>
+                        </div>
+                        <div class="col8 pr5">
+                            <label class="col24" for="LeftToAllocate ">{{'Name' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <label class="col24" for="LeftToAllocate ">{{'Percent' | translate}}</label>
+                        </div>
+                        <div class="col4">
+                            <label class="col24" for="LeftToAllocate ">{{'Value' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1">
+                            <label class="col24">{{'' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCodeMain" class="form-control" type="text" size=6 maxlength=6>
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeNameMain" class="form-control" type="text" size=40 maxlength=40>
+                        </div>
+                        <div class="col4 pr5">
+                        </div>
+                        <div class="col4">
+                            <input id="tdAdjustValueMain" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'1' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode1" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName1" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue1" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue1" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'2' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode2" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName2" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue2" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue2" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'3' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode3" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName3" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue3" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue3" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'4' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode4" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName4" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue4" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue4" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'5' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode5" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName5" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue5" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue5" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'6' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode6" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName6" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue6" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue6" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'7' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode7" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName7" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue7" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue7" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'8' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode8" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName8" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue8" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue8" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'9' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode9" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName9" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue9" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue9" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt5">
+                    <div class="col-sm-6">
+                        <div class="col1 mt5">
+                            <label class="col24">{{'10' | translate}}</label>
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="TransferToEmployeeCode10" class="form-control" type="text" size="6" [attr.maxlength]="6">
+                        </div>
+                        <div class="col8 pr5">
+                            <input id="TransferToEmployeeName10" class="form-control" type="text" size="40" [attr.maxlength]="40">
+                        </div>
+                        <div class="col4 pr5">
+                            <input id="PercentValue10" class="form-control" type="text" size="4" [attr.maxlength]="4">
+                        </div>
+                        <div class="col4">
+                            <input id="AdjustValue10" class="form-control" type="text" size="14" [attr.maxlength]="14">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt5 hidden">
+                <input id="ServiceCoverNumber">
+                <input id="ServiceValueNumber">
+            </div>
+        </section>
+        <div class="hidden">
+            <input type="text" formControlName="ServiceCoverNumber"></input>
+            <input type="text" formControlName="ServiceValueNumber"></input>
+        </div>
+    </form>
+
+    <div class="row mt10 hidden">
+        <div class="col-sm-6">
+            <input type="button" class="btn btn-primary" value="{{ 'Save' | translate }}">
+            <input type="button" class="btn btn-secondary" value="{{ 'Cancel' | translate }}">
+        </div>
+    </div>
+</section>

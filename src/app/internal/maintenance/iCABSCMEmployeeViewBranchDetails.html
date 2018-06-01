@@ -1,0 +1,99 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>{{ 'Branch Contact Details' | translate }}</h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Branch' | translate}}</label>
+                    <div class="col8 pr5">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchNumber" formControlName="BranchNumber">
+                    </div>
+                    <div class="col16">
+                        <input type="text" size="30" maxlength="37" class="form-control" id="BranchName" formControlName="BranchName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Contact Name' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="ContactName" formControlName="ContactName">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt20 mb15">
+                <div class="col-sm-3">
+                    <label><strong>{{'Customer Contact Details' | translate}}</strong></label>
+                </div>
+                <div class="col-sm-3  col-sm-offset-3">
+                    <label><strong>{{'Internal Contact Details' | translate}}</strong></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Telephone' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchTelephone" formControlName="BranchTelephone">
+                    </div>
+                </div>
+                <div class="col-sm-3  col-sm-offset-3">
+                    <label class="col24">{{'Telephone' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchInternalTelephone" formControlName="BranchInternalTelephone">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Fax Number' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchFax" formControlName="BranchFax">
+                    </div>
+                </div>
+                <div class="col-sm-3  col-sm-offset-3">
+                    <label class="col24">{{'Sales Telephone' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchInternalSalesTelephone" formControlName="BranchInternalSalesTelephone">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Branch Email' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchEmail" formControlName="BranchEmail">
+                    </div>
+                </div>
+                <div class="col-sm-3  col-sm-offset-3">
+                    <label class="col24">{{'Service Telephone' | translate}}</label>
+                    <div class="col16">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="BranchInternalServiceTelephone" formControlName="BranchInternalServiceTelephone">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Sales Email' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="SalesEmail" formControlName="SalesEmail">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-3">
+                    <label class="col24">{{'Service Email' | translate}}</label>
+                    <div class="col24">
+                        <input type="text" size="6" maxlength="6" class="form-control" id="ServiceEmail" formControlName="ServiceEmail">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <icabs-modal #errorModal="child" [(showHeader)]="showMessageHeader"></icabs-modal>
+</section>

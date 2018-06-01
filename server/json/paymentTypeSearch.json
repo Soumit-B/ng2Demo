@@ -1,0 +1,113 @@
+{
+	"tableHeader" : [		
+		{
+			"name": "Select",
+			"sortable": false,
+			"input": true
+		},
+		{
+			"name": "Code",
+			"sortable": false
+
+		},
+		{
+			"name": "Description",
+			"sortable": false
+
+		},
+		{
+			"name": "Reference Required",
+			"sortable": false,
+			"input": true
+		},
+		{
+			"name": "Mandate Required",
+			"sortable": false,
+			"input": true
+		},
+		{
+			"name": "Suspend Invoice",
+			"sortable": false,
+			"input": true
+		},		
+		{
+			"name": "Default",
+			"sortable": false,
+			"input": true
+		}
+	],
+	"tableBody" :
+	[
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type" },
+			"code": "C",
+			"desc": "Cash",
+			"ref": { "type": "checkbox", "checked": false, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": true, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CD",
+			"desc": "Credit/Debit Card",
+			"ref": { "type": "checkbox", "checked": true, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CHK",
+			"desc": "Cheque",
+			"ref": { "type": "checkbox", "checked": false, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CD",
+			"desc": "Credit/Debit Card",
+			"ref": { "type": "checkbox", "checked": true, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CHK",
+			"desc": "Cheque",
+			"ref": { "type": "checkbox", "checked": false, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CD",
+			"desc": "Credit/Debit Card",
+			"ref": { "type": "checkbox", "checked": true, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		},
+		{
+			"select": { "type": "radio", "checked": false, "label": "Select Payment Type"  },
+			"code": "CHK",
+			"desc": "Cheque",
+			"ref": { "type": "checkbox", "checked": false, "label": "Select/Unselect Reference" },
+			"mandate": { "type": "checkbox", "checked": false, "label": "Select/Unselect Mandate" },
+			"suspendinv": { "type": "checkbox", "checked": false, "label": "Select/Unselect Suspend Invoice" },
+			"default": { "type": "checkbox", "checked": false, "label": "Select/Unselect Default" }
+			
+		}
+		
+	]
+}

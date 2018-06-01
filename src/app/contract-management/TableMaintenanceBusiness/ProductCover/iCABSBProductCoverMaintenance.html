@@ -1,0 +1,81 @@
+<section class="container-fluid custom-container">
+    <header class="screen-header">
+        <div class="row">
+            <div class="col-sm-12 page-title mt10">
+                <h1>
+                    {{ this['pageTitle'] | translate }}
+                </h1>
+            </div>
+        </div>
+    </header>
+    <form novalidate [formGroup]="this['uiForm']">
+        <section class="screen-body">
+            <div class="row mt5">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductCode">{{ 'Product Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductCode" size="10" [attr.maxlength]="6" class="form-control" formControlName="ProductCode" (change)="checkFormStatus(getProductCode)"
+                            eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ProductDesc" size="40" [attr.maxlength]="30" class="form-control" formControlName="ProductDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productSearchEllipsis [childConfigParams]="ellipsis.productSearch.childConfigParams" [contentComponent]="ellipsis.productSearch.contentComponent"
+                            [showHeader]="ellipsis.productSearch.showHeader" (modalHidden)="getModalinfo($event)" [disabled]="ellipsis.productSearch.isDisabled"
+                            [autoOpen]="ellipsis.productSearch.autoOpen" [modalConfig]="ellipsis.productSearch.modalConfig" (ellipsisData)="productCodeOnChange($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4">
+                    <label class="col24" for="ProductDetailCode">{{ 'Product Detail Code' | translate}}<span class="mandatory">*</span></label>
+                    <div class="col8 pr5">
+                        <input type="text" id="ProductDetailCode" size="10" [attr.maxlength]="6" class="form-control" formControlName="ProductDetailCode"
+                            (change)="checkFormStatus(getProductDetailCode)" eTypeCode>
+                    </div>
+                    <div class="col14 pr5">
+                        <input type="text" id="ProductDetailDesc" size="40" [attr.maxlength]="30" class="form-control" formControlName="ProductDetailDesc">
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productDetailSearch [childConfigParams]="ellipsis.productDetailSearch.childConfigParams" [contentComponent]="ellipsis.productDetailSearch.contentComponent"
+                            [showHeader]="ellipsis.productDetailSearch.showHeader" [disabled]="ellipsis.productDetailSearch.isDisabled"
+                            [hideIcon]="ellipsis.productDetailSearch.hideIcon" [autoOpen]="ellipsis.productDetailSearch.autoOpen"
+                            (modalHidden)="getModalinfo($event)" [modalConfig]="ellipsis.productDetailSearch.modalConfig" (ellipsisData)="productDetailCodeOnChange($event)"></icabs-ellipsis>
+                    </div>
+                    <div class="col2">
+                        <icabs-ellipsis #productCoverSearch [childConfigParams]="ellipsis.productCoverSearch.childConfigParams" [contentComponent]="ellipsis.productCoverSearch.contentComponent"
+                            [showHeader]="ellipsis.productCoverSearch.showHeader" [disabled]="ellipsis.productCoverSearch.isDisabled"
+                            [hideIcon]="ellipsis.productCoverSearch.hideIcon" [modalConfig]="ellipsis.productCoverSearch.modalConfig"
+                            (ellipsisData)="productCoverSearchOnReceive($event)"></icabs-ellipsis>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 mt20">
+                    <input type="checkbox" id="validForNewInd" formControlName="ValidForNewInd" class="form-control" eTypeCheckBox>
+                    <label for="validForNewInd">{{'Valid For New Business'|translate}}<span class="mandatory">*</span></label>
+                </div>
+            </div>
+            <div class="row mt2">
+                <div class="col-sm-4 mt20">
+                    <input type="checkbox" id="defaultInd" formControlName="DefaultInd" class="form-control" eTypeCheckBox>
+                    <label for="defaultInd">{{'Include by Default'|translate}}<span class="mandatory">*</span></label>
+                </div>
+            </div>
+            <hr class="mt15 mb15">
+        </section>
+    </form>
+    <footer class="screen-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="submit" class="btn btn-primary mr5" value="{{'Save' | translate}}" (click)="save()" [disabled]="!this['pageParams']['isEnableSave']">
+                <input type="button" class="btn btn-secondary mr5" value="{{'Cancel' | translate}}" (click)="cancel()" [disabled]="!this['pageParams']['isEnableSave']">
+                <input type="button" class="btn btn-additional" value="{{'Delete' | translate}}" *ngIf="this['pageParams']['isShowDelete']"
+                    (click)="delete()">
+            </div>
+        </div>
+    </footer>
+</section>
+<icabs-routeaway #routeAwayComponent></icabs-routeaway>
+<icabs-spinner [isRunning]="this['isRequesting']"></icabs-spinner>
